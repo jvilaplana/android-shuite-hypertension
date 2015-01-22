@@ -9,7 +9,7 @@ public class LogBP {
 
     private static LogBP instance = null;
 
-    public boolean isDebugMode = true;
+    private boolean isDebugMode = true;
 
     public static LogBP getInstance(){
 
@@ -20,26 +20,34 @@ public class LogBP {
         return instance;
     }
 
-    public void writelog(String tag,String message){
+    public static void writelog(String tag,String message){
 
-        if (isDebugMode){
+        if (getInstance().isDebugMode){
 
             Log.d(tag,message);
         }
 
     }
 
-    public void writelog(String message){
+    public static void writelog(String message){
 
-        if (isDebugMode){
+        if (getInstance().isDebugMode){
 
             Log.d("LogBP",message);
         }
     }
 
+    public static void printStackTrace(Exception ex){
+        if (getInstance().isDebugMode){
 
-    public void setDebugMode(boolean debugMode){
+            ex.printStackTrace();
+        }
 
-        this.isDebugMode = debugMode;
+    }
+
+
+    public static void setDebugMode(boolean debugMode){
+
+        getInstance().isDebugMode = debugMode;
     }
 }

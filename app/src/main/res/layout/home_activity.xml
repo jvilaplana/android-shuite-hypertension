@@ -3,10 +3,12 @@
 android:layout_width="match_parent"
 android:layout_height="match_parent">
 
-    <TextView
+    <com.android.bpcontrol.customViews.RobotoTextView
+        android:id="@+id/prueba"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="HOME ACTIVITY"
+        android:tag="RobotoRegular"
         android:gravity="center"
         android:layout_centerVertical="true"
         android:textSize="35sp"/>
