@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/BPcontrol.iml" filepath="$PROJECT_DIR$/BPcontrol.iml" />
+      <module fileurl="file://$PROJECT_DIR$/android-shuite-hypertension.iml" filepath="$PROJECT_DIR$/android-shuite-hypertension.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>
