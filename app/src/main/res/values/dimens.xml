@@ -9,5 +9,6 @@
     <dimen name="icongrid_margin_top">40dp</dimen>
     <dimen name="icongrid_margin_bottom">30dp</dimen>
     <dimen name="icongrid_margin_lateral">40dp</dimen>
+    <dimen name="grid_textview">5dp</dimen>
 
 </resources>

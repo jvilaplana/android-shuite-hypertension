@@ -8,13 +8,14 @@ import android.graphics.Typeface;
  */
 public class BPcontrolApplication extends Application{
 
-    public static enum RobotoTypeface{
-        Regular,
-        Bold,
-        Italic
+    public static enum FontsTypeface{
+        RobotoRegular,
+        RobotoBold,
+        RobotoItalic,
+        ForteRegular
     }
 
-    private Typeface robotoItalic,robotoBold,robotoRegular;
+    private Typeface robotoItalic,robotoBold,robotoRegular,forteRegular;
 
     @Override
     public void onCreate() {
@@ -22,15 +23,17 @@ public class BPcontrolApplication extends Application{
     }
 
 
-    public Typeface getTypeface(RobotoTypeface type){
+    public Typeface getTypeface(FontsTypeface type){
 
         switch(type){
-            case Regular:
+            case RobotoRegular:
                 return getRobotoRegular();
-            case Bold:
+            case RobotoBold:
                 return getRobotoBold();
-            case Italic:
+            case RobotoItalic:
                 return getRobotoItalic();
+            case ForteRegular:
+                return getForteRegular();
         }
         return getRobotoRegular();
     }
@@ -54,6 +57,13 @@ public class BPcontrolApplication extends Application{
             robotoItalic= Typeface.createFromAsset(getAssets(),"Roboto-Italic.ttf");
         }
         return robotoItalic;
+    }
+
+    private Typeface getForteRegular(){
+        if(forteRegular == null){
+            forteRegular = Typeface.createFromAsset(getAssets(),"Forte.ttf");
+        }
+        return forteRegular;
     }
 }
 
