@@ -1,17 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
 android:layout_width="match_parent"
-android:layout_height="match_parent">
+android:layout_height="match_parent"
+android:background="@color/graybp">
 
-        <!--<com.android.bpcontrol.customViews.RobotoTextView-->
-        <!--android:id="@+id/prueba"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:text="HOME ACTIVITY"-->
-        <!--android:tag="RobotoRegular"-->
-        <!--android:gravity="center"-->
-        <!--android:layout_centerVertical="true"-->
-        <!--android:textSize="35sp"/>-->
    <GridView
        android:id="@+id/homegridview"
        android:layout_width="match_parent"
@@ -23,6 +15,7 @@ android:layout_height="match_parent">
        android:verticalSpacing="@dimen/gridview_spacing"
        android:numColumns="2"
        android:gravity="center"
+       android:background="@color/graybp"
        android:layout_alignParentBottom="true"
        >
 </GridView>

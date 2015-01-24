@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">BPcontrol</string>
+    <string name="action_settings">Configuración</string>
+
+    <string name="homegrid_graphics">Evolución</string>
+    <string name="homegrid_pressure">Añadir presiones</string>
+    <string name="homegrid_messages">Mensajes</string>
+    <string name="homegrid_videos">Videos</string>
+
+
+
+
+
+</resources>

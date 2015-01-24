@@ -7,20 +7,20 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.android.bpcontrol.R;
+import com.android.bpcontrol.model.GridCellResources;
 
 /**
  * Created by Adrian on 23/01/2015.
  */
 public class HomeGridAdapter extends BaseAdapter {
 
-    Context context;
-    int[] resources;
+    private Context context;
+    private GridCellResources[] resources;
 
-    public HomeGridAdapter(Context context, int[] resources){
+    public HomeGridAdapter(Context context, GridCellResources[] resources){
 
         this.context = context;
         this.resources = resources;
@@ -52,14 +52,16 @@ public class HomeGridAdapter extends BaseAdapter {
             viewHolder = new ViewHolder();
             viewHolder.image = (ImageView) convertView.findViewById(R.id.icongrid_image);
             viewHolder.textView = (TextView) convertView.findViewById(R.id.homegridtext);
-            convertView.setBackgroundResource(resources[position]);
+
             convertView.setTag(viewHolder);
         }else{
             viewHolder = (ViewHolder) convertView.getTag();
         }
 
-        //viewHolder.image
-        viewHolder.textView.setText("HOLA QUE TAL");
+        viewHolder.textView.setText(context.getResources().getString(resources[position].getText_id()));
+        viewHolder.image.setImageResource(resources[position].getIcon_id());
+        convertView.setBackgroundResource(resources[position].getBackground_id());
+
         return convertView;
     }
 

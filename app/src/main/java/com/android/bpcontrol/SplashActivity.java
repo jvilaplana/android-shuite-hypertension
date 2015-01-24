@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.os.Handler;
 
 
-//EN PRINCIPIO ACTIVITY, ESTUDIAR POSICIONAMIENTO DE FRAGMENTS
 public class SplashActivity extends Activity {
 
     @Override

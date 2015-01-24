@@ -1,18 +1,17 @@
 package com.android.bpcontrol;
 
-import android.graphics.Color;
-import android.graphics.Point;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.util.DisplayMetrics;
-import android.view.Display;
-import android.view.MotionEvent;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.GridView;
+import android.widget.ImageButton;
 
 import com.android.bpcontrol.adapters.HomeGridAdapter;
 import com.android.bpcontrol.application.BPcontrolMasterActivity;
+import com.android.bpcontrol.model.GridCellResources;
 import com.android.bpcontrol.utils.LogBP;
 
 /**
@@ -20,45 +19,16 @@ import com.android.bpcontrol.utils.LogBP;
  */
 public class HomeActivity extends BPcontrolMasterActivity {
 
-    private final int[] gridelements = new int[]{R.drawable.graphic_background,R.drawable.graphic_background,
-            R.drawable.graphic_background,R.drawable.graphic_background};
-    private final int numgridelemets = 4;
+    private GridCellResources[] resources;
+    private final int num_grid_resources = 4;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.home_activity);
-//        showProgressDialog();
-//        Handler handler = new Handler();
-//        showProgressDialog();
-//        handler.postDelayed(new Runnable() {
-//            @Override
-//            public void run() {
-//
-//                dissmissProgressDialog();
-//            }
-//        },4000);
+        initGridCellResources();
         GridView grid = (GridView) findViewById(R.id.homegridview);
-        ViewGroup.LayoutParams layoutParams = grid.getLayoutParams();
-        Display display = getWindowManager().getDefaultDisplay();
-        Point size = new Point();
-        display.getSize(size);
-       // layoutParams.width = size.x;
-       // layoutParams.height = size.x;
-       // grid.setLayoutParams(layoutParams);
-        grid.setBackgroundColor(Color.RED);
-        grid.setOnTouchListener(new View.OnTouchListener(){
-
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                if(event.getAction() == MotionEvent.ACTION_MOVE){
-                    return true;
-                }
-                return false;
-            }
-
-        });
-        HomeGridAdapter adapter = new HomeGridAdapter(this,gridelements);
+        HomeGridAdapter adapter = new HomeGridAdapter(this,resources);
         grid.setAdapter(adapter);
         grid.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
@@ -69,11 +39,67 @@ public class HomeActivity extends BPcontrolMasterActivity {
             }
         });
 
+        configActionBar();
+
     }
 
-    public int dpToPx(int dp) {
-        DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
-        int px = Math.round(dp * (displayMetrics.xdpi / DisplayMetrics.DENSITY_DEFAULT));
-        return px;
+    private void initGridCellResources(){
+
+         final int[] background_resources = new int[]{R.drawable.graphic_background,R.drawable.presiones_background,
+                R.drawable.message_background,R.drawable.video_background};
+
+         final int[] icon_resources = new int[]{ R.drawable.home_graphic_icon,R.drawable.presiones_icon,
+                                                 R.drawable.conversation_icon, R.drawable.video_icon};
+
+         final int[] text_resources = new int[]{R.string.homegrid_graphics,R.string.homegrid_pressure,
+                                                   R.string.homegrid_messages,R.string.homegrid_videos};
+
+         resources = new GridCellResources[num_grid_resources];
+
+         for (int i=0;i<num_grid_resources;i++){
+
+             resources[i] = new GridCellResources(background_resources[i],icon_resources[i],text_resources[i]);
+
+         }
     }
+
+    public void configActionBar(){
+
+        getActionBar().setDisplayHomeAsUpEnabled(false);
+        getActionBar().setDisplayShowTitleEnabled(false);
+        getActionBar().setDisplayShowHomeEnabled(false);
+        getActionBar().setHomeButtonEnabled(false);
+        getActionBar().setDisplayShowCustomEnabled(true);
+        getActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.grayactionbar)));
+        LayoutInflater mInflater = LayoutInflater.from(this);
+      //  View customView = mInflater.inflate(R.layout.actionbar_layout,null);
+       // getActionBar().setCustomView(customView);
+//        getActionBar().getCustomView().setFocusable(false);
+        //ImageButton backButton = (ImageButton) getActionBar().getCustomView().findViewById(R.id.actionBarBackButton);
+//        nextButton = (ImageButton) getActionBar().getCustomView().findViewById(R.id.actionBarNextButton);
+//        backButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                finish();
+//            }
+//        });
+
+//        nextButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                rootLayout.setDrawingCacheEnabled(true);
+//                rootLayout.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_HIGH);
+//                Bitmap bitmap = Bitmap.createBitmap(rootLayout.getDrawingCache());
+//                new savePhotoEdited().execute(bitmap);
+//            }
+//        });
+//
+//
+//        nextButton.setVisibility(View.INVISIBLE);
+        getActionBar().show();
+
+
+    }
+
+
 }

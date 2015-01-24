@@ -15,6 +15,7 @@ public class BPcontrolMasterActivity extends FragmentActivity {
     @Override
     public void onCreate(Bundle onInstanceState){
         super.onCreate(onInstanceState);
+        getActionBar().hide();
 
     }
 
