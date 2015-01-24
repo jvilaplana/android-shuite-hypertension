@@ -12,15 +12,18 @@ android:layout_height="match_parent">
         <!--android:gravity="center"-->
         <!--android:layout_centerVertical="true"-->
         <!--android:textSize="35sp"/>-->
-
    <GridView
        android:id="@+id/homegridview"
-       android:layout_alignParentBottom="true"
        android:layout_width="match_parent"
-       android:layout_height="340dp"
+       android:layout_height="wrap_content"
+       android:layout_marginBottom="@dimen/margin_homegridview"
+       android:layout_marginLeft="@dimen/margin_homegridview"
+       android:layout_marginRight="@dimen/margin_homegridview"
+       android:horizontalSpacing="@dimen/gridview_spacing"
+       android:verticalSpacing="@dimen/gridview_spacing"
        android:numColumns="2"
+       android:gravity="center"
+       android:layout_alignParentBottom="true"
        >
-
-   </GridView>
-
+</GridView>
 </RelativeLayout>

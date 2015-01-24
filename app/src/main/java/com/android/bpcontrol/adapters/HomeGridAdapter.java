@@ -6,11 +6,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.android.bpcontrol.R;
-
-import org.w3c.dom.Text;
 
 /**
  * Created by Adrian on 23/01/2015.
@@ -44,15 +44,27 @@ public class HomeGridAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
+        ViewHolder viewHolder;
         if (convertView == null){
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            RelativeLayout relativeLayout =(RelativeLayout) inflater.inflate(R.layout.homegridcell,null);
-            relativeLayout.setBackgroundResource(resources[position]);
-            //TextView text =(TextView) relativeLayout.findViewById(R.id.homegridtext);
-            return relativeLayout;
-        }else{
+            convertView = inflater.inflate(R.layout.homegridcell,parent,false);
 
-            return convertView;
+            viewHolder = new ViewHolder();
+            viewHolder.image = (ImageView) convertView.findViewById(R.id.icongrid_image);
+            viewHolder.textView = (TextView) convertView.findViewById(R.id.homegridtext);
+            convertView.setBackgroundResource(resources[position]);
+            convertView.setTag(viewHolder);
+        }else{
+            viewHolder = (ViewHolder) convertView.getTag();
         }
+
+
+        return convertView;
+    }
+
+    public static class ViewHolder{
+        ImageView image;
+        TextView textView;
+
     }
 }

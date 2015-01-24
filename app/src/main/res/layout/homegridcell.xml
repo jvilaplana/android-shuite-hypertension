@@ -1,17 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
    >
+    <ImageView
+        android:id="@+id/icongrid_image"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layo
+        android:layout_marginBottom="@dimen/icongrid_margin_bottom"
+        android:layout_marginRight="@dimen/icongrid_margin_lateral"
+        android:layout_marginLeft="@dimen/icongrid_margin_lateral"
+        android:background="@drawable/home_graphic_icon"/>
 
     <TextView
         android:id="@+id/homegridtext"
+        android:layout_below="@+id/icongrid_image"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:maxLines="1"
         android:text="PRUEBA"
-        android:layout_alignParentBottom="true"
-        android:gravity="center"
-        android:layout_marginBottom="13dp"/>
+        android:gravity="center"></TextView>
 
 </RelativeLayout>
