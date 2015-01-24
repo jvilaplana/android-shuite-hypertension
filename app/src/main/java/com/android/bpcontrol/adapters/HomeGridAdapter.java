@@ -58,7 +58,8 @@ public class HomeGridAdapter extends BaseAdapter {
             viewHolder = (ViewHolder) convertView.getTag();
         }
 
-
+        //viewHolder.image
+        viewHolder.textView.setText("HOLA QUE TAL");
         return convertView;
     }
 
