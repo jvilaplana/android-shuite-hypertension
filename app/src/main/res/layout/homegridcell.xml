@@ -7,19 +7,20 @@
         android:id="@+id/icongrid_image"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:layo
+        android:layout_marginTop="@dimen/icongrid_margin_top"
         android:layout_marginBottom="@dimen/icongrid_margin_bottom"
         android:layout_marginRight="@dimen/icongrid_margin_lateral"
         android:layout_marginLeft="@dimen/icongrid_margin_lateral"
         android:background="@drawable/home_graphic_icon"/>
 
-    <TextView
+    <com.android.bpcontrol.customViews.ForteTextView
         android:id="@+id/homegridtext"
         android:layout_below="@+id/icongrid_image"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/grid_textview"
         android:maxLines="1"
-        android:text="PRUEBA"
-        android:gravity="center"></TextView>
+        android:text="Graficos"
+        android:gravity="center"/>
 
 </RelativeLayout>

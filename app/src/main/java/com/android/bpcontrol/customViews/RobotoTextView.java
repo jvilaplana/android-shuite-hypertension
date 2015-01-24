@@ -19,21 +19,21 @@ public class RobotoTextView extends TextView {
 
     public RobotoTextView(Context context, AttributeSet attrs) {
         super(context, attrs);
-        setTypeface();
+        addTypeface();
     }
 
     public RobotoTextView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        setTypeface();
+        addTypeface();
     }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     public RobotoTextView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
-        setTypeface();
+        addTypeface();
     }
 
-    public void setTypeface(){
+    public void addTypeface(){
         if(getTag()==null){
             setTag("RobotoRegular");
         }
@@ -41,19 +41,19 @@ public class RobotoTextView extends TextView {
 
             if(getTag().equals("RobotoRegular")){
                 setTypeface(((BPcontrolApplication) getContext().getApplicationContext())
-                               .getTypeface(BPcontrolApplication.RobotoTypeface.Regular));
+                               .getTypeface(BPcontrolApplication.FontsTypeface.RobotoRegular));
             }else if(getTag().equals("RobotoBold")){
                 setTypeface(((BPcontrolApplication) getContext().getApplicationContext())
-                                .getTypeface(BPcontrolApplication.RobotoTypeface.Bold));
+                                .getTypeface(BPcontrolApplication.FontsTypeface.RobotoBold));
             }else if(getTag().equals("RobotoItalic")){
                 setTypeface(((BPcontrolApplication) getContext().getApplicationContext())
-                                .getTypeface(BPcontrolApplication.RobotoTypeface.Italic));
+                                .getTypeface(BPcontrolApplication.FontsTypeface.RobotoItalic));
             }
 
         }catch(Exception e){
             LogBP.printStackTrace(e);
             setTypeface(((BPcontrolApplication) getContext().getApplicationContext())
-                    .getTypeface(BPcontrolApplication.RobotoTypeface.Regular));
+                    .getTypeface(BPcontrolApplication.FontsTypeface.RobotoRegular));
 
         }
 
