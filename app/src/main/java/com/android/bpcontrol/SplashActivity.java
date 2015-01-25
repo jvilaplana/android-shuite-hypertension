@@ -5,13 +5,16 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 
+import com.android.bpcontrol.application.BPcontrolMasterActivity;
 
-public class SplashActivity extends Activity {
+
+public class SplashActivity extends BPcontrolMasterActivity {
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
+        getActionBar().hide();
 
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {

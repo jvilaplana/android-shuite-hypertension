@@ -72,8 +72,8 @@ public class HomeActivity extends BPcontrolMasterActivity {
         getActionBar().setDisplayShowCustomEnabled(true);
         getActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.grayactionbar)));
         LayoutInflater mInflater = LayoutInflater.from(this);
-      //  View customView = mInflater.inflate(R.layout.actionbar_layout,null);
-       // getActionBar().setCustomView(customView);
+        View customView = mInflater.inflate(R.layout.actionbar_layout,null);
+        getActionBar().setCustomView(customView);
 //        getActionBar().getCustomView().setFocusable(false);
         //ImageButton backButton = (ImageButton) getActionBar().getCustomView().findViewById(R.id.actionBarBackButton);
 //        nextButton = (ImageButton) getActionBar().getCustomView().findViewById(R.id.actionBarNextButton);

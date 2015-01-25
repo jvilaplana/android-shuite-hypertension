@@ -11,4 +11,7 @@
     <dimen name="icongrid_margin_lateral">30dp</dimen>
     <dimen name="grid_textview">20dp</dimen>
 
+    <!--ACTION BAR -->
+    <dimen name="actionbar_padding">8dp</dimen>
+
 </resources>
