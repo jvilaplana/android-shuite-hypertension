@@ -11,6 +11,7 @@
         android:layout_marginBottom="@dimen/icongrid_margin_bottom"
         android:layout_marginRight="@dimen/icongrid_margin_lateral"
         android:layout_marginLeft="@dimen/icongrid_margin_lateral"
+        android:layout_centerHorizontal="true"
         />
 
     <com.android.bpcontrol.customViews.ForteTextView
@@ -21,7 +22,7 @@
         android:layout_marginBottom="@dimen/grid_textview"
         android:maxLines="2"
         android:textColor="@android:color/white"
-        android:textSize="17sp"
+        android:textSize="19sp"
         android:gravity="center"/>
 
 </RelativeLayout>

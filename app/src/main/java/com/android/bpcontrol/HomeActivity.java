@@ -1,13 +1,16 @@
 package com.android.bpcontrol;
 
 import android.graphics.drawable.ColorDrawable;
+import android.media.Image;
 import android.os.Bundle;
+import android.support.v4.widget.DrawerLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.ImageButton;
+import android.widget.RelativeLayout;
 
 import com.android.bpcontrol.adapters.HomeGridAdapter;
 import com.android.bpcontrol.application.BPcontrolMasterActivity;
@@ -21,6 +24,9 @@ public class HomeActivity extends BPcontrolMasterActivity {
 
     private GridCellResources[] resources;
     private final int num_grid_resources = 4;
+
+    private DrawerLayout dwlayoutmenu;
+    private RelativeLayout menulayout;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -40,6 +46,8 @@ public class HomeActivity extends BPcontrolMasterActivity {
         });
 
         configActionBar();
+        dwlayoutmenu = (DrawerLayout) findViewById(R.id.menuDrawer);
+        menulayout = (RelativeLayout) findViewById(R.id.menuinclude);
 
     }
 
@@ -70,11 +78,11 @@ public class HomeActivity extends BPcontrolMasterActivity {
         getActionBar().setDisplayShowHomeEnabled(false);
         getActionBar().setHomeButtonEnabled(false);
         getActionBar().setDisplayShowCustomEnabled(true);
-        getActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.grayactionbar)));
+        getActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.graybp)));
         LayoutInflater mInflater = LayoutInflater.from(this);
         View customView = mInflater.inflate(R.layout.actionbar_layout,null);
         getActionBar().setCustomView(customView);
-//        getActionBar().getCustomView().setFocusable(false);
+        getActionBar().getCustomView().setFocusable(false);
         //ImageButton backButton = (ImageButton) getActionBar().getCustomView().findViewById(R.id.actionBarBackButton);
 //        nextButton = (ImageButton) getActionBar().getCustomView().findViewById(R.id.actionBarNextButton);
 //        backButton.setOnClickListener(new View.OnClickListener() {
@@ -96,7 +104,20 @@ public class HomeActivity extends BPcontrolMasterActivity {
 //
 //
 //        nextButton.setVisibility(View.INVISIBLE);
+        ImageButton imgbutton = (ImageButton)getActionBar().getCustomView().findViewById(R.id.actionBarMenu);
+        imgbutton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dwlayoutmenu.openDrawer(menulayout);
+            }
+        });
         getActionBar().show();
+
+
+    }
+
+    private void configureLateralMenu(){
+
 
 
     }

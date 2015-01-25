@@ -10,6 +10,9 @@
     <dimen name="icongrid_margin_bottom">15dp</dimen>
     <dimen name="icongrid_margin_lateral">30dp</dimen>
     <dimen name="grid_textview">20dp</dimen>
+    <dimen name="text_gridcell">19sp</dimen>
+
+    <dimen name="menu_width">250dp</dimen>
 
     <!--ACTION BAR -->
     <dimen name="actionbar_padding">8dp</dimen>

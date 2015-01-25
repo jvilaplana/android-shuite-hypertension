@@ -52,7 +52,7 @@ public class HomeGridAdapter extends BaseAdapter {
             viewHolder = new ViewHolder();
             viewHolder.image = (ImageView) convertView.findViewById(R.id.icongrid_image);
             viewHolder.textView = (TextView) convertView.findViewById(R.id.homegridtext);
-
+            convertView.setBackgroundResource(resources[position].getBackground_id());
             convertView.setTag(viewHolder);
         }else{
             viewHolder = (ViewHolder) convertView.getTag();
@@ -60,7 +60,6 @@ public class HomeGridAdapter extends BaseAdapter {
 
         viewHolder.textView.setText(context.getResources().getString(resources[position].getText_id()));
         viewHolder.image.setImageResource(resources[position].getIcon_id());
-        convertView.setBackgroundResource(resources[position].getBackground_id());
 
         return convertView;
     }
