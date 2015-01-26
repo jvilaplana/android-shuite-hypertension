@@ -1,12 +1,8 @@
 package com.android.bpcontrol;
 
-import android.graphics.drawable.ColorDrawable;
-import android.media.Image;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.ImageButton;
@@ -27,6 +23,8 @@ public class HomeActivity extends BPcontrolMasterActivity {
 
     private DrawerLayout dwlayoutmenu;
     private RelativeLayout menulayout;
+    private boolean menuIsOpen=false;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -44,10 +42,15 @@ public class HomeActivity extends BPcontrolMasterActivity {
                 LogBP.writelog("Tocado el de la posicion " + position);
             }
         });
-
-        configActionBar();
         dwlayoutmenu = (DrawerLayout) findViewById(R.id.menuDrawer);
         menulayout = (RelativeLayout) findViewById(R.id.menuinclude);
+
+        configureLateralMenu();
+        configureActionBar();
+
+    }
+
+    private void configureLateralMenu() {
 
     }
 
@@ -70,56 +73,21 @@ public class HomeActivity extends BPcontrolMasterActivity {
 
          }
     }
+    private void configureActionBar(){
 
-    public void configActionBar(){
-
-        getActionBar().setDisplayHomeAsUpEnabled(false);
-        getActionBar().setDisplayShowTitleEnabled(false);
-        getActionBar().setDisplayShowHomeEnabled(false);
-        getActionBar().setHomeButtonEnabled(false);
-        getActionBar().setDisplayShowCustomEnabled(true);
-        getActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.graybp)));
-        LayoutInflater mInflater = LayoutInflater.from(this);
-        View customView = mInflater.inflate(R.layout.actionbar_layout,null);
-        getActionBar().setCustomView(customView);
-        getActionBar().getCustomView().setFocusable(false);
-        //ImageButton backButton = (ImageButton) getActionBar().getCustomView().findViewById(R.id.actionBarBackButton);
-//        nextButton = (ImageButton) getActionBar().getCustomView().findViewById(R.id.actionBarNextButton);
-//        backButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                finish();
-//            }
-//        });
-
-//        nextButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                rootLayout.setDrawingCacheEnabled(true);
-//                rootLayout.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_HIGH);
-//                Bitmap bitmap = Bitmap.createBitmap(rootLayout.getDrawingCache());
-//                new savePhotoEdited().execute(bitmap);
-//            }
-//        });
-//
-//
-//        nextButton.setVisibility(View.INVISIBLE);
-        ImageButton imgbutton = (ImageButton)getActionBar().getCustomView().findViewById(R.id.actionBarMenu);
-        imgbutton.setOnClickListener(new View.OnClickListener() {
+        final ImageButton menu = (ImageButton) getActionBarView().findViewById(R.id.actionBarMenu);
+        menu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                dwlayoutmenu.openDrawer(menulayout);
+                if (menuIsOpen){
+                    dwlayoutmenu.closeDrawer(menulayout);
+                    menuIsOpen = false;
+                }else{
+                    dwlayoutmenu.openDrawer(menulayout);
+                    menuIsOpen = true;
+                }
             }
         });
-        getActionBar().show();
-
-
-    }
-
-    private void configureLateralMenu(){
-
-
-
     }
 
 

@@ -3,6 +3,6 @@
     android:enterFadeDuration="@integer/selector_duration"
     android:exitFadeDuration="@integer/selector_duration">
 
-    <item android:state_pressed="true" android:drawable="@drawable/menu"></item>
+    <item android:state_pressed="true" android:drawable="@drawable/menu_gray"></item>
     <item android:drawable="@drawable/menu_white"></item>
 </selector>
