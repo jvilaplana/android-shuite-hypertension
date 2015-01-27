@@ -10,6 +10,17 @@
     <string name="homegrid_videos">Videos</string>
 
 
+    <!--MENU ITEMS-->
+    <string name="menusection_preassures">Presiones arteriales</string>
+    <string name="menusection_history">Historial Paciente</string>
+    <string name="principal">Inicio</string>
+    <string name="menusection_centers">Centros médicos</string>
+    <string name="menusection_contact">Contacto</string>
+    <string name="menusection_help">Ayuda</string>
+    <!--MENU ITEMS - HEADERS-->
+    <string name="menuheadersection">Secciones App</string>
+    <string name="menuheadersocial">Social</string>
+    <string name="menuheaderothers">Otros</string>
 
 
 

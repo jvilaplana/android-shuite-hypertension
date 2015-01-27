@@ -9,4 +9,18 @@
     <string name="homegrid_messages">Messages</string>
     <string name="homegrid_videos">Videos</string>
 
+    <!--MENU ITEMS-->
+    <string name="menusection_preassures">Arterial Pressures</string>
+    <string name="principal">Home</string>
+    <string name="menusection_history">Patient History</string>
+    <string name="menusection_centers">Health Centers</string>
+    <string name="menusection_contact">Contact</string>
+    <string name="menusection_help">Help</string>
+    <!--MENU ITEMS - HEADERS-->
+    <string name="menuheadersection">App Sections</string>
+    <string name="menuheadersocial">Social</string>
+    <string name="menuheaderothers">Others</string>
+
+
+
 </resources>
