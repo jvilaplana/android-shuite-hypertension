@@ -2,5 +2,6 @@
 <resources>
     
     <color name="graybp">#d4d4d4</color>
+    <color name="menutitlesgray">#f4f4f4</color>
     
 </resources>
