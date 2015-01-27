@@ -3,20 +3,14 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/white">
+    android:background="@color/graymenucell">
 
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/logo"
-        android:layout_marginTop="@dimen/bplogo_menu_padding"
-        android:layout_marginBottom="@dimen/bplogo_menu_padding"
-        android:layout_marginLeft="@dimen/bplogo_menu_padding_lateral"
-        android:layout_marginRight="@dimen/bplogo_menu_padding_lateral"/>
-    
+
     <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+
         <LinearLayout
             android:id="@+id/layoutsections"
             android:layout_width="match_parent"
@@ -25,17 +19,8 @@
         
             
         </LinearLayout>
+
+
     </ScrollView>
-
-    <LinearLayout
-        android:id="@+id/layoutsocial"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-
-    </LinearLayout>
-
-
-
 
 </LinearLayout>

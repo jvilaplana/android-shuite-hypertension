@@ -6,10 +6,14 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.android.bpcontrol.adapters.HomeGridAdapter;
 import com.android.bpcontrol.application.BPcontrolMasterActivity;
+import com.android.bpcontrol.customViews.RobotoTextView;
 import com.android.bpcontrol.model.GridCellResources;
 import com.android.bpcontrol.utils.LogBP;
 
@@ -22,7 +26,7 @@ public class HomeActivity extends BPcontrolMasterActivity {
     private final int num_grid_resources = 4;
 
     private DrawerLayout dwlayoutmenu;
-    private RelativeLayout menulayout;
+    private LinearLayout menulayout;
     private boolean menuIsOpen=false;
 
 
@@ -43,14 +47,10 @@ public class HomeActivity extends BPcontrolMasterActivity {
             }
         });
         dwlayoutmenu = (DrawerLayout) findViewById(R.id.menuDrawer);
-        menulayout = (RelativeLayout) findViewById(R.id.menuinclude);
+        menulayout = (LinearLayout) findViewById(R.id.menuinclude);
 
         configureLateralMenu();
         configureActionBar();
-
-    }
-
-    private void configureLateralMenu() {
 
     }
 
@@ -89,6 +89,24 @@ public class HomeActivity extends BPcontrolMasterActivity {
             }
         });
     }
+
+
+
+    private void configureLateralMenu() {
+
+        View cell = getLayoutInflater().inflate(R.layout.logomenucell, null);
+        ImageView image = (ImageView) cell.findViewById(R.id.line_separator);
+        menulayout.addView(cell);
+        View cell1 = getLayoutInflater().inflate(R.layout.lateralmenucell, null);
+        RobotoTextView text = (RobotoTextView)cell1.findViewById(R.id.menucelltextview);
+        text.setText("Adrian Carrera");
+        ImageView image2 = (ImageView) cell1.findViewById(R.id.menucellimage);
+        image2.setBackgroundResource(R.drawable.ic_action_dialog);
+        menulayout.addView(cell1);
+        //menulayout.addView(image);
+
+    }
+
 
 
 }

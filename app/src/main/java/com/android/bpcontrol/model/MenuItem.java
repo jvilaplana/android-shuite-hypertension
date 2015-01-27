@@ -33,6 +33,34 @@ public class MenuItem{
 
     }
 
+    public LateralMenuController.MenuSections getId() {
+        return id;
+    }
+
+    public LateralMenuController.MenuItemCategory getCategory_id() {
+        return category_id;
+    }
+
+    public ImageView getImage() {
+        return image;
+    }
+
+    public int getImageid() {
+        return imageid;
+    }
+
+    public String getTextView() {
+        return textView;
+    }
+
+    public boolean isParentCategory(){
+        return isParentCategory;
+    }
+
+    public boolean isImageFromResources(){
+        return isImageFromResources;
+    }
+
     public static class Builder{
 
         private LateralMenuController.MenuSections id;

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/graymenucell">
+
+    <ImageView
+        android:id="@+id/menucellimage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/bplogo_menu_padding"
+        android:layout_marginLeft="@dimen/bplogo_menu_padding_lateral"
+     />
+
+    <com.android.bpcontrol.customViews.RobotoTextView
+        android:id="@+id/menucelltextview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textColor="@android:color/holo_blue_dark"
+        />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/ic_action_next"
+
+        />
+
+
+</LinearLayout>

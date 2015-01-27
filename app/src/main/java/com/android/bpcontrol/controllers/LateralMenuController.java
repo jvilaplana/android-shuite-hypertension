@@ -46,7 +46,19 @@ public class LateralMenuController{
     private ArrayList<MenuItem> headers = new ArrayList<>();
     private MenuItem perfil;
 
+    public static LateralMenuController instance;
 
+    private LateralMenuController(){}
+
+    public LateralMenuController getInstance(){
+
+        if(instance == null) {
+
+            instance = new LateralMenuController();
+        }
+
+        return instance;
+    }
 
     public void initItems(Context context){
 
@@ -167,10 +179,6 @@ public class LateralMenuController{
                 .setCategory_id(MenuItemCategory.APP_SECTIONS)
                 .setImageFromResource(R.drawable.ic_action_gplus)
                 .build());
-
-}
-
-
 
     }
 
