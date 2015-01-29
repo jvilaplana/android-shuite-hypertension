@@ -59,6 +59,7 @@ public class BPcontrolMasterActivity extends FragmentActivity {
         getActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.graybp)));
         LayoutInflater mInflater = LayoutInflater.from(this);
         View customView = mInflater.inflate(R.layout.actionbar_layout,null);
+        customView.findViewById(R.id.fakeMenu).setVisibility(View.INVISIBLE); //margin balance textview
         getActionBar().setCustomView(customView);
         getActionBarView().setFocusable(false);
     }

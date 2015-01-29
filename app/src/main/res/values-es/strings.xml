@@ -18,6 +18,7 @@
     <string name="menusection_contact">Contacto</string>
     <string name="menusection_help">Ayuda</string>
     <string name="menuothersitem">Atribuciones</string>
+
     <!--MENU ITEMS - HEADERS-->
     <string name="menuperfil">Perfil</string>
     <string name="menuheadersection">Secciones</string>
@@ -25,7 +26,6 @@
     <string name="menuheaderothers">Otros</string>
 
     <!--SECTIONS ACTION BAR NAME-->
-
     <string name="principalmenutext">Menú Principal</string>
 
 

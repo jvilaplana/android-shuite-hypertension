@@ -11,7 +11,7 @@ import com.android.bpcontrol.application.BPcontrolApplication;
 import com.android.bpcontrol.utils.LogBP;
 
 /**
- * Created by Adrian on 22/1/15.
+ * Created by Adrian Carrera on 22/1/15.
  */
 public class BPcontrolProgressDialog extends ProgressDialog{
 

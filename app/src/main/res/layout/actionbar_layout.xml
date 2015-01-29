@@ -16,7 +16,6 @@
 
     <com.android.bpcontrol.customViews.RobotoTextView
         android:id="@+id/textviewbpcontrol"
-        android:layout_toRightOf="@+id/actionBarMenu"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textColor="@color/menutext"
@@ -25,6 +24,18 @@
         android:textSize="20sp"
         android:layout_centerVertical="true"
         android:gravity="center"
+        />
+    <ImageButton
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/actionbar_padding"
+        android:id="@+id/fakeMenu"
+        android:layout_toLeftOf="@+id/textviewbpcontrol"
+        android:src="@drawable/menu_buttonselector"
+        android:layout_centerVertical="true"
+        android:layout_alignParentRight="true"
+        android:background="@android:color/transparent"
         />
 
 </RelativeLayout>

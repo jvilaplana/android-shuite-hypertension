@@ -5,25 +5,6 @@ android:layout_height="match_parent"
 android:background="@android:color/white">
 
 
-
-    <GridView
-        android:id="@+id/homegridview"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/margin_homegridview"
-        android:layout_marginLeft="@dimen/margin_homegridview"
-        android:layout_marginRight="@dimen/margin_homegridview"
-        android:horizontalSpacing="@dimen/gridview_spacing"
-        android:verticalSpacing="@dimen/gridview_spacing"
-        android:numColumns="2"
-        android:gravity="center"
-        android:background="@android:color/white"
-        android:layout_alignParentBottom="true"
-        >
-    </GridView>
-
-
-
     <android.support.v4.widget.DrawerLayout
         android:id="@+id/menuDrawer"
         android:layout_width="match_parent"

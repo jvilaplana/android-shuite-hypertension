@@ -18,7 +18,7 @@ public class LateralMenuController{
         MYPERFIL,
         PRINCIPAL,
         PRESSURES,
-        EVOLUCION,
+        EVOLUTION,
         HISTORIAL,
         MESSAGES,
         VIDEOS,
@@ -113,7 +113,7 @@ public class LateralMenuController{
                 .build());
 
         app_sections.add(new MenuItem.Builder(context.getResources().getString(R.string.homegrid_graphics))
-                .setId(MenuSections.EVOLUCION)
+                .setId(MenuSections.EVOLUTION)
                 .setCategory_id(MenuItemCategory.APP_SECTIONS)
                 .setImageFromResource(R.drawable.ic_action_line_chart)
                 .build());

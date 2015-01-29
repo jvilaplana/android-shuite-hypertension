@@ -1,29 +1,26 @@
 package com.android.bpcontrol;
 
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.GridView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
-import com.android.bpcontrol.adapters.HomeGridAdapter;
 import com.android.bpcontrol.application.BPcontrolMasterActivity;
+import com.android.bpcontrol.controllers.HomeFragmentManager;
 import com.android.bpcontrol.controllers.LateralMenuController;
 import com.android.bpcontrol.customViews.RobotoTextView;
-import com.android.bpcontrol.model.GridCellResources;
+import com.android.bpcontrol.fragments.HomeFragment;
 import com.android.bpcontrol.model.MenuItem;
-import com.android.bpcontrol.utils.LogBP;
 
 /**
- * Created by Adrian on 22/1/15.
+ * Created by Adrian Carrera on 22/1/15.
  */
 public class HomeActivity extends BPcontrolMasterActivity {
-
-    private GridCellResources[] resources;
-    private final int num_grid_resources = 4;
 
     private DrawerLayout dwlayoutmenu;
     private LinearLayout menulayout;
@@ -39,47 +36,21 @@ public class HomeActivity extends BPcontrolMasterActivity {
         ((RobotoTextView)getActionBarView().findViewById(R.id.textviewbpcontrol))
                                            .setText(getResources().getString(R.string.principalmenutext).toUpperCase());
 
-        initGridCellResources();
-        GridView grid = (GridView) findViewById(R.id.homegridview);
-        HomeGridAdapter adapter = new HomeGridAdapter(this,resources);
-        grid.setAdapter(adapter);
-        grid.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
-            @Override
-            public void onItemClick(AdapterView<?> arg0, View v, int position, long arg3) {
-
-                LogBP.writelog("Tocado el de la posicion " + position);
-            }
-        });
         dwlayoutmenu = (DrawerLayout) findViewById(R.id.menuDrawer);
+        dwlayoutmenu.setDrawerListener(new LateralMenuListeners());
         menulayout = (LinearLayout) findViewById(R.id.menuinclude);
 
         LateralMenuController.getInstance().initItems(this);
         configureLateralMenu();
         configureActionBar();
 
+        HomeFragment homeFragment = HomeFragment.newInstance();
+        loadFragment(homeFragment, false, false);
+
 
     }
 
-    private void initGridCellResources(){
-
-         final int[] background_resources = new int[]{R.drawable.graphic_background,R.drawable.presiones_background,
-                R.drawable.message_background,R.drawable.video_background};
-
-         final int[] icon_resources = new int[]{ R.drawable.home_graphic_icon,R.drawable.presiones_icon,
-                                                 R.drawable.conversation_icon, R.drawable.video_icon};
-
-         final int[] text_resources = new int[]{R.string.homegrid_graphics,R.string.homegrid_pressure,
-                                                   R.string.homegrid_messages,R.string.homegrid_videos};
-
-         resources = new GridCellResources[num_grid_resources];
-
-         for (int i=0;i<num_grid_resources;i++){
-
-             resources[i] = new GridCellResources(background_resources[i],icon_resources[i],text_resources[i]);
-
-         }
-    }
     private void configureActionBar(){
 
         final ImageButton menu = (ImageButton) getActionBarView().findViewById(R.id.actionBarMenu);
@@ -88,10 +59,10 @@ public class HomeActivity extends BPcontrolMasterActivity {
             public void onClick(View v) {
                 if (menuIsOpen){
                     dwlayoutmenu.closeDrawer(menulayout);
-                    menuIsOpen = false;
+
                 }else{
                     dwlayoutmenu.openDrawer(menulayout);
-                    menuIsOpen = true;
+
                 }
             }
         });
@@ -161,39 +132,20 @@ public class HomeActivity extends BPcontrolMasterActivity {
 
             item = LateralMenuController.getInstance().getApp_sections().get(i);
             configCell(item,i == LateralMenuController.getInstance().getApp_sections().size() - 1);
-            switch(item.getId()){
 
-                case PRINCIPAL:
-
-                    break;
-                case PRESSURES:
-                    break;
-
-            }
         }
     }
 
-    private void configureMenuSocial(){
+    private void configureMenuSocial() {
 
         MenuItem item;
-        for (int i=0;i< LateralMenuController.getInstance().getSocial().size();i++){
+        for (int i = 0; i < LateralMenuController.getInstance().getSocial().size(); i++) {
 
             item = LateralMenuController.getInstance().getSocial().get(i);
-            configCell(item,i == LateralMenuController.getInstance().getSocial().size() - 1 );
+            configCell(item, i == LateralMenuController.getInstance().getSocial().size() - 1);
 
-            switch(item.getId()){
-
-                case PRINCIPAL:
-
-                    break;
-                case PRESSURES:
-                    break;
-
-            }
         }
-
     }
-
     private void configureMenuOthers(){
 
         MenuItem item;
@@ -206,16 +158,132 @@ public class HomeActivity extends BPcontrolMasterActivity {
 
     }
 
-    private void configCell(MenuItem item, boolean isLast){
+    private void configCell(final MenuItem item, boolean isLast){
 
         View cell = getLayoutInflater().inflate(R.layout.lateralmenucell, null);
         ((RobotoTextView)cell.findViewById(R.id.menucelltextview)).setText(item.getTextView());
         ((ImageView)cell.findViewById(R.id.menucellimage)).setBackgroundResource(item.getImageid());
         if (isLast) cell.findViewById(R.id.image_separator).setVisibility(View.INVISIBLE);
+        cell.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                selectMenuItem(item.getId());
+            }
+        });
         menuItemsLayout.addView(cell);
     }
 
+    public void selectMenuItem(LateralMenuController.MenuSections type){
+
+        switch (type){
+
+            case MYPERFIL:
+                break;
+            case PRINCIPAL:
+                break;
+            case PRESSURES:
+                break;
+            case EVOLUTION:
+                break;
+            case HISTORIAL:
+                break;
+            case MESSAGES:
+                break;
+            case VIDEOS:
+                break;
+            case HEALTHCENTERS:
+                break;
+            case CONTACT:
+                break;
+            case HELP:
+                break;
+            case FACEBOOK:
+                break;
+            case TWITTER:
+                break;
+            case GOOGLEPLUS:
+                break;
+            case ATTRIBUTIONS:
+                break;
+            default:
+                break;
+
+        }
+    }
+
+    private void loadFragment(Fragment fragment,boolean back, boolean display){
+
+        FragmentManager manager = getSupportFragmentManager();
+        FragmentTransaction transaction = manager.beginTransaction();
+        int id = R.id.menu_frame;
+
+        if(display){
+
+            if(back){
+
+                transaction.setCustomAnimations(R.anim.fade_in,
+                        R.anim.slide_out_down);
+            }else{
+                transaction.setCustomAnimations(R.anim.slide_in_up,
+                        R.anim.fade_out);
+            }
+        }
+        if (fragment instanceof HomeFragment){
+            while (HomeFragmentManager.getInstance(this).getHomeFragmentStack().size() > 1){
+                HomeFragmentManager.getInstance(this).getHomeFragmentStack().pop();
+            }
+            HomeFragmentManager.getInstance(this).setHomeFragment(fragment);
+        }
+        Fragment lastFragment = this.getSupportFragmentManager().findFragmentById(R.id.menu_frame);
+        if (!back && lastFragment!=null)
+            HomeFragmentManager.getInstance(this).getHomeFragmentStack().push(lastFragment);
+
+        if (manager.findFragmentById(id) == null) {
+            transaction.add(id, fragment);
+            transaction.commit();
+        } else {
+            transaction.replace(id, fragment);
+            transaction.commit();
+        }
+    }
+
+    public void goBack(){
+        Fragment lastFragment = this.getSupportFragmentManager().findFragmentById(R.id.menu_frame);
+        if (lastFragment instanceof HomeFragment) {
+            finish();
+            return;
+        }
+        if (HomeFragmentManager.getInstance(this).getHomeFragmentStack().isEmpty()){
+            finish();
+            return;
+        }
+        Fragment fragment = HomeFragmentManager.getInstance(this).getHomeFragmentStack().pop();
+        if (fragment == null){
+            fragment = new HomeFragment();
+        }
+
+        loadFragment(fragment, true, true);
+
+    }
 
 
+   private class LateralMenuListeners implements DrawerLayout.DrawerListener{
 
-}
+       @Override
+       public void onDrawerSlide(View drawerView, float slideOffset) {}
+
+       @Override
+       public void onDrawerOpened(View drawerView) {
+           menuIsOpen = true;
+       }
+
+       @Override
+       public void onDrawerClosed(View drawerView) {
+           menuIsOpen = false;
+       }
+
+       @Override
+       public void onDrawerStateChanged(int newState) { }
+   }
+    }
+

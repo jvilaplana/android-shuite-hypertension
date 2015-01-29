@@ -18,8 +18,8 @@
     <dimen name="actionbar_padding">8dp</dimen>
 
     <!--LATERAL MENU-->
-<dimen name="bplogo_menu_padding">15dp</dimen>
-<dimen name="bplogo_menu_padding_lateral">30dp</dimen>
-<dimen name="menu_separation">15dp</dimen>
+    <dimen name="bplogo_menu_padding">15dp</dimen>
+    <dimen name="bplogo_menu_padding_lateral">30dp</dimen>
+    <dimen name="menu_separation">15dp</dimen>
 
     </resources>
