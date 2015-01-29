@@ -45,12 +45,13 @@ public class LateralMenuController{
     private ArrayList<MenuItem> others = new ArrayList<>();
     private ArrayList<MenuItem> headers = new ArrayList<>();
     private MenuItem perfil;
+    private boolean elementsInit = false;
 
-    public static LateralMenuController instance;
+    private static LateralMenuController instance;
 
     private LateralMenuController(){}
 
-    public LateralMenuController getInstance(){
+    public static LateralMenuController getInstance(){
 
         if(instance == null) {
 
@@ -62,38 +63,44 @@ public class LateralMenuController{
 
     public void initItems(Context context){
 
-       ImageView image =  new ImageView(context);
+      if(!elementsInit) {
 
-       perfil =  new MenuItem.Builder("Adrian Carrera")
-                             .setCategory_id(MenuItemCategory.MYPERFIL)
-                             .build();
+          perfil = new MenuItem.Builder("Adrian Carrera")
+                  .setCategory_id(MenuItemCategory.MYPERFIL)
+                  .build();
 
-       initHeaders(context);
-       initAppSections(context);
-       initOthers(context);
-       initSocial();
+          initHeaders(context);
+          initAppSections(context);
+          initOthers(context);
+          initSocial();
+          elementsInit = true;
+      }
+
 
     }
 
     private void initHeaders(Context context){
 
+        headers.add(new MenuItem.Builder(context.getResources().getString(R.string.menuperfil))
+                .setCategory_id(MenuItemCategory.MYPERFIL)
+                .build());
 
         headers.add(new MenuItem.Builder(context.getResources().getString(R.string.menuheadersection))
                 .setCategory_id(MenuItemCategory.APP_SECTIONS)
                 .build());
 
         headers.add(new MenuItem.Builder(context.getResources().getString(R.string.menuheadersocial))
-                .setCategory_id(MenuItemCategory.APP_SECTIONS)
+                .setCategory_id(MenuItemCategory.SOCIAL)
                 .build());
 
         headers.add(new MenuItem.Builder(context.getResources().getString(R.string.menuheaderothers))
-                .setCategory_id(MenuItemCategory.SOCIAL)
+                .setCategory_id(MenuItemCategory.OTHERS)
                 .build());
     }
 
     private void initAppSections(Context context){
 
-        app_sections.add(new MenuItem.Builder(context.getResources().getString(R.string.menusection_preassures))
+        app_sections.add(new MenuItem.Builder(context.getResources().getString(R.string.menuprincipal))
                 .setId(MenuSections.PRINCIPAL)
                 .setCategory_id(MenuItemCategory.APP_SECTIONS)
                 .setImageFromResource(R.drawable.ic_action_home)
@@ -151,7 +158,7 @@ public class LateralMenuController{
 
     private void initOthers(Context context){
 
-        app_sections.add(new MenuItem.Builder(context.getResources().getString(R.string.menusection_help))
+        others.add(new MenuItem.Builder(context.getResources().getString(R.string.menuothersitem))
                 .setId(MenuSections.ATTRIBUTIONS)
                 .setCategory_id(MenuItemCategory.OTHERS)
                 .setImageFromResource(R.drawable.ic_action_present)
@@ -161,27 +168,44 @@ public class LateralMenuController{
 
     private void initSocial(){
 
-        app_sections.add(new MenuItem.Builder("Facebook")
+        social.add(new MenuItem.Builder("Facebook")
                 .setId(MenuSections.FACEBOOK)
-                .setCategory_id(MenuItemCategory.APP_SECTIONS)
+                .setCategory_id(MenuItemCategory.SOCIAL)
                 .setImageFromResource(R.drawable.ic_action_facebook)
                 .build());
 
 
-        app_sections.add(new MenuItem.Builder("Twitter")
+        social.add(new MenuItem.Builder("Twitter")
                 .setId(MenuSections.TWITTER)
-                .setCategory_id(MenuItemCategory.APP_SECTIONS)
+                .setCategory_id(MenuItemCategory.SOCIAL)
                 .setImageFromResource(R.drawable.ic_action_twitter)
                 .build());
 
-        app_sections.add(new MenuItem.Builder("Google +")
+        social.add(new MenuItem.Builder("Google +")
                 .setId(MenuSections.GOOGLEPLUS)
-                .setCategory_id(MenuItemCategory.APP_SECTIONS)
+                .setCategory_id(MenuItemCategory.SOCIAL)
                 .setImageFromResource(R.drawable.ic_action_gplus)
                 .build());
 
     }
 
+    public ArrayList<MenuItem> getApp_sections() {
+        return app_sections;
+    }
 
+    public ArrayList<MenuItem> getSocial() {
+        return social;
+    }
 
+    public ArrayList<MenuItem> getOthers() {
+        return others;
+    }
+
+    public ArrayList<MenuItem> getHeaders() {
+        return headers;
+    }
+
+    public MenuItem getPerfil() {
+        return perfil;
+    }
 }

@@ -11,15 +11,21 @@
 
     <!--MENU ITEMS-->
     <string name="menusection_preassures">Arterial Pressures</string>
-    <string name="principal">Home</string>
+    <string name="menuprincipal">Home</string>
     <string name="menusection_history">Patient History</string>
     <string name="menusection_centers">Health Centers</string>
     <string name="menusection_contact">Contact</string>
     <string name="menusection_help">Help</string>
+    <string name="menuperfil">Perfil</string>
+    <string name="menuothersitem">Attributions</string>
     <!--MENU ITEMS - HEADERS-->
-    <string name="menuheadersection">App Sections</string>
+    <string name="menuheadersection">Sections</string>
     <string name="menuheadersocial">Social</string>
     <string name="menuheaderothers">Others</string>
+
+    <!--SECTIONS ACTION BAR NAME-->
+
+    <string name="principalmenutext">Principal Menu</string>
 
 
 

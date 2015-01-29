@@ -14,14 +14,17 @@
         android:background="@android:color/transparent"
         />
 
-   <!--View-->
-        <!--android:id="@+id/textviewbpcontrol"-->
-        <!--android:layout_toRightOf="@+id/actionBarMenu"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:src="@drawable/logo"-->
-        <!--android:layout_centerVertical="true"-->
-        <!--android:gravity="center"-->
-        <!--/>-->
+    <com.android.bpcontrol.customViews.RobotoTextView
+        android:id="@+id/textviewbpcontrol"
+        android:layout_toRightOf="@+id/actionBarMenu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/menutext"
+        android:padding="@dimen/actionbar_padding"
+        android:tag="RobotoBold"
+        android:textSize="20sp"
+        android:layout_centerVertical="true"
+        android:gravity="center"
+        />
 
 </RelativeLayout>

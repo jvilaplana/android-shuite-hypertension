@@ -13,14 +13,20 @@
     <!--MENU ITEMS-->
     <string name="menusection_preassures">Presiones arteriales</string>
     <string name="menusection_history">Historial Paciente</string>
-    <string name="principal">Inicio</string>
+    <string name="menuprincipal">Inicio</string>
     <string name="menusection_centers">Centros médicos</string>
     <string name="menusection_contact">Contacto</string>
     <string name="menusection_help">Ayuda</string>
+    <string name="menuothersitem">Atribuciones</string>
     <!--MENU ITEMS - HEADERS-->
-    <string name="menuheadersection">Secciones App</string>
+    <string name="menuperfil">Perfil</string>
+    <string name="menuheadersection">Secciones</string>
     <string name="menuheadersocial">Social</string>
     <string name="menuheaderothers">Otros</string>
+
+    <!--SECTIONS ACTION BAR NAME-->
+
+    <string name="principalmenutext">Menú Principal</string>
 
 
 

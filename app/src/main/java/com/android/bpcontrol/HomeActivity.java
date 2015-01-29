@@ -8,13 +8,13 @@ import android.widget.GridView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 import com.android.bpcontrol.adapters.HomeGridAdapter;
 import com.android.bpcontrol.application.BPcontrolMasterActivity;
+import com.android.bpcontrol.controllers.LateralMenuController;
 import com.android.bpcontrol.customViews.RobotoTextView;
 import com.android.bpcontrol.model.GridCellResources;
+import com.android.bpcontrol.model.MenuItem;
 import com.android.bpcontrol.utils.LogBP;
 
 /**
@@ -27,6 +27,7 @@ public class HomeActivity extends BPcontrolMasterActivity {
 
     private DrawerLayout dwlayoutmenu;
     private LinearLayout menulayout;
+    private LinearLayout menuItemsLayout;
     private boolean menuIsOpen=false;
 
 
@@ -34,6 +35,10 @@ public class HomeActivity extends BPcontrolMasterActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.home_activity);
+
+        ((RobotoTextView)getActionBarView().findViewById(R.id.textviewbpcontrol))
+                                           .setText(getResources().getString(R.string.principalmenutext).toUpperCase());
+
         initGridCellResources();
         GridView grid = (GridView) findViewById(R.id.homegridview);
         HomeGridAdapter adapter = new HomeGridAdapter(this,resources);
@@ -49,8 +54,10 @@ public class HomeActivity extends BPcontrolMasterActivity {
         dwlayoutmenu = (DrawerLayout) findViewById(R.id.menuDrawer);
         menulayout = (LinearLayout) findViewById(R.id.menuinclude);
 
+        LateralMenuController.getInstance().initItems(this);
         configureLateralMenu();
         configureActionBar();
+
 
     }
 
@@ -94,18 +101,120 @@ public class HomeActivity extends BPcontrolMasterActivity {
 
     private void configureLateralMenu() {
 
+        menuItemsLayout = (LinearLayout) findViewById(R.id.layoutsections);
+        menuItemsLayout.removeAllViews();
         View cell = getLayoutInflater().inflate(R.layout.logomenucell, null);
-        ImageView image = (ImageView) cell.findViewById(R.id.line_separator);
-        menulayout.addView(cell);
-        View cell1 = getLayoutInflater().inflate(R.layout.lateralmenucell, null);
-        RobotoTextView text = (RobotoTextView)cell1.findViewById(R.id.menucelltextview);
-        text.setText("Adrian Carrera");
-        ImageView image2 = (ImageView) cell1.findViewById(R.id.menucellimage);
-        image2.setBackgroundResource(R.drawable.ic_action_dialog);
-        menulayout.addView(cell1);
-        //menulayout.addView(image);
+        menuItemsLayout.addView(cell);
+
+        for(MenuItem item : LateralMenuController.getInstance().getHeaders()){
+
+            switch (item.getCategory_id()){
+
+                case MYPERFIL:
+                    addHeaderView(item.getTextView().toUpperCase());
+                    configureMenuPerfil();
+                    break;
+
+                case APP_SECTIONS:
+                    addHeaderView(item.getTextView().toUpperCase());
+                    configureMenuSections();
+                    break;
+
+                case SOCIAL:
+                    addHeaderView(item.getTextView().toUpperCase());
+                    configureMenuSocial();
+                    break;
+
+                case OTHERS:
+                    addHeaderView(item.getTextView().toUpperCase());
+                    configureMenuOthers();
+                    break;
+
+                default:
+                    break;
+            }
+        }
+    }
+
+    private void addHeaderView(String text){
+
+        View cell = getLayoutInflater().inflate(R.layout.headerinmenu, null);
+        ((RobotoTextView)cell.findViewById(R.id.textviewheader)).setText(text);
+        menuItemsLayout.addView(cell);
 
     }
+
+    private void configureMenuPerfil(){
+
+        View cell = getLayoutInflater().inflate(R.layout.perfilmenulayout, null);
+        MenuItem item = LateralMenuController.getInstance().getPerfil();
+        ((RobotoTextView) cell.findViewById(R.id.user_name)).setText(item.getTextView());
+        menuItemsLayout.addView(cell);
+
+    }
+
+
+    private void configureMenuSections(){
+
+        MenuItem item;
+        for (int i = 0;i<LateralMenuController.getInstance().getApp_sections().size();i++){
+
+            item = LateralMenuController.getInstance().getApp_sections().get(i);
+            configCell(item,i == LateralMenuController.getInstance().getApp_sections().size() - 1);
+            switch(item.getId()){
+
+                case PRINCIPAL:
+
+                    break;
+                case PRESSURES:
+                    break;
+
+            }
+        }
+    }
+
+    private void configureMenuSocial(){
+
+        MenuItem item;
+        for (int i=0;i< LateralMenuController.getInstance().getSocial().size();i++){
+
+            item = LateralMenuController.getInstance().getSocial().get(i);
+            configCell(item,i == LateralMenuController.getInstance().getSocial().size() - 1 );
+
+            switch(item.getId()){
+
+                case PRINCIPAL:
+
+                    break;
+                case PRESSURES:
+                    break;
+
+            }
+        }
+
+    }
+
+    private void configureMenuOthers(){
+
+        MenuItem item;
+        for (int i=0;i<LateralMenuController.getInstance().getOthers().size();i++){
+
+            item = LateralMenuController.getInstance().getOthers().get(i);
+            configCell(item,false);
+
+        }
+
+    }
+
+    private void configCell(MenuItem item, boolean isLast){
+
+        View cell = getLayoutInflater().inflate(R.layout.lateralmenucell, null);
+        ((RobotoTextView)cell.findViewById(R.id.menucelltextview)).setText(item.getTextView());
+        ((ImageView)cell.findViewById(R.id.menucellimage)).setBackgroundResource(item.getImageid());
+        if (isLast) cell.findViewById(R.id.image_separator).setVisibility(View.INVISIBLE);
+        menuItemsLayout.addView(cell);
+    }
+
 
 
 

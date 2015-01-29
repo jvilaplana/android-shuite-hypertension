@@ -1,32 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<RelativeLayout  xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="@dimen/menu_separation"
+    >
+
+<LinearLayout
+    android:id="@+id/linearimagetext"
     android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/graymenucell">
+    android:gravity="center_vertical"
+    android:layout_toLeftOf="@+id/image_next"
+    android:background="@color/graymenucell"
+    >
+      <ImageView
+          android:id="@+id/menucellimage"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginLeft="10dp"
+          android:layout_marginRight="10dp"
+          android:layout_gravity="center_vertical"
+       />
 
-    <ImageView
-        android:id="@+id/menucellimage"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/bplogo_menu_padding"
-        android:layout_marginLeft="@dimen/bplogo_menu_padding_lateral"
-     />
+      <com.android.bpcontrol.customViews.RobotoTextView
+          android:id="@+id/menucelltextview"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_gravity="center_vertical"
+          android:gravity="center"
+          android:textSize="19sp"
+          android:maxLines="2"
+          android:textColor="@color/menutext"
+          />
 
-    <com.android.bpcontrol.customViews.RobotoTextView
-        android:id="@+id/menucelltextview"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:textColor="@android:color/holo_blue_dark"
-        />
+  </LinearLayout>
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/ic_action_next"
+      <ImageView
+      android:id="@+id/image_next"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_centerVertical="true"
+      android:layout_alignParentRight="true"
+      android:background="@drawable/ic_action_next"
+      />
 
-        />
+     <ImageView
+    android:id="@+id/image_separator"
+    android:layout_below="@+id/linearimagetext"
+    android:layout_width="match_parent"
+    android:layout_height="1dp"
+    android:layout_marginTop="@dimen/menu_separation"
+    android:background="@color/menuseparator"
+    />
 
-
-</LinearLayout>
+</RelativeLayout>
