@@ -17,10 +17,13 @@ public class SplashActivity extends BPcontrolMasterActivity {
         getActionBar().hide();
 
         Handler handler = new Handler();
+
+
+
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                startActivity(new Intent(SplashActivity.this,HomeActivity.class));
+                startActivity(new Intent(SplashActivity.this,InitActivity.class));
                 finish();
             }
         },2000);

@@ -1,5 +1,6 @@
 package com.android.bpcontrol.application;
 
+import android.content.Context;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
@@ -67,5 +68,9 @@ public class BPcontrolMasterActivity extends FragmentActivity {
     protected View getActionBarView(){
 
         return getActionBar().getCustomView();
+    }
+
+    protected String getDefaultSharedPreferencesName(Context context) {
+        return context.getPackageName() + "_preferences";
     }
 }
