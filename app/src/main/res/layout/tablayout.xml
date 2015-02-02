@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/tabpanel"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@color/graybp"  >
+
+      <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_weight="1"
+          android:tag="1"
+          android:onClick="onClickTabListener"
+          android:background="@android:color/transparent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+        >
+
+            <ImageView
+                android:id="@+id/tab1"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/tabselected"
+                android:background="@android:color/darker_gray"
+                android:layout_marginTop="@dimen/tabselectedmargintop"
+                android:layout_marginRight="@dimen/tabselectedmarginlateral"
+                android:layout_marginLeft="@dimen/tabselectedmarginlateral"
+                />
+
+
+            <ImageView
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:background="@drawable/ic_action_home_tab"
+               android:layout_marginBottom="@dimen/tabmargin"
+               android:layout_marginTop="@dimen/tabmargintop"
+               android:layout_gravity="center_horizontal"/>
+
+         </LinearLayout>
+      </LinearLayout>
+
+    <ImageView
+        android:layout_width="2dp"
+        android:layout_height="match_parent"
+        android:background="@color/menuseparator"
+        android:layout_marginBottom="@dimen/tabmargin"
+        android:layout_marginTop="@dimen/tabmargin"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:tag="2"
+        android:onClick="onClickTabListener"
+        android:background="@android:color/transparent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/tab2"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/tabselected"
+                android:background="@color/graybp"
+                android:layout_marginTop="@dimen/tabselectedmargintop"
+                android:layout_marginRight="@dimen/tabselectedmarginlateral"
+                android:layout_marginLeft="@dimen/tabselectedmarginlateral"
+                />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/tabmargin"
+                android:layout_marginTop="@dimen/tabmargintop"
+                android:background="@drawable/ic_action_location_tab"
+                android:layout_gravity="center_horizontal"
+                />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <ImageView
+        android:layout_width="2dp"
+        android:layout_height="match_parent"
+        android:background="@color/menuseparator"
+        android:layout_marginBottom="@dimen/tabmargin"
+        android:layout_marginTop="@dimen/tabmargin"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:tag="3"
+        android:onClick="onClickTabListener"
+        android:background="@android:color/transparent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+            <ImageView
+                android:id="@+id/tab3"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/tabselected"
+                android:background="@color/graybp"
+                android:layout_marginTop="@dimen/tabselectedmargintop"
+                android:layout_marginRight="@dimen/tabselectedmarginlateral"
+                android:layout_marginLeft="@dimen/tabselectedmarginlateral"
+                />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/ic_action_help_tab"
+                android:layout_marginBottom="@dimen/tabmargin"
+                android:layout_marginTop="@dimen/tabmargintop"
+                android:layout_gravity="center_horizontal"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

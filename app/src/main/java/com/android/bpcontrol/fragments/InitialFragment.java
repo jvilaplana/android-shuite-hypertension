@@ -1,92 +1,102 @@
-package com.android.bpcontrol;
+package com.android.bpcontrol.fragments;
 
-
+import android.content.Context;
 import android.os.Bundle;
-
+import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.util.DisplayMetrics;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
-import com.android.bpcontrol.application.BPcontrolMasterActivity;
+import com.android.bpcontrol.R;
 import com.android.bpcontrol.utils.LogBP;
 
 /**
- * Created by Adrian on 31/01/2015.
+ * Created by Adrian on 02/02/2015.
  */
-public class InitActivity extends BPcontrolMasterActivity {
+public class InitialFragment extends Fragment {
 
-    private SlidingImages slidingThread ;
     private boolean inTop;
     private int currentImagePosition = 0;
+    private SlidingImages slidingThread;
+
+   public static InitialFragment getNewInstance(){
+
+       InitialFragment  initialFragment = new InitialFragment();
+       return initialFragment;
+   }
 
     @Override
-    public void onCreate(Bundle onInstanceState){
-        super.onCreate(onInstanceState);
-        setContentView(R.layout.initactivitylayout);
-        View view = getActionBarView();
-        view.findViewById(R.id.textviewbpcontrol).setVisibility(View.GONE);
-        view.findViewById(R.id.fakeInit).setVisibility(View.INVISIBLE);
-        view.findViewById(R.id.actionBarMenu).setVisibility(View.INVISIBLE);
-        view.findViewById(R.id.imageinit).setVisibility(View.VISIBLE);
-
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        super.onCreateView(inflater, container, savedInstanceState);
+        return inflater.inflate(R.layout.initialfragmentlayout, null);
 
     }
 
     @Override
-    protected void onResume() {
+    public void onResume() {
         super.onResume();
         inTop = true;
-        slidingThread =  new SlidingImages((ImageView)findViewById(R.id.slidingImage),currentImagePosition);
+        slidingThread =  new SlidingImages((ImageView)getActivity().findViewById(R.id.slidingImage),currentImagePosition);
         slidingThread.start();
-
     }
 
+
     @Override
-    protected void onPause() {
+    public void onPause() {
         super.onPause();
         inTop = false;
-        try {
-            slidingThread.join();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+//        try {
+//            slidingThread.join();
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
         currentImagePosition = slidingThread.getCounter();
-        LogBP.writelog(slidingThread.getCounter()+"");
+        LogBP.writelog(slidingThread.getCounter() + "");
     }
 
+
     @Override
-    protected void onStop() {
+    public void onStop() {
         super.onStop();
         inTop = false;
-        try {
-            slidingThread.join();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+//        try {
+//            slidingThread.join();
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
         currentImagePosition = slidingThread.getCounter();
         LogBP.writelog(slidingThread.getCounter()+"");
 
     }
 
     @Override
-    protected void onDestroy() {
+    public void onDestroy() {
         super.onDestroy();
         inTop = false;
-        try {
-            slidingThread.join();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+//        try {
+//            slidingThread.join();
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
+    }
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
     }
 
     private class SlidingImages extends Thread {
 
         private int counter = 0;
         private final int[] slidingImages = {R.drawable.foto00, R.drawable.foto22,R.drawable.foto33,
-                                             R.drawable.foto44, R.drawable.smaria3,R.drawable.arnau3};
+                R.drawable.foto44, R.drawable.smaria3,R.drawable.arnau3};
         private ImageView image;
 
         public SlidingImages(ImageView image, int currentImagePosition) {
@@ -101,11 +111,10 @@ public class InitActivity extends BPcontrolMasterActivity {
 
         private void addDimensions() {
 
-            DisplayMetrics displayMetrics = InitActivity.this.getResources().getDisplayMetrics();
+            DisplayMetrics displayMetrics = getActivity().getResources().getDisplayMetrics();
 
             float dpHeight = displayMetrics.heightPixels / displayMetrics.density;
             float dpWidth = displayMetrics.widthPixels / displayMetrics.density;
-
 
             float imagensizeHeight = (dpHeight *300) / 592;
             float imagensizeWidth = (dpWidth * 300) / 360;
@@ -115,7 +124,6 @@ public class InitActivity extends BPcontrolMasterActivity {
             RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams)image.getLayoutParams();
             params.setMargins((int)(30*displayMetrics.density),(int)(25*displayMetrics.density),(int)(30*displayMetrics.density),0);
             image.setLayoutParams(params);
-
         }
 
         @Override
@@ -125,7 +133,7 @@ public class InitActivity extends BPcontrolMasterActivity {
                     counter = 0;
                 }
                 try {
-                    runOnUiThread(new Runnable() {
+                    getActivity().runOnUiThread(new Runnable() {
 
                         @Override
                         public void run() {
@@ -146,9 +154,8 @@ public class InitActivity extends BPcontrolMasterActivity {
 
         private void addAnimation(){
 
-            final Animation anim = AnimationUtils.loadAnimation(InitActivity.this,R.anim.fade_in);
+            final Animation anim = AnimationUtils.loadAnimation(getActivity(), R.anim.fade_in);
             image.setAnimation(anim);
-
         }
     }
 

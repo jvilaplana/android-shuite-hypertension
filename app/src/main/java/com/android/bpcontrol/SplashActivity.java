@@ -1,6 +1,5 @@
 package com.android.bpcontrol;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -23,7 +22,7 @@ public class SplashActivity extends BPcontrolMasterActivity {
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                startActivity(new Intent(SplashActivity.this,InitActivity.class));
+                startActivity(new Intent(SplashActivity.this,InitialActivity.class));
                 finish();
             }
         },2000);

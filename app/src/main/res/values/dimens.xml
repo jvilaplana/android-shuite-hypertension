@@ -22,4 +22,10 @@
     <dimen name="bplogo_menu_padding_lateral">30dp</dimen>
     <dimen name="menu_separation">15dp</dimen>
 
+    <!--INITIAL ACTIVITY-->
+    <dimen name="tabmargin">10dp</dimen>
+    <dimen name="tabmargintop">15dp</dimen>
+    <dimen name="tabselected">10dp</dimen>
+    <dimen name="tabselectedmarginlateral">4dp</dimen>
+    <dimen name="tabselectedmargintop">4dp</dimen>
     </resources>
