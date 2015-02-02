@@ -12,4 +12,10 @@
         android:layout_height="300dp"
     />
 
+
+    <!--<ImageButton-->
+        <!--android:id="@+id/patientAreaButton"-->
+        <!--android:layout_width=""-->
+        <!--android:layout_height="" />-->
+
 </RelativeLayout>
