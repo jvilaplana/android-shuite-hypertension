@@ -18,15 +18,24 @@
     <string name="menusection_help">Help</string>
     <string name="menuperfil">Perfil</string>
     <string name="menuothersitem">Attributions</string>
+
     <!--MENU ITEMS - HEADERS-->
     <string name="menuheadersection">Sections</string>
     <string name="menuheadersocial">Social</string>
     <string name="menuheaderothers">Others</string>
 
     <!--SECTIONS ACTION BAR NAME-->
-
     <string name="principalmenutext">Principal Menu</string>
 
+    <!--TAB MENU NAME-->
+    <string name="hometab">Start</string>
+    <string name="centerstab">Centers</string>
+    <string name="helptab">Help</string>
+    <string name="registerAccess">Patient Area Access</string>
+
+    <!--SendTLFRegister-->
+    <string name="infosendregistertlf">Please, confirm the prefix of your country and enter your phone number.</string>
+    <string name="sendtlfregisterheader">REGISTER - STEP 1</string>
 
 
 </resources>

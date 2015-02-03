@@ -24,8 +24,20 @@
 
     <!--INITIAL ACTIVITY-->
     <dimen name="tabmargin">10dp</dimen>
-    <dimen name="tabmargintop">15dp</dimen>
+    <dimen name="tabmargintop">10dp</dimen>
     <dimen name="tabselected">10dp</dimen>
     <dimen name="tabselectedmarginlateral">4dp</dimen>
     <dimen name="tabselectedmargintop">4dp</dimen>
+
+    <!--TAB DIMENS-->
+    <dimen name="tabtextsize">16sp</dimen>
+    <dimen name="patientAreaButton">35dp</dimen>
+
+    <!--SendTLFRegister-->
+
+    <dimen name="marginTopEdittextRegister">50dp</dimen>
+    <dimen name="marginTopForActionbar">40dp</dimen>
+    <dimen name="infotextsize">18sp</dimen>
+    <dimen name="marginleft">25dp</dimen>
+    <dimen name="telephonetextsize">22sp</dimen>
     </resources>

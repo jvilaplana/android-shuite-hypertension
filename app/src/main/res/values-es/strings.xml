@@ -28,6 +28,16 @@
     <!--SECTIONS ACTION BAR NAME-->
     <string name="principalmenutext">Menú Principal</string>
 
+    <!--TAB MENU NAME-->
+    <string name="hometab">Inicio</string>
+    <string name="centerstab">Centros</string>
+    <string name="helptab">Ayuda</string>
+    <string name="registerAccess">Acceso al area de pacientes</string>
+
+    <!--SendTLFRegister-->
+    <string name="infosendregistertlf">Por favor, confirme el prefijo de su país e introduzca su numero de teléfono</string>
+    <string name="sendtlfregisterheader">REGISTRO - PASO 1</string>
+
 
 
 </resources>

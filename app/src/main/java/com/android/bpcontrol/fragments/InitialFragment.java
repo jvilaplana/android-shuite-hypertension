@@ -1,6 +1,7 @@
 package com.android.bpcontrol.fragments;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -10,10 +11,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
 import com.android.bpcontrol.R;
+import com.android.bpcontrol.SendTlfRegister;
 import com.android.bpcontrol.utils.LogBP;
 
 /**
@@ -24,6 +27,7 @@ public class InitialFragment extends Fragment {
     private boolean inTop;
     private int currentImagePosition = 0;
     private SlidingImages slidingThread;
+    private Button patientAccess;
 
    public static InitialFragment getNewInstance(){
 
@@ -34,7 +38,9 @@ public class InitialFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
-        return inflater.inflate(R.layout.initialfragmentlayout, null);
+        View view = inflater.inflate(R.layout.initialfragmentlayout, null);
+        patientAccess = (Button) view.findViewById(R.id.patientAreaAccess);
+        return view;
 
     }
 
@@ -51,11 +57,6 @@ public class InitialFragment extends Fragment {
     public void onPause() {
         super.onPause();
         inTop = false;
-//        try {
-//            slidingThread.join();
-//        } catch (InterruptedException e) {
-//            e.printStackTrace();
-//        }
         currentImagePosition = slidingThread.getCounter();
         LogBP.writelog(slidingThread.getCounter() + "");
     }
@@ -65,11 +66,6 @@ public class InitialFragment extends Fragment {
     public void onStop() {
         super.onStop();
         inTop = false;
-//        try {
-//            slidingThread.join();
-//        } catch (InterruptedException e) {
-//            e.printStackTrace();
-//        }
         currentImagePosition = slidingThread.getCounter();
         LogBP.writelog(slidingThread.getCounter()+"");
 
@@ -79,16 +75,18 @@ public class InitialFragment extends Fragment {
     public void onDestroy() {
         super.onDestroy();
         inTop = false;
-//        try {
-//            slidingThread.join();
-//        } catch (InterruptedException e) {
-//            e.printStackTrace();
-//        }
     }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        patientAccess.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getActivity(), SendTlfRegister.class));
+            }
+        });
 
     }
 

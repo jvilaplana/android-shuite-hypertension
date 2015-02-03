@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.os.Handler;
 
 import com.android.bpcontrol.application.BPcontrolMasterActivity;
+import com.android.bpcontrol.fragments.InitialFragment;
 
 
 public class SplashActivity extends BPcontrolMasterActivity {
@@ -16,8 +17,6 @@ public class SplashActivity extends BPcontrolMasterActivity {
         getActionBar().hide();
 
         Handler handler = new Handler();
-
-
 
         handler.postDelayed(new Runnable() {
             @Override

@@ -11,4 +11,14 @@
         android:layout_width="300dp"
         android:layout_height="300dp"
         />
+
+    <Button
+        android:id="@+id/patientAreaAccess"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/slidingImage"
+        style="@style/patientAreaButtonStyle"
+        android:text="@string/registerAccess"
+        android:layout_centerHorizontal="true"
+        />
 </RelativeLayout>

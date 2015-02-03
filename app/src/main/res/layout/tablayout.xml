@@ -42,7 +42,17 @@
                android:layout_marginTop="@dimen/tabmargintop"
                android:layout_gravity="center_horizontal"/>
 
-         </LinearLayout>
+            <com.android.bpcontrol.customViews.RobotoTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/tabmargin"
+                android:text="@string/hometab"
+                android:textSize="@dimen/tabtextsize"
+                android:textColor="@color/menutext"
+                android:gravity="center"/>
+
+
+        </LinearLayout>
       </LinearLayout>
 
     <ImageView
@@ -78,11 +88,19 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/tabmargin"
                 android:layout_marginTop="@dimen/tabmargintop"
                 android:background="@drawable/ic_action_location_tab"
                 android:layout_gravity="center_horizontal"
-                />
+            />
+
+            <com.android.bpcontrol.customViews.RobotoTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/tabmargin"
+                android:text="@string/centerstab"
+                android:textColor="@color/menutext"
+                android:textSize="@dimen/tabtextsize"
+                android:gravity="center"/>
 
         </LinearLayout>
 
@@ -92,7 +110,6 @@
         android:layout_width="2dp"
         android:layout_height="match_parent"
         android:background="@color/menuseparator"
-        android:layout_marginBottom="@dimen/tabmargin"
         android:layout_marginTop="@dimen/tabmargin"/>
     <LinearLayout
         android:layout_width="match_parent"
@@ -122,9 +139,19 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/ic_action_help_tab"
-                android:layout_marginBottom="@dimen/tabmargin"
                 android:layout_marginTop="@dimen/tabmargintop"
+                android:layout_marginBottom="@dimen/tabmargin"
                 android:layout_gravity="center_horizontal"/>
+
+            <com.android.bpcontrol.customViews.RobotoTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/tabmargin"
+                android:text="@string/helptab"
+                android:textColor="@color/menutext"
+                android:textSize="@dimen/tabtextsize"
+                android:gravity="center"/>
+
 
         </LinearLayout>
 
