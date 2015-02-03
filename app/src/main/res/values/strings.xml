@@ -35,7 +35,8 @@
 
     <!--SendTLFRegister-->
     <string name="infosendregistertlf">Please, confirm the prefix of your country and enter your phone number.</string>
-    <string name="sendtlfregisterheader">REGISTER - STEP 1</string>
+    <string name="sendtlfregisterheader">REGISTER</string>
+    <string name="sendphonenumber">    Send    </string>
 
 
 </resources>

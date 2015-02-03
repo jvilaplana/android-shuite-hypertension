@@ -36,7 +36,8 @@
 
     <!--SendTLFRegister-->
     <string name="infosendregistertlf">Por favor, confirme el prefijo de su país e introduzca su numero de teléfono</string>
-    <string name="sendtlfregisterheader">REGISTRO - PASO 1</string>
+    <string name="sendtlfregisterheader">REGISTRO</string>
+    <string name="sendphonenumber">Enviar</string>
 
 
 

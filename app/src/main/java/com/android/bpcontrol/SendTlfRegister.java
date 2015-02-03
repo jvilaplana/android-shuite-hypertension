@@ -2,6 +2,7 @@ package com.android.bpcontrol;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 
 import com.android.bpcontrol.application.BPcontrolMasterActivity;
@@ -19,6 +20,15 @@ public class SendTlfRegister extends BPcontrolMasterActivity {
         setContentView(R.layout.sendtlfregisterayout);
 
         configureActionBar();
+
+        Button button = (Button) findViewById(R.id.accesToSMScode);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
 
 
 
