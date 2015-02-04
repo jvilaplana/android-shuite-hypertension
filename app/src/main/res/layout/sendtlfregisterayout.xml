@@ -17,6 +17,7 @@
         android:layout_gravity="center_horizontal"/>
 
     <LinearLayout
+        android:id="@+id/edittextlinearlayout"
         android:layout_below="@+id/infomessageregister"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -51,5 +52,17 @@
             />
 
         </LinearLayout>
+
+
+        <Button
+            android:id="@+id/accesToSMScode"
+            android:layout_below="@+id/edittextlinearlayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/marginTopEdittextRegister"
+            style="@style/patientAreaButtonStyle"
+            android:text="@string/sendphonenumber"
+            android:layout_centerHorizontal="true"
+        />
 
 </RelativeLayout>
