@@ -4,6 +4,8 @@
 
     <uses-sdk android:minSdkVersion="14"/>
 
+    <uses-permission android:name="android.permission.INTERNET"/>
+
     <application
         android:allowBackup="true"
         android:icon="@drawable/bpcontrol_iclauncher"
@@ -39,6 +41,11 @@
 
         </activity>
 
+        <activity android:name=".SMSCodeActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait">
+
+        </activity>
 
 
     </application>

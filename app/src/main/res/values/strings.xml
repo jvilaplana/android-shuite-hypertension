@@ -35,8 +35,10 @@
 
     <!--SendTLFRegister-->
     <string name="infosendregistertlf">Please, confirm the prefix of your country and enter your phone number.</string>
-    <string name="sendtlfregisterheader">REGISTER</string>
-    <string name="sendphonenumber">    Send    </string>
-
+    <string name="sendtlfregisterheader">REGISTER - STEP 1</string>
+    <string name="sendcoderegisterheader">REGISTER - STEP 2</string>
+    <string name="sendphonenumber">Send</string>
+    <string name="entercodemessage">If the entered number is correct , before long you will receive an SMS with the code on your device. Enter it.</string>
+    <string name="codeToHomeButton">Register</string>
 
 </resources>

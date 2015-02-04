@@ -34,11 +34,13 @@
     <string name="helptab">Ayuda</string>
     <string name="registerAccess">Acceso al area de pacientes</string>
 
-    <!--SendTLFRegister-->
+    <!--SendTLFRegister and SMSCodeActivity-->
     <string name="infosendregistertlf">Por favor, confirme el prefijo de su país e introduzca su numero de teléfono</string>
-    <string name="sendtlfregisterheader">REGISTRO</string>
+    <string name="sendtlfregisterheader">REGISTRO - PASO 1</string>
+    <string name="sendcoderegisterheader">REGISTRO - PASO 2</string>
     <string name="sendphonenumber">Enviar</string>
-
+    <string name="entercodemessage">Si el numero introducido es correcto, en poco tiempo recibirá un SMS con el código en su dispositivo. Introduzcalo.</string>
+    <string name="codeToHomeButton">Registrarse</string>
 
 
 </resources>

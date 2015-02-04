@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+ <com.android.bpcontrol.customViews.RobotoTextView
+    android:id="@+id/informessagecoderegister"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/marginTopForActionbar"
+    android:gravity="center"
+    android:tag="RobotoBold"
+    android:text="@string/entercodemessage"
+    android:textColor="@color/menutext"
+    android:textSize="@dimen/infotextsize"
+    android:layout_gravity="center_horizontal"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/informessagecoderegister"
+        android:layout_marginTop="@dimen/marginTopEdittextRegister"
+        android:id="@+id/linearedittextcode"
+        android:orientation="horizontal"
+        android:gravity="center">
+
+    <com.android.bpcontrol.customViews.BPEditText
+        android:id="@+id/codeedittext"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/menutext"
+        android:minEms="6"
+        android:textSize="@dimen/telephonetextsize"
+        android:maxLength="9"
+        android:layout_gravity="center_horizontal"
+        android:inputType="number"
+
+        />
+     </LinearLayout>
+    <Button
+        android:id="@+id/accesToHome"
+        android:layout_below="@+id/linearedittextcode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/marginTopEdittextRegister"
+        style="@style/patientAreaButtonStyle"
+        android:text="@string/codeToHomeButton"
+        android:layout_centerHorizontal="true"
+        />
+
+</RelativeLayout>
