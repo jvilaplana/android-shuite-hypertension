@@ -1,5 +1,7 @@
 package com.android.bpcontrol;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -32,15 +34,35 @@ public class SendTlfRegister extends BPcontrolMasterActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                WSManager.getInstance().sendPhoneNumber(SendTlfRegister.this,editPrefix.getText().toString(),editNumber.getText().toString(), new WSManager.SendPhoneNumber() {
-                    @Override
-                    public void onRegisterPhone() {
 
-                        LogBP.writelog("Callback response WS in activity");
-                        startActivity(new Intent(SendTlfRegister.this, SMSCodeActivity.class));
+                if (editNumber.length() == 9 && editPrefix.length() == 2){
+                    showProgressDialog();
+                    WSManager.getInstance().sendPhoneNumber(SendTlfRegister.this,editPrefix.getText().toString(),editNumber.getText().toString(), new WSManager.SendPhoneNumber() {
+                        @Override
+                        public void onRegisterPhone() {
 
-                    }
-                });
+                            //LogBP.writelog("Callback response WS in activity");
+                            dissmissProgressDialog();
+                            startActivity(new Intent(SendTlfRegister.this, SMSCodeActivity.class));
+
+
+                        }
+                    });
+
+                }else{
+
+                    final AlertDialog.Builder alertDialog = new AlertDialog.Builder(SendTlfRegister.this);
+                                                            alertDialog.setMessage(getResources().getString(R.string.errorprefixnumber));
+                                                            alertDialog.setCancelable(false);
+                                                            alertDialog.setPositiveButton(getResources().getString(R.string.acceptError), new DialogInterface.OnClickListener() {
+                                                                @Override
+                                                                public void onClick(DialogInterface dialog, int which) {
+
+                                                                }
+                                                            });
+                    alertDialog.show();
+                }
+
 
             }
         });

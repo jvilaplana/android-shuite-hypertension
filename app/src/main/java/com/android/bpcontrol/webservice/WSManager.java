@@ -29,7 +29,7 @@ public class WSManager {
         return instance;
     }
 
-    public static interface BPcontrolApiCallback extends EventListener{
+    public static interface BPcontrolApiCallback extends EventListener {
 
         public void onSuccess(String jsonResponse);
         public void onFailure(Exception e);

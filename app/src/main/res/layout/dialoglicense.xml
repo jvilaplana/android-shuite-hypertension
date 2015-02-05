@@ -1,6 +1,79 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <com.android.bpcontrol.customViews.RobotoTextView
+    android:id="@+id/licenseheader"
+    android:layout_marginTop="40dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:textColor="@color/menutext"
+    android:text="@string/licenseheader"
+    android:textSize="@dimen/licenseheadertext"/>
+
+
+    <LinearLayout
+        android:id="@+id/licenseButtons"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:layout_alignParentBottom="true"
+
+        >
+
+    <Button
+        android:id="@+id/licenseCancel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/patientAreaButtonStyle"
+        android:layout_marginTop="25dp"
+        android:layout_marginRight="30dp"
+        android:text="@string/licenseButtonCancel"
+        android:layout_marginBottom="15dp"
+        />
+
+
+    <Button
+        android:id="@+id/licenseAccept"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/patientAreaButtonStyle"
+        android:text="@string/licenseButtonAccept"
+        android:layout_marginTop="25dp"
+        android:layout_marginBottom="15dp"
+        />
+
+    </LinearLayout>
+
+<LinearLayout
+    android:id="@+id/scrollviewlicense"
+    android:layout_width="match_parent"
+    android:layout_below="@id/licenseheader"
+    android:layout_above="@+id/licenseButtons"
+    android:layout_marginTop="15dp"
+    android:orientation="vertical"
+    android:layout_height="wrap_content">
+
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+
+    <com.android.bpcontrol.customViews.RobotoTextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/license"
+        android:textSize="@dimen/licenseheadertext"/>
+
+</ScrollView>
+
+
 </LinearLayout>
+
+
+
+
+
+</RelativeLayout>

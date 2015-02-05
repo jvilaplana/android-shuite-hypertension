@@ -40,4 +40,7 @@
     <dimen name="infotextsize">20sp</dimen>
     <dimen name="marginleft">25dp</dimen>
     <dimen name="telephonetextsize">22sp</dimen>
+    <dimen name="licenseheadertext">16sp</dimen>
+    <dimen name="licensemargintop">25sp</dimen>
+    <dimen name="licensemarginbottom">50dp</dimen>
     </resources>
