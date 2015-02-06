@@ -34,7 +34,6 @@
         android:textSize="@dimen/telephonetextsize"
         android:maxLength="9"
         android:layout_gravity="center_horizontal"
-        android:inputType="number"
 
         />
      </LinearLayout>

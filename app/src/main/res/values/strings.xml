@@ -34,11 +34,11 @@
     <string name="registerAccess">Patient Area Access</string>
 
     <!--SendTLFRegister-->
-    <string name="infosendregistertlf">Please, confirm the prefix of your country and enter your phone number.</string>
+    <string name="infosendregistertlf">Confirm the prefix of your country and enter your phone number.</string>
     <string name="sendtlfregisterheader">REGISTER - STEP 1</string>
     <string name="sendcoderegisterheader">REGISTER - STEP 2</string>
     <string name="sendphonenumber">Send</string>
-    <string name="errorprefixnumber">The number or code entered is incorrect</string>
+    <string name="errorprefixnumber">The number or prefix entered is incorrect</string>
     <string name="acceptError">OK</string>
     <string name="entercodemessage">If the entered number is correct , before long you will receive an SMS with the code on your device. Enter it.</string>
     <string name="codeToHomeButton">Register</string>
@@ -46,5 +46,7 @@
     <string name="license">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend tellus. Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim. Aliquam lorem ante, dapibus in, viverra quis, feugiat a, tellus. Phasellus viverra nulla ut metus varius laoreet. Quisque rutrum. Aenean imperdiet. Etiam ultricies nisi vel augue. Curabitur ullamcorper ultricies nisi. Nam eget dui. Etiam rhoncus. Maecenas tempus, tellus eget condimentum rhoncus, sem quam semper libero, sit amet adipiscing sem neque sed ipsum. Nam quam nunc, blandit vel, luctus pulvinar, hendrerit id, lorem. Maecenas nec odio et ante tincidunt tempus. Donec vitae sapien ut libero venenatis faucibus. Nullam quis ante. Etiam sit amet orci eget eros faucibus tincidunt. Duis leo. Sed fringilla mauris sit amet nibh. Donec sodales sagittis magna. Sed consequat, leo eget bibendum sodales, augue velit cursus nunc,</string>
     <string name="licenseButtonAccept">Accept</string>
     <string name="licenseButtonCancel">Cancel</string>
+    <string name="codeError">This code does not correspond to the phone number entered previously. Ensure that the phone number and code are correct.</string>
+    <string name="codeLengthError">The code is incorrect. This has to have a length of 4 letters or numbers.</string>
 
 </resources>

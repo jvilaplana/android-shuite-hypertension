@@ -1,6 +1,5 @@
 package com.android.bpcontrol.fragments;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -16,7 +15,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
 import com.android.bpcontrol.R;
-import com.android.bpcontrol.SendTlfRegister;
+import com.android.bpcontrol.SendTlfRegisterActivity;
 import com.android.bpcontrol.utils.LogBP;
 
 /**
@@ -84,7 +83,7 @@ public class InitialFragment extends Fragment {
         patientAccess.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getActivity(), SendTlfRegister.class));
+                startActivity(new Intent(getActivity(), SendTlfRegisterActivity.class));
             }
         });
 

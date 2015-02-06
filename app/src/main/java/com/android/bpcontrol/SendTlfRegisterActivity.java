@@ -11,13 +11,16 @@ import android.widget.ImageView;
 import com.android.bpcontrol.application.BPcontrolMasterActivity;
 import com.android.bpcontrol.customViews.BPEditText;
 import com.android.bpcontrol.customViews.RobotoTextView;
-import com.android.bpcontrol.utils.LogBP;
 import com.android.bpcontrol.webservice.WSManager;
 
 /**
  * Created by Adrian Carrera on 03/02/2015.
  */
-public class SendTlfRegister extends BPcontrolMasterActivity {
+public class SendTlfRegisterActivity extends BPcontrolMasterActivity {
+
+    public static String INTENTKEY_TLFNUMBER = "phonenumber";
+    public static String INTENTKEY_TLFPREFIX= "phoneprefix";
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -37,13 +40,16 @@ public class SendTlfRegister extends BPcontrolMasterActivity {
 
                 if (editNumber.length() == 9 && editPrefix.length() == 2){
                     showProgressDialog();
-                    WSManager.getInstance().sendPhoneNumber(SendTlfRegister.this,editPrefix.getText().toString(),editNumber.getText().toString(), new WSManager.SendPhoneNumber() {
+                    WSManager.getInstance().sendPhoneNumber(SendTlfRegisterActivity.this,editPrefix.getText().toString(),editNumber.getText().toString(), new WSManager.SendPhoneNumber() {
                         @Override
                         public void onRegisterPhone() {
 
                             //LogBP.writelog("Callback response WS in activity");
                             dissmissProgressDialog();
-                            startActivity(new Intent(SendTlfRegister.this, SMSCodeActivity.class));
+                            Intent intent = (new Intent(SendTlfRegisterActivity.this, SMSCodeActivity.class));
+                            intent.putExtra(INTENTKEY_TLFPREFIX,editPrefix.getText().toString());
+                            intent.putExtra(INTENTKEY_TLFNUMBER,editNumber.getText().toString());
+                            startActivity(intent);
 
 
                         }
@@ -51,7 +57,7 @@ public class SendTlfRegister extends BPcontrolMasterActivity {
 
                 }else{
 
-                    final AlertDialog.Builder alertDialog = new AlertDialog.Builder(SendTlfRegister.this);
+                    final AlertDialog.Builder alertDialog = new AlertDialog.Builder(SendTlfRegisterActivity.this);
                                                             alertDialog.setMessage(getResources().getString(R.string.errorprefixnumber));
                                                             alertDialog.setCancelable(false);
                                                             alertDialog.setPositiveButton(getResources().getString(R.string.acceptError), new DialogInterface.OnClickListener() {
