@@ -5,9 +5,9 @@
     android:layout_height="match_parent">
 
     <ImageView
+        android:id="@+id/prueba2"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:background="@drawable/perfil"
         android:layout_gravity="center_vertical"
         android:layout_margin="20dp"
         />

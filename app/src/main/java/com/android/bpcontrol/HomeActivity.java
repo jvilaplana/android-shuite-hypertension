@@ -1,5 +1,6 @@
 package com.android.bpcontrol;
 
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -10,12 +11,14 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import com.android.bpcontrol.application.BPcontrolApplication;
 import com.android.bpcontrol.application.BPcontrolMasterActivity;
 import com.android.bpcontrol.controllers.HomeFragmentManager;
 import com.android.bpcontrol.controllers.LateralMenuController;
 import com.android.bpcontrol.customViews.RobotoTextView;
 import com.android.bpcontrol.fragments.HomeFragment;
 import com.android.bpcontrol.model.MenuItem;
+import com.android.bpcontrol.webservice.WSManager;
 
 /**
  * Created by Adrian Carrera on 22/1/15.
@@ -47,8 +50,6 @@ public class HomeActivity extends BPcontrolMasterActivity {
 
         HomeFragment homeFragment = HomeFragment.newInstance();
         loadFragment(homeFragment, false, false);
-
-
     }
 
     private void configureActionBar(){
@@ -119,6 +120,9 @@ public class HomeActivity extends BPcontrolMasterActivity {
 
         View cell = getLayoutInflater().inflate(R.layout.perfilmenulayout, null);
         MenuItem item = LateralMenuController.getInstance().getPerfil();
+        final String url = "http://app2.hesoftgroup.eu/hypertensionPatient/restDownloadProfileImage/a5683026-0f3b-4ea5-a129-0aec2c36c1eb";
+        ImageView image = (ImageView) cell.findViewById(R.id.prueba2);
+        ((BPcontrolApplication)getApplicationContext()).loadPerfilImageView(url,image,0);
         ((RobotoTextView) cell.findViewById(R.id.user_name)).setText(item.getTextView());
         menuItemsLayout.addView(cell);
 
@@ -264,6 +268,11 @@ public class HomeActivity extends BPcontrolMasterActivity {
 
         loadFragment(fragment, true, true);
 
+    }
+
+    public BPcontrolApplication getAppContext(){
+
+       return (BPcontrolApplication) getApplicationContext();
     }
 
 

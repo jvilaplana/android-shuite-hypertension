@@ -102,8 +102,6 @@ public class SMSCodeActivity extends BPcontrolMasterActivity{
             }
         });
         dialog.show();
-
-
     }
 
     private void checkEnteredCode(){

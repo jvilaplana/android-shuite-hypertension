@@ -1,7 +1,21 @@
 package com.android.bpcontrol.application;
 
 import android.app.Application;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Typeface;
+import android.graphics.drawable.BitmapDrawable;
+import android.view.View;
+import android.widget.ImageView;
+
+import com.nostra13.universalimageloader.cache.memory.impl.WeakMemoryCache;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
+import com.nostra13.universalimageloader.core.assist.FailReason;
+import com.nostra13.universalimageloader.core.assist.ImageScaleType;
+import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
+
 
 /**
  * Created by Adrian Carrera on 22/1/15.
@@ -20,7 +34,19 @@ public class BPcontrolApplication extends Application{
     @Override
     public void onCreate() {
         super.onCreate();
+
+        initImageLoader();
     }
+
+    private void initImageLoader() {
+        ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(this.getApplicationContext())
+                .defaultDisplayImageOptions(getImageOptions(0).build())
+                .memoryCache(new WeakMemoryCache())
+                .build();
+
+        ImageLoader.getInstance().init(config);
+    }
+
 
 
     public Typeface getTypeface(FontsTypeface type){
@@ -64,6 +90,92 @@ public class BPcontrolApplication extends Application{
             forteRegular = Typeface.createFromAsset(getAssets(),"Forte.ttf");
         }
         return forteRegular;
+    }
+
+    public void loadPerfilImageView(String url, final ImageView imageView, final int placeholder) {
+        BitmapDrawable drawable = null;
+        if (placeholder != 0){
+            drawable = (BitmapDrawable) this.getResources().getDrawable(placeholder);
+        }
+        final boolean[] imgDisplayed = {false};
+        final BitmapDrawable finalDrawable = drawable;
+        ImageLoader.getInstance().displayImage(url, imageView, new ImageLoadingListener() {
+            @Override
+            public void onLoadingStarted(String imageUri, final View view) {
+
+            }
+
+            @Override
+            public void onLoadingFailed(String imageUri, final View view, FailReason failReason) {
+
+            }
+
+            @Override
+            public void onLoadingComplete(String imageUri, final View view, final Bitmap loadedImage) {
+
+                    imgDisplayed[0] = true;
+                    imageView.setImageBitmap(loadedImage);
+            }
+
+            @Override
+            public void onLoadingCancelled(String imageUri, final View view) {
+
+            }
+        });
+    }
+
+    /**
+     * Preparamos la configuración de la librería para mostrar las imagenes desde una url
+     *
+     * @param defaultImg
+     * @return
+     */
+    public static DisplayImageOptions.Builder getImageOptions(int defaultImg) {
+        return getImageOptions(defaultImg, true);
+    }
+
+    public static DisplayImageOptions.Builder getImageOptions(int defaultImg, boolean usePlaceHolder) {
+
+
+        boolean cacheInMemory = true;
+        boolean cacheOnDisc = true;
+        boolean resetViewOnLoad = false;
+
+
+        BitmapFactory.Options resizeOptions = new BitmapFactory.Options();
+        resizeOptions.inScaled = true;
+
+
+        DisplayImageOptions.Builder builder = new DisplayImageOptions.Builder();
+        if (defaultImg != 0) {
+            builder
+                    .resetViewBeforeLoading(resetViewOnLoad)  // default
+                    .cacheInMemory(cacheInMemory) // default
+                    .cacheOnDisc(cacheOnDisc)
+                    .considerExifParams(true)
+                    .bitmapConfig(Bitmap.Config.RGB_565)
+                    .decodingOptions(resizeOptions)
+                    .imageScaleType(ImageScaleType.IN_SAMPLE_INT);
+
+            if (usePlaceHolder) {
+                builder.showImageOnLoading(defaultImg)
+                        .showImageForEmptyUri(defaultImg)
+                        .showImageOnFail(defaultImg);
+            }
+
+        } else {
+            builder
+                    .bitmapConfig(Bitmap.Config.RGB_565)
+                    .imageScaleType(ImageScaleType.IN_SAMPLE_INT)
+                    .cacheInMemory(cacheInMemory)
+                    .cacheOnDisc(cacheOnDisc)
+                    .resetViewBeforeLoading(resetViewOnLoad)
+                    .decodingOptions(resizeOptions)
+                    .considerExifParams(true);
+        }
+        return builder;
+
+
     }
 }
 
