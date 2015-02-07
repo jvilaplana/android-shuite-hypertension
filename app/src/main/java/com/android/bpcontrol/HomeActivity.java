@@ -1,6 +1,9 @@
 package com.android.bpcontrol;
 
+import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -18,6 +21,7 @@ import com.android.bpcontrol.controllers.LateralMenuController;
 import com.android.bpcontrol.customViews.RobotoTextView;
 import com.android.bpcontrol.fragments.HomeFragment;
 import com.android.bpcontrol.model.MenuItem;
+import com.android.bpcontrol.model.User;
 import com.android.bpcontrol.webservice.WSManager;
 
 /**
@@ -120,9 +124,9 @@ public class HomeActivity extends BPcontrolMasterActivity {
 
         View cell = getLayoutInflater().inflate(R.layout.perfilmenulayout, null);
         MenuItem item = LateralMenuController.getInstance().getPerfil();
-        final String url = "http://app2.hesoftgroup.eu/hypertensionPatient/restDownloadProfileImage/a5683026-0f3b-4ea5-a129-0aec2c36c1eb";
+
         ImageView image = (ImageView) cell.findViewById(R.id.prueba2);
-        ((BPcontrolApplication)getApplicationContext()).loadPerfilImageView(url,image,0);
+        getApplicationContext().loadPerfilImageView(User.getInstance().getUUID(),image);
         ((RobotoTextView) cell.findViewById(R.id.user_name)).setText(item.getTextView());
         menuItemsLayout.addView(cell);
 
@@ -202,10 +206,17 @@ public class HomeActivity extends BPcontrolMasterActivity {
             case HELP:
                 break;
             case FACEBOOK:
+                if(!isFacebookAppInstalled()){
+                    connectToSocialNetwork("https://www.facebook.com/");
+                }else{
+                    connectToApp("fb://profile/107718629298104");
+                }
                 break;
             case TWITTER:
+                connectToSocialNetwork("https://twitter.com/elgourmet");
                 break;
             case GOOGLEPLUS:
+                connectToSocialNetwork("https://plus.google.com/+elgourmet/posts");
                 break;
             case ATTRIBUTIONS:
                 break;
@@ -213,6 +224,8 @@ public class HomeActivity extends BPcontrolMasterActivity {
                 break;
 
         }
+
+        dwlayoutmenu.closeDrawer(menulayout);
     }
 
     private void loadFragment(Fragment fragment,boolean back, boolean display){
@@ -270,11 +283,28 @@ public class HomeActivity extends BPcontrolMasterActivity {
 
     }
 
-    public BPcontrolApplication getAppContext(){
 
-       return (BPcontrolApplication) getApplicationContext();
+    public void connectToSocialNetwork(final String url){
+
+        Intent i = new Intent(Intent.ACTION_VIEW);
+        i.setData(Uri.parse(url));
+        startActivity(i);
     }
 
+    public boolean isFacebookAppInstalled(){
+
+        try{
+            getPackageManager().getApplicationInfo("com.facebook.katana", 0);
+            return true;
+        }catch( PackageManager.NameNotFoundException e ){
+            return false;
+        }
+    }
+
+    public void connectToApp(final String uri){
+
+        startActivity(new Intent(Intent.ACTION_VIEW,Uri.parse(uri)));
+    }
 
    private class LateralMenuListeners implements DrawerLayout.DrawerListener{
 

@@ -70,7 +70,9 @@ public class BPcontrolMasterActivity extends FragmentActivity {
         return getActionBar().getCustomView();
     }
 
-    protected String getDefaultSharedPreferencesName(Context context) {
-        return context.getPackageName() + "_preferences";
+    @Override
+    public BPcontrolApplication getApplicationContext(){
+
+        return (BPcontrolApplication) super.getApplicationContext();
     }
 }

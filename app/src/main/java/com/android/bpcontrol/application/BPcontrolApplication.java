@@ -92,13 +92,11 @@ public class BPcontrolApplication extends Application{
         return forteRegular;
     }
 
-    public void loadPerfilImageView(String url, final ImageView imageView, final int placeholder) {
-        BitmapDrawable drawable = null;
-        if (placeholder != 0){
-            drawable = (BitmapDrawable) this.getResources().getDrawable(placeholder);
-        }
+    public void loadPerfilImageView(String uuid, final ImageView imageView) {
+
+        final String url = "http://app2.hesoftgroup.eu/hypertensionPatient/restDownloadProfileImage/a5683026-0f3b-4ea5-a129-0aec2c36c1eb";
         final boolean[] imgDisplayed = {false};
-        final BitmapDrawable finalDrawable = drawable;
+
         ImageLoader.getInstance().displayImage(url, imageView, new ImageLoadingListener() {
             @Override
             public void onLoadingStarted(String imageUri, final View view) {
@@ -124,12 +122,6 @@ public class BPcontrolApplication extends Application{
         });
     }
 
-    /**
-     * Preparamos la configuración de la librería para mostrar las imagenes desde una url
-     *
-     * @param defaultImg
-     * @return
-     */
     public static DisplayImageOptions.Builder getImageOptions(int defaultImg) {
         return getImageOptions(defaultImg, true);
     }
