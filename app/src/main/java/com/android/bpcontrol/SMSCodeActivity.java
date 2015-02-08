@@ -137,11 +137,13 @@ public class SMSCodeActivity extends BPcontrolMasterActivity{
            public void onClick(View v) {
                dialog.dismiss();
 
-               SharedPreferences sharedPreferences = SMSCodeActivity.this
+               final SharedPreferences sharedPreferences = SMSCodeActivity.this
                        .getSharedPreferences(SharedPreferenceConstants.SHARE_PREFERENCE_KEY, MODE_PRIVATE);
-               SharedPreferences.Editor editot = sharedPreferences.edit();
-               editot.putBoolean(SharedPreferenceConstants.ISREGISTERED_KEY,true);
-               editot.commit();
+               SharedPreferences.Editor editor = sharedPreferences.edit();
+               editor.putBoolean(SharedPreferenceConstants.ISREGISTERED_KEY,true);
+               editor.commit();
+               editor.putString(SharedPreferenceConstants.USERUUID,User.getInstance().getUUID());
+               editor.commit();
 
                Intent intent = new Intent(SMSCodeActivity.this,HomeActivity.class);
                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);

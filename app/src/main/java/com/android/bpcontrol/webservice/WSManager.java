@@ -5,8 +5,6 @@ package com.android.bpcontrol.webservice;
  */
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 
 import com.android.bpcontrol.model.User;
 import com.android.bpcontrol.utils.LogBP;
@@ -17,24 +15,9 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.entity.BufferedHttpEntity;
-import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URISyntaxException;
-import java.net.URL;
-import java.nio.charset.Charset;
 import java.util.EventListener;
 
 public class WSManager {
@@ -42,7 +25,7 @@ public class WSManager {
     private static final String URLBASE ="http://app2.hesoftgroup.eu";
     private static WSManager instance;
 
-    RequestQueue queue;
+    private RequestQueue queue;
 
     public static WSManager getInstance(){
         if (instance == null)
@@ -68,9 +51,13 @@ public class WSManager {
 
     }
 
+    public static interface GetUserInfoWithUUID extends EventListener{
+
+        public void onUserInfoObtained();
+    }
 
 
-    private void webserviceCall(final Context context, final String url, final BPcontrolApiCallback callback){
+    private void webserviceCallWithCallback(final Context context, final String url, final BPcontrolApiCallback callback){
         if(queue==null)queue = Volley.newRequestQueue(context);
 
         StringRequest jsObjRequest = new StringRequest(url, new Response.Listener<String>() {
@@ -82,12 +69,12 @@ public class WSManager {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError volleyError) {
-                LogBP.writelog("Error en la llamada " + url);
-                LogBP.printStackTrace(volleyError);
+                LogBP.writelog("Error in call " + url);
 
-                    callback.onFailure(volleyError);
+                callback.onFailure(volleyError);
             }
         });
+
         jsObjRequest.setRetryPolicy(new DefaultRetryPolicy(20000, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT ));
         queue.add(jsObjRequest);
     }
@@ -95,10 +82,10 @@ public class WSManager {
 
     public void sendPhoneNumber(Context context,String prefixNumber,String phoneNumber, final SendPhoneNumber callback){
         final String url = URLBASE+"/hypertensionPatient/restValidateMobile/"+prefixNumber+phoneNumber;
-        webserviceCall(context,url,new BPcontrolApiCallback() {
+        webserviceCallWithCallback(context, url, new BPcontrolApiCallback() {
             @Override
             public void onSuccess(String jsonResponse) {
-                LogBP.writelog("WSNumber","Number send");
+                LogBP.writelog("WSNumber", "Number send");
                 callback.onRegisterPhone();
             }
 
@@ -114,7 +101,7 @@ public class WSManager {
 
         final String url = URLBASE+"/hypertensionPatient/restValidateCode/"+prefix+tlfnumber+"?code="+code;
 
-        webserviceCall(context,url,new BPcontrolApiCallback() {
+        webserviceCallWithCallback(context, url, new BPcontrolApiCallback() {
             @Override
             public void onSuccess(String jsonResponse) {
 
@@ -141,6 +128,69 @@ public class WSManager {
             User.getInstance().setUUID("");
         }
     }
+
+    public void getUserInfo(Context context, String uuid, final GetUserInfoWithUUID callback){
+       final String url = "http://app2.hesoftgroup.eu/hypertensionPatient/restShow/a5683026-0f3b-4ea5-a129-0aec2c36c1eb";
+
+
+        webserviceCallWithCallback(context,url,new BPcontrolApiCallback() {
+            @Override
+            public void onSuccess(String jsonResponse) {
+
+                parseUserInfo(jsonResponse);
+                callback.onUserInfoObtained();
+
+            }
+
+            @Override
+            public void onFailure(Exception e) {
+
+                LogBP.printStackTrace(e);
+            }
+        });
+
+    }
+
+   private void parseUserInfo(String response){
+
+       try {
+
+           JSONObject json = new JSONObject(response).getJSONObject("patient");
+           User.getInstance().setUUID(json.getString("uuid"));
+           LogBP.writelog("uuid " + json.getString("uuid"));
+           User.getInstance().setActive(json.getBoolean("active"));
+           LogBP.writelog("active " + json.getString("active"));
+           User.getInstance().setBirthDate(json.getString("birthDate"));
+           LogBP.writelog("birthDate " + json.getString("birthDate"));
+           User.getInstance().setDateCreated(json.getString("dateCreated"));
+           LogBP.writelog("dateCreated " + json.getString("dateCreated"));
+           User.getInstance().setEmail(json.getString("email"));
+           LogBP.writelog("email " + json.getString("email"));
+           User.getInstance().setFirstSurname(json.getString("firstSurname"));
+           LogBP.writelog("firstSurname " + json.getString("firstSurname"));
+           User.getInstance().setIdentityCard(json.getString("identityCard"));
+           LogBP.writelog("identityCard " + json.getString("identityCard"));
+           User.getInstance().setLastUpdate(json.getString("lastUpdated"));
+           LogBP.writelog("lastUpdated " + json.getString("lastUpdated"));
+           User.getInstance().setMobileNumber(json.getString("mobileNumber"));
+           LogBP.writelog("mobileNumber " + json.getString("mobileNumber"));
+           User.getInstance().setMobileNumberPrefix(json.getString("mobileNumberPrefix"));
+           LogBP.writelog("mobileNumberPrefix " + json.getString("mobileNumberPrefix"));
+           User.getInstance().setName(json.getString("name"));
+           LogBP.writelog("name " + json.getString("name"));
+           User.getInstance().setNotes(json.getString("notes"));
+           LogBP.writelog("notes " + json.getString("notes"));
+           User.getInstance().setSecondSurname("secondSurname");
+           LogBP.writelog("secondSurname " + json.getString("secondSurname"));
+           User.getInstance().setTown(json.getString("town"));
+           LogBP.writelog("town " + json.getString("town"));
+
+       } catch (JSONException ex) {
+           LogBP.printStackTrace(ex);
+       }
+
+
+   }
 
 
 

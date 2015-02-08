@@ -3,10 +3,13 @@ package com.android.bpcontrol;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -24,6 +27,7 @@ import com.android.bpcontrol.customViews.RobotoTextView;
 import com.android.bpcontrol.fragments.HomeFragment;
 import com.android.bpcontrol.model.MenuItem;
 import com.android.bpcontrol.model.User;
+import com.android.bpcontrol.utils.SharedPreferenceConstants;
 import com.android.bpcontrol.webservice.WSManager;
 
 /**
@@ -36,22 +40,27 @@ public class HomeActivity extends BPcontrolMasterActivity {
     private LinearLayout menuItemsLayout;
     private boolean menuIsOpen=false;
 
+    private RobotoTextView perfilName;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.home_activity);
 
-        ((RobotoTextView)getActionBarView().findViewById(R.id.textviewbpcontrol))
-                                           .setText(getResources().getString(R.string.principalmenutext).toUpperCase());
-
+        ((RobotoTextView) getActionBarView().findViewById(R.id.textviewbpcontrol))
+                           .setText(getResources().getString(R.string.principalmenutext).toUpperCase());
 
         dwlayoutmenu = (DrawerLayout) findViewById(R.id.menuDrawer);
         dwlayoutmenu.setDrawerListener(new LateralMenuListeners());
         menulayout = (LinearLayout) findViewById(R.id.menuinclude);
 
+
         LateralMenuController.getInstance().initItems(this);
         configureLateralMenu();
+
+        getUserInfo();
+
         configureActionBar();
 
         HomeFragment homeFragment = HomeFragment.newInstance();
@@ -126,10 +135,14 @@ public class HomeActivity extends BPcontrolMasterActivity {
 
         View cell = getLayoutInflater().inflate(R.layout.perfilmenulayout, null);
         MenuItem item = LateralMenuController.getInstance().getPerfil();
+        ImageView image = (ImageView) cell.findViewById(R.id.perfilImage);
 
-        ImageView image = (ImageView) cell.findViewById(R.id.prueba2);
-        getApplicationContext().loadPerfilImageView(User.getInstance().getUUID(),image);
-        ((RobotoTextView) cell.findViewById(R.id.user_name)).setText(item.getTextView());
+        final SharedPreferences preferences = getSharedPreferences(SharedPreferenceConstants.SHARE_PREFERENCE_KEY,MODE_PRIVATE);
+        String user_uuid = preferences.getString(SharedPreferenceConstants.USERUUID,"");
+        getApplicationContext().loadPerfilImageView(user_uuid,image);
+
+        perfilName = ((RobotoTextView) cell.findViewById(R.id.user_name));
+
         menuItemsLayout.addView(cell);
 
     }
@@ -279,18 +292,15 @@ public class HomeActivity extends BPcontrolMasterActivity {
                     finish();
                 }
             });
-            builder.setNegativeButton(getResources().getString(R.string.exitCancelButton,new DialogInterface.OnClickListener(){
+            builder.setNegativeButton(getResources().getString(R.string.exitCancelButton),new DialogInterface.OnClickListener(){
 
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
 
-
                 }
-
-
             });
 
-
+            builder.show();
 
         }
 
@@ -322,6 +332,39 @@ public class HomeActivity extends BPcontrolMasterActivity {
 
         startActivity(new Intent(Intent.ACTION_VIEW,Uri.parse(uri)));
     }
+
+    @Override
+    public void onBackPressed(){
+        super.onBackPressed();
+
+        goBack();
+
+    }
+
+   private void getUserInfo(){
+
+       showProgressDialog();
+       new AsyncTask<Void, Void, Void>() {
+
+           protected Void doInBackground(Void... params ) {
+
+               final SharedPreferences preferences = getSharedPreferences(SharedPreferenceConstants.SHARE_PREFERENCE_KEY,MODE_PRIVATE);
+               String user_uuid = preferences.getString(SharedPreferenceConstants.USERUUID,"");
+               WSManager.getInstance().getUserInfo(HomeActivity.this,user_uuid,new WSManager.GetUserInfoWithUUID() {
+                   @Override
+                   public void onUserInfoObtained() {
+
+                       perfilName.setText(User.getInstance().getName()+" "+User.getInstance().getFirstSurname());
+                       HomeActivity.this.dissmissProgressDialog();
+
+                   }
+               });
+               return null;
+           }
+       }.execute();
+
+
+   }
 
    private class LateralMenuListeners implements DrawerLayout.DrawerListener{
 

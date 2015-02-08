@@ -47,8 +47,8 @@ public class BPcontrolMasterActivity extends FragmentActivity {
     public void dissmissProgressDialog(){
         if(progressDialog != null)
             progressDialog.dismiss();
-            progressDialog = null;
-        }
+        progressDialog = null;
+    }
 
     private void configActionBar(){
 

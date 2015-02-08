@@ -35,7 +35,6 @@ public class HomeFragment extends Fragment {
     private GridCellResources[] resources;
     private final int num_grid_resources = 4;
     private GridView grid;
-    private ImageView imageView;
 
     public static HomeFragment newInstance(){
         HomeFragment homeFragment = new HomeFragment();
@@ -47,7 +46,6 @@ public class HomeFragment extends Fragment {
         super.onCreateView(inflater, container, savedInstanceState);
         View view = inflater.inflate(R.layout.homefragment, null);
         grid = (GridView) view.findViewById(R.id.homegridview);
-        imageView = (ImageView) view.findViewById(R.id.prueba);
         return view;
 
     }
@@ -92,38 +90,6 @@ public class HomeFragment extends Fragment {
         }
     }
 
-    private class getUserImage extends AsyncTask<Void,Void,Bitmap>{
-
-
-        @Override
-        protected Bitmap doInBackground(Void... params) {
-
-            try {
-                return WSManager.getInstance().getUserImage();
-
-
-            }catch (Exception ex){
-
-                LogBP.printStackTrace(ex);
-            }
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Bitmap bitmap){
-
-            if (bitmap != null) {
-
-                LogBP.writelog("BITMAP");
-                imageView.setImageBitmap(bitmap);
-
-            }
-
-        }
-
-
 
     }
 
-
-}

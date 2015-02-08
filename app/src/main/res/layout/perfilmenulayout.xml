@@ -5,7 +5,7 @@
     android:layout_height="match_parent">
 
     <ImageView
-        android:id="@+id/prueba2"
+        android:id="@+id/perfilImage"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_gravity="center_vertical"
@@ -17,15 +17,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:textSize="19sp"
+        android:textSize="17sp"
+        android:maxLines="2"
+        android:text="Desconocido"
         android:layout_gravity="center_vertical"
         android:textColor="@color/menutext"/>
-
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:background="@drawable/ic_action_next"
-        />
 
 </LinearLayout>

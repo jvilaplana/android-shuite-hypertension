@@ -7,4 +7,5 @@ public class SharedPreferenceConstants {
 
     public static String SHARE_PREFERENCE_KEY = "com.android.bpcontrol";
     public static String ISREGISTERED_KEY="isRegistered";
+    public static String USERUUID = "userUUID";
 }
