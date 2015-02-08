@@ -5,33 +5,31 @@ package com.android.bpcontrol.model;
  */
 public class User {
 
-  private static User instance;
+      private static User instance;
+      private String UUID;
+      private String name;
+      private String firstSurname;
+      private String secondSurname;
+      private String identityCard;
 
-  private String UUID;
+      private User(){
 
+      }
 
+      public static User getInstance(){
 
+      if(instance == null){
 
-
-    private User(){
-
-    }
-
-    public static User getInstance(){
-
-        if(instance == null){
-
-            instance =  new User();
-        }
+        instance =  new User();
+      }
         return instance;
-    }
+      }
 
+      public String getUUID() {
+            return UUID;
+        }
 
-    public String getUUID() {
-        return UUID;
+      public void setUUID(String UUID) {
+            this.UUID = UUID;
+        }
     }
-
-    public void setUUID(String UUID) {
-        this.UUID = UUID;
-    }
-}

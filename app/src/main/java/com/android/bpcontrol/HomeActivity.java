@@ -1,5 +1,7 @@
 package com.android.bpcontrol;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -267,19 +269,34 @@ public class HomeActivity extends BPcontrolMasterActivity {
     public void goBack(){
         Fragment lastFragment = this.getSupportFragmentManager().findFragmentById(R.id.menu_frame);
         if (lastFragment instanceof HomeFragment) {
-            finish();
-            return;
-        }
-        if (HomeFragmentManager.getInstance(this).getHomeFragmentStack().isEmpty()){
-            finish();
-            return;
-        }
-        Fragment fragment = HomeFragmentManager.getInstance(this).getHomeFragmentStack().pop();
-        if (fragment == null){
-            fragment = new HomeFragment();
+            
+            final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setMessage(getResources().getString(R.string.exitHome));
+            builder.setPositiveButton(getResources().getString(R.string.exitokbutton), new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+
+                    finish();
+                }
+            });
+            builder.setNegativeButton(getResources().getString(R.string.exitCancelButton,new DialogInterface.OnClickListener(){
+
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+
+
+                }
+
+
+            });
+
+
+
         }
 
-        loadFragment(fragment, true, true);
+        Fragment fragment = new HomeFragment();
+
+        loadFragment(fragment, false, false);
 
     }
 

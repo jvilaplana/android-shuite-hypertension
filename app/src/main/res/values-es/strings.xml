@@ -49,5 +49,8 @@
     <string name="licenseButtonCancel">Cancelar</string>
     <string name="codeError">El código introducido no se correponde con el número de teléfono anteriormente introducido. Asegurese que el numero de teléfono y código son correctos </string>
     <string name="codeLengthError">El código es incorrecto. Este tiene que tener una longitud de 4 letras o carácteres.</string>
+    <string name="exitHome">¿Quieres salir de la aplicación?</string>
+    <string name="exitokbutton">Salir</string>
+    <string name="exitCancelButton">Cancelar</string>
 
 </resources>
