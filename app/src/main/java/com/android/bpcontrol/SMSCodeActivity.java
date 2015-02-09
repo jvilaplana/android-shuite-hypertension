@@ -24,6 +24,7 @@ import com.android.bpcontrol.webservice.WSManager;
 /**
  * Created by Adrian Carrera on 04/02/2015.
  */
+
 public class SMSCodeActivity extends BPcontrolMasterActivity{
 
     private String phoneNumber="";

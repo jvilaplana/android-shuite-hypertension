@@ -180,7 +180,7 @@ public class WSManager {
            LogBP.writelog("name " + json.getString("name"));
            User.getInstance().setNotes(json.getString("notes"));
            LogBP.writelog("notes " + json.getString("notes"));
-           User.getInstance().setSecondSurname("secondSurname");
+           User.getInstance().setSecondSurname(json.getString("secondSurname"));
            LogBP.writelog("secondSurname " + json.getString("secondSurname"));
            User.getInstance().setTown(json.getString("town"));
            LogBP.writelog("town " + json.getString("town"));
@@ -191,6 +191,7 @@ public class WSManager {
 
 
    }
+    
 
 
 

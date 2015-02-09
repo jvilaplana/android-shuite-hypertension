@@ -26,6 +26,7 @@
 
     <!--SECTIONS ACTION BAR NAME-->
     <string name="principalmenutext">Principal Menu</string>
+    <string name="perfilheaderbar" translatable="false">Perfil</string>
 
     <!--TAB MENU NAME-->
     <string name="hometab">Start</string>
@@ -51,5 +52,15 @@
     <string name="exitHome">Do you want to exit the application?</string>
     <string name="exitokbutton">Exit</string>
     <string name="exitCancelButton">Cancel</string>
+
+    <!--Perfil-->
+    <string name="completename">Name and surname:</string>
+    <string name="identitycard">Identity card:</string>
+    <string name="profileemail">E-mail:</string>
+    <string name="birthdate">Birth date:</string>
+    <string name="lastupdate">Lastest introduced pressures:</string>
+    <string name="town">Location:</string>
+    <string name="mobileNumber">Phone number:</string>
+    <string name="datecreated">Follow up since:</string>
 
 </resources>

@@ -15,6 +15,7 @@ public class LateralMenuController{
 
     public static enum MenuSections{
 
+        HOME,
         MYPERFIL,
         PRINCIPAL,
         PRESSURES,

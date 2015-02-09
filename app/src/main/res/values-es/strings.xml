@@ -52,5 +52,13 @@
     <string name="exitHome">¿Quieres salir de la aplicación?</string>
     <string name="exitokbutton">Salir</string>
     <string name="exitCancelButton">Cancelar</string>
+    <string name="completename">Nombre y apellidos:</string>
+    <string name="identitycard">D.N.I :</string>
+    <string name="profileemail">E-mail:</string>
+    <string name="birthdate">Fecha de nacimiento:</string>
+    <string name="lastupdate">Ultimas presiones introducidas:</string>
+    <string name="town">Lugar de residencia:</string>
+    <string name="mobileNumber">Numero de teléfono:</string>
+    <string name="datecreated">Seguimiento desde:</string>
 
 </resources>

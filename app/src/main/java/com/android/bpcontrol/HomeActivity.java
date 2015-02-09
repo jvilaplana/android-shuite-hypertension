@@ -25,6 +25,7 @@ import com.android.bpcontrol.controllers.HomeFragmentManager;
 import com.android.bpcontrol.controllers.LateralMenuController;
 import com.android.bpcontrol.customViews.RobotoTextView;
 import com.android.bpcontrol.fragments.HomeFragment;
+import com.android.bpcontrol.fragments.PerfilFragment;
 import com.android.bpcontrol.model.MenuItem;
 import com.android.bpcontrol.model.User;
 import com.android.bpcontrol.utils.SharedPreferenceConstants;
@@ -40,6 +41,7 @@ public class HomeActivity extends BPcontrolMasterActivity {
     private LinearLayout menuItemsLayout;
     private boolean menuIsOpen=false;
 
+    private RobotoTextView headertext;
     private RobotoTextView perfilName;
 
 
@@ -48,8 +50,6 @@ public class HomeActivity extends BPcontrolMasterActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.home_activity);
 
-        ((RobotoTextView) getActionBarView().findViewById(R.id.textviewbpcontrol))
-                           .setText(getResources().getString(R.string.principalmenutext).toUpperCase());
 
         dwlayoutmenu = (DrawerLayout) findViewById(R.id.menuDrawer);
         dwlayoutmenu.setDrawerListener(new LateralMenuListeners());
@@ -63,11 +63,12 @@ public class HomeActivity extends BPcontrolMasterActivity {
 
         configureActionBar();
 
-        HomeFragment homeFragment = HomeFragment.newInstance();
-        loadFragment(homeFragment, false, false);
+        selectMenuItem(LateralMenuController.MenuSections.HOME);
     }
 
     private void configureActionBar(){
+
+        headertext = ((RobotoTextView) getActionBarView().findViewById(R.id.textviewbpcontrol));
 
         final ImageButton menu = (ImageButton) getActionBarView().findViewById(R.id.actionBarMenu);
         menu.setOnClickListener(new View.OnClickListener() {
@@ -143,6 +144,13 @@ public class HomeActivity extends BPcontrolMasterActivity {
 
         perfilName = ((RobotoTextView) cell.findViewById(R.id.user_name));
 
+        cell.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                selectMenuItem(LateralMenuController.MenuSections.MYPERFIL);
+            }
+        });
+
         menuItemsLayout.addView(cell);
 
     }
@@ -196,13 +204,14 @@ public class HomeActivity extends BPcontrolMasterActivity {
         menuItemsLayout.addView(cell);
     }
 
-    public void selectMenuItem(LateralMenuController.MenuSections type){
+    private void selectMenuItem(LateralMenuController.MenuSections type){
 
         switch (type){
 
             case MYPERFIL:
-                break;
-            case PRINCIPAL:
+                headertext.setText(getResources().getString(R.string.perfilheaderbar).toUpperCase());
+                PerfilFragment perfilFragment = PerfilFragment.getNewInstance();
+                loadFragment(perfilFragment,false,false);
                 break;
             case PRESSURES:
                 break;
@@ -236,6 +245,9 @@ public class HomeActivity extends BPcontrolMasterActivity {
             case ATTRIBUTIONS:
                 break;
             default:
+                HomeFragment homeFragment = HomeFragment.newInstance();
+                loadFragment(homeFragment, false, false);
+                headertext.setText(getResources().getString(R.string.principalmenutext).toUpperCase());
                 break;
 
         }
@@ -288,8 +300,9 @@ public class HomeActivity extends BPcontrolMasterActivity {
             builder.setPositiveButton(getResources().getString(R.string.exitokbutton), new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
-
+                    HomeFragmentManager.getInstance(HomeActivity.this).getHomeFragmentStack().clear();
                     finish();
+
                 }
             });
             builder.setNegativeButton(getResources().getString(R.string.exitCancelButton),new DialogInterface.OnClickListener(){
@@ -302,11 +315,13 @@ public class HomeActivity extends BPcontrolMasterActivity {
 
             builder.show();
 
+            return;
+
         }
 
         Fragment fragment = new HomeFragment();
-
-        loadFragment(fragment, false, false);
+        headertext.setText(getResources().getString(R.string.principalmenutext).toUpperCase());
+        loadFragment(fragment, true, false);
 
     }
 
@@ -335,7 +350,6 @@ public class HomeActivity extends BPcontrolMasterActivity {
 
     @Override
     public void onBackPressed(){
-        super.onBackPressed();
 
         goBack();
 
@@ -385,4 +399,3 @@ public class HomeActivity extends BPcontrolMasterActivity {
        public void onDrawerStateChanged(int newState) { }
    }
     }
-

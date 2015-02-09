@@ -43,4 +43,12 @@
     <dimen name="licenseheadertext">16sp</dimen>
     <dimen name="licensemargintop">25sp</dimen>
     <dimen name="licensemarginbottom">50dp</dimen>
+
+    <!--profile-->
+
+    <dimen name="profilephotomarginbottom">50dp</dimen>
+    <dimen name="margintextprofile">20dp</dimen>
+    <dimen name="marginbottomtextviews">20dp</dimen>
+    <dimen name="profiletextsize">17sp</dimen>
+
     </resources>
