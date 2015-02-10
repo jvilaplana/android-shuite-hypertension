@@ -1,10 +1,8 @@
 package com.android.bpcontrol.model;
 
-import android.view.Menu;
 import android.widget.ImageView;
 
 import com.android.bpcontrol.controllers.LateralMenuController;
-import com.android.bpcontrol.customViews.RobotoTextView;
 
 /**
  * Created by Adrian Carrera on 27/1/15.

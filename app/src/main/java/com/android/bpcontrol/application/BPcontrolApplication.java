@@ -93,7 +93,7 @@ public class BPcontrolApplication extends Application{
 
     public void loadPerfilImageView(String uuid, final ImageView imageView) {
 
-        final String url = "http://app2.hesoftgroup.eu/hypertensionPatient/restDownloadProfileImage/a5683026-0f3b-4ea5-a129-0aec2c36c1eb";
+        final String url = "http://app2.hesoftgroup.eu/hypertensionPatient/restDownloadProfileImage/"+uuid;
         final boolean[] imgDisplayed = {false};
 
         ImageLoader.getInstance().displayImage(url, imageView, new ImageLoadingListener() {

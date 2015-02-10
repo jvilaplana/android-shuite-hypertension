@@ -14,8 +14,8 @@ import android.widget.ImageView;
 
 
 import com.android.bpcontrol.application.BPcontrolMasterActivity;
-import com.android.bpcontrol.customViews.BPEditText;
-import com.android.bpcontrol.customViews.RobotoTextView;
+import com.android.bpcontrol.customviews.BPEditText;
+import com.android.bpcontrol.customviews.RobotoTextView;
 import com.android.bpcontrol.model.User;
 import com.android.bpcontrol.utils.SharedPreferenceConstants;
 import com.android.bpcontrol.webservice.WSManager;

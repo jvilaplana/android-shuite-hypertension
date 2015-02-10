@@ -14,7 +14,7 @@
         android:background="@android:color/transparent"
         />
 
-    <com.android.bpcontrol.customViews.RobotoTextView
+    <com.android.bpcontrol.customviews.RobotoTextView
         android:id="@+id/textviewbpcontrol"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

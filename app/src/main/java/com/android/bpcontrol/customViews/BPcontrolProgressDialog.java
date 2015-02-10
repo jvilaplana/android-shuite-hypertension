@@ -1,4 +1,4 @@
-package com.android.bpcontrol.customViews;
+package com.android.bpcontrol.customviews;
 
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -7,7 +7,6 @@ import android.graphics.drawable.ColorDrawable;
 import android.view.View;
 
 import com.android.bpcontrol.R;
-import com.android.bpcontrol.application.BPcontrolApplication;
 import com.android.bpcontrol.utils.LogBP;
 
 /**

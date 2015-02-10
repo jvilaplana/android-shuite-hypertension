@@ -51,4 +51,9 @@
     <dimen name="marginbottomtextviews">20dp</dimen>
     <dimen name="profiletextsize">17sp</dimen>
 
+    <!--Contact-->
+
+    <dimen name="marginemail">15dp</dimen>
+    <dimen name="marginbottommail">25dp</dimen>
+
     </resources>

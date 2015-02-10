@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:background="@android:color/transparent"/>
 
-    <com.android.bpcontrol.customViews.RobotoTextView
+    <com.android.bpcontrol.customviews.RobotoTextView
         android:id="@+id/progressMessage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

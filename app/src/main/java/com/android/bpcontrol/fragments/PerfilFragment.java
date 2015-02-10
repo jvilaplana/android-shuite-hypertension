@@ -10,7 +10,7 @@ import android.widget.ImageView;
 
 import com.android.bpcontrol.HomeActivity;
 import com.android.bpcontrol.R;
-import com.android.bpcontrol.customViews.RobotoTextView;
+import com.android.bpcontrol.customviews.RobotoTextView;
 import com.android.bpcontrol.model.User;
 
 /**
@@ -40,30 +40,30 @@ public class PerfilFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        RobotoTextView completeName = (RobotoTextView)viewGroup.getChildAt(0);
-        completeName.setText(getResources().getString(R.string.completename)+" "+User.getInstance().getName()+
-                " "+User.getInstance().getFirstSurname()+" "+User.getInstance().getSecondSurname());
+        RobotoTextView completeName = (RobotoTextView)viewGroup.getChildAt(1);
+        completeName.setText(User.getInstance().getName()+" "+User.getInstance().getFirstSurname()
+                +" "+User.getInstance().getSecondSurname());
 
-        RobotoTextView identityCard = (RobotoTextView) viewGroup.getChildAt(1);
-        identityCard.setText(getResources().getString(R.string.identitycard)+" "+User.getInstance().getIdentityCard());
+        RobotoTextView identityCard = (RobotoTextView) viewGroup.getChildAt(3);
+        identityCard.setText(User.getInstance().getIdentityCard());
 
-        RobotoTextView email = (RobotoTextView) viewGroup.getChildAt(2);
-        email.setText(getResources().getString(R.string.profileemail)+ " "+ User.getInstance().getEmail());
+        RobotoTextView email = (RobotoTextView) viewGroup.getChildAt(5);
+        email.setText(User.getInstance().getEmail());
 
-        RobotoTextView birthDate = (RobotoTextView) viewGroup.getChildAt(3);
-        birthDate.setText(getResources().getString(R.string.birthdate)+ " "+ User.getInstance().getBirthDate());
+        RobotoTextView birthDate = (RobotoTextView) viewGroup.getChildAt(7);
+        birthDate.setText(User.getInstance().getBirthDate());
 
-        RobotoTextView lastUpdate = (RobotoTextView) viewGroup.getChildAt(4);
-        lastUpdate.setText(getResources().getString(R.string.lastupdate)+ " "+ User.getInstance().getLastUpdate());
+        RobotoTextView lastUpdate = (RobotoTextView) viewGroup.getChildAt(9);
+        lastUpdate.setText(User.getInstance().getLastUpdate());
 
-        RobotoTextView town = (RobotoTextView) viewGroup.getChildAt(5);
-        town.setText(getResources().getString(R.string.town)+ " "+ User.getInstance().getTown());
+        RobotoTextView town = (RobotoTextView) viewGroup.getChildAt(11);
+        town.setText(User.getInstance().getTown());
 
-        RobotoTextView mobileNumber = (RobotoTextView) viewGroup.getChildAt(6);
-        mobileNumber.setText(getResources().getString(R.string.mobileNumber)+ " "+ User.getInstance().getMobileNumber());
+        RobotoTextView mobileNumber = (RobotoTextView) viewGroup.getChildAt(13);
+        mobileNumber.setText(User.getInstance().getMobileNumber());
 
-        RobotoTextView dateCreated = (RobotoTextView) viewGroup.getChildAt(7);
-        dateCreated.setText(getResources().getString(R.string.datecreated)+ " "+ User.getInstance().getDateCreated());
+        RobotoTextView dateCreated = (RobotoTextView) viewGroup.getChildAt(15);
+        dateCreated.setText(User.getInstance().getDateCreated());
 
     }
 

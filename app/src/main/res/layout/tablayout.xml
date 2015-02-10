@@ -42,7 +42,7 @@
                android:layout_marginTop="@dimen/tabmargintop"
                android:layout_gravity="center_horizontal"/>
 
-            <com.android.bpcontrol.customViews.RobotoTextView
+            <com.android.bpcontrol.customviews.RobotoTextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/tabmargin"
@@ -93,7 +93,7 @@
                 android:layout_gravity="center_horizontal"
             />
 
-            <com.android.bpcontrol.customViews.RobotoTextView
+            <com.android.bpcontrol.customviews.RobotoTextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/tabmargin"
@@ -144,7 +144,7 @@
                 android:layout_marginBottom="@dimen/tabmargin"
                 android:layout_gravity="center_horizontal"/>
 
-            <com.android.bpcontrol.customViews.RobotoTextView
+            <com.android.bpcontrol.customviews.RobotoTextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/tabmargin"

@@ -24,7 +24,7 @@
           android:layout_gravity="center_vertical"
        />
 
-      <com.android.bpcontrol.customViews.RobotoTextView
+      <com.android.bpcontrol.customviews.RobotoTextView
           android:id="@+id/menucelltextview"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"

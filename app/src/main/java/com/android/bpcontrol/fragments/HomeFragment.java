@@ -42,9 +42,6 @@ public class HomeFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        //new getUserImage().execute();
-        final String url = "http://app2.hesoftgroup.eu/hypertensionPatient/restDownloadProfileImage/a5683026-0f3b-4ea5-a129-0aec2c36c1eb";
-
         initGridCellResources();
         HomeGridAdapter adapter = new HomeGridAdapter(getActivity(),resources);
         grid.setAdapter(adapter);

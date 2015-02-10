@@ -12,7 +12,7 @@
         android:layout_gravity="start"
         android:background="@color/menuseparator"/>
 
-    <com.android.bpcontrol.customViews.RobotoTextView
+    <com.android.bpcontrol.customviews.RobotoTextView
         android:id="@+id/textviewheader"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

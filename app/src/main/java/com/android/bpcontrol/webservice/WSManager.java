@@ -130,7 +130,7 @@ public class WSManager {
     }
 
     public void getUserInfo(Context context, String uuid, final GetUserInfoWithUUID callback){
-       final String url = "http://app2.hesoftgroup.eu/hypertensionPatient/restShow/a5683026-0f3b-4ea5-a129-0aec2c36c1eb";
+       final String url = "http://app2.hesoftgroup.eu/hypertensionPatient/restShow/"+uuid;
 
 
         webserviceCallWithCallback(context,url,new BPcontrolApiCallback() {
@@ -157,33 +157,19 @@ public class WSManager {
 
            JSONObject json = new JSONObject(response).getJSONObject("patient");
            User.getInstance().setUUID(json.getString("uuid"));
-           LogBP.writelog("uuid " + json.getString("uuid"));
            User.getInstance().setActive(json.getBoolean("active"));
-           LogBP.writelog("active " + json.getString("active"));
-           User.getInstance().setBirthDate(json.getString("birthDate"));
-           LogBP.writelog("birthDate " + json.getString("birthDate"));
-           User.getInstance().setDateCreated(json.getString("dateCreated"));
-           LogBP.writelog("dateCreated " + json.getString("dateCreated"));
+           User.getInstance().setBirthDate(json.getString("birthDate").split("T")[0]);
+           User.getInstance().setDateCreated(json.getString("dateCreated").replace('T',' ').replace('Z',(char)0));
            User.getInstance().setEmail(json.getString("email"));
-           LogBP.writelog("email " + json.getString("email"));
            User.getInstance().setFirstSurname(json.getString("firstSurname"));
-           LogBP.writelog("firstSurname " + json.getString("firstSurname"));
            User.getInstance().setIdentityCard(json.getString("identityCard"));
-           LogBP.writelog("identityCard " + json.getString("identityCard"));
-           User.getInstance().setLastUpdate(json.getString("lastUpdated"));
-           LogBP.writelog("lastUpdated " + json.getString("lastUpdated"));
+           User.getInstance().setLastUpdate(json.getString("lastUpdated").replace('T',' ').replace('Z',(char)0));
            User.getInstance().setMobileNumber(json.getString("mobileNumber"));
-           LogBP.writelog("mobileNumber " + json.getString("mobileNumber"));
            User.getInstance().setMobileNumberPrefix(json.getString("mobileNumberPrefix"));
-           LogBP.writelog("mobileNumberPrefix " + json.getString("mobileNumberPrefix"));
            User.getInstance().setName(json.getString("name"));
-           LogBP.writelog("name " + json.getString("name"));
            User.getInstance().setNotes(json.getString("notes"));
-           LogBP.writelog("notes " + json.getString("notes"));
            User.getInstance().setSecondSurname(json.getString("secondSurname"));
-           LogBP.writelog("secondSurname " + json.getString("secondSurname"));
            User.getInstance().setTown(json.getString("town"));
-           LogBP.writelog("town " + json.getString("town"));
 
        } catch (JSONException ex) {
            LogBP.printStackTrace(ex);

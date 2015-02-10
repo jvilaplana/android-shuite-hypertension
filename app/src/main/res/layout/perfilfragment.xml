@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout  xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:circleimageview="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -10,14 +11,20 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-    <ImageView
+
+    <com.android.bpcontrol.customviews.CircularImageView
         android:id="@+id/perfilphoto"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
+        android:layout_width="180dp"
+        android:layout_height="180dp"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="@dimen/profilephotomarginbottom"
         android:layout_marginBottom="@dimen/profilephotomarginbottom"
+        circleimageview:border="true"
+        circleimageview:border_color="@color/graybp"
+        circleimageview:border_width="4dp"
+        circleimageview:shadow="true"
         />
+
     <LinearLayout
         android:id="@+id/profilealltextviews"
         android:layout_below="@id/perfilphoto"
@@ -26,7 +33,17 @@
         android:gravity="start"
         android:layout_height="wrap_content">
 
-    <com.android.bpcontrol.customViews.RobotoTextView
+    <com.android.bpcontrol.customviews.RobotoTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/completename"
+        android:textSize="@dimen/profiletextsize"
+        android:textColor="@color/grayprofile"
+        android:tag="RobotoBold"
+        android:layout_marginLeft="@dimen/margintextprofile"
+        android:layout_marginBottom="@dimen/marginbottomtextviews"/>
+
+    <com.android.bpcontrol.customviews.RobotoTextView
         android:id="@+id/completename"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -35,61 +52,140 @@
         android:textColor="@color/menutext"
         android:layout_marginLeft="@dimen/margintextprofile"
         android:layout_marginBottom="@dimen/marginbottomtextviews"/>
-     <com.android.bpcontrol.customViews.RobotoTextView
-         android:id="@+id/identitycard"
-         android:layout_width="wrap_content"
-         android:layout_height="wrap_content"
-         android:text=""
-         android:textColor="@color/menutext"
-         android:textSize="@dimen/profiletextsize"
-         android:layout_marginLeft="@dimen/margintextprofile"
-         android:layout_marginBottom="@dimen/marginbottomtextviews"/>
-     <com.android.bpcontrol.customViews.RobotoTextView
-         android:id="@+id/profileemail"
-         android:layout_width="wrap_content"
-         android:layout_height="wrap_content"
-         android:text=""
-         android:textColor="@color/menutext"
-         android:textSize="@dimen/profiletextsize"
-         android:layout_marginLeft="@dimen/margintextprofile"
-         android:layout_marginBottom="@dimen/marginbottomtextviews"/>
-     <com.android.bpcontrol.customViews.RobotoTextView
-         android:id="@+id/profilebirthdate"
-         android:layout_width="wrap_content"
-         android:layout_height="wrap_content"
-         android:text=""
-         android:textColor="@color/menutext"
-         android:textSize="@dimen/profiletextsize"
-         android:layout_marginLeft="@dimen/margintextprofile"
-         android:layout_marginBottom="@dimen/marginbottomtextviews"/>
-     <com.android.bpcontrol.customViews.RobotoTextView
-         android:id="@+id/profilellastupdate"
-         android:text=""
-         android:layout_width="wrap_content"
-         android:layout_height="wrap_content"
-         android:textSize="@dimen/profiletextsize"
-         android:textColor="@color/menutext"
-         android:layout_marginLeft="@dimen/margintextprofile"
-         android:layout_marginBottom="@dimen/marginbottomtextviews"/>
-     <com.android.bpcontrol.customViews.RobotoTextView
-         android:id="@+id/profiletown"
-         android:layout_width="wrap_content"
-         android:layout_height="wrap_content"
-         android:text=""
-         android:textColor="@color/menutext"
-         android:textSize="@dimen/profiletextsize"
-         android:layout_marginLeft="@dimen/margintextprofile"
-         android:layout_marginBottom="@dimen/marginbottomtextviews"/>
-     <com.android.bpcontrol.customViews.RobotoTextView
-         android:id="@+id/profiletlfnumber"
-         android:layout_width="wrap_content"
-         android:layout_height="wrap_content"
-         android:text=""
-         android:textColor="@color/menutext"
-         android:textSize="@dimen/profiletextsize"
-         android:layout_marginLeft="@dimen/margintextprofile"
-         android:layout_marginBottom="@dimen/marginbottomtextviews"/>
-    <com.android.bpcontrol.customViews.RobotoTextView
+
+    <com.android.bpcontrol.customviews.RobotoTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/identitycard"
+        android:textSize="@dimen/profiletextsize"
+        android:tag="RobotoBold"
+        android:textColor="@color/grayprofile"
+        android:layout_marginLeft="@dimen/margintextprofile"
+        android:layout_marginBottom="@dimen/marginbottomtextviews"/>
+
+    <com.android.bpcontrol.customviews.RobotoTextView
+     android:id="@+id/identitycard"
+     android:layout_width="wrap_content"
+     android:layout_height="wrap_content"
+     android:text=""
+     android:textColor="@color/menutext"
+     android:textSize="@dimen/profiletextsize"
+     android:layout_marginLeft="@dimen/margintextprofile"
+     android:layout_marginBottom="@dimen/marginbottomtextviews"/>
+
+    <com.android.bpcontrol.customviews.RobotoTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/profileemail"
+        android:textSize="@dimen/profiletextsize"
+        android:tag="RobotoBold"
+        android:textColor="@color/grayprofile"
+        android:layout_marginLeft="@dimen/margintextprofile"
+        android:layout_marginBottom="@dimen/marginbottomtextviews"/>
+
+    <com.android.bpcontrol.customviews.RobotoTextView
+     android:id="@+id/profileemail"
+     android:layout_width="wrap_content"
+     android:layout_height="wrap_content"
+     android:text=""
+     android:textColor="@color/menutext"
+     android:textSize="@dimen/profiletextsize"
+     android:layout_marginLeft="@dimen/margintextprofile"
+     android:layout_marginBottom="@dimen/marginbottomtextviews"/>
+
+    <com.android.bpcontrol.customviews.RobotoTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/birthdate"
+        android:textSize="@dimen/profiletextsize"
+        android:tag="RobotoBold"
+        android:textColor="@color/grayprofile"
+        android:layout_marginLeft="@dimen/margintextprofile"
+        android:layout_marginBottom="@dimen/marginbottomtextviews"/>
+
+    <com.android.bpcontrol.customviews.RobotoTextView
+     android:id="@+id/profilebirthdate"
+     android:layout_width="wrap_content"
+     android:layout_height="wrap_content"
+     android:text=""
+     android:textColor="@color/menutext"
+     android:textSize="@dimen/profiletextsize"
+     android:layout_marginLeft="@dimen/margintextprofile"
+     android:layout_marginBottom="@dimen/marginbottomtextviews"/>
+
+    <com.android.bpcontrol.customviews.RobotoTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/lastupdate"
+        android:textSize="@dimen/profiletextsize"
+        android:tag="RobotoBold"
+        android:textColor="@color/grayprofile"
+        android:layout_marginLeft="@dimen/margintextprofile"
+        android:layout_marginBottom="@dimen/marginbottomtextviews"/>
+
+    <com.android.bpcontrol.customviews.RobotoTextView
+     android:id="@+id/profilellastupdate"
+     android:text=""
+     android:layout_width="wrap_content"
+     android:layout_height="wrap_content"
+     android:textSize="@dimen/profiletextsize"
+     android:textColor="@color/menutext"
+     android:layout_marginLeft="@dimen/margintextprofile"
+     android:layout_marginBottom="@dimen/marginbottomtextviews"/>
+
+    <com.android.bpcontrol.customviews.RobotoTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/town"
+        android:textSize="@dimen/profiletextsize"
+        android:tag="RobotoBold"
+        android:textColor="@color/grayprofile"
+        android:layout_marginLeft="@dimen/margintextprofile"
+        android:layout_marginBottom="@dimen/marginbottomtextviews"/>
+
+    <com.android.bpcontrol.customviews.RobotoTextView
+     android:id="@+id/profiletown"
+     android:layout_width="wrap_content"
+     android:layout_height="wrap_content"
+     android:text=""
+     android:textColor="@color/menutext"
+     android:textSize="@dimen/profiletextsize"
+     android:layout_marginLeft="@dimen/margintextprofile"
+     android:layout_marginBottom="@dimen/marginbottomtextviews"/>
+
+    <com.android.bpcontrol.customviews.RobotoTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/mobileNumber"
+        android:textSize="@dimen/profiletextsize"
+        android:tag="RobotoBold"
+        android:textColor="@color/grayprofile"
+        android:layout_marginLeft="@dimen/margintextprofile"
+        android:layout_marginBottom="@dimen/marginbottomtextviews"/>
+
+
+    <com.android.bpcontrol.customviews.RobotoTextView
+     android:id="@+id/profiletlfnumber"
+     android:layout_width="wrap_content"
+     android:layout_height="wrap_content"
+     android:text=""
+     android:textColor="@color/menutext"
+     android:textSize="@dimen/profiletextsize"
+     android:layout_marginLeft="@dimen/margintextprofile"
+     android:layout_marginBottom="@dimen/marginbottomtextviews"/>
+
+
+    <com.android.bpcontrol.customviews.RobotoTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/datecreated"
+        android:textSize="@dimen/profiletextsize"
+        android:tag="RobotoBold"
+        android:textColor="@color/grayprofile"
+        android:layout_marginLeft="@dimen/margintextprofile"
+        android:layout_marginBottom="@dimen/marginbottomtextviews"/>
+
+        <com.android.bpcontrol.customviews.RobotoTextView
         android:id="@+id/profileDateCreated"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -98,10 +194,33 @@
         android:textSize="@dimen/profiletextsize"
         android:layout_marginLeft="@dimen/margintextprofile"
         android:layout_marginBottom="@dimen/marginbottomtextviews"/>
+
+        <com.android.bpcontrol.customviews.RobotoTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/problemcontactprofile"
+            android:tag="RobotoBold"
+            android:textSize="@dimen/profiletextsize"
+            android:textColor="@color/grayprofile"
+            android:layout_marginLeft="@dimen/margintextprofile"
+            android:layout_marginBottom="@dimen/marginbottomtextviews"/>
+
+
+        <Button
+            android:id="@+id/contactInprofile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/marginbottomtextviews"
+            android:layout_gravity="center_horizontal"
+            style="@style/patientAreaButtonStyle"
+            android:text="@string/menusection_contact"/>
+
     </LinearLayout>
 
     </RelativeLayout>
+
  </ScrollView>
 
  </RelativeLayout>
+
 

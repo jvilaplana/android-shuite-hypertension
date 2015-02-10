@@ -1,4 +1,4 @@
-package com.android.bpcontrol.customViews;
+package com.android.bpcontrol.customviews;
 
 import android.annotation.TargetApi;
 import android.content.Context;

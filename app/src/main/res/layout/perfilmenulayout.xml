@@ -1,18 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:circleimageview="http://schemas.android.com/apk/res-auto"
     android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ImageView
+    <com.android.bpcontrol.customviews.CircularImageView
         android:id="@+id/perfilImage"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
         android:layout_gravity="center_vertical"
         android:layout_margin="20dp"
+        circleimageview:border="true"
+        circleimageview:border_color="@color/graybp"
+        circleimageview:border_width="4dp"
+        circleimageview:shadow="true"
         />
 
-    <com.android.bpcontrol.customViews.RobotoTextView
+
+    <com.android.bpcontrol.customviews.RobotoTextView
         android:id="@+id/user_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

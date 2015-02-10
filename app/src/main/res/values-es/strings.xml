@@ -52,6 +52,9 @@
     <string name="exitHome">¿Quieres salir de la aplicación?</string>
     <string name="exitokbutton">Salir</string>
     <string name="exitCancelButton">Cancelar</string>
+
+    <!--Perfil-->
+
     <string name="completename">Nombre y apellidos:</string>
     <string name="identitycard">D.N.I :</string>
     <string name="profileemail">E-mail:</string>
@@ -60,5 +63,14 @@
     <string name="town">Lugar de residencia:</string>
     <string name="mobileNumber">Numero de teléfono:</string>
     <string name="datecreated">Seguimiento desde:</string>
+    <string name="problemcontactprofile">Si hay cualquier problema con los datos, ponte en contacto con nosotros:</string>
 
+    <!--Contact-->
+    <string name="contacttext">Para cualquier duda o pregunta, contacte con nosotros</string>
+    <string name="sendmailcontact">Enviar</string>
+    <string name="subjectmail">Asunto</string>
+    <string name="mailbody">Cuerpo del mensaje</string>
+    <string name="chooser">Escoje un cliente de correo</string>
+    <string name="dialogcontact">No tienes ningún cliente de correo configurado en este dispositivo. Configura uno o ponte en contacto con nosotros via móvil</string>
+    <string name="emptyemail">Los campos del correo son obligatorios</string>
 </resources>

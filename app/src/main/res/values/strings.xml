@@ -62,5 +62,15 @@
     <string name="town">Location:</string>
     <string name="mobileNumber">Phone number:</string>
     <string name="datecreated">Follow up since:</string>
+    <string name="problemcontactprofile">If there is any problem with the data, please contact us:</string>
+
+    <!--Contact-->
+    <string name="contacttext">For any questions , contact us</string>
+    <string name="sendmailcontact">Send</string>
+    <string name="subjectmail">Subject</string>
+    <string name="chooser">Choose an email client from...</string>
+    <string name="mailbody">Message body</string>
+    <string name="dialogcontact">You have no mail client configured on this device. Sets one or contact us via phone</string>
+    <string name="emptyemail">Fields mail are required</string>
 
 </resources>

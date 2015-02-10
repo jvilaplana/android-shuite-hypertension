@@ -8,5 +8,6 @@
     <color name="menuseparator">#9d9c9c</color>
     <color name="menutext">#4d5e6e</color>
     <color name="cellheadercolor">#eaeaea</color>
+    <color name="grayprofile">#6c6c6c</color>
     
 </resources>
