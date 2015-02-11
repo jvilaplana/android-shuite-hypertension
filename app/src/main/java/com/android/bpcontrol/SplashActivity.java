@@ -19,8 +19,8 @@ public class SplashActivity extends BPcontrolMasterActivity {
         getActionBar().hide();
 
         final SharedPreferences sharedPreferences = getSharedPreferences(SharedPreferenceConstants.SHARE_PREFERENCE_KEY, MODE_PRIVATE);
-        final boolean isRegistered = sharedPreferences.getBoolean(SharedPreferenceConstants.ISREGISTERED_KEY,false);
-
+        //boolean isRegistered = sharedPreferences.getBoolean(SharedPreferenceConstants.ISREGISTERED_KEY,false);
+        final boolean isRegistered = true;
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             @Override

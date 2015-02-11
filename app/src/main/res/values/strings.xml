@@ -73,4 +73,13 @@
     <string name="dialogcontact">You have no mail client configured on this device. Sets one or contact us via phone</string>
     <string name="emptyemail">Fields mail are required</string>
 
+    <!--Connectivity-->
+
+    <string name="noconnectiondialog">The internet connection is not available, connect to and press OK</string>
+    <string name="noconnectiondialogpositive">OK</string>
+    <string name="noconnectiondialognegative">Exit</string>
+    <string name="noconnectiondialogWS">There are problems connecting to servers, try again later</string>
+    <string name="noconnectiondialogpositiveWS">OK</string>
+
+
 </resources>

@@ -73,4 +73,21 @@
     <string name="chooser">Escoje un cliente de correo</string>
     <string name="dialogcontact">No tienes ningún cliente de correo configurado en este dispositivo. Configura uno o ponte en contacto con nosotros via móvil</string>
     <string name="emptyemail">Los campos del correo son obligatorios</string>
+
+    <!--Contact2-->
+    <string name="enterprisename">HESOFT GROUP  S.C.P</string>
+    <string name="mailcontact2">info@hesoftgroup.com</string>
+    <string name="tlfcontact2">	+34626269613 </string>
+    <string name="webcontact2"><u>http://www.hesoftgroup.com</u></string>
+    <string name="postaldirectcontact2">25196 LLEIDA</string>
+
+
+    <!--Connection-->
+
+    <string name="noconnectiondialog">La conexión a internet no esta disponible, conectese y pulse OK</string>
+    <string name="noconnectiondialogpositive">Aceptar</string>
+    <string name="noconnectiondialognegative">Salir</string>
+    <string name="noconnectiondialogWS">Hay problemas con la conexión a los servidores, intentalo más tarde</string>
+    <string name="noconnectiondialogpositiveWS">Aceptar</string>
+
 </resources>

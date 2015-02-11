@@ -14,6 +14,7 @@ import android.widget.Button;
 
 import com.android.bpcontrol.R;
 import com.android.bpcontrol.customviews.BPEditText;
+import com.android.bpcontrol.customviews.RobotoTextView;
 
 import java.net.URI;
 
@@ -26,12 +27,15 @@ public class ContactFragment extends Fragment {
     private BPEditText subject;
     private BPEditText body;
 
+    private RobotoTextView weblink;
+
+    private int viewpagerposition;
 
 
 
-    public static ContactFragment getNewInstace(){
+    public static ContactFragment getNewInstace(int position){
 
-        ContactFragment contactFragment = new ContactFragment();
+        ContactFragment contactFragment = new ContactFragment().setPosition(position);
         return contactFragment;
     }
 
@@ -39,10 +43,16 @@ public class ContactFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
-        View view = inflater.inflate(R.layout.contactfragment,null);
-        sendMail = (Button) view.findViewById(R.id.sendEmail);
-        subject = (BPEditText) view.findViewById(R.id.subject);
-        body = (BPEditText) view.findViewById(R.id.body);
+        View view = null;
+        if (viewpagerposition != 0) {
+            view = inflater.inflate(R.layout.contactfragment, null);
+            sendMail = (Button) view.findViewById(R.id.sendEmail);
+            subject = (BPEditText) view.findViewById(R.id.subject);
+            body = (BPEditText) view.findViewById(R.id.body);
+        }else{
+            view = inflater.inflate(R.layout.contactfragment2, null);
+            weblink = (RobotoTextView)view.findViewById(R.id.web);
+        }
        return view;
     }
 
@@ -50,28 +60,37 @@ public class ContactFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        if(viewpagerposition != 0) {
+            sendMail.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
 
-        sendMail.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+                    if (!(subject.getText().toString().equals("") && body.getText().toString().equals(""))) {
 
-                if (!(subject.getText().toString().equals("") && body.getText().toString().equals(""))){
+                        sendEmail();
 
-                    sendEmail();
+                    } else {
+                        new AlertDialog.Builder(getActivity())
+                                .setMessage(getResources().getString(R.string.emptyemail))
+                                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int which) {
 
-                }else{
-                    new AlertDialog.Builder(getActivity())
-                            .setMessage(getResources().getString(R.string.emptyemail))
-                            .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int which) {
-
-                                }
-                            })
-                            .show();
+                                    }
+                                })
+                                .show();
+                    }
                 }
-            }
-        });
+            });
+    }else{
 
+            weblink.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(weblink.getText().toString()));
+                    startActivity(browserIntent);
+                }
+            });
+        }
     }
 
 
@@ -105,4 +124,10 @@ public class ContactFragment extends Fragment {
                       .show();
               }
        }
+
+    public ContactFragment setPosition(int position){
+
+        this.viewpagerposition = position;
+        return this;
+    }
 }

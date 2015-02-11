@@ -21,6 +21,7 @@
         android:textColor="@color/menutext"
         android:padding="@dimen/actionbar_padding"
         android:tag="RobotoBold"
+        android:maxLines="1"
         android:textSize="20sp"
         android:layout_centerVertical="true"
         android:gravity="center"

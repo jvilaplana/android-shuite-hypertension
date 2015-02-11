@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical" >
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:background="@drawable/logo_landscape"
+                android:layout_marginTop="@dimen/marginbottommail"
+                android:layout_marginBottom="@dimen/marginbottommail"/>
+
+            <com.android.bpcontrol.customviews.RobotoTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/marginbottommail"
+                android:gravity="center"
+                android:text="@string/enterprisename"
+                android:textColor="@color/menutext"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+            <com.android.bpcontrol.customviews.RobotoTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/marginbottommail"
+                android:gravity="center"
+                android:text="@string/mailcontact2"
+                android:textColor="@color/menutext"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+            <com.android.bpcontrol.customviews.RobotoTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/marginbottommail"
+                android:gravity="center"
+                android:text="@string/tlfcontact2"
+                android:textColor="@color/menutext"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+            <com.android.bpcontrol.customviews.RobotoTextView
+                android:id="@+id/web"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/marginbottommail"
+                android:gravity="center"
+                android:text="@string/webcontact2"
+                android:textColor="#0000EE"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+            <com.android.bpcontrol.customviews.RobotoTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/marginbottommail"
+                android:gravity="center"
+                android:text="@string/postaldirectcontact2"
+                android:textColor="@color/menutext"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+
+        </LinearLayout>
+
+    </ScrollView>
+</LinearLayout>

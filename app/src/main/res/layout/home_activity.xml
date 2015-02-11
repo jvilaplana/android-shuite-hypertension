@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:pageviewindicator="http://schemas.android.com/apk/res-auto"
 android:layout_width="match_parent"
 android:layout_height="match_parent"
 android:background="@android:color/white">
@@ -17,6 +18,34 @@ android:background="@android:color/white">
             android:layout_height="match_parent">
 
         </FrameLayout>
+
+        <LinearLayout
+            android:id="@+id/viewpager"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:visibility="gone"
+            android:layout_height="match_parent">
+
+            <android.support.v4.view.ViewPager
+                android:id="@+id/pager"
+                android:layout_width="match_parent"
+                android:layout_height="0px"
+                android:layout_weight="1"
+                />
+
+            <com.viewpagerindicator.CirclePageIndicator
+                android:id="@+id/pagerindicator"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/pageviewmarginbottom"
+                android:padding="10dip"
+                pageviewindicator:radius="12dp"
+                pageviewindicator:strokeWidth="2dp"
+                pageviewindicator:fillColor="@android:color/black"
+                />
+
+        </LinearLayout>
+
         <include android:id="@+id/menuinclude"
             android:layout_width="@dimen/menu_width"
             android:layout_height="match_parent"

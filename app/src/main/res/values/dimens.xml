@@ -11,6 +11,7 @@
     <dimen name="icongrid_margin_lateral">30dp</dimen>
     <dimen name="grid_textview">20dp</dimen>
     <dimen name="text_gridcell">19sp</dimen>
+    <dimen name="pageviewmarginbottom">35dp</dimen>
 
     <dimen name="menu_width">250dp</dimen>
 
@@ -55,5 +56,8 @@
 
     <dimen name="marginemail">15dp</dimen>
     <dimen name="marginbottommail">25dp</dimen>
+
+    <!--Contact2-->
+    <dimen name="margincontact2">15dp</dimen>
 
     </resources>

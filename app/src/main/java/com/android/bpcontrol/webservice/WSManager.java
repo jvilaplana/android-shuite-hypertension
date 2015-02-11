@@ -4,8 +4,13 @@ package com.android.bpcontrol.webservice;
  * Created by Adrian Carrera  on 4/2/15.
  */
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 
+import com.android.bpcontrol.R;
+import com.android.bpcontrol.application.BPcontrolApplication;
+import com.android.bpcontrol.application.BPcontrolMasterActivity;
 import com.android.bpcontrol.model.User;
 import com.android.bpcontrol.utils.LogBP;
 import com.android.volley.DefaultRetryPolicy;
@@ -80,7 +85,7 @@ public class WSManager {
     }
 
 
-    public void sendPhoneNumber(Context context,String prefixNumber,String phoneNumber, final SendPhoneNumber callback){
+    public void sendPhoneNumber(final Context context,String prefixNumber,String phoneNumber, final SendPhoneNumber callback){
         final String url = URLBASE+"/hypertensionPatient/restValidateMobile/"+prefixNumber+phoneNumber;
         webserviceCallWithCallback(context, url, new BPcontrolApiCallback() {
             @Override
@@ -93,11 +98,12 @@ public class WSManager {
             public void onFailure(Exception e) {
 
                 LogBP.printStackTrace(e);
+                showApiConnectivityError(context);
             }
         });
     }
 
-    public void sendSMScode(Context context, String prefix, String tlfnumber, String code,final CorrectSMSCode callback){
+    public void sendSMScode(final Context context, String prefix, String tlfnumber, String code,final CorrectSMSCode callback){
 
         final String url = URLBASE+"/hypertensionPatient/restValidateCode/"+prefix+tlfnumber+"?code="+code;
 
@@ -112,6 +118,7 @@ public class WSManager {
             @Override
             public void onFailure(Exception e) {
                 LogBP.printStackTrace(e);
+                showApiConnectivityError(context);
             }
         });
 
@@ -129,7 +136,7 @@ public class WSManager {
         }
     }
 
-    public void getUserInfo(Context context, String uuid, final GetUserInfoWithUUID callback){
+    public void getUserInfo(final Context context, String uuid, final GetUserInfoWithUUID callback){
        final String url = "http://app2.hesoftgroup.eu/hypertensionPatient/restShow/"+uuid;
 
 
@@ -146,6 +153,7 @@ public class WSManager {
             public void onFailure(Exception e) {
 
                 LogBP.printStackTrace(e);
+                showApiConnectivityError(context);
             }
         });
 
@@ -177,6 +185,27 @@ public class WSManager {
 
 
    }
+
+
+    private void showApiConnectivityError(final Context context){
+
+        if(false){
+        final AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setMessage(context.getResources().getString(R.string.noconnectiondialogWS));
+        builder.setPositiveButton(context.getResources().getString(R.string.noconnectiondialogpositiveWS), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+                ((BPcontrolMasterActivity)context).dissmissProgressDialog();
+                ((BPcontrolMasterActivity)context).finish();
+            }
+        });
+
+
+
+        builder.show();}
+
+    }
     
 
 

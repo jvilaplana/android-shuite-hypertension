@@ -1,6 +1,9 @@
 package com.android.bpcontrol.application;
 
+import android.content.Context;
 import android.graphics.drawable.ColorDrawable;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
@@ -69,5 +72,12 @@ public class BPcontrolMasterActivity extends FragmentActivity {
     public BPcontrolApplication getApplicationContext(){
 
         return (BPcontrolApplication) super.getApplicationContext();
+    }
+
+    protected boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
 }

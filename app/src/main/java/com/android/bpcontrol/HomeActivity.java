@@ -11,13 +11,17 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import com.android.bpcontrol.adapters.ViewPagerAdapter;
 import com.android.bpcontrol.application.BPcontrolMasterActivity;
 import com.android.bpcontrol.controllers.HomeFragmentManager;
 import com.android.bpcontrol.controllers.LateralMenuController;
@@ -29,6 +33,7 @@ import com.android.bpcontrol.model.MenuItem;
 import com.android.bpcontrol.model.User;
 import com.android.bpcontrol.utils.SharedPreferenceConstants;
 import com.android.bpcontrol.webservice.WSManager;
+import com.viewpagerindicator.CirclePageIndicator;
 
 /**
  * Created by Adrian Carrera on 22/1/15.
@@ -43,6 +48,9 @@ public class HomeActivity extends BPcontrolMasterActivity {
     private RobotoTextView headertext;
     private RobotoTextView perfilName;
 
+    private FrameLayout frameLayout;
+    private LinearLayout viewpager;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -53,16 +61,52 @@ public class HomeActivity extends BPcontrolMasterActivity {
         dwlayoutmenu = (DrawerLayout) findViewById(R.id.menuDrawer);
         dwlayoutmenu.setDrawerListener(new LateralMenuListeners());
         menulayout = (LinearLayout) findViewById(R.id.menuinclude);
-
+        frameLayout =(FrameLayout) findViewById(R.id.menu_frame);
+        viewpager = (LinearLayout) findViewById(R.id.viewpager);
 
         LateralMenuController.getInstance().initItems(this);
+
+        if (isNetworkAvailable()){
+            configureViewAndGetData();
+
+        }else{
+
+            final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setMessage(getResources().getString(R.string.noconnectiondialog));
+            builder.setPositiveButton(getResources().getString(R.string.noconnectiondialogpositive), new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+
+                    if (isNetworkAvailable()){
+                        configureViewAndGetData();
+
+                    }else{
+                        finish();
+                    }
+
+                }
+            });
+            builder.setNegativeButton(getResources().getString(R.string.noconnectiondialognegative),new DialogInterface.OnClickListener(){
+
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+
+                    finish();
+                }
+            });
+
+            builder.show();
+
+        }
+    }
+
+    private void configureViewAndGetData(){
+
         configureLateralMenu();
-
         getUserInfo();
-
         configureActionBar();
-
         selectMenuItem(LateralMenuController.MenuSections.HOME);
+
     }
 
     private void configureActionBar(){
@@ -183,9 +227,7 @@ public class HomeActivity extends BPcontrolMasterActivity {
 
             item = LateralMenuController.getInstance().getOthers().get(i);
             configCell(item,false);
-
         }
-
     }
 
     private void configCell(final MenuItem item, boolean isLast){
@@ -204,6 +246,9 @@ public class HomeActivity extends BPcontrolMasterActivity {
     }
 
     private void selectMenuItem(LateralMenuController.MenuSections type){
+
+        viewpager.setVisibility(View.GONE);
+        frameLayout.setVisibility(View.VISIBLE);
 
         switch (type){
 
@@ -225,9 +270,17 @@ public class HomeActivity extends BPcontrolMasterActivity {
             case HEALTHCENTERS:
                 break;
             case CONTACT:
-                ContactFragment contactFragment = ContactFragment.getNewInstace();
-                loadFragment(contactFragment,false,false);
+
+                frameLayout.setVisibility(View.GONE);
+                viewpager.setVisibility(View.VISIBLE);
+                FragmentPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
+                ViewPager pager = (ViewPager)findViewById(R.id.pager);
+                headertext.setText(getResources().getString(R.string.menusection_contact).toUpperCase());
+                pager.setAdapter(adapter);
+                CirclePageIndicator indicator = (CirclePageIndicator)findViewById(R.id.pagerindicator);
+               	indicator.setViewPager(pager);
                 break;
+
             case HELP:
                 break;
             case FACEBOOK:
@@ -266,8 +319,8 @@ public class HomeActivity extends BPcontrolMasterActivity {
 
             if(back){
 
-                transaction.setCustomAnimations(R.anim.fade_in,
-                        R.anim.slide_out_down);
+                transaction.setCustomAnimations(R.anim.slide_out_down,
+                        R.anim.fade_in);
             }else{
                 transaction.setCustomAnimations(R.anim.slide_in_up,
                         R.anim.fade_out);
@@ -293,8 +346,16 @@ public class HomeActivity extends BPcontrolMasterActivity {
     }
 
     public void goBack(){
+
         Fragment lastFragment = this.getSupportFragmentManager().findFragmentById(R.id.menu_frame);
-        if (lastFragment instanceof HomeFragment) {
+
+        if (viewpager.getVisibility() == View.VISIBLE){
+
+            viewpager.setVisibility(View.GONE);
+            frameLayout.setVisibility(View.VISIBLE);
+
+        }
+        else if (lastFragment instanceof HomeFragment) {
             
             final AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setMessage(getResources().getString(R.string.exitHome));
@@ -317,7 +378,6 @@ public class HomeActivity extends BPcontrolMasterActivity {
             builder.show();
 
             return;
-
         }
 
         Fragment fragment = new HomeFragment();
@@ -399,4 +459,6 @@ public class HomeActivity extends BPcontrolMasterActivity {
        @Override
        public void onDrawerStateChanged(int newState) { }
    }
+
+
     }
