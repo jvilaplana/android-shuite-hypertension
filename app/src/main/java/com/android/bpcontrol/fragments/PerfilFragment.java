@@ -6,10 +6,12 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 
 import com.android.bpcontrol.HomeActivity;
 import com.android.bpcontrol.R;
+import com.android.bpcontrol.controllers.LateralMenuController;
 import com.android.bpcontrol.customviews.RobotoTextView;
 import com.android.bpcontrol.model.User;
 
@@ -19,6 +21,7 @@ import com.android.bpcontrol.model.User;
 public class PerfilFragment extends Fragment {
 
     private ViewGroup viewGroup;
+    private Button contact;
 
     public static PerfilFragment getNewInstance() {
 
@@ -64,6 +67,13 @@ public class PerfilFragment extends Fragment {
 
         RobotoTextView dateCreated = (RobotoTextView) viewGroup.getChildAt(15);
         dateCreated.setText(User.getInstance().getDateCreated());
+
+        contact.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((HomeActivity)getActivity()).selectMenuItem(LateralMenuController.MenuSections.CONTACT);
+            }
+        });
 
     }
 

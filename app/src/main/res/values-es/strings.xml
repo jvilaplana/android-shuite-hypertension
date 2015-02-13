@@ -90,4 +90,19 @@
     <string name="noconnectiondialogWS">Hay problemas con la conexión a los servidores, intentalo más tarde</string>
     <string name="noconnectiondialogpositiveWS">Aceptar</string>
 
+    <!--Pressures-->
+
+    <string name="headerpressures">Presiones</string>
+    <string name="pressuresmsg">Introduzca sus presiones diarias</string>
+    <string name="systolic">Sistólica</string>
+    <string name="diastolic">Diastólica</string>
+    <string name="pulse">Pulso</string>
+    <string name="sendpreassure">Enviar</string>
+
+    <string-array name="spinnerpressures">
+        <item>MAÑANA(6-9 hours)</item>
+        <item>TARDE(18-21)</item>
+    </string-array>
+
+
 </resources>

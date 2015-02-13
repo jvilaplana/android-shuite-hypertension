@@ -81,5 +81,21 @@
     <string name="noconnectiondialogWS">There are problems connecting to servers, try again later</string>
     <string name="noconnectiondialogpositiveWS">OK</string>
 
+    <!--Pressures-->
+
+    <string name="headerpressures">Pressures</string>
+    <string name="pressuresmsg">Enter your daily pressures</string>
+    <string name="systolic">Systolic</string>
+    <string name="diastolic">Diastolic</string>
+    <string name="pulse">Pulse</string>
+    <string name="sendpreassure">Send</string>
+
+    <string-array name="spinnerpressures">
+        <item>MORNING (6-9 hours)</item>
+        <item name="night">AFTERNOON (18-21)</item>
+
+    </string-array>
+
+
 
 </resources>

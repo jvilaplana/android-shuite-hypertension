@@ -29,6 +29,7 @@ import com.android.bpcontrol.customviews.RobotoTextView;
 import com.android.bpcontrol.fragments.ContactFragment;
 import com.android.bpcontrol.fragments.HomeFragment;
 import com.android.bpcontrol.fragments.PerfilFragment;
+import com.android.bpcontrol.fragments.PressuresFragment;
 import com.android.bpcontrol.model.MenuItem;
 import com.android.bpcontrol.model.User;
 import com.android.bpcontrol.utils.SharedPreferenceConstants;
@@ -245,7 +246,7 @@ public class HomeActivity extends BPcontrolMasterActivity {
         menuItemsLayout.addView(cell);
     }
 
-    private void selectMenuItem(LateralMenuController.MenuSections type){
+    public void selectMenuItem(LateralMenuController.MenuSections type){
 
         viewpager.setVisibility(View.GONE);
         frameLayout.setVisibility(View.VISIBLE);
@@ -258,6 +259,9 @@ public class HomeActivity extends BPcontrolMasterActivity {
                 loadFragment(perfilFragment,false,false);
                 break;
             case PRESSURES:
+                headertext.setText(getResources().getString(R.string.headerpressures).toUpperCase());
+                PressuresFragment pressuresFragment = PressuresFragment.getNewInstace();
+                loadFragment(pressuresFragment,false,false);
                 break;
             case EVOLUTION:
                 break;
@@ -270,7 +274,6 @@ public class HomeActivity extends BPcontrolMasterActivity {
             case HEALTHCENTERS:
                 break;
             case CONTACT:
-
                 frameLayout.setVisibility(View.GONE);
                 viewpager.setVisibility(View.VISIBLE);
                 FragmentPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
@@ -280,7 +283,6 @@ public class HomeActivity extends BPcontrolMasterActivity {
                 CirclePageIndicator indicator = (CirclePageIndicator)findViewById(R.id.pagerindicator);
                	indicator.setViewPager(pager);
                 break;
-
             case HELP:
                 break;
             case FACEBOOK:
