@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <com.android.bpcontrol.customviews.RobotoTextView
+        android:id="@+id/headertextdialog"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:textColor="@color/menutext"
+        android:textSize="16sp"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"/>
+
+    <NumberPicker
+        android:id="@+id/numberPicker1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/headertextdialog"
+        android:layout_centerHorizontal="true"
+  />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_below="@+id/numberPicker1"
+        android:orientation="horizontal"
+        android:gravity="center_horizontal"
+        android:layout_marginBottom="15dp"
+        android:layout_marginTop="30dp"
+        android:layout_height="wrap_content">
+
+    <Button
+        android:id="@+id/buttonCanceldialog"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/patientAreaButtonStyle"
+        android:text="@string/dialogcancel" />
+
+    <Button
+        android:id="@+id/buttonAcceptDialog"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginRight="16dp"
+        android:layout_toLeftOf="@+id/buttonCanceldialog"
+        style="@style/patientAreaButtonStyle"
+        android:text="@string/dialogaccpet" />
+
+
+    </LinearLayout>
+
+
+</RelativeLayout>

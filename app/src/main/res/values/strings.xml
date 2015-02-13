@@ -84,7 +84,7 @@
     <!--Pressures-->
 
     <string name="headerpressures">Pressures</string>
-    <string name="pressuresmsg">Enter your daily pressures</string>
+    <string name="pressuresmsg">Enter your daily pressures-three measurements per time slot</string>
     <string name="systolic">Systolic</string>
     <string name="diastolic">Diastolic</string>
     <string name="pulse">Pulse</string>
@@ -92,10 +92,15 @@
 
     <string-array name="spinnerpressures">
         <item>MORNING (6-9 hours)</item>
-        <item name="night">AFTERNOON (18-21)</item>
+        <item name="night">AFTERNOON (18-21 hours)</item>
 
     </string-array>
-
+    <string name="pressuresspinnertext">Choose the time slot:</string>
+    <string name="dialogaccpet">Accept</string>
+    <string name="dialogcancel">Cancel</string>
+    <string name="dialogdiastolic">Enter your diastolic blood pressure</string>
+    <string name="dialogsystolic">Enter your systolic blood pressure</string>
+    <string name="dialogpulse">Enter your pulse</string>
 
 
 </resources>

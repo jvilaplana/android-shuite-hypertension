@@ -79,11 +79,10 @@
     <string name="mailcontact2">info@hesoftgroup.com</string>
     <string name="tlfcontact2">	+34626269613 </string>
     <string name="webcontact2"><u>http://www.hesoftgroup.com</u></string>
-    <string name="postaldirectcontact2">25196 LLEIDA</string>
+    <string name="postaldirectcontact2">Partida Bovà,15 - 25196 Lleida,España</string>
 
 
     <!--Connection-->
-
     <string name="noconnectiondialog">La conexión a internet no esta disponible, conectese y pulse OK</string>
     <string name="noconnectiondialogpositive">Aceptar</string>
     <string name="noconnectiondialognegative">Salir</string>
@@ -91,18 +90,24 @@
     <string name="noconnectiondialogpositiveWS">Aceptar</string>
 
     <!--Pressures-->
-
     <string name="headerpressures">Presiones</string>
-    <string name="pressuresmsg">Introduzca sus presiones diarias</string>
+    <string name="pressuresmsg">Introduzca sus presiones diarias- 3 mediciones por franja</string>
     <string name="systolic">Sistólica</string>
     <string name="diastolic">Diastólica</string>
     <string name="pulse">Pulso</string>
     <string name="sendpreassure">Enviar</string>
 
     <string-array name="spinnerpressures">
-        <item>MAÑANA(6-9 hours)</item>
-        <item>TARDE(18-21)</item>
+        <item>MAÑANA (6-9 horas)</item>
+        <item>TARDE (18-21 horas)</item>
     </string-array>
+
+    <string name="dialogaccpet">Aceptar</string>
+    <string name="dialogcancel">Cancelar</string>
+    <string name="pressuresspinnertext">Escoja la franja horaria:</string>
+    <string name="dialogsystolic">Introduzca su presión arterial sistólica</string>
+    <string name="dialogdiastolic">Introduzca su presión arterial diastólica</string>
+    <string name="dialogpulse">Introduzca su pulso</string>
 
 
 </resources>

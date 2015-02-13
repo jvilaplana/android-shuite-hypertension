@@ -65,8 +65,6 @@
                 android:text="@string/postaldirectcontact2"
                 android:textColor="@color/menutext"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
-
-
         </LinearLayout>
 
     </ScrollView>

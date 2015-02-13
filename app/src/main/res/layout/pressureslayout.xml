@@ -21,6 +21,18 @@
         android:text="@string/pressuresmsg"
         />
 
+    <com.android.bpcontrol.customviews.RobotoTextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="17sp"
+        android:textColor="@color/menutext"
+        android:tag="RobotoBold"
+        android:layout_marginLeft="@dimen/marginpressureslateral"
+        android:layout_marginRight="@dimen/marginpressureslateral"
+        android:layout_marginBottom="@dimen/margintextview"
+        android:text="@string/pressuresspinnertext"
+        />
+
         <Spinner
             android:id="@+id/spinnerpressures"
             android:layout_width="match_parent"
@@ -55,6 +67,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:ems="3"
+                        android:tag="1"
                         android:layout_marginBottom="@dimen/margintextview"/>
 
 
@@ -63,6 +76,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:ems="3"
+                        android:tag="2"
                         android:layout_marginBottom="@dimen/margintextview"/>
 
 
@@ -71,6 +85,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:ems="3"
+                        android:tag="3"
                         android:layout_marginBottom="@dimen/margintextview"/>
 
 
@@ -96,6 +111,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:ems="3"
+                    android:tag="4"
                     android:layout_marginBottom="@dimen/margintextview"/>
 
 
@@ -104,6 +120,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:ems="3"
+                    android:tag="5"
                     android:layout_marginBottom="@dimen/margintextview"/>
 
 
@@ -112,6 +129,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:ems="3"
+                    android:tag="6"
                     android:layout_marginBottom="@dimen/margintextview"/>
 
 
@@ -135,6 +153,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:ems="3"
+                    android:tag="7"
                     android:layout_marginBottom="@dimen/margintextview"/>
 
 
@@ -143,6 +162,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:ems="3"
+                    android:tag="8"
                     android:layout_marginBottom="@dimen/margintextview"/>
 
 
@@ -151,6 +171,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:ems="3"
+                    android:tag="9"
                     android:layout_marginBottom="@dimen/margintextview"/>
 
 
@@ -161,6 +182,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
+            android:layout_marginTop="@dimen/margintextview"
             android:layout_marginBottom="@dimen/marginpressurestop"
             android:orientation="horizontal">
             <Button

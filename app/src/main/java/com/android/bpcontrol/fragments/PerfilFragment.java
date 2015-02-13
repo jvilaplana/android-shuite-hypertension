@@ -21,7 +21,6 @@ import com.android.bpcontrol.model.User;
 public class PerfilFragment extends Fragment {
 
     private ViewGroup viewGroup;
-    private Button contact;
 
     public static PerfilFragment getNewInstance() {
 
@@ -36,6 +35,7 @@ public class PerfilFragment extends Fragment {
         ImageView imageView = (ImageView) view.findViewById(R.id.perfilphoto);
         ((HomeActivity) getActivity()).getApplicationContext().loadPerfilImageView(User.getInstance().getUUID(),imageView);
         viewGroup = (ViewGroup) view.findViewById(R.id.profilealltextviews);
+
         return view;
     }
 
@@ -67,6 +67,8 @@ public class PerfilFragment extends Fragment {
 
         RobotoTextView dateCreated = (RobotoTextView) viewGroup.getChildAt(15);
         dateCreated.setText(User.getInstance().getDateCreated());
+
+        Button contact = (Button) viewGroup.getChildAt(17);
 
         contact.setOnClickListener(new View.OnClickListener() {
             @Override
