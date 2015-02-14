@@ -3,6 +3,7 @@ package com.android.bpcontrol.fragments;
 import android.app.Dialog;
 import android.app.usage.UsageEvents;
 import android.content.Context;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -18,6 +19,7 @@ import android.widget.Button;
 import android.widget.NumberPicker;
 import android.widget.Spinner;
 
+import com.android.bpcontrol.HomeActivity;
 import com.android.bpcontrol.R;
 import com.android.bpcontrol.customviews.BPEditText;
 import com.android.bpcontrol.customviews.RobotoTextView;
@@ -34,10 +36,11 @@ public class PressuresFragment extends Fragment
 
     private String systolic1n, systolic2n, systolic3n, systolic1m, systolic2m, systolic3m;
     private String diastolic1n, diastolic2n, diastolic3n, diastolic1m, diastolic2m, diastolic3m;
+    private String pulse1n, pulse2n,pulse3n,pulse1m, pulse2m,pulse3m;
     private boolean bSystolic1n = false, bSystolic2n = false, bSystolic3n = false, bSystolic1m = false, bSystolic2m = false, bSystolic3m = false;
     private boolean bDiastolic1n = false, bDiastolic2n = false, bDiastolic3n = false, bDiastolic1m = false, bDiastolic2m = false, bDiastolic3m = false;
+    private boolean bPulse1n=false, bPulse2n=false,bPulse3n=false,bPulse1m=false, bPulse2m=false,bPulse3m=false;
     private Button buttonenviar;
-    private Button buttonsave;
 
     int choosedspinner = 0;
 
@@ -154,6 +157,7 @@ public class PressuresFragment extends Fragment
             @Override
             public void onClick(View v) {
 
+
                 pickerOnResut(position, numberPicker.getValue());
                 dialog.dismiss();
             }
@@ -175,68 +179,74 @@ public class PressuresFragment extends Fragment
         switch (position) {
 
             case 1:
-                if (choosedspinner == 0) {
+                if(isMorning()) {
                     bSystolic1m = true;
 
                 } else {
-
+                    bSystolic1n = true;
                 }
 
                 break;
             case 2:
-                if (choosedspinner == 0) {
-
+                if(isMorning()){
+                    bDiastolic1m = true;
                 } else {
+                    bDiastolic1n = true;
 
                 }
                 break;
             case 3:
-                if (choosedspinner == 0) {
+                if (isMorning()) {
+                    bPulse1m = true;
 
                 } else {
 
+                    bPulse1n = true;
                 }
                 break;
             case 4:
-                if (choosedspinner == 0) {
-
+                if (isMorning()) {
+                    bSystolic2m = true;
                 } else {
-
+                    bSystolic2n = true;
                 }
                 break;
             case 5:
-                if (choosedspinner == 0) {
-
+                if (isMorning()) {
+                    bDiastolic2m = true;
                 } else {
+
+                    bDiastolic2n = true;
 
                 }
                 break;
             case 6:
-                if (choosedspinner == 0) {
-
+                if (isMorning()) {
+                    bPulse2m = true;
                 } else {
-
+                    bPulse2n = true;
                 }
                 break;
             case 7:
-                if (choosedspinner == 0) {
-
+                if (isMorning()) {
+                    bSystolic3m = true;
                 } else {
-
+                    bSystolic3n = true;
                 }
                 break;
             case 8:
-                if (choosedspinner == 0) {
-
+                if (isMorning()) {
+                    bDiastolic3m = true;
                 } else {
+                    bDiastolic3n = true;
 
                 }
                 break;
             case 9:
-                if (choosedspinner == 0) {
-
+                if (isMorning()) {
+                    bPulse3m = true;
                 } else {
-
+                    bPulse3n = true;
                 }
                 break;
             default:
@@ -251,12 +261,47 @@ public class PressuresFragment extends Fragment
 
     private boolean isCorrectAfternoonMeassurament() {
 
-
+        return bSystolic1n && bDiastolic1n && bPulse1n && bSystolic2n && bDiastolic2n
+                && bPulse2n && bSystolic3n && bDiastolic3n && bPulse3n;
     }
 
-    private boolean isCorrectAfternoonMeassurament1() {
+    private boolean isCorrectMorningMeassurament() {
 
+        return bSystolic1m && bDiastolic1m && bPulse1m && bSystolic2m && bDiastolic2m
+                && bPulse2m && bSystolic3m && bDiastolic3m && bPulse3m;
     }
+
+    private boolean isMorning(){
+
+        return choosedspinner == 0;
+    }
+
+    private boolean isAfternoon(){
+
+        return choosedspinner != 0;
+    }
+
+
+//    private class sendPressures extends AsyncTask<Void,Void>{
+//
+//
+//        @Override
+//        protected void onPreExecute() {
+//
+//            ((HomeActivity)getActivity()).showProgressDialog();
+//        }
+//
+//        @Override
+//        protected String doInBackground(String... params) {
+//
+//
+//        }
+//        @Override
+//        protected void onPostExecute(){
+//
+//
+//        }
+//    }
 
 
 

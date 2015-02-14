@@ -101,6 +101,8 @@
     <string name="dialogdiastolic">Enter your diastolic blood pressure</string>
     <string name="dialogsystolic">Enter your systolic blood pressure</string>
     <string name="dialogpulse">Enter your pulse</string>
+    <string name="savebutton">Save</string>
+    <string name="loadbutton">Load</string>
 
 
 </resources>
