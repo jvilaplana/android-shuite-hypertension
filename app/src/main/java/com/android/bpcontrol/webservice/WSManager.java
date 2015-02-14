@@ -5,12 +5,17 @@ package com.android.bpcontrol.webservice;
  */
 
 import android.app.AlertDialog;
+import android.app.DownloadManager;
 import android.content.Context;
 import android.content.DialogInterface;
 
 import com.android.bpcontrol.R;
 import com.android.bpcontrol.application.BPcontrolApplication;
 import com.android.bpcontrol.application.BPcontrolMasterActivity;
+import com.android.bpcontrol.model.Pressure;
+import com.android.bpcontrol.model.Pressures;
+import com.android.bpcontrol.model.PressuresAfternoon;
+import com.android.bpcontrol.model.PressuresMorning;
 import com.android.bpcontrol.model.User;
 import com.android.bpcontrol.utils.LogBP;
 import com.android.volley.DefaultRetryPolicy;
@@ -19,11 +24,16 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.android.volley.Request;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.EventListener;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class WSManager {
 
@@ -61,6 +71,11 @@ public class WSManager {
         public void onUserInfoObtained();
     }
 
+    public static interface SendPressures extends EventListener{
+
+        public void onSendPressures(String response);
+
+    }
 
     private void webserviceCallWithCallback(final Context context, final String url, final BPcontrolApiCallback callback){
         if(queue==null)queue = Volley.newRequestQueue(context);
@@ -68,13 +83,13 @@ public class WSManager {
         StringRequest jsObjRequest = new StringRequest(url, new Response.Listener<String>() {
             @Override
             public void onResponse(String result) {
-                LogBP.writelog("Respponse to "+url+" response: "+result);
+                LogBP.writelog("GET","Respponse to "+url+" response: "+result);
                 callback.onSuccess(result);
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError volleyError) {
-                LogBP.writelog("Error in call " + url);
+                LogBP.writelog("GET","Error in call " + url);
 
                 callback.onFailure(volleyError);
             }
@@ -82,6 +97,42 @@ public class WSManager {
 
         jsObjRequest.setRetryPolicy(new DefaultRetryPolicy(20000, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT ));
         queue.add(jsObjRequest);
+    }
+
+    private void webservicePostWithCallback(final Context context, final String url,final Map<String,String> params,
+                                            final Map<String,String> headers,final BPcontrolApiCallback callback ){
+
+        if (queue == null) queue = Volley.newRequestQueue(context);
+
+        StringRequest jsonRequest = new StringRequest(Request.Method.POST,url,new Response.Listener<String>() {
+            @Override
+            public void onResponse(String result) {
+                LogBP.writelog("POST","Respponse to "+url+" response: "+result);
+                callback.onSuccess(result);
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError volleyError) {
+                LogBP.writelog("POST","Error in call " + url);
+                callback.onFailure(volleyError);
+            }
+        }){
+            @Override
+            protected Map<String,String> getParams(){
+
+                return params;
+           }
+
+           @Override
+           public Map<String,String> getHeaders(){
+
+               return headers;
+           }
+        };
+
+
+        queue.add(jsonRequest);
+
     }
 
 
@@ -186,10 +237,8 @@ public class WSManager {
 
    }
 
-
     private void showApiConnectivityError(final Context context){
 
-        if(false){
         final AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setMessage(context.getResources().getString(R.string.noconnectiondialogWS));
         builder.setPositiveButton(context.getResources().getString(R.string.noconnectiondialogpositiveWS), new DialogInterface.OnClickListener() {
@@ -203,11 +252,80 @@ public class WSManager {
 
 
 
-        builder.show();}
+        builder.show();
 
     }
-    
+
+    public void sendPressures(final Context context,PressuresMorning morning, PressuresAfternoon afternoon,final SendPressures callback){
+
+        final String url=URLBASE+"/hypertensionBloodPressure/restSave";
+        Map<String,String> params = preparePostPressures(morning,afternoon);
+        Map<String,String> headers = new HashMap<>();
+        headers.put("Content-type","Application/json");
+        webservicePostWithCallback(context, url, params, headers, new BPcontrolApiCallback() {
+            @Override
+            public void onSuccess(String response) {
 
 
+                callback.onSendPressures(response);
+            }
+
+            @Override
+            public void onFailure(Exception e) {
+
+                LogBP.printStackTrace(e);
+                showApiConnectivityError(context);
+            }
+        });
+
+    }
+
+    private Map<String,String> preparePostPressures(PressuresMorning pressuresMorning,PressuresAfternoon pressuresAfternoon){
+
+        Map<String,String> params = new HashMap<>();
+
+        params.put("uuid",User.getInstance().getUUID());
+        addPressureParams(pressuresMorning,params);
+        addPressureParams(pressuresAfternoon,params);
+
+        return params;
+    }
+
+    private void addPressureParams(Pressures pressures,Map<String,String> params){
+
+        List<Pressure> pList= pressures.getAllPressures();
+        final Pressure p1 = pList.get(0);
+        final Pressure p2 = pList.get(1);
+        final Pressure p3 = pList.get(2);
+
+        if (pressures.areMorningPressures()){
+            params.put("systole1m",p1.getSystolic());
+            params.put("systole2m",p2.getSystolic());
+            params.put("systole3m",p3.getSystolic());
+
+            params.put("diastolic1m",p1.getDiastolic());
+            params.put("diastolic2m",p2.getDiastolic());
+            params.put("diastolic3m",p3.getDiastolic());
+
+            params.put("pulse1m",p1.getPulse());
+            params.put("pulse2m",p2.getPulse());
+            params.put("pulse3m",p3.getPulse());
+
+        }else{
+
+            params.put("systole1n",p1.getSystolic());
+            params.put("systole2n",p2.getSystolic());
+            params.put("systole3n",p3.getSystolic());
+
+            params.put("diastolic1n",p1.getDiastolic());
+            params.put("diastolic2n",p2.getDiastolic());
+            params.put("diastolic3n",p3.getDiastolic());
+
+            params.put("pulse1n",p1.getPulse());
+            params.put("pulse2n",p2.getPulse());
+            params.put("pulse3n",p3.getPulse());
+        }
+
+    }
 
 }

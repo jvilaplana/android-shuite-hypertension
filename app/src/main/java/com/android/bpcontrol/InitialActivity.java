@@ -5,19 +5,14 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.util.DisplayMetrics;
 import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 
 import com.android.bpcontrol.application.BPcontrolMasterActivity;
 import com.android.bpcontrol.fragments.CentersListFragment;
 import com.android.bpcontrol.fragments.InformationFragment;
 import com.android.bpcontrol.fragments.InitialFragment;
-import com.android.bpcontrol.listeners.TabListener;
-import com.android.bpcontrol.utils.LogBP;
+import com.android.bpcontrol.interfaces.TabListener;
 
 /**
  * Created by Adrian Carrera on 31/01/2015.
