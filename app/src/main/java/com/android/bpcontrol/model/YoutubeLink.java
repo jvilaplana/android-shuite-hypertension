@@ -5,7 +5,23 @@ package com.android.bpcontrol.model;
  */
 public class YoutubeLink {
 
+    private int id;
     private String url;
 
 
+    public YoutubeLink(String url){
+        this.url = url;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getUrl() {
+        return url;
+    }
 }

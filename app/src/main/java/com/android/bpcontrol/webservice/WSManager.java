@@ -17,6 +17,7 @@ import com.android.bpcontrol.model.Pressures;
 import com.android.bpcontrol.model.PressuresAfternoon;
 import com.android.bpcontrol.model.PressuresMorning;
 import com.android.bpcontrol.model.User;
+import com.android.bpcontrol.model.YoutubeLink;
 import com.android.bpcontrol.utils.LogBP;
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.RequestQueue;
@@ -73,7 +74,7 @@ public class WSManager {
 
     public static interface SendPressures extends EventListener{
 
-        public void onSendPressures(String response);
+        public void onSendPressures(YoutubeLink youtubeLink,int semaphore);
 
     }
 
@@ -256,6 +257,8 @@ public class WSManager {
 
     }
 
+
+
     public void sendPressures(final Context context,PressuresMorning morning, PressuresAfternoon afternoon,final SendPressures callback){
 
         final String url=URLBASE+"/hypertensionBloodPressure/restSave";
@@ -266,15 +269,15 @@ public class WSManager {
             @Override
             public void onSuccess(String response) {
 
+                parseSendResponse(response, callback);
 
-                callback.onSendPressures(response);
             }
 
             @Override
             public void onFailure(Exception e) {
 
                 LogBP.printStackTrace(e);
-                showApiConnectivityError(context);
+                showApiPressuresSendError(context);
             }
         });
 
@@ -325,6 +328,45 @@ public class WSManager {
             params.put("pulse2n",p2.getPulse());
             params.put("pulse3n",p3.getPulse());
         }
+
+    }
+
+    private void parseSendResponse(String response, SendPressures callback){
+
+        String link = null;
+        int pStatus = -1;
+        try {
+
+            JSONObject json = new JSONObject(response);
+            pStatus = Integer.parseInt(json.getString("patientStatus"));
+            link = json.getString("infoLink");
+
+        } catch (JSONException ex) {
+            LogBP.printStackTrace(ex);
+        }
+
+        if (link == null){
+            callback.onSendPressures(null,pStatus);
+            return;
+        }
+
+        callback.onSendPressures(new YoutubeLink(link),pStatus);
+
+
+    }
+
+    private void showApiPressuresSendError(final Context context){
+
+        final AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setMessage(context.getResources().getString(R.string.pressuresendproblems));
+        builder.setPositiveButton(context.getResources().getString(R.string.noconnectiondialogpositiveWS), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+                ((BPcontrolMasterActivity)context).dissmissProgressDialog();
+                ((BPcontrolMasterActivity)context).finish();
+            }
+        });
 
     }
 

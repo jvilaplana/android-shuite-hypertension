@@ -3,7 +3,7 @@ package com.android.bpcontrol;
 import android.test.AndroidTestCase;
 import android.test.RenamingDelegatingContext;
 
-import com.android.bpcontrol.databases.PressuresDataBase;
+import com.android.bpcontrol.databases.BPcontrolDB;
 import com.android.bpcontrol.model.Pressure;
 import com.android.bpcontrol.model.Pressures;
 import com.android.bpcontrol.model.PressuresAfternoon;
@@ -14,7 +14,7 @@ import com.android.bpcontrol.model.PressuresMorning;
  */
 public class PressureAverageTest extends AndroidTestCase {
 
-    private PressuresDataBase db;
+    private BPcontrolDB db;
     private PressuresMorning morningfake;
     private PressuresAfternoon afternoonfake;
 

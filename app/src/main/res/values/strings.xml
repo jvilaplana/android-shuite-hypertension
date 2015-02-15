@@ -107,5 +107,8 @@
     <string name="emptysavemessage">To save the data need to fill in all fields for this time slot</string>
     <string name="messagesend">To send pressures have to fill both slots. If only one , click save button to save the pressures of a slot button.</string>
     <string name="saveddata">Data correctly saved</string>
+    <string name="pressuresendproblems">There are problems sending pressures, try again later</string>
+    <string name="sentpressuresOK">Pressures have been sent successfully\n</string>
+    <string name="videoavailable">New video is available in Videos section</string>
 
 </resources>

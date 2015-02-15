@@ -112,4 +112,7 @@
     <string name="emptysavemessage">Para poder guardar los datos necesita rellenar todos los campos para esta franja horaria</string>
     <string name="messagesend">Para enviar las presiones tienes que rellenar las dos franjas horarias. Si solo hay una, pulsa el botón guardar para guardar las presiones de una franja horaria</string>
     <string name="saveddata">Datos guardados correctamente</string>
+    <string name="pressuresendproblems"> Hay problemas enviando las presiones intentalo mas tarde</string>
+    <string name="sentpressuresOK">Las presiones han sido correctamente enviadas\n</string>
+    <string name="videoavailable">Nuevo video disponible en la seccion de videos</string>
 </resources>

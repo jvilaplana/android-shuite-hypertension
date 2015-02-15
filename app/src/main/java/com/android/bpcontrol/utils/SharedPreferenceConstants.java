@@ -14,5 +14,5 @@ public class SharedPreferenceConstants {
     public static String DIASTOLICN = "diastolicn";
     public static String PULSEM = "pulsem";
     public static String PULSEN = "pulsen";
-
+    public static String LASTSENDPRESSURE= "lastsendpressure";
 }

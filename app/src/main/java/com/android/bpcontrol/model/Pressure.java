@@ -1,11 +1,14 @@
 package com.android.bpcontrol.model;
 
+import java.util.Date;
+
 /**
  * Created by Adrian on 14/2/15.
  */
 public class Pressure{
 
     private int id = -1;
+    private Date date;
     private String systolic;
     private String diastolic;
     private String pulse;
@@ -33,6 +36,14 @@ public class Pressure{
         this.diastolic = diastolic;
         this.pulse = pulse;
     }
+    public Pressure(String systolic,String diastolic,String pulse, Date date){
+
+        this.systolic = systolic;
+        this.diastolic = diastolic;
+        this.pulse = pulse;
+        this.date = date;
+
+    }
 
     public String getSystolic() {
         return systolic;
@@ -58,6 +69,14 @@ public class Pressure{
         this.pulse = pulse;
     }
 
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
     @Override
     public boolean equals(Object object){
 
@@ -69,4 +88,5 @@ public class Pressure{
         }
         return false;
     }
+
 }

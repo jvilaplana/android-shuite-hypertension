@@ -24,16 +24,20 @@ import com.android.bpcontrol.HomeActivity;
 import com.android.bpcontrol.R;
 import com.android.bpcontrol.customviews.BPEditText;
 import com.android.bpcontrol.customviews.RobotoTextView;
-import com.android.bpcontrol.databases.PressuresDataBase;
+import com.android.bpcontrol.databases.BPcontrolDB;
 import com.android.bpcontrol.model.Pressure;
 import com.android.bpcontrol.model.Pressures;
 import com.android.bpcontrol.model.PressuresAfternoon;
 import com.android.bpcontrol.model.PressuresMorning;
+import com.android.bpcontrol.model.YoutubeLink;
+import com.android.bpcontrol.utils.DateUtils;
 import com.android.bpcontrol.utils.LogBP;
 import com.android.bpcontrol.utils.SharedPreferenceConstants;
 import com.android.bpcontrol.webservice.WSManager;
 
+import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  * Created by Adrian on 12/2/15.
@@ -52,7 +56,7 @@ public class PressuresFragment extends Fragment
     private Button buttonsend;
     private Button buttonsave;
 
-    private PressuresDataBase db;
+    private BPcontrolDB db;
 
     int choosedspinner = 0;
 
@@ -78,6 +82,7 @@ public class PressuresFragment extends Fragment
         buttonsave = (Button) view.findViewById(R.id.save);
         getEditTexts(group);
         return view;
+
     }
 
 
@@ -88,6 +93,8 @@ public class PressuresFragment extends Fragment
         ArrayAdapter adapter = new ArrayAdapter(getActivity(), android.R.layout.simple_list_item_1, getResources().getStringArray(R.array.spinnerpressures));
         spinner.setAdapter(adapter);
         spinner.setOnItemSelectedListener(this);
+
+        db = new BPcontrolDB(getActivity());
 
         buttonsave.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -102,41 +109,7 @@ public class PressuresFragment extends Fragment
                 ((HomeActivity)getActivity()).showProgressDialog();
                 if (isCorrectAfternoonMeassurament() && isCorrectMorningMeassurament()) {
 
-                    bSystolic1n = false;
-                    bSystolic2n = false;
-                    bSystolic3n = false;
-                    bSystolic1m = false;
-                    bSystolic2m = false;
-                    bSystolic3m = false;
-                    bDiastolic1n = false;
-                    bDiastolic2n = false;
-                    bDiastolic3n = false;
-                    bDiastolic1m = false;
-                    bDiastolic2m = false;
-                    bDiastolic3m = false;
-                    bPulse1n = false;
-                    bPulse2n = false;
-                    bPulse3n = false;
-                    bPulse1m = false;
-                    bPulse2m = false;
-                    bPulse3m = false;
-
-                    SharedPreferences preferences = getActivity()
-                            .getSharedPreferences(SharedPreferenceConstants.SHARE_PREFERENCE_KEY, Context.MODE_PRIVATE);
-                    SharedPreferences.Editor editor = preferences.edit();
-
-                    editor.putString(SharedPreferenceConstants.SYSTOLICM, "");
-                    editor.putString(SharedPreferenceConstants.DIASTOLICM, "");
-                    editor.putString(SharedPreferenceConstants.PULSEM, "");
-                    editor.putString(SharedPreferenceConstants.SYSTOLICN, "");
-                    editor.putString(SharedPreferenceConstants.DIASTOLICN, "");
-                    editor.putString(SharedPreferenceConstants.PULSEN, "");
-                    editor.commit();
-
-                    for(BPEditText editText : editTexts){
-                        editText.setText("");
-                    }
-                    ((HomeActivity)getActivity()).dissmissProgressDialog();
+                    new sendPressures().execute();
 
                 } else {
                         showDialog(getResources().getString(R.string.messagesend));
@@ -146,7 +119,7 @@ public class PressuresFragment extends Fragment
         });
 
         checkIfDataSaved();
-        db = new PressuresDataBase(getActivity());
+        db = new BPcontrolDB(getActivity());
     }
 
 
@@ -419,7 +392,7 @@ public class PressuresFragment extends Fragment
     }
 
 
-    private class sendPressures extends AsyncTask<Void,Void,Void>{
+    private class sendPressures extends AsyncTask<Void,Boolean,Void>{
 
 
         @Override
@@ -437,24 +410,77 @@ public class PressuresFragment extends Fragment
             pMorning.add(new Pressure(systolic3m,diastolic3m,pulse3m));
 
             final PressuresAfternoon pAfternoon = new PressuresAfternoon();
-            pMorning.add(new Pressure(systolic1n,diastolic1n,pulse1n));
-            pMorning.add(new Pressure(systolic2n,diastolic2n,pulse2n));
-            pMorning.add(new Pressure(systolic3n,diastolic3n,pulse3n));
+            pAfternoon.add(new Pressure(systolic1n,diastolic1n,pulse1n));
+            pAfternoon.add(new Pressure(systolic2n,diastolic2n,pulse2n));
+            pAfternoon.add(new Pressure(systolic3n,diastolic3n,pulse3n));
             WSManager.getInstance().sendPressures(getActivity(),pMorning,pAfternoon,new WSManager.SendPressures() {
                 @Override
-                public void onSendPressures(String response) {
-                        savePressuresInDB(pMorning,pAfternoon);
+                public void onSendPressures(YoutubeLink youtubeLink,int semaphore) {
+
+                        boolean video = youtubeLink!=null?true:false;
+                        saveDataInDB(pMorning, pAfternoon, semaphore,youtubeLink);
+                        clearOldValues();
+                        publishProgress(new Boolean(video));
                 }
             });
-            publishProgress();
+
             return null;
         }
         @Override
-        protected void onProgressUpdate(Void...result){
+        protected void onProgressUpdate(Boolean...video){
 
+            if (video[0].booleanValue()) {
+                showDialog(getActivity().getResources().getString(R.string.sentpressuresOK)+
+                        getActivity().getResources().getString(R.string.videoavailable));
+            }else {
+                showDialog(getActivity().getResources().getString(R.string.sentpressuresOK));
+            }
             ((HomeActivity)getActivity()).dissmissProgressDialog();
         }
+
+
     }
+
+   private void clearOldValues(){
+
+
+           bSystolic1n = false;
+           bSystolic2n = false;
+           bSystolic3n = false;
+           bSystolic1m = false;
+           bSystolic2m = false;
+           bSystolic3m = false;
+           bDiastolic1n = false;
+           bDiastolic2n = false;
+           bDiastolic3n = false;
+           bDiastolic1m = false;
+           bDiastolic2m = false;
+           bDiastolic3m = false;
+           bPulse1n = false;
+           bPulse2n = false;
+           bPulse3n = false;
+           bPulse1m = false;
+           bPulse2m = false;
+           bPulse3m = false;
+
+           SharedPreferences preferences = getActivity()
+                   .getSharedPreferences(SharedPreferenceConstants.SHARE_PREFERENCE_KEY, Context.MODE_PRIVATE);
+           SharedPreferences.Editor editor = preferences.edit();
+
+           editor.putString(SharedPreferenceConstants.SYSTOLICM, "");
+           editor.putString(SharedPreferenceConstants.DIASTOLICM, "");
+           editor.putString(SharedPreferenceConstants.PULSEM, "");
+           editor.putString(SharedPreferenceConstants.SYSTOLICN, "");
+           editor.putString(SharedPreferenceConstants.DIASTOLICN, "");
+           editor.putString(SharedPreferenceConstants.PULSEN, "");
+           editor.commit();
+
+           for(BPEditText editText : editTexts){
+               editText.setText("");
+           }
+
+
+   }
 
     private void checkIfDataSaved() {
 
@@ -640,13 +666,38 @@ public class PressuresFragment extends Fragment
         ((HomeActivity)getActivity()).dissmissProgressDialog();
     }
 
-    private void savePressuresInDB(PressuresMorning morning , PressuresAfternoon afternoon){
+    private void saveDataInDB(PressuresMorning morning, PressuresAfternoon afternoon, int semaphore,
+                              YoutubeLink link){
 
         Pressure average = Pressures.obtainPressuresDayAverage(morning,afternoon);
 
-        //db.ad
 
-    }
+        try {
+            average.setDate(DateUtils.stringToDate(DateUtils.dateToString(new Date(),
+                    DateUtils.DEFAULT_FORMAT),DateUtils.DEFAULT_FORMAT));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        SharedPreferences sharedPreferences = getActivity()
+                .getSharedPreferences(SharedPreferenceConstants.SHARE_PREFERENCE_KEY, Context.MODE_PRIVATE);
+
+        String date = DateUtils.dateToString(average.getDate(),DateUtils.DEFAULT_FORMAT);
 
 
+
+        if ((sharedPreferences.getString(SharedPreferenceConstants.LASTSENDPRESSURE, "").equals(date))) {
+
+            db.updatePressureAverage(average);
+        }else{
+            db.addPressureAverage(average,String.valueOf(semaphore));
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putString(SharedPreferenceConstants.LASTSENDPRESSURE,date);
+        }
+
+            if (link != null){
+                db.addYoutubeLink(link);
+            }
+
+        }
 }

@@ -3,7 +3,7 @@ package com.android.bpcontrol;
 import android.test.AndroidTestCase;
 import android.test.RenamingDelegatingContext;
 
-import com.android.bpcontrol.databases.PressuresDataBase;
+import com.android.bpcontrol.databases.BPcontrolDB;
 import com.android.bpcontrol.model.Pressure;
 
 import java.util.ArrayList;
@@ -13,13 +13,13 @@ import java.util.ArrayList;
  */
 public class DataBaseUpdateTest extends AndroidTestCase{
 
-    private PressuresDataBase db;
+    private BPcontrolDB db;
     private Pressure fake;
 
     public void setUp(){
         RenamingDelegatingContext context
                 = new RenamingDelegatingContext(getContext(), "test_");
-        db = new PressuresDataBase(context);
+        db = new BPcontrolDB(context);
         fake = new Pressure();
         fake.setId(1);
         fake.setSystolic("120");
