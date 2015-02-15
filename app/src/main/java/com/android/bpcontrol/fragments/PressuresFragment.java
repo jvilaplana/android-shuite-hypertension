@@ -24,8 +24,14 @@ import com.android.bpcontrol.HomeActivity;
 import com.android.bpcontrol.R;
 import com.android.bpcontrol.customviews.BPEditText;
 import com.android.bpcontrol.customviews.RobotoTextView;
+import com.android.bpcontrol.databases.PressuresDataBase;
+import com.android.bpcontrol.model.Pressure;
+import com.android.bpcontrol.model.Pressures;
+import com.android.bpcontrol.model.PressuresAfternoon;
+import com.android.bpcontrol.model.PressuresMorning;
 import com.android.bpcontrol.utils.LogBP;
 import com.android.bpcontrol.utils.SharedPreferenceConstants;
+import com.android.bpcontrol.webservice.WSManager;
 
 import java.util.ArrayList;
 
@@ -45,6 +51,8 @@ public class PressuresFragment extends Fragment
     private boolean bPulse1n = false, bPulse2n = false, bPulse3n = false, bPulse1m = false, bPulse2m = false, bPulse3m = false;
     private Button buttonsend;
     private Button buttonsave;
+
+    private PressuresDataBase db;
 
     int choosedspinner = 0;
 
@@ -138,7 +146,7 @@ public class PressuresFragment extends Fragment
         });
 
         checkIfDataSaved();
-
+        db = new PressuresDataBase(getActivity());
     }
 
 
@@ -411,26 +419,42 @@ public class PressuresFragment extends Fragment
     }
 
 
-//    private class sendPressures extends AsyncTask<Void,Void>{
-//
-//
-//        @Override
-//        protected void onPreExecute() {
-//
-//            ((HomeActivity)getActivity()).showProgressDialog();
-//        }
-//
-//        @Override
-//        protected String doInBackground(String... params) {
-//
-//
-//        }
-//        @Override
-//        protected void onPostExecute(){
-//
-//
-//        }
-//    }
+    private class sendPressures extends AsyncTask<Void,Void,Void>{
+
+
+        @Override
+        protected void onPreExecute() {
+
+            ((HomeActivity)getActivity()).showProgressDialog();
+        }
+
+        @Override
+        protected Void doInBackground(Void... params) {
+
+            final PressuresMorning pMorning = new PressuresMorning();
+            pMorning.add(new Pressure(systolic1m,diastolic1m,pulse1m));
+            pMorning.add(new Pressure(systolic2m,diastolic2m,pulse2m));
+            pMorning.add(new Pressure(systolic3m,diastolic3m,pulse3m));
+
+            final PressuresAfternoon pAfternoon = new PressuresAfternoon();
+            pMorning.add(new Pressure(systolic1n,diastolic1n,pulse1n));
+            pMorning.add(new Pressure(systolic2n,diastolic2n,pulse2n));
+            pMorning.add(new Pressure(systolic3n,diastolic3n,pulse3n));
+            WSManager.getInstance().sendPressures(getActivity(),pMorning,pAfternoon,new WSManager.SendPressures() {
+                @Override
+                public void onSendPressures(String response) {
+                        savePressuresInDB(pMorning,pAfternoon);
+                }
+            });
+            publishProgress();
+            return null;
+        }
+        @Override
+        protected void onProgressUpdate(Void...result){
+
+            ((HomeActivity)getActivity()).dissmissProgressDialog();
+        }
+    }
 
     private void checkIfDataSaved() {
 
@@ -586,7 +610,7 @@ public class PressuresFragment extends Fragment
                 .setMessage(msg)
                 .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-                        // continue with delete
+
                     }
                 })
                 .show();
@@ -614,6 +638,14 @@ public class PressuresFragment extends Fragment
         }
 
         ((HomeActivity)getActivity()).dissmissProgressDialog();
+    }
+
+    private void savePressuresInDB(PressuresMorning morning , PressuresAfternoon afternoon){
+
+        Pressure average = Pressures.obtainPressuresDayAverage(morning,afternoon);
+
+        //db.ad
+
     }
 
 

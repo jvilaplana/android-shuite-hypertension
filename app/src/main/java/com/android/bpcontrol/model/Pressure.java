@@ -5,7 +5,7 @@ package com.android.bpcontrol.model;
  */
 public class Pressure{
 
-    private int id;
+    private int id = -1;
     private String systolic;
     private String diastolic;
     private String pulse;
@@ -16,6 +16,22 @@ public class Pressure{
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public Pressure(){}
+
+    public Pressure(int systolic, int diastolic, int pulse){
+
+        this.systolic = String.valueOf(systolic);
+        this.diastolic = String.valueOf(diastolic);
+        this.pulse = String.valueOf(pulse);
+    }
+
+    public Pressure(String systolic, String diastolic, String pulse){
+
+        this.systolic = systolic;
+        this.diastolic = diastolic;
+        this.pulse = pulse;
     }
 
     public String getSystolic() {

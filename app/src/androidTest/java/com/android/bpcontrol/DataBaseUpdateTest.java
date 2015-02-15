@@ -32,8 +32,8 @@ public class DataBaseUpdateTest extends AndroidTestCase{
         newPressure.setPulse("75");
 
 
-        db.addMorningPreasure(newPressure);
-        db.addAfternoonPreasure(newPressure);
+        db.addMorningPreasure(newPressure,"0");
+        db.addAfternoonPreasure(newPressure,"0");
     }
 
     public void testUpdateMorningPressure() {

@@ -28,6 +28,7 @@ public class PressuresDataBase extends SQLiteOpenHelper{
     private static final String KEY_SYSTOLIC = "systolic";
     private static final String KEY_DIASTOLIC = "diastolic";
     private static final String KEY_PULSE = "pulse";
+    private static final String KEY_SEMAPHORE = "semaphore";
 
     public PressuresDataBase(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -42,13 +43,15 @@ public class PressuresDataBase extends SQLiteOpenHelper{
                 "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 "systolic TEXT, "+
                 "diastolic TEXT, "+
-                "pulse TEXT )";
+                "pulse TEXT, "+
+                "semaphore INTEGER )";
 
         String CREATE_PRESSURESAFTERNOON_TABLE = "CREATE TABLE PressuresAfternoon ( " +
                 "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 "systolic TEXT, "+
                 "diastolic TEXT, "+
-                "pulse TEXT )";
+                "pulse TEXT, "+
+                "semaphore INTEGER )";
 
 
         db.execSQL(CREATE_PRESSURESMORNING_TABLE);
@@ -58,23 +61,23 @@ public class PressuresDataBase extends SQLiteOpenHelper{
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         LogBP.writelog("DATABASE","Database upgrade");
-        db.execSQL("DROP TABLE IF EXISTS books");
+        db.execSQL("DROP TABLE IF EXISTS PressuresMorning");
         this.onCreate(db);
     }
 
 
-    public void addMorningPreasure(Pressure pressure){
+    public void addMorningPreasure(Pressure pressure,String semaphore){
 
-        addPressure(TABLE_PRESSURESMORNING,pressure);
+        addPressure(TABLE_PRESSURESMORNING,pressure,semaphore);
     }
 
-    public void addAfternoonPreasure(Pressure pressure){
+    public void addAfternoonPreasure(Pressure pressure, String semaphore){
 
-        addPressure(TABLE_PRESSURESAFTERNOON,pressure);
+        addPressure(TABLE_PRESSURESAFTERNOON,pressure,semaphore);
     }
 
 
-    private void addPressure(String table,Pressure pressure){
+    private void addPressure(String table,Pressure pressure,String semaphore){
 
         SQLiteDatabase db = this.getWritableDatabase();
 
@@ -82,6 +85,7 @@ public class PressuresDataBase extends SQLiteOpenHelper{
         values.put(KEY_SYSTOLIC, pressure.getSystolic());
         values.put(KEY_DIASTOLIC, pressure.getDiastolic());
         values.put(KEY_PULSE, pressure.getPulse());
+        values.put(KEY_SEMAPHORE,semaphore);
 
         db.insert(table, null, values);
 

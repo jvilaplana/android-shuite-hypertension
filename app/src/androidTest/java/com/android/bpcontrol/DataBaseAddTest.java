@@ -30,12 +30,12 @@ public class DataBaseAddTest extends AndroidTestCase{
 
     public void testAddOnePressureMorning(){
 
-        db.addMorningPreasure(fake);
+        db.addMorningPreasure(fake,"0");
     }
 
     public void testAddOnePressureAfternoon(){
 
-        db.addAfternoonPreasure(fake);
+        db.addAfternoonPreasure(fake,"0");
     }
 
     public void tearDown() throws Exception{

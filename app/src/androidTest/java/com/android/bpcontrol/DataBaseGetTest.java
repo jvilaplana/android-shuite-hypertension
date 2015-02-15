@@ -26,8 +26,8 @@ public class DataBaseGetTest extends AndroidTestCase{
         fake.setDiastolic("80");
         fake.setPulse("75");
 
-        db.addMorningPreasure(fake);
-        db.addAfternoonPreasure(fake);
+        db.addMorningPreasure(fake,"0");
+        db.addAfternoonPreasure(fake, "0");
     }
 
     public void testgetAllAfternoonPressures() {

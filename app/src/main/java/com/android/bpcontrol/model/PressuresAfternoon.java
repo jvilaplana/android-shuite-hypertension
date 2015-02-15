@@ -13,11 +13,6 @@ public class PressuresAfternoon extends Pressures {
 
 
     @Override
-    public Pressure obtainPressuresAverage() {
-        return null;
-    }
-
-    @Override
     public boolean areMorningPressures() {
         return false;
     }
