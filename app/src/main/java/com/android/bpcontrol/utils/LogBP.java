@@ -11,6 +11,8 @@ public class LogBP {
 
     private boolean isDebugMode = true;
 
+    private LogBP(){}
+
     public static LogBP getInstance(){
 
         if (instance == null){

@@ -89,6 +89,7 @@
     <string name="diastolic">Diastolic</string>
     <string name="pulse">Pulse</string>
     <string name="sendpreassure">Send</string>
+    <string name="savepreassure">Save</string>
 
     <string-array name="spinnerpressures">
         <item>MORNING (6-9 hours)</item>
@@ -103,6 +104,8 @@
     <string name="dialogpulse">Enter your pulse</string>
     <string name="savebutton">Save</string>
     <string name="loadbutton">Load</string>
-
+    <string name="emptysavemessage">To save the data need to fill in all fields for this time slot</string>
+    <string name="messagesend">To send pressures have to fill both slots. If only one , click save button to save the pressures of a slot button.</string>
+    <string name="saveddata">Data correctly saved</string>
 
 </resources>

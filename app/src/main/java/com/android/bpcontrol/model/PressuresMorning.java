@@ -12,6 +12,11 @@ import java.util.List;
 public class PressuresMorning extends Pressures {
 
     @Override
+    public Pressure obtainPressuresAverage() {
+        return null;
+    }
+
+    @Override
     public boolean areMorningPressures() {
         return true;
     }

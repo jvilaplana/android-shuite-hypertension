@@ -50,6 +50,7 @@ public class PressuresDataBase extends SQLiteOpenHelper{
                 "diastolic TEXT, "+
                 "pulse TEXT )";
 
+
         db.execSQL(CREATE_PRESSURESMORNING_TABLE);
         db.execSQL(CREATE_PRESSURESAFTERNOON_TABLE);
     }
@@ -71,6 +72,7 @@ public class PressuresDataBase extends SQLiteOpenHelper{
 
         addPressure(TABLE_PRESSURESAFTERNOON,pressure);
     }
+
 
     private void addPressure(String table,Pressure pressure){
 

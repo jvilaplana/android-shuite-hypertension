@@ -1,13 +1,14 @@
 package com.android.bpcontrol.fragments;
 
+import android.app.AlertDialog;
 import android.app.Dialog;
-import android.app.usage.UsageEvents;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v7.internal.widget.AdapterViewCompat;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -24,23 +25,26 @@ import com.android.bpcontrol.R;
 import com.android.bpcontrol.customviews.BPEditText;
 import com.android.bpcontrol.customviews.RobotoTextView;
 import com.android.bpcontrol.utils.LogBP;
+import com.android.bpcontrol.utils.SharedPreferenceConstants;
 
 import java.util.ArrayList;
 
 /**
  * Created by Adrian on 12/2/15.
  */
+
 public class PressuresFragment extends Fragment
                                implements AdapterView.OnItemSelectedListener,
                                           NumberPicker.OnValueChangeListener {
 
     private String systolic1n, systolic2n, systolic3n, systolic1m, systolic2m, systolic3m;
     private String diastolic1n, diastolic2n, diastolic3n, diastolic1m, diastolic2m, diastolic3m;
-    private String pulse1n, pulse2n,pulse3n,pulse1m, pulse2m,pulse3m;
+    private String pulse1n, pulse2n, pulse3n, pulse1m, pulse2m, pulse3m;
     private boolean bSystolic1n = false, bSystolic2n = false, bSystolic3n = false, bSystolic1m = false, bSystolic2m = false, bSystolic3m = false;
     private boolean bDiastolic1n = false, bDiastolic2n = false, bDiastolic3n = false, bDiastolic1m = false, bDiastolic2m = false, bDiastolic3m = false;
-    private boolean bPulse1n=false, bPulse2n=false,bPulse3n=false,bPulse1m=false, bPulse2m=false,bPulse3m=false;
-    private Button buttonenviar;
+    private boolean bPulse1n = false, bPulse2n = false, bPulse3n = false, bPulse1m = false, bPulse2m = false, bPulse3m = false;
+    private Button buttonsend;
+    private Button buttonsave;
 
     int choosedspinner = 0;
 
@@ -62,6 +66,8 @@ public class PressuresFragment extends Fragment
         View view = inflater.inflate(R.layout.pressureslayout, null);
         spinner = (Spinner) view.findViewById(R.id.spinnerpressures);
         ViewGroup group = (ViewGroup) view.findViewById(R.id.edittextspressures);
+        buttonsend = (Button) view.findViewById(R.id.sendpressures);
+        buttonsave = (Button) view.findViewById(R.id.save);
         getEditTexts(group);
         return view;
     }
@@ -75,6 +81,64 @@ public class PressuresFragment extends Fragment
         spinner.setAdapter(adapter);
         spinner.setOnItemSelectedListener(this);
 
+        buttonsave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                    new saveData().execute();
+            }
+        });
+
+        buttonsend.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((HomeActivity)getActivity()).showProgressDialog();
+                if (isCorrectAfternoonMeassurament() && isCorrectMorningMeassurament()) {
+
+                    bSystolic1n = false;
+                    bSystolic2n = false;
+                    bSystolic3n = false;
+                    bSystolic1m = false;
+                    bSystolic2m = false;
+                    bSystolic3m = false;
+                    bDiastolic1n = false;
+                    bDiastolic2n = false;
+                    bDiastolic3n = false;
+                    bDiastolic1m = false;
+                    bDiastolic2m = false;
+                    bDiastolic3m = false;
+                    bPulse1n = false;
+                    bPulse2n = false;
+                    bPulse3n = false;
+                    bPulse1m = false;
+                    bPulse2m = false;
+                    bPulse3m = false;
+
+                    SharedPreferences preferences = getActivity()
+                            .getSharedPreferences(SharedPreferenceConstants.SHARE_PREFERENCE_KEY, Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor = preferences.edit();
+
+                    editor.putString(SharedPreferenceConstants.SYSTOLICM, "");
+                    editor.putString(SharedPreferenceConstants.DIASTOLICM, "");
+                    editor.putString(SharedPreferenceConstants.PULSEM, "");
+                    editor.putString(SharedPreferenceConstants.SYSTOLICN, "");
+                    editor.putString(SharedPreferenceConstants.DIASTOLICN, "");
+                    editor.putString(SharedPreferenceConstants.PULSEN, "");
+                    editor.commit();
+
+                    for(BPEditText editText : editTexts){
+                        editText.setText("");
+                    }
+                    ((HomeActivity)getActivity()).dissmissProgressDialog();
+
+                } else {
+                        showDialog(getResources().getString(R.string.messagesend));
+                }
+
+            }
+        });
+
+        checkIfDataSaved();
+
     }
 
 
@@ -82,6 +146,58 @@ public class PressuresFragment extends Fragment
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
         choosedspinner = position;
+        BPEditText edittext0 = editTexts.get(0);
+        BPEditText edittext1 = editTexts.get(1);
+        BPEditText edittext2 = editTexts.get(2);
+        BPEditText edittext3 = editTexts.get(3);
+        BPEditText edittext4 = editTexts.get(4);
+        BPEditText edittext5 = editTexts.get(5);
+        BPEditText edittext6 = editTexts.get(6);
+        BPEditText edittext7 = editTexts.get(7);
+        BPEditText edittext8 = editTexts.get(8);
+
+        edittext0.setText("");
+        edittext3.setText("");
+        edittext6.setText("");
+
+        edittext1.setText("");
+        edittext4.setText("");
+        edittext7.setText("");
+
+        edittext2.setText("");
+        edittext5.setText("");
+        edittext8.setText("");
+
+        LogBP.writelog("itemSelected()");
+        if (position==0 && isCorrectMorningMeassurament()){
+
+            edittext0.setText(systolic1m);
+            edittext3.setText(systolic2m);
+            edittext6.setText(systolic3m);
+
+            edittext1.setText(diastolic1m);
+            edittext4.setText(diastolic2m);
+            edittext7.setText(diastolic3m);
+
+            edittext2.setText(pulse1m);
+            edittext5.setText(pulse2m);
+            edittext8.setText(pulse3m);
+
+        }else if(position == 1 && isCorrectAfternoonMeassurament()){
+
+        edittext0.setText(systolic1n);
+        edittext3.setText(systolic2n);
+        edittext6.setText(systolic3n);
+
+        edittext1.setText(diastolic1n);
+        edittext4.setText(diastolic2n);
+        edittext7.setText(diastolic3n);
+
+        edittext2.setText(pulse1n);
+        edittext5.setText(pulse2n);
+        edittext8.setText(pulse3n);
+
+        }
     }
 
     @Override
@@ -108,9 +224,6 @@ public class PressuresFragment extends Fragment
                     public boolean onTouch(View v, MotionEvent event) {
                         if (event.getAction() == 1) {
                             BPEditText editText = (BPEditText) v;
-                            if (editText.getText().toString().equals("")) {
-
-                            }
                             Integer pos = (int) Integer.parseInt((String) v.getTag());
                             showPicker(pos);
                         }
@@ -135,12 +248,12 @@ public class PressuresFragment extends Fragment
         RobotoTextView headertittle = (RobotoTextView) dialog.findViewById(R.id.headertextdialog);
         final NumberPicker numberPicker = (NumberPicker) dialog.findViewById(R.id.numberPicker1);
 
-        if (position == 1 || position == 4 || position == 7) {
+        if (position == 1 || position == 2 || position == 3) {
             headertittle.setText(getResources().getString(R.string.dialogsystolic));
             numberPicker.setMaxValue(240);
             numberPicker.setMinValue(50);
             numberPicker.setValue(120);
-        } else if (position == 2 || position == 5 || position == 8) {
+        } else if (position == 4 || position == 5 || position == 6) {
             headertittle.setText(getResources().getString(R.string.dialogdiastolic));
             numberPicker.setMaxValue(140);
             numberPicker.setMinValue(30);
@@ -179,73 +292,89 @@ public class PressuresFragment extends Fragment
         switch (position) {
 
             case 1:
-                if(isMorning()) {
+                if (isMorning()) {
+                    systolic1m = String.valueOf(pickervalue);
                     bSystolic1m = true;
 
                 } else {
+                    systolic1n = String.valueOf(pickervalue);
                     bSystolic1n = true;
                 }
 
                 break;
             case 2:
-                if(isMorning()){
+                if (isMorning()) {
+                    diastolic1m = String.valueOf(pickervalue);
                     bDiastolic1m = true;
                 } else {
+                    diastolic1n = String.valueOf(pickervalue);
                     bDiastolic1n = true;
 
                 }
                 break;
             case 3:
                 if (isMorning()) {
+                    pulse1m = String.valueOf(pickervalue);
                     bPulse1m = true;
 
                 } else {
-
+                    pulse1n = String.valueOf(pickervalue);
                     bPulse1n = true;
                 }
                 break;
             case 4:
                 if (isMorning()) {
+                    systolic2m = String.valueOf(pickervalue);
                     bSystolic2m = true;
                 } else {
+                    systolic2n = String.valueOf(pickervalue);
                     bSystolic2n = true;
                 }
                 break;
             case 5:
                 if (isMorning()) {
+                    diastolic2m = String.valueOf(pickervalue);
                     bDiastolic2m = true;
                 } else {
-
+                    diastolic2n = String.valueOf(pickervalue);
                     bDiastolic2n = true;
 
                 }
                 break;
             case 6:
                 if (isMorning()) {
+                    pulse2m = String.valueOf(pickervalue);
                     bPulse2m = true;
                 } else {
+                    pulse2n = String.valueOf(pickervalue);
                     bPulse2n = true;
                 }
                 break;
             case 7:
                 if (isMorning()) {
+                    systolic3m = String.valueOf(pickervalue);
                     bSystolic3m = true;
                 } else {
+                    systolic3n = String.valueOf(pickervalue);
                     bSystolic3n = true;
                 }
                 break;
             case 8:
                 if (isMorning()) {
+                    diastolic3m = String.valueOf(pickervalue);
                     bDiastolic3m = true;
                 } else {
+                    diastolic3n = String.valueOf(pickervalue);
                     bDiastolic3n = true;
 
                 }
                 break;
             case 9:
                 if (isMorning()) {
+                    pulse3m = String.valueOf(pickervalue);
                     bPulse3m = true;
                 } else {
+                    pulse3n = String.valueOf(pickervalue);
                     bPulse3n = true;
                 }
                 break;
@@ -271,12 +400,12 @@ public class PressuresFragment extends Fragment
                 && bPulse2m && bSystolic3m && bDiastolic3m && bPulse3m;
     }
 
-    private boolean isMorning(){
+    private boolean isMorning() {
 
         return choosedspinner == 0;
     }
 
-    private boolean isAfternoon(){
+    private boolean isAfternoon() {
 
         return choosedspinner != 0;
     }
@@ -303,7 +432,189 @@ public class PressuresFragment extends Fragment
 //        }
 //    }
 
+    private void checkIfDataSaved() {
 
+        SharedPreferences preferences = getActivity()
+                .getSharedPreferences(SharedPreferenceConstants.SHARE_PREFERENCE_KEY, Context.MODE_PRIVATE);
+
+
+        if (!preferences.getString(SharedPreferenceConstants.SYSTOLICM, "").equals("")) {
+
+
+            String[] systolicm = preferences.getString(SharedPreferenceConstants.SYSTOLICM, "").split(" ");
+            systolic1m = systolicm[0];
+            systolic2m = systolicm[1];
+            systolic3m = systolicm[2];
+
+            editTexts.get(0).setText(systolic1m);
+            editTexts.get(3).setText(systolic2m);
+            editTexts.get(6).setText(systolic3m);
+
+            bSystolic1m = true;
+            bSystolic2m = true;
+            bSystolic3m = true;
+
+
+        }
+
+        if (!preferences.getString(SharedPreferenceConstants.SYSTOLICN, "").equals("")) {
+
+            String[] systolicn = preferences.getString(SharedPreferenceConstants.SYSTOLICN, "").split(" ");
+            systolic1n = systolicn[0];
+            systolic2n = systolicn[1];
+            systolic3n = systolicn[2];
+
+            bSystolic1n = true;
+            bSystolic2n = true;
+            bSystolic3n = true;
+
+        }
+        if (!preferences.getString(SharedPreferenceConstants.DIASTOLICM, "").equals("")) {
+
+            String[] diastolicm = preferences.getString(SharedPreferenceConstants.DIASTOLICM, "").split(" ");
+            diastolic1m = diastolicm[0];
+            diastolic2m = diastolicm[1];
+            diastolic3m = diastolicm[2];
+
+            editTexts.get(1).setText(diastolic1m);
+            editTexts.get(4).setText(diastolic2m);
+            editTexts.get(7).setText(diastolic3m);
+
+            bDiastolic1m = true;
+            bDiastolic2m = true;
+            bDiastolic3m = true;
+
+        }
+
+        if (!preferences.getString(SharedPreferenceConstants.DIASTOLICN, "").equals("")) {
+
+            String[] diastolicn = preferences.getString(SharedPreferenceConstants.DIASTOLICN, "").split(" ");
+            diastolic1n = diastolicn[0];
+            diastolic2n = diastolicn[1];
+            diastolic3n = diastolicn[2];
+
+            bDiastolic1n = true;
+            bDiastolic2n = true;
+            bDiastolic3n = true;
+        }
+        if (!preferences.getString(SharedPreferenceConstants.PULSEM, "").equals("")) {
+
+            String[] pulsem = preferences.getString(SharedPreferenceConstants.PULSEM, "").split(" ");
+            pulse1m = pulsem[0];
+            pulse2m = pulsem[1];
+            pulse3m = pulsem[2];
+
+            editTexts.get(2).setText(pulse1m);
+            editTexts.get(5).setText(pulse2m);
+            editTexts.get(8).setText(pulse3m);
+
+            bPulse1m = true;
+            bPulse2m = true;
+            bPulse3m = true;
+        }
+
+        if (!preferences.getString(SharedPreferenceConstants.PULSEN, "").equals("")) {
+
+            String[] pulsen = preferences.getString(SharedPreferenceConstants.PULSEN, "").split(" ");
+            pulse1n = pulsen[0];
+            pulse2n = pulsen[1];
+            pulse3n = pulsen[2];
+
+            bPulse1n = true;
+            bPulse2n = true;
+            bPulse3n = true;
+        }
+
+
+    }
+
+    private class saveData extends AsyncTask<Void, String, Void> {
+
+        @Override
+        protected void onPreExecute() {
+
+            ((HomeActivity) getActivity()).showProgressDialog();
+
+        }
+
+        @Override
+        protected Void doInBackground(Void... par) {
+
+            if (isMorning()) {
+
+                if (isCorrectMorningMeassurament()) {
+
+                    savePressures();
+                    publishProgress(getResources().getString(R.string.saveddata));
+
+                } else {
+                    ((HomeActivity)getActivity()).dissmissProgressDialog();
+                    publishProgress(getResources().getString(R.string.emptysavemessage));
+                }
+            } else {
+
+                if (isCorrectAfternoonMeassurament()) {
+
+                    savePressures();
+                    publishProgress(getResources().getString(R.string.saveddata));
+                }else{
+                    ((HomeActivity)getActivity()).dissmissProgressDialog();
+                    publishProgress(getResources().getString(R.string.emptysavemessage));
+                }
+
+            }
+
+                return null;
+        }
+
+        @Override
+        protected void onProgressUpdate(String... par){
+
+            showDialog(par[0]);
+        }
+
+
+
+
+    }
+
+    private void showDialog(String msg){
+
+
+        new AlertDialog.Builder(getActivity())
+                .setCancelable(false)
+                .setMessage(msg)
+                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        // continue with delete
+                    }
+                })
+                .show();
+
+
+    }
+
+    private void savePressures(){
+        SharedPreferences preferences = getActivity()
+                .getSharedPreferences(SharedPreferenceConstants.SHARE_PREFERENCE_KEY, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        if (isMorning()){
+
+            editor.putString(SharedPreferenceConstants.SYSTOLICM,systolic1m+" "+systolic2m+" "+systolic3m);
+            editor.putString(SharedPreferenceConstants.DIASTOLICM,diastolic1m+" "+diastolic2m+" "+diastolic3m);
+            editor.putString(SharedPreferenceConstants.PULSEM,pulse1m+" "+pulse2m+" "+pulse3m);
+            editor.commit();
+
+        }else{
+
+            editor.putString(SharedPreferenceConstants.SYSTOLICN,systolic1n+" "+systolic2n+" "+systolic3n);
+            editor.putString(SharedPreferenceConstants.DIASTOLICN,diastolic1n+" "+diastolic2n+" "+diastolic3n);
+            editor.putString(SharedPreferenceConstants.PULSEN,pulse1n+" "+pulse2n+" "+pulse3n);
+            editor.commit();
+        }
+
+        ((HomeActivity)getActivity()).dissmissProgressDialog();
+    }
 
 
 }
