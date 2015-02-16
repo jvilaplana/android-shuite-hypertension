@@ -8,6 +8,8 @@ import android.app.AlertDialog;
 import android.app.DownloadManager;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.view.Gravity;
+import android.widget.TextView;
 
 import com.android.bpcontrol.R;
 import com.android.bpcontrol.application.BPcontrolApplication;
@@ -23,6 +25,7 @@ import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.android.volley.Request;
@@ -55,6 +58,11 @@ public class WSManager {
         public void onFailure(Exception e);
     }
 
+    public static interface BPcontrolApiJsonCallback extends EventListener {
+
+        public void onSuccess(JSONObject response);
+        public void onFailure(Exception e);
+    }
     public static interface SendPhoneNumber extends EventListener{
 
         public void onRegisterPhone();
@@ -100,15 +108,23 @@ public class WSManager {
         queue.add(jsObjRequest);
     }
 
-    private void webservicePostWithCallback(final Context context, final String url,final Map<String,String> params,
-                                            final Map<String,String> headers,final BPcontrolApiCallback callback ){
+
+    private void webservicePressuresPost(final Context context, final String url,final Map<String,String> params,
+                                            final Map<String,String> headers,final BPcontrolApiJsonCallback callback ){
 
         if (queue == null) queue = Volley.newRequestQueue(context);
 
-        StringRequest jsonRequest = new StringRequest(Request.Method.POST,url,new Response.Listener<String>() {
+        JSONObject JSONobject = new JSONObject(params);
+        try {
+            JSONobject.put("uuid",User.getInstance().getUUID());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST,url,JSONobject,new Response.Listener<JSONObject>() {
             @Override
-            public void onResponse(String result) {
-                LogBP.writelog("POST","Respponse to "+url+" response: "+result);
+            public void onResponse(JSONObject result) {
+                LogBP.writelog("POST","Respponse to "+url+" response: "+result.toString());
                 callback.onSuccess(result);
             }
         }, new Response.ErrorListener() {
@@ -118,11 +134,6 @@ public class WSManager {
                 callback.onFailure(volleyError);
             }
         }){
-            @Override
-            protected Map<String,String> getParams(){
-
-                return params;
-           }
 
            @Override
            public Map<String,String> getHeaders(){
@@ -131,11 +142,9 @@ public class WSManager {
            }
         };
 
-
-        queue.add(jsonRequest);
+        queue.add(request);
 
     }
-
 
     public void sendPhoneNumber(final Context context,String prefixNumber,String phoneNumber, final SendPhoneNumber callback){
         final String url = URLBASE+"/hypertensionPatient/restValidateMobile/"+prefixNumber+phoneNumber;
@@ -250,10 +259,14 @@ public class WSManager {
                 ((BPcontrolMasterActivity)context).finish();
             }
         });
+        AlertDialog dialog = builder.show();
+        TextView messageText = (TextView)dialog.findViewById(android.R.id.message);
+        messageText.setGravity(Gravity.CENTER);
 
 
 
-        builder.show();
+
+        dialog.show();
 
     }
 
@@ -264,22 +277,21 @@ public class WSManager {
         final String url=URLBASE+"/hypertensionBloodPressure/restSave";
         Map<String,String> params = preparePostPressures(morning,afternoon);
         Map<String,String> headers = new HashMap<>();
-        headers.put("Content-type","Application/json");
-        webservicePostWithCallback(context, url, params, headers, new BPcontrolApiCallback() {
-            @Override
-            public void onSuccess(String response) {
+        headers.put("Content-Type", "application/json");
+       webservicePressuresPost(context,url,params,headers, new BPcontrolApiJsonCallback() {
+           @Override
+           public void onSuccess(JSONObject response) {
 
-                parseSendResponse(response, callback);
+               parseSendResponse(response, callback);
 
-            }
+           }
 
-            @Override
-            public void onFailure(Exception e) {
-
-                LogBP.printStackTrace(e);
-                showApiPressuresSendError(context);
-            }
-        });
+           @Override
+           public void onFailure(Exception e) {
+                    LogBP.printStackTrace(e);
+                    showApiPressuresSendError(context);
+           }
+       });
 
     }
 
@@ -287,14 +299,13 @@ public class WSManager {
 
         Map<String,String> params = new HashMap<>();
 
-        params.put("uuid",User.getInstance().getUUID());
-        addPressureParams(pressuresMorning,params);
-        addPressureParams(pressuresAfternoon,params);
+        addJsonPressureParams(pressuresMorning, params);
+        addJsonPressureParams(pressuresAfternoon, params);
 
         return params;
     }
 
-    private void addPressureParams(Pressures pressures,Map<String,String> params){
+    private void addJsonPressureParams(Pressures pressures,Map<String,String> params){
 
         List<Pressure> pList= pressures.getAllPressures();
         final Pressure p1 = pList.get(0);
@@ -302,17 +313,19 @@ public class WSManager {
         final Pressure p3 = pList.get(2);
 
         if (pressures.areMorningPressures()){
+
             params.put("systole1m",p1.getSystolic());
             params.put("systole2m",p2.getSystolic());
             params.put("systole3m",p3.getSystolic());
 
-            params.put("diastolic1m",p1.getDiastolic());
-            params.put("diastolic2m",p2.getDiastolic());
-            params.put("diastolic3m",p3.getDiastolic());
+            params.put("diastole1m",p1.getDiastolic());
+            params.put("diastole2m",p2.getDiastolic());
+            params.put("diastole3m",p3.getDiastolic());
 
             params.put("pulse1m",p1.getPulse());
             params.put("pulse2m",p2.getPulse());
             params.put("pulse3m",p3.getPulse());
+
 
         }else{
 
@@ -320,9 +333,9 @@ public class WSManager {
             params.put("systole2n",p2.getSystolic());
             params.put("systole3n",p3.getSystolic());
 
-            params.put("diastolic1n",p1.getDiastolic());
-            params.put("diastolic2n",p2.getDiastolic());
-            params.put("diastolic3n",p3.getDiastolic());
+            params.put("diastole1n",p1.getDiastolic());
+            params.put("diastole2n",p2.getDiastolic());
+            params.put("diastole3n",p3.getDiastolic());
 
             params.put("pulse1n",p1.getPulse());
             params.put("pulse2n",p2.getPulse());
@@ -331,13 +344,11 @@ public class WSManager {
 
     }
 
-    private void parseSendResponse(String response, SendPressures callback){
+    private void parseSendResponse(JSONObject json, SendPressures callback){
 
         String link = null;
         int pStatus = -1;
         try {
-
-            JSONObject json = new JSONObject(response);
             pStatus = Integer.parseInt(json.getString("patientStatus"));
             link = json.getString("infoLink");
 
@@ -357,7 +368,7 @@ public class WSManager {
 
     private void showApiPressuresSendError(final Context context){
 
-        final AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setMessage(context.getResources().getString(R.string.pressuresendproblems));
         builder.setPositiveButton(context.getResources().getString(R.string.noconnectiondialogpositiveWS), new DialogInterface.OnClickListener() {
             @Override
@@ -367,6 +378,11 @@ public class WSManager {
                 ((BPcontrolMasterActivity)context).finish();
             }
         });
+        AlertDialog dialog = builder.show();
+        TextView messageText = (TextView)dialog.findViewById(android.R.id.message);
+        messageText.setGravity(Gravity.CENTER);
+
+        dialog.show();
 
     }
 

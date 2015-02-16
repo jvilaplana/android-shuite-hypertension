@@ -10,8 +10,10 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.GridView;
 
+import com.android.bpcontrol.HomeActivity;
 import com.android.bpcontrol.R;
 import com.android.bpcontrol.adapters.HomeGridAdapter;
+import com.android.bpcontrol.controllers.LateralMenuController;
 import com.android.bpcontrol.model.GridCellResources;
 import com.android.bpcontrol.utils.LogBP;
 
@@ -50,7 +52,19 @@ public class HomeFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> arg0, View v, int position, long arg3) {
 
-                LogBP.writelog("Tocado el de la posicion " + position);
+                switch (position){
+
+                    case 0:
+                        break;
+                    case 1:
+                        ((HomeActivity)getActivity()).selectMenuItem(LateralMenuController.MenuSections.PRESSURES);
+                        break;
+                    case 2:
+                        break;
+                    case 3:
+                        break;
+
+                }
             }
         });
     }

@@ -82,8 +82,6 @@ public class BPcontrolDB extends SQLiteOpenHelper{
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         LogBP.writelog("DATABASE","Database upgrade");
-        db.execSQL("DROP TABLE IF EXISTS PressuresMorning");
-        db.execSQL("DROP TABLE IF EXISTS PressuresAfternoon");
         db.execSQL("DROP TABLE IF EXISTS PressuresAverage");
         db.execSQL("DROP TABLE IF EXISTS YoutubeLink");
         this.onCreate(db);
@@ -118,11 +116,11 @@ public class BPcontrolDB extends SQLiteOpenHelper{
         db.close();
 
     }
-    private List<YoutubeLink> getAllYoutubeLinks(){
+    public List<YoutubeLink> getAllYoutubeLinks(){
 
         List<YoutubeLink> listpressures = new ArrayList<>();
 
-        String query = "SELECT  * FROM " + TABLE_PRESSURESAVERAGE;
+        String query = "SELECT  * FROM " + TABLE_YOUTUBE;
 
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(query, null);
@@ -143,7 +141,7 @@ public class BPcontrolDB extends SQLiteOpenHelper{
     }
 
 
-    private List<Pressure> getAllPressureAverage() throws ParseException {
+    public List<Pressure> getAllPressureAverage() throws ParseException {
 
         List<Pressure> listpressures = new ArrayList<>();
 

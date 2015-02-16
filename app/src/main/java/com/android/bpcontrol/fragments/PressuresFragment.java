@@ -9,6 +9,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -19,6 +20,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.NumberPicker;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.android.bpcontrol.HomeActivity;
 import com.android.bpcontrol.R;
@@ -38,6 +40,7 @@ import com.android.bpcontrol.webservice.WSManager;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by Adrian on 12/2/15.
@@ -64,6 +67,8 @@ public class PressuresFragment extends Fragment
 
     private Spinner spinner;
 
+    private List<Pressure> ppppp;
+
 
     public static PressuresFragment getNewInstace() {
 
@@ -81,6 +86,7 @@ public class PressuresFragment extends Fragment
         buttonsend = (Button) view.findViewById(R.id.sendpressures);
         buttonsave = (Button) view.findViewById(R.id.save);
         getEditTexts(group);
+
         return view;
 
     }
@@ -95,6 +101,9 @@ public class PressuresFragment extends Fragment
         spinner.setOnItemSelectedListener(this);
 
         db = new BPcontrolDB(getActivity());
+        List<YoutubeLink> list = db.getAllYoutubeLinks();
+
+
 
         buttonsave.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -106,12 +115,13 @@ public class PressuresFragment extends Fragment
         buttonsend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((HomeActivity)getActivity()).showProgressDialog();
+
                 if (isCorrectAfternoonMeassurament() && isCorrectMorningMeassurament()) {
 
                     new sendPressures().execute();
 
                 } else {
+
                         showDialog(getResources().getString(R.string.messagesend));
                 }
 
@@ -119,7 +129,6 @@ public class PressuresFragment extends Fragment
         });
 
         checkIfDataSaved();
-        db = new BPcontrolDB(getActivity());
     }
 
 
@@ -138,45 +147,45 @@ public class PressuresFragment extends Fragment
         BPEditText edittext8 = editTexts.get(8);
 
         edittext0.setText("");
-        edittext3.setText("");
-        edittext6.setText("");
-
         edittext1.setText("");
-        edittext4.setText("");
-        edittext7.setText("");
-
         edittext2.setText("");
+
+        edittext3.setText("");
+        edittext4.setText("");
         edittext5.setText("");
+
+        edittext6.setText("");
+        edittext7.setText("");
         edittext8.setText("");
 
         LogBP.writelog("itemSelected()");
         if (position==0 && isCorrectMorningMeassurament()){
 
             edittext0.setText(systolic1m);
-            edittext3.setText(systolic2m);
-            edittext6.setText(systolic3m);
+            edittext1.setText(systolic2m);
+            edittext2.setText(systolic3m);
 
-            edittext1.setText(diastolic1m);
+            edittext3.setText(diastolic1m);
             edittext4.setText(diastolic2m);
-            edittext7.setText(diastolic3m);
+            edittext5.setText(diastolic3m);
 
-            edittext2.setText(pulse1m);
-            edittext5.setText(pulse2m);
+            edittext6.setText(pulse1m);
+            edittext7.setText(pulse2m);
             edittext8.setText(pulse3m);
 
         }else if(position == 1 && isCorrectAfternoonMeassurament()){
 
-        edittext0.setText(systolic1n);
-        edittext3.setText(systolic2n);
-        edittext6.setText(systolic3n);
+            edittext0.setText(systolic1n);
+            edittext1.setText(systolic2n);
+            edittext2.setText(systolic3n);
 
-        edittext1.setText(diastolic1n);
-        edittext4.setText(diastolic2n);
-        edittext7.setText(diastolic3n);
+            edittext3.setText(diastolic1n);
+            edittext4.setText(diastolic2n);
+            edittext5.setText(diastolic3n);
 
-        edittext2.setText(pulse1n);
-        edittext5.setText(pulse2n);
-        edittext8.setText(pulse3n);
+            edittext6.setText(pulse1n);
+            edittext7.setText(pulse2n);
+            edittext8.setText(pulse3n);
 
         }
     }
@@ -285,31 +294,31 @@ public class PressuresFragment extends Fragment
                 break;
             case 2:
                 if (isMorning()) {
-                    diastolic1m = String.valueOf(pickervalue);
-                    bDiastolic1m = true;
+                    systolic2m= String.valueOf(pickervalue);
+                    bSystolic2m = true;
                 } else {
-                    diastolic1n = String.valueOf(pickervalue);
-                    bDiastolic1n = true;
+                    systolic2n = String.valueOf(pickervalue);
+                    bSystolic2n = true;
 
                 }
                 break;
             case 3:
                 if (isMorning()) {
-                    pulse1m = String.valueOf(pickervalue);
-                    bPulse1m = true;
+                    systolic3m = String.valueOf(pickervalue);
+                    bSystolic3m = true;
 
                 } else {
-                    pulse1n = String.valueOf(pickervalue);
-                    bPulse1n = true;
+                    systolic3n = String.valueOf(pickervalue);
+                    bSystolic3n = true;
                 }
                 break;
             case 4:
                 if (isMorning()) {
-                    systolic2m = String.valueOf(pickervalue);
-                    bSystolic2m = true;
+                    diastolic1m = String.valueOf(pickervalue);
+                    bDiastolic1m = true;
                 } else {
-                    systolic2n = String.valueOf(pickervalue);
-                    bSystolic2n = true;
+                    diastolic1n = String.valueOf(pickervalue);
+                    bDiastolic1n = true;
                 }
                 break;
             case 5:
@@ -324,29 +333,29 @@ public class PressuresFragment extends Fragment
                 break;
             case 6:
                 if (isMorning()) {
-                    pulse2m = String.valueOf(pickervalue);
-                    bPulse2m = true;
-                } else {
-                    pulse2n = String.valueOf(pickervalue);
-                    bPulse2n = true;
-                }
-                break;
-            case 7:
-                if (isMorning()) {
-                    systolic3m = String.valueOf(pickervalue);
-                    bSystolic3m = true;
-                } else {
-                    systolic3n = String.valueOf(pickervalue);
-                    bSystolic3n = true;
-                }
-                break;
-            case 8:
-                if (isMorning()) {
                     diastolic3m = String.valueOf(pickervalue);
                     bDiastolic3m = true;
                 } else {
                     diastolic3n = String.valueOf(pickervalue);
                     bDiastolic3n = true;
+                }
+                break;
+            case 7:
+                if (isMorning()) {
+                    pulse1m = String.valueOf(pickervalue);
+                    bPulse1m = true;
+                } else {
+                    pulse1n= String.valueOf(pickervalue);
+                    bPulse1n = true;
+                }
+                break;
+            case 8:
+                if (isMorning()) {
+                    pulse2m = String.valueOf(pickervalue);
+                    bPulse2m = true;
+                } else {
+                    pulse2n = String.valueOf(pickervalue);
+                    bPulse2n= true;
 
                 }
                 break;
@@ -598,7 +607,7 @@ public class PressuresFragment extends Fragment
                     publishProgress(getResources().getString(R.string.saveddata));
 
                 } else {
-                    ((HomeActivity)getActivity()).dissmissProgressDialog();
+
                     publishProgress(getResources().getString(R.string.emptysavemessage));
                 }
             } else {
@@ -608,12 +617,12 @@ public class PressuresFragment extends Fragment
                     savePressures();
                     publishProgress(getResources().getString(R.string.saveddata));
                 }else{
-                    ((HomeActivity)getActivity()).dissmissProgressDialog();
+
                     publishProgress(getResources().getString(R.string.emptysavemessage));
                 }
 
             }
-
+               ((HomeActivity)getActivity()).dissmissProgressDialog();
                 return null;
         }
 
@@ -622,24 +631,26 @@ public class PressuresFragment extends Fragment
 
             showDialog(par[0]);
         }
-
-
-
-
     }
 
     private void showDialog(String msg){
 
 
-        new AlertDialog.Builder(getActivity())
-                .setCancelable(false)
-                .setMessage(msg)
-                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+      AlertDialog.Builder builder =  new AlertDialog.Builder(getActivity());
+                builder.setCancelable(false);
+                builder.setMessage(msg);
+                builder.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
 
                     }
-                })
-                .show();
+                });
+
+        AlertDialog dialog = builder.show();
+        TextView msgText = (TextView)dialog.findViewById(android.R.id.message);
+        msgText.setGravity(Gravity.CENTER);
+
+        dialog.show();
+
 
 
     }
@@ -690,9 +701,11 @@ public class PressuresFragment extends Fragment
 
             db.updatePressureAverage(average);
         }else{
+
             db.addPressureAverage(average,String.valueOf(semaphore));
             SharedPreferences.Editor editor = sharedPreferences.edit();
             editor.putString(SharedPreferenceConstants.LASTSENDPRESSURE,date);
+            editor.commit();
         }
 
             if (link != null){
