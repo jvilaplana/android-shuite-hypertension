@@ -438,8 +438,9 @@ public class PressuresFragment extends Fragment
         @Override
         protected void onProgressUpdate(Boolean...video){
 
+            String linebreak = System.getProperty("line.separator");
             if (video[0].booleanValue()) {
-                showDialog(getActivity().getResources().getString(R.string.sentpressuresOK)+
+                showDialog(getActivity().getResources().getString(R.string.sentpressuresOK)+linebreak+
                         getActivity().getResources().getString(R.string.videoavailable));
             }else {
                 showDialog(getActivity().getResources().getString(R.string.sentpressuresOK));

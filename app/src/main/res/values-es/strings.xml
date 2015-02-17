@@ -96,6 +96,7 @@
     <string name="diastolic">Diastólica</string>
     <string name="pulse">Pulso</string>
     <string name="sendpreassure">Enviar</string>
+    <string name="savepreassure">Guardar</string>
 
     <string-array name="spinnerpressures">
         <item>MAÑANA (6-9 horas)</item>

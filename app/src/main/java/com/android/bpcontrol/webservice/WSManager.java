@@ -355,7 +355,6 @@ public class WSManager {
         } catch (JSONException ex) {
             LogBP.printStackTrace(ex);
         }
-
         if (link == null){
             callback.onSendPressures(null,pStatus);
             return;
