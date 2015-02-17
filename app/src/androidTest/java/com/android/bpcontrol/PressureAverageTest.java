@@ -21,10 +21,8 @@ public class PressureAverageTest extends AndroidTestCase {
     public void setUp(){
         RenamingDelegatingContext context
                 = new RenamingDelegatingContext(getContext(), "test_");
-//        db = new PressuresDataBase(context);
+
             initializeFakes();
-//        db.addMorningPreasure(newPressure,"0");
-//        db.addAfternoonPreasure(newPressure,"0");
     }
 
 

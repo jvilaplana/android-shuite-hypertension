@@ -5,8 +5,11 @@ import android.test.RenamingDelegatingContext;
 
 import com.android.bpcontrol.databases.BPcontrolDB;
 import com.android.bpcontrol.model.Pressure;
+import com.android.bpcontrol.model.YoutubeLink;
 
+import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  * Created by Adrian on 14/2/15.
@@ -15,41 +18,51 @@ public class DataBaseUpdateTest extends AndroidTestCase{
 
     private BPcontrolDB db;
     private Pressure fake;
+    private Pressure newPressure;
+    private YoutubeLink fakelink;
+    private YoutubeLink newLink;
 
     public void setUp(){
         RenamingDelegatingContext context
                 = new RenamingDelegatingContext(getContext(), "test_");
         db = new BPcontrolDB(context);
+
+        Date date = new Date();
         fake = new Pressure();
         fake.setId(1);
         fake.setSystolic("120");
         fake.setDiastolic("90");
         fake.setPulse("75");
+        fake.setDate(date);
 
-        Pressure newPressure = new Pressure();
+        fakelink = new YoutubeLink("youtube.com");
+
+        newPressure = new Pressure();
         newPressure.setSystolic("120");
         newPressure.setDiastolic("80");
         newPressure.setPulse("75");
+        newPressure.setDate(date);
 
+        newLink = new YoutubeLink("youtube.com/url");
 
-        db.addMorningPreasure(newPressure,"0");
-        db.addAfternoonPreasure(newPressure,"0");
+        db.addPressureAverage(fake, "0");
+        db.addYoutubeLink(fakelink);
     }
 
-    public void testUpdateMorningPressure() {
+    public void testUpdatePressure() throws ParseException {
 
-        int res = db.updatePressureMorning(fake);
-        ArrayList<Pressure> pressures = (ArrayList<Pressure>)db.getAllMorningPressures();
-        assertTrue(pressures.get(0).getDiastolic().equals(fake.getDiastolic()));
+        int res = db.updatePressureAverage(newPressure);
+        ArrayList<Pressure> pressures = (ArrayList<Pressure>)db.getAllPressureAverage();
+        assertTrue(pressures.get(0).getDiastolic().equals(newPressure.getDiastolic()));
     }
 
-    public void testUpdateAfternoonPressure() {
+    public void testUpdateYoutubeLink() {
 
-        int res = db.updatePressureAfternoon(fake);
+        int res = db.updateYoutubeLink(newLink);
 
-        ArrayList<Pressure> pressures = (ArrayList<Pressure>)db.getAllAfternoonPressures();
-        System.out.println(""+pressures.get(0).getDiastolic()+"sds "+pressures.get(0).getId());
-        assertTrue(pressures.get(0).getDiastolic().equals(fake.getDiastolic()));
+        ArrayList<YoutubeLink> links = (ArrayList<YoutubeLink>)db.getAllYoutubeLinks();
+
+        assertTrue(links.get(0).getUrl().equals(newLink.getUrl()));
 
     }
     public void tearDown() throws Exception{

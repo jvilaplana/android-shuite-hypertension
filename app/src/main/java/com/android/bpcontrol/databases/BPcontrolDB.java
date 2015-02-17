@@ -200,7 +200,7 @@ public class BPcontrolDB extends SQLiteOpenHelper{
         ContentValues values= new ContentValues();
         values.put(KEY_URL,youtubeLink.getUrl());
 
-        int res = db.update(TABLE_YOUTUBE, values, KEY_ID+" = ?",new String[] { String.valueOf(youtubeLink.getId())});
+        int res = db.update(TABLE_YOUTUBE, values, KEY_URL+" = ?",new String[] { youtubeLink.getUrl()});
 
         db.close();
 
