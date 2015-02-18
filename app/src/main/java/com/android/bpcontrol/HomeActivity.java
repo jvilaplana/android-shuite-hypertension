@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.media.MediaRecorder;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -30,6 +31,7 @@ import com.android.bpcontrol.fragments.ContactFragment;
 import com.android.bpcontrol.fragments.HomeFragment;
 import com.android.bpcontrol.fragments.PerfilFragment;
 import com.android.bpcontrol.fragments.PressuresFragment;
+import com.android.bpcontrol.fragments.VideosFragment;
 import com.android.bpcontrol.model.MenuItem;
 import com.android.bpcontrol.model.User;
 import com.android.bpcontrol.utils.SharedPreferenceConstants;
@@ -271,6 +273,8 @@ public class HomeActivity extends BPcontrolMasterActivity {
             case MESSAGES:
                 break;
             case VIDEOS:
+                VideosFragment videosFragment = VideosFragment.newInstance();
+                loadFragment(videosFragment,false,false);
                 break;
             case HEALTHCENTERS:
                 break;
