@@ -10,6 +10,7 @@ import java.util.List;
  * Created by Adrian on 14/02/2015.
  */
 public abstract class Pressures implements PressureOperations {
+
     private List<Pressure> pressures = new ArrayList<>(3);
 
     @Override

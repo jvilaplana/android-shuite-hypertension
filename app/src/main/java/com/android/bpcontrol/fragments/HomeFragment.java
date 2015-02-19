@@ -60,8 +60,10 @@ public class HomeFragment extends Fragment {
                         ((HomeActivity)getActivity()).selectMenuItem(LateralMenuController.MenuSections.PRESSURES);
                         break;
                     case 2:
+
                         break;
                     case 3:
+                        ((HomeActivity)getActivity()).selectMenuItem(LateralMenuController.MenuSections.VIDEOS);
                         break;
 
                 }

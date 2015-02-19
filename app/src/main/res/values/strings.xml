@@ -111,4 +111,7 @@
     <string name="sentpressuresOK">Pressures have been sent successfully\n</string>
     <string name="videoavailable">New video is available in Videos section</string>
 
+    <!--Youtube Activity-->
+    <string name="headerbaryoutube">Videos</string>
+
 </resources>

@@ -116,4 +116,7 @@
     <string name="pressuresendproblems"> Hay problemas enviando las presiones intentalo mas tarde</string>
     <string name="sentpressuresOK">Las presiones han sido correctamente enviadas\n</string>
     <string name="videoavailable">Nuevo video disponible en la seccion de videos</string>
+
+    <!--Youtube Activity-->
+    <string name="headerbaryoutube">Vídeos</string>
 </resources>

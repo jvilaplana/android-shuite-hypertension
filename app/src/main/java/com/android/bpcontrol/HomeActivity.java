@@ -272,7 +272,7 @@ public class HomeActivity extends BPcontrolMasterActivity{
                 break;
             case VIDEOS:
                startActivity(new Intent(this, YoutubeActivity.class));
-                break;
+               break;
             case HEALTHCENTERS:
                 break;
             case CONTACT:
