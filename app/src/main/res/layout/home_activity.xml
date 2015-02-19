@@ -52,6 +52,8 @@ android:background="@android:color/white">
             android:layout_gravity="left"
             layout="@layout/lateralmenu"/>
 
+
+
      </android.support.v4.widget.DrawerLayout>
 
 

@@ -20,6 +20,7 @@ public class User {
     private String mobileNumber;
     private String mobileNumberPrefix;
     private String town;
+    private boolean isInSession=false;
 
 
     private User(){
@@ -145,5 +146,13 @@ public class User {
 
     public void setNotes(String notes) {
         this.notes = notes;
+    }
+
+    public boolean isInSession() {
+        return isInSession;
+    }
+
+    public void setInSession(boolean isInSession) {
+        this.isInSession = isInSession;
     }
 }

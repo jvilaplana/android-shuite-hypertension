@@ -1,12 +1,10 @@
 package com.android.bpcontrol;
 
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.media.MediaRecorder;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -27,11 +25,9 @@ import com.android.bpcontrol.application.BPcontrolMasterActivity;
 import com.android.bpcontrol.controllers.HomeFragmentManager;
 import com.android.bpcontrol.controllers.LateralMenuController;
 import com.android.bpcontrol.customviews.RobotoTextView;
-import com.android.bpcontrol.fragments.ContactFragment;
 import com.android.bpcontrol.fragments.HomeFragment;
 import com.android.bpcontrol.fragments.PerfilFragment;
 import com.android.bpcontrol.fragments.PressuresFragment;
-import com.android.bpcontrol.fragments.VideosFragment;
 import com.android.bpcontrol.model.MenuItem;
 import com.android.bpcontrol.model.User;
 import com.android.bpcontrol.utils.SharedPreferenceConstants;
@@ -41,7 +37,7 @@ import com.viewpagerindicator.CirclePageIndicator;
 /**
  * Created by Adrian Carrera on 22/1/15.
  */
-public class HomeActivity extends BPcontrolMasterActivity {
+public class HomeActivity extends BPcontrolMasterActivity{
 
     private DrawerLayout dwlayoutmenu;
     private LinearLayout menulayout;
@@ -107,7 +103,9 @@ public class HomeActivity extends BPcontrolMasterActivity {
     private void configureViewAndGetData(){
 
         configureLateralMenu();
-        getUserInfo();
+        if (!User.getInstance().isInSession()) {
+            getUserInfo();
+        }
         configureActionBar();
         selectMenuItem(LateralMenuController.MenuSections.HOME);
 
@@ -273,8 +271,7 @@ public class HomeActivity extends BPcontrolMasterActivity {
             case MESSAGES:
                 break;
             case VIDEOS:
-                VideosFragment videosFragment = VideosFragment.newInstance();
-                loadFragment(videosFragment,false,false);
+               startActivity(new Intent(this, YoutubeActivity.class));
                 break;
             case HEALTHCENTERS:
                 break;
@@ -441,14 +438,14 @@ public class HomeActivity extends BPcontrolMasterActivity {
 
                    }
                });
+               User.getInstance().setInSession(true);
                return null;
            }
        }.execute();
 
 
    }
-
-   private class LateralMenuListeners implements DrawerLayout.DrawerListener{
+    private class LateralMenuListeners implements DrawerLayout.DrawerListener{
 
        @Override
        public void onDrawerSlide(View drawerView, float slideOffset) {}

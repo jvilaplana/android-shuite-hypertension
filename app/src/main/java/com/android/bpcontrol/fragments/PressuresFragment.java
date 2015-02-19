@@ -67,8 +67,6 @@ public class PressuresFragment extends Fragment
 
     private Spinner spinner;
 
-    private List<Pressure> ppppp;
-
 
     public static PressuresFragment getNewInstace() {
 
@@ -87,6 +85,7 @@ public class PressuresFragment extends Fragment
         buttonsave = (Button) view.findViewById(R.id.save);
         getEditTexts(group);
 
+
         return view;
 
     }
@@ -99,11 +98,6 @@ public class PressuresFragment extends Fragment
         ArrayAdapter adapter = new ArrayAdapter(getActivity(), android.R.layout.simple_list_item_1, getResources().getStringArray(R.array.spinnerpressures));
         spinner.setAdapter(adapter);
         spinner.setOnItemSelectedListener(this);
-
-        db = new BPcontrolDB(getActivity());
-        List<YoutubeLink> list = db.getAllYoutubeLinks();
-
-
 
         buttonsave.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -127,6 +121,7 @@ public class PressuresFragment extends Fragment
 
             }
         });
+        db = new BPcontrolDB(getActivity());
 
         checkIfDataSaved();
     }
