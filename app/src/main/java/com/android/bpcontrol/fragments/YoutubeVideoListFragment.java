@@ -1,57 +1,10 @@
  package com.android.bpcontrol.fragments;
 
 
-    import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
-    import static android.view.ViewGroup.LayoutParams.WRAP_CONTENT;
-
-    import com.android.bpcontrol.HomeActivity;
-    import com.android.bpcontrol.R;
-    import com.android.bpcontrol.customviews.YoutubeVideo;
-    import com.android.bpcontrol.youtube.GoogleDeveloperKey;
-    import com.google.android.youtube.player.YouTubeApiServiceUtil;
-    import com.google.android.youtube.player.YouTubeInitializationResult;
-    import com.google.android.youtube.player.YouTubePlayer;
-    import com.google.android.youtube.player.YouTubePlayer.OnFullscreenListener;
-    import com.google.android.youtube.player.YouTubePlayer.OnInitializedListener;
-    import com.google.android.youtube.player.YouTubePlayer.Provider;
-    import com.google.android.youtube.player.YouTubePlayerFragment;
-    import com.google.android.youtube.player.YouTubePlayerSupportFragment;
-    import com.google.android.youtube.player.YouTubeThumbnailLoader;
-    import com.google.android.youtube.player.YouTubeThumbnailLoader.ErrorReason;
-    import com.google.android.youtube.player.YouTubeThumbnailView;
-
-    import android.animation.Animator;
-    import android.animation.AnimatorListenerAdapter;
     import android.annotation.TargetApi;
-    import android.app.Activity;
-    import android.app.ListFragment;
-    import android.content.Context;
-    import android.content.Intent;
-    import android.content.res.Configuration;
-    import android.os.Build;
-    import android.os.Bundle;
-    import android.support.annotation.Nullable;
     import android.support.v4.app.Fragment;
-    import android.view.Gravity;
-    import android.view.LayoutInflater;
-    import android.view.View;
-    import android.view.ViewGroup;
-    import android.view.ViewGroup.LayoutParams;
-    import android.view.ViewPropertyAnimator;
-    import android.widget.BaseAdapter;
-    import android.widget.FrameLayout;
-    import android.widget.GridView;
-    import android.widget.ListView;
-    import android.widget.TextView;
-    import android.widget.Toast;
 
-    import java.util.ArrayList;
-    import java.util.Collections;
-    import java.util.HashMap;
-    import java.util.List;
-    import java.util.Map;
-
-    /**
+ /**
      * A sample Activity showing how to manage multiple YouTubeThumbnailViews in an adapter for display
      * in a List. When the list items are clicked, the video is played by using a YouTubePlayerFragment.
      * <p>

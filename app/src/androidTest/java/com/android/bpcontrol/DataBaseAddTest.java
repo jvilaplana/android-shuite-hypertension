@@ -5,7 +5,7 @@ import android.test.RenamingDelegatingContext;
 
 import com.android.bpcontrol.databases.BPcontrolDB;
 import com.android.bpcontrol.model.Pressure;
-import com.android.bpcontrol.model.YoutubeLink;
+import com.android.bpcontrol.model.YoutubeVideo;
 
 import java.util.Date;
 
@@ -16,7 +16,7 @@ public class DataBaseAddTest extends AndroidTestCase{
 
     private BPcontrolDB db;
     private Pressure pFake;
-    private YoutubeLink linkfake;
+    private YoutubeVideo linkfake;
 
     public void setUp(){
         RenamingDelegatingContext context
@@ -29,7 +29,7 @@ public class DataBaseAddTest extends AndroidTestCase{
         pFake.setPulse("75");
         pFake.setDate(new Date());
 
-        linkfake = new YoutubeLink("youtube.com");
+        linkfake = new YoutubeVideo("","youtube.com");
     }
 
     public void testAddOnePressure(){
@@ -39,7 +39,7 @@ public class DataBaseAddTest extends AndroidTestCase{
 
     public void testAddYoutubeLink(){
 
-        db.addYoutubeLink(linkfake);
+        db.addYoutubeVideo(linkfake);
     }
 
     public void tearDown() throws Exception{

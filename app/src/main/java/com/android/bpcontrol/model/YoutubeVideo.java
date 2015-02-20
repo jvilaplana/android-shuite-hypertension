@@ -1,10 +1,11 @@
-package com.android.bpcontrol.customviews;
+package com.android.bpcontrol.model;
 
 /**
  * Created by Adrian on 18/02/2015.
  */
 public class YoutubeVideo {
 
+    private int id = -1;
     private final String text;
     private final String videoId;
 
@@ -13,6 +14,12 @@ public class YoutubeVideo {
         this.videoId = videoId;
     }
 
+    public void setId(int id){
+        this.id = id;
+    }
+    public int getID(){
+        return id;
+    }
     public String getVideoId() {
         return videoId;
     }

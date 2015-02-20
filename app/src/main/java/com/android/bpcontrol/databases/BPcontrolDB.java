@@ -6,14 +6,13 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import com.android.bpcontrol.model.YoutubeVideo;
 import com.android.bpcontrol.model.Pressure;
-import com.android.bpcontrol.model.YoutubeLink;
 import com.android.bpcontrol.utils.DateUtils;
 import com.android.bpcontrol.utils.LogBP;
 
 import java.text.ParseException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -39,6 +38,7 @@ public class BPcontrolDB extends SQLiteOpenHelper {
     private static final String KEY_SEMAPHORE = "semaphore";
 
     private static final String KEY_URL = "url";
+    private static final String KEY_DESCRIPTION="description";
 
     public BPcontrolDB(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -73,6 +73,7 @@ public class BPcontrolDB extends SQLiteOpenHelper {
 
         String CREATE_YOUTUBE_TABLE = "CREATE TABLE YoutubeLink ( " +
                 "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                "description TEXT,"+
                 "url TEXT )";
 
         db.execSQL(CREATE_PRESSURESAVERAGE_TABLE);
@@ -104,12 +105,13 @@ public class BPcontrolDB extends SQLiteOpenHelper {
 
     }
 
-    public void addYoutubeLink(YoutubeLink youtubeLink) {
+    public void addYoutubeVideo(YoutubeVideo youtubeVideo) {
 
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
-        values.put(KEY_URL, youtubeLink.getUrl());
+        values.put(KEY_URL, youtubeVideo.getVideoId());
+        values.put(KEY_DESCRIPTION,youtubeVideo.getText());
 
         db.insert(TABLE_YOUTUBE, null, values);
 
@@ -117,21 +119,21 @@ public class BPcontrolDB extends SQLiteOpenHelper {
 
     }
 
-    public List<YoutubeLink> getAllYoutubeLinks() {
+    public List<YoutubeVideo> getAllYoutubeVideos() {
 
-        List<YoutubeLink> listpressures = new ArrayList<>();
+        List<YoutubeVideo> listpressures = new ArrayList<>();
 
         String query = "SELECT  * FROM " + TABLE_YOUTUBE;
 
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(query, null);
 
-        YoutubeLink link = null;
+        YoutubeVideo video= null;
         if (cursor.moveToFirst()) {
             do {
-                link = new YoutubeLink(cursor.getString(1));
-                link.setId(Integer.parseInt(cursor.getString(0)));
-                listpressures.add(link);
+                video = new YoutubeVideo(cursor.getString(1),cursor.getString(2));
+                video.setId(Integer.parseInt(cursor.getString(0)));
+                listpressures.add(video);
             } while (cursor.moveToNext());
         }
 
@@ -197,14 +199,14 @@ public class BPcontrolDB extends SQLiteOpenHelper {
         return pressureUpdate(TABLE_PRESSURESAVERAGE, pressure);
     }
 
-    public int updateYoutubeLink(YoutubeLink youtubeLink) {
+    public int updateYoutubeVideo(YoutubeVideo youtubeVideo) {
 
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
-        values.put(KEY_URL, youtubeLink.getUrl());
-
-        int res = db.update(TABLE_YOUTUBE, values, KEY_URL + " = ?", new String[]{youtubeLink.getUrl()});
+        values.put(KEY_URL, youtubeVideo.getVideoId());
+        values.put(KEY_DESCRIPTION,youtubeVideo.getText());
+        int res = db.update(TABLE_YOUTUBE, values, KEY_ID + " = ?", new String[]{String.valueOf(youtubeVideo.getID())});
 
         db.close();
 

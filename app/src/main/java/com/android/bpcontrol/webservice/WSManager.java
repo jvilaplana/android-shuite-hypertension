@@ -19,7 +19,7 @@ import com.android.bpcontrol.model.Pressures;
 import com.android.bpcontrol.model.PressuresAfternoon;
 import com.android.bpcontrol.model.PressuresMorning;
 import com.android.bpcontrol.model.User;
-import com.android.bpcontrol.model.YoutubeLink;
+import com.android.bpcontrol.model.YoutubeVideo;
 import com.android.bpcontrol.utils.LogBP;
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.RequestQueue;
@@ -82,7 +82,7 @@ public class WSManager {
 
     public static interface SendPressures extends EventListener{
 
-        public void onSendPressures(YoutubeLink youtubeLink,int semaphore);
+        public void onSendPressures(YoutubeVideo youtubeVideo,int semaphore);
 
     }
 
@@ -360,7 +360,7 @@ public class WSManager {
             return;
         }
 
-        callback.onSendPressures(new YoutubeLink(link),pStatus);
+        callback.onSendPressures(new YoutubeVideo("",link),pStatus);
 
 
     }

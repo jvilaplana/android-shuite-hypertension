@@ -66,5 +66,9 @@
     <dimen name="margintextview">20dp</dimen>
     <dimen name="beetweentextview">25dp</dimen>
 
+    <!--cell historial-->
+
+    <dimen name="marginhistorialcell">10dp</dimen>
+
 
     </resources>

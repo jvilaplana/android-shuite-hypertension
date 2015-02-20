@@ -31,7 +31,7 @@ import com.android.bpcontrol.model.Pressure;
 import com.android.bpcontrol.model.Pressures;
 import com.android.bpcontrol.model.PressuresAfternoon;
 import com.android.bpcontrol.model.PressuresMorning;
-import com.android.bpcontrol.model.YoutubeLink;
+import com.android.bpcontrol.model.YoutubeVideo;
 import com.android.bpcontrol.utils.DateUtils;
 import com.android.bpcontrol.utils.LogBP;
 import com.android.bpcontrol.utils.SharedPreferenceConstants;
@@ -419,10 +419,10 @@ public class PressuresFragment extends Fragment
             pAfternoon.add(new Pressure(systolic3n,diastolic3n,pulse3n));
             WSManager.getInstance().sendPressures(getActivity(),pMorning,pAfternoon,new WSManager.SendPressures() {
                 @Override
-                public void onSendPressures(YoutubeLink youtubeLink,int semaphore) {
+                public void onSendPressures(YoutubeVideo youtubeVideo,int semaphore) {
 
-                        boolean video = youtubeLink!=null?true:false;
-                        saveDataInDB(pMorning, pAfternoon, semaphore,youtubeLink);
+                        boolean video = youtubeVideo!=null?true:false;
+                        saveDataInDB(pMorning, pAfternoon, semaphore,youtubeVideo);
                         clearOldValues();
                         publishProgress(new Boolean(video));
                 }
@@ -674,7 +674,7 @@ public class PressuresFragment extends Fragment
     }
 
     private void saveDataInDB(PressuresMorning morning, PressuresAfternoon afternoon, int semaphore,
-                              YoutubeLink link){
+                              YoutubeVideo youtubeVideo){
 
         Pressure average = Pressures.obtainPressuresDayAverage(morning,afternoon);
 
@@ -704,9 +704,11 @@ public class PressuresFragment extends Fragment
             editor.commit();
         }
 
-            if (link != null){
-                db.addYoutubeLink(link);
+            if (youtubeVideo != null){
+                db.addYoutubeVideo(youtubeVideo);
             }
 
         }
+
+
 }

@@ -5,7 +5,7 @@ import android.test.RenamingDelegatingContext;
 
 import com.android.bpcontrol.databases.BPcontrolDB;
 import com.android.bpcontrol.model.Pressure;
-import com.android.bpcontrol.model.YoutubeLink;
+import com.android.bpcontrol.model.YoutubeVideo;
 
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -19,8 +19,8 @@ public class DataBaseUpdateTest extends AndroidTestCase{
     private BPcontrolDB db;
     private Pressure fake;
     private Pressure newPressure;
-    private YoutubeLink fakelink;
-    private YoutubeLink newLink;
+    private YoutubeVideo fakelink;
+    private YoutubeVideo newLink;
 
     public void setUp(){
         RenamingDelegatingContext context
@@ -29,24 +29,23 @@ public class DataBaseUpdateTest extends AndroidTestCase{
 
         Date date = new Date();
         fake = new Pressure();
-        fake.setId(1);
         fake.setSystolic("120");
         fake.setDiastolic("90");
         fake.setPulse("75");
         fake.setDate(date);
 
-        fakelink = new YoutubeLink("youtube.com");
-
+        fakelink = new YoutubeVideo("","youtube.com");
+        fakelink.setId(1);
         newPressure = new Pressure();
         newPressure.setSystolic("120");
         newPressure.setDiastolic("80");
         newPressure.setPulse("75");
         newPressure.setDate(date);
 
-        newLink = new YoutubeLink("youtube.com/url");
-
+        newLink = new YoutubeVideo("","youtube.com/url");
+        newLink.setId(1);
         db.addPressureAverage(fake, "0");
-        db.addYoutubeLink(fakelink);
+        db.addYoutubeVideo(fakelink);
     }
 
     public void testUpdatePressure() throws ParseException {
@@ -58,11 +57,11 @@ public class DataBaseUpdateTest extends AndroidTestCase{
 
     public void testUpdateYoutubeLink() {
 
-        int res = db.updateYoutubeLink(newLink);
+        int res = db.updateYoutubeVideo(newLink);
 
-        ArrayList<YoutubeLink> links = (ArrayList<YoutubeLink>)db.getAllYoutubeLinks();
+        ArrayList<YoutubeVideo> links = (ArrayList<YoutubeVideo>)db.getAllYoutubeLinks();
 
-        assertTrue(links.get(0).getUrl().equals(newLink.getUrl()));
+        assertTrue(links.get(0).getVideoId().equals(newLink.getVideoId()));
 
     }
     public void tearDown() throws Exception{

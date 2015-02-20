@@ -5,7 +5,7 @@ import android.test.RenamingDelegatingContext;
 
 import com.android.bpcontrol.databases.BPcontrolDB;
 import com.android.bpcontrol.model.Pressure;
-import com.android.bpcontrol.model.YoutubeLink;
+import com.android.bpcontrol.model.YoutubeVideo;
 
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -18,7 +18,7 @@ public class DataBaseGetTest extends AndroidTestCase{
 
     private BPcontrolDB db;
     private Pressure fake;
-    private YoutubeLink link;
+    private YoutubeVideo link;
 
     public void setUp(){
         RenamingDelegatingContext context
@@ -31,10 +31,10 @@ public class DataBaseGetTest extends AndroidTestCase{
         fake.setPulse("75");
         fake.setDate(new Date());
 
-        link = new YoutubeLink("youtube.com");
+        link = new YoutubeVideo("","youtube.com");
 
         db.addPressureAverage(fake,"0");
-        db.addYoutubeLink(link);
+        db.addYoutubeVideo(link);
     }
 
     public void testgetAllAfternoonPressures() throws ParseException {
@@ -45,8 +45,8 @@ public class DataBaseGetTest extends AndroidTestCase{
 
     public void testgetAllYoutubeLink() {
 
-        ArrayList<YoutubeLink> list =(ArrayList<YoutubeLink>) db.getAllYoutubeLinks();
-        assertEquals(link.getUrl(),list.get(0).getUrl());
+        ArrayList<YoutubeVideo> list =(ArrayList<YoutubeVideo>) db.getAllYoutubeLinks();
+        assertEquals(link.getVideoId(),list.get(0).getVideoId());
     }
 
     public void tearDown() throws Exception{

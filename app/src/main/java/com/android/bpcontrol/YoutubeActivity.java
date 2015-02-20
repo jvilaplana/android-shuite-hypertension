@@ -20,8 +20,8 @@ import static android.view.ViewGroup.LayoutParams.WRAP_CONTENT;
 
 import com.android.bpcontrol.application.BPcontrolMasterActivity;
 import com.android.bpcontrol.customviews.RobotoTextView;
-import com.android.bpcontrol.customviews.YoutubeVideo;
-import com.android.bpcontrol.model.YoutubeLink;
+import com.android.bpcontrol.databases.BPcontrolDB;
+import com.android.bpcontrol.model.YoutubeVideo;
 import com.android.bpcontrol.utils.LogBP;
 import com.android.bpcontrol.youtube.GoogleDeveloperKey;
 import com.google.android.youtube.player.YouTubeApiServiceUtil;
@@ -42,6 +42,7 @@ import android.app.ListFragment;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -83,7 +84,11 @@ public class YoutubeActivity extends BPcontrolMasterActivity implements OnFullsc
     private View videoBox;
     private View closeButton;
 
+    private ArrayList<YoutubeVideo> videos;
+
     private boolean isFullscreen;
+
+    private BPcontrolDB db;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -103,9 +108,11 @@ public class YoutubeActivity extends BPcontrolMasterActivity implements OnFullsc
         layout();
 
         checkYouTubeApi();
+
         if (savedInstanceState == null) {
             configureActionBar();
-            LogBP.writelog("Log NULOOOO   ");
+//            db = new BPcontrolDB(this);
+//            new getYoutubeVideos().execute();
         }
     }
 
@@ -476,6 +483,40 @@ public class YoutubeActivity extends BPcontrolMasterActivity implements OnFullsc
 
         savedinstance = new Bundle();
 
+    }
+
+    @Override
+    public void onBackPressed(){
+        finish();
+    }
+
+    private class getYoutubeVideos extends AsyncTask<Void,Void,List<YoutubeVideo>> {
+
+
+        @Override
+        public void onPreExecute() {
+
+            YoutubeActivity.this.showProgressDialog();
+        }
+
+        @Override
+        public List<YoutubeVideo> doInBackground(Void... params) {
+            return db.getAllYoutubeVideos();
+        }
+
+        public void onPostExecute(List<YoutubeVideo> result){
+
+               if (result != null && result.size()>0){
+
+                   videos = (ArrayList<YoutubeVideo>)result;
+
+               }else{
+
+                   videos = new ArrayList<>();
+               }
+
+            YoutubeActivity.this.dissmissProgressDialog();
+        }
     }
 
 
