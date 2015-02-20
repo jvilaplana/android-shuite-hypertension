@@ -19,6 +19,19 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <com.android.bpcontrol.customviews.RobotoTextView
+        android:id="@+id/messagenovideos"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/menutext"
+        android:textSize="19sp"
+        android:text="@string/youtubenovideos"
+        android:visibility="gone"
+        android:layout_gravity="center"
+
+
+    />
+
   <fragment
       class="com.android.bpcontrol.YoutubeActivity$VideoListFragment"
       android:id="@+id/list_fragment"
@@ -46,5 +59,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
-        </LinearLayout>
+  </LinearLayout>
+
 </merge>

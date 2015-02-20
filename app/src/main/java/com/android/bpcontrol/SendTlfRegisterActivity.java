@@ -51,7 +51,6 @@ public class SendTlfRegisterActivity extends BPcontrolMasterActivity {
                             intent.putExtra(INTENTKEY_TLFNUMBER,editNumber.getText().toString());
                             startActivity(intent);
 
-
                         }
                     });
 

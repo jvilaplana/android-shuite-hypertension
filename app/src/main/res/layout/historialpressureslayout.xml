@@ -6,12 +6,44 @@
 
 
     <LinearLayout
-
+        android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:background="@androi">
+        android:weightSum="4"
+        android:gravity="center_vertical"
+        android:background="@color/cellheadercolor">
 
+        <com.android.bpcontrol.customviews.RobotoTextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            android:text="@string/fetle"
+            android:textColor="@color/menutext"/>
 
+        <com.android.bpcontrol.customviews.RobotoTextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="@string/psystolicheader"
+            android:textColor="@color/menutext"/>
+
+        <com.android.bpcontrol.customviews.RobotoTextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="@string/pdiastolicheader"
+            android:textColor="@color/menutext"/>
+
+        <com.android.bpcontrol.customviews.RobotoTextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="@string/pulse"
+            android:textColor="@color/menutext"/>
 
     </LinearLayout>
 
@@ -23,6 +55,7 @@
         android:layout_height="wrap_content"
         android:layout_marginRight="@dimen/margintablelateral"
         android:layout_marginTop="-3dp"
+        android:layout_marginBottom="@dimen/margintablelatopbottom"
         android:layout_marginLeft="@dimen/margintablelateral">
         <ListView
             android:id="@+id/resultados_list"
@@ -39,9 +72,8 @@
             android:id="@+id/alphabeticimage"
             android:layout_width="match_parent"
             android:layout_alignParentBottom="true"
-            android:layout_marginBottom="@dimen/margintablelatopbottom"
             android:layout_height="wrap_content"
-            android:background="@drawable/tablepanel"/>
+            android:background=""/>
     </RelativeLayout>
 
 

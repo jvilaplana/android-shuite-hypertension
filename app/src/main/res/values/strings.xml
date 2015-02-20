@@ -113,5 +113,10 @@
 
     <!--Youtube Activity-->
     <string name="headerbaryoutube">Videos</string>
+    <string name="youtubenovideos">There are no videos available to display.</string>
+    <string name="psystolicheader">Diastolic p.</string>
+    <string name="pdiastolicheader">Systolic p.</string>
+    <string name="pulseheader">Pulse</string>
+    <string name="fetle">Fetle</string>
 
 </resources>

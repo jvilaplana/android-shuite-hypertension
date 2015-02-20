@@ -69,6 +69,8 @@
     <!--cell historial-->
 
     <dimen name="marginhistorialcell">10dp</dimen>
+   <dimen name="margintablelateral">10dp</dimen>
+    <dimen name="margintablelatopbottom">20dp</dimen>
 
 
     </resources>

@@ -22,7 +22,6 @@ import com.android.bpcontrol.application.BPcontrolMasterActivity;
 import com.android.bpcontrol.customviews.RobotoTextView;
 import com.android.bpcontrol.databases.BPcontrolDB;
 import com.android.bpcontrol.model.YoutubeVideo;
-import com.android.bpcontrol.utils.LogBP;
 import com.android.bpcontrol.youtube.GoogleDeveloperKey;
 import com.google.android.youtube.player.YouTubeApiServiceUtil;
 import com.google.android.youtube.player.YouTubeInitializationResult;
@@ -59,7 +58,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -84,36 +82,21 @@ public class YoutubeActivity extends BPcontrolMasterActivity implements OnFullsc
     private View videoBox;
     private View closeButton;
 
-    private ArrayList<YoutubeVideo> videos;
-
     private boolean isFullscreen;
 
     private BPcontrolDB db;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.video_list_demo);
 
-        listFragment = (VideoListFragment) getFragmentManager().findFragmentById(R.id.list_fragment);
-        videoFragment =
-                (VideoFragment) getFragmentManager().findFragmentById(R.id.video_fragment_container);
-
-        videoBox = findViewById(R.id.video_box);
-        closeButton = findViewById(R.id.close_button);
-
-        videoBox.setVisibility(View.INVISIBLE);
-
-        layout();
+        configureActionBar();
+        db = new BPcontrolDB(this);
+        new getYoutubeVideos().execute();
 
         checkYouTubeApi();
-
-        if (savedInstanceState == null) {
-            configureActionBar();
-//            db = new BPcontrolDB(this);
-//            new getYoutubeVideos().execute();
-        }
     }
 
     private void checkYouTubeApi() {
@@ -207,40 +190,28 @@ public class YoutubeActivity extends BPcontrolMasterActivity implements OnFullsc
 
     public static final class VideoListFragment extends ListFragment {
 
-        private static final List<YoutubeVideo> VIDEO_LIST;
-        static {
-            List<YoutubeVideo> list = new ArrayList<YoutubeVideo>();
-            list.add(new YoutubeVideo("YouTube Collection", "Y_UmWdcTrrc"));
-            list.add(new YoutubeVideo("GMail Tap", "1KhZKNZO8mQ"));
-            list.add(new YoutubeVideo("Chrome Multitask", "UiLSiqyDf4Y"));
-            list.add(new YoutubeVideo("Google Fiber", "re0VRK6ouwI"));
-            list.add(new YoutubeVideo("Autocompleter", "blB_X38YSxQ"));
-            list.add(new YoutubeVideo("GMail Motion", "Bu927_ul_X0"));
-            list.add(new YoutubeVideo("Translate for Animals", "3I24bSteJpw"));
-            VIDEO_LIST = Collections.unmodifiableList(list);
-        }
+        public static List<YoutubeVideo> videos;
 
         private PageAdapter adapter;
         private View videoBox;
 
+
         @Override
         public void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
-            adapter = new PageAdapter(getActivity(), VIDEO_LIST);
+
         }
 
         @Override
         public void onActivityCreated(Bundle savedInstanceState) {
             super.onActivityCreated(savedInstanceState);
-
-            videoBox = getActivity().findViewById(R.id.video_box);
             getListView().setChoiceMode(ListView.CHOICE_MODE_SINGLE);
-            setListAdapter(adapter);
+
         }
 
         @Override
         public void onListItemClick(ListView l, View v, int position, long id) {
-            String videoId = VIDEO_LIST.get(position).getVideoId();
+            String videoId = videos.get(position).getVideoId();
 
             VideoFragment videoFragment =
                     (VideoFragment) getFragmentManager().findFragmentById(R.id.video_fragment_container);
@@ -267,6 +238,13 @@ public class YoutubeActivity extends BPcontrolMasterActivity implements OnFullsc
 
         public void setLabelVisibility(boolean visible) {
             adapter.setLabelVisibility(visible);
+        }
+
+        public void initList(){
+            videoBox = getActivity().findViewById(R.id.video_box);
+            adapter = new PageAdapter(getActivity(), videos);
+            setListAdapter(adapter);
+
         }
 
     }
@@ -492,10 +470,8 @@ public class YoutubeActivity extends BPcontrolMasterActivity implements OnFullsc
 
     private class getYoutubeVideos extends AsyncTask<Void,Void,List<YoutubeVideo>> {
 
-
         @Override
         public void onPreExecute() {
-
             YoutubeActivity.this.showProgressDialog();
         }
 
@@ -508,16 +484,46 @@ public class YoutubeActivity extends BPcontrolMasterActivity implements OnFullsc
 
                if (result != null && result.size()>0){
 
-                   videos = (ArrayList<YoutubeVideo>)result;
+                  VideoListFragment.videos = (ArrayList<YoutubeVideo>)result;
 
                }else{
 
-                   videos = new ArrayList<>();
+                   VideoListFragment.videos = new ArrayList<>();
                }
+            final boolean videos = result.size()>0?true:false;
+
+            configureView(videos);
 
             YoutubeActivity.this.dissmissProgressDialog();
         }
     }
+
+    private void configureView(boolean videos){
+
+        setContentView(R.layout.youtubelayout);
+
+        if (videos) {
+
+            listFragment = (VideoListFragment) getFragmentManager().findFragmentById(R.id.list_fragment);
+            listFragment.initList();
+            videoFragment =
+                    (VideoFragment) getFragmentManager().findFragmentById(R.id.video_fragment_container);
+            videoBox = findViewById(R.id.video_box);
+            videoBox.setVisibility(View.INVISIBLE);
+            closeButton = findViewById(R.id.close_button);
+            layout();
+
+        }else{
+
+            RobotoTextView msg = (RobotoTextView) findViewById(R.id.messagenovideos);
+            msg.setVisibility(View.VISIBLE);
+        }
+
+
+
+    }
+
+
 
 
 }
