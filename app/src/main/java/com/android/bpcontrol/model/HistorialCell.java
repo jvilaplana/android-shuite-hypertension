@@ -14,7 +14,7 @@ public class HistorialCell  implements HistorialAdapterItem{
     private String systolic;
     private String pulse;
 
-    public HistorialCell(String semaphore, String pulse, String systolic, String diastolic) {
+    public HistorialCell(String semaphore,String systolic, String diastolic, String pulse) {
         this.semaphore = semaphore;
         this.pulse = pulse;
         this.systolic = systolic;

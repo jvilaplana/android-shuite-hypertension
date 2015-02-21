@@ -11,6 +11,9 @@ public class HistorialHeader implements HistorialAdapterItem {
 
     private String date;
 
+    public HistorialHeader(String date){
+        this.date = date;
+    }
 
     public String getDate() {
         return date;

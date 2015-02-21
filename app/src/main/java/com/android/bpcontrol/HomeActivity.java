@@ -25,6 +25,7 @@ import com.android.bpcontrol.application.BPcontrolMasterActivity;
 import com.android.bpcontrol.controllers.HomeFragmentManager;
 import com.android.bpcontrol.controllers.LateralMenuController;
 import com.android.bpcontrol.customviews.RobotoTextView;
+import com.android.bpcontrol.fragments.HistorialPressuresFragment;
 import com.android.bpcontrol.fragments.HomeFragment;
 import com.android.bpcontrol.fragments.PerfilFragment;
 import com.android.bpcontrol.fragments.PressuresFragment;
@@ -267,6 +268,8 @@ public class HomeActivity extends BPcontrolMasterActivity{
             case EVOLUTION:
                 break;
             case HISTORIAL:
+                HistorialPressuresFragment historialPressuresFragment = HistorialPressuresFragment.getNewInstace();
+                loadFragment(historialPressuresFragment,false,false);
                 break;
             case MESSAGES:
                 break;

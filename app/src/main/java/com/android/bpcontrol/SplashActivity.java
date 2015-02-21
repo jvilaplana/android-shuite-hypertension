@@ -12,6 +12,7 @@ import com.android.bpcontrol.utils.SharedPreferenceConstants;
 
 public class SplashActivity extends BPcontrolMasterActivity {
 
+    private String TEST_UUID="";
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,7 +25,8 @@ public class SplashActivity extends BPcontrolMasterActivity {
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                if (isRegistered) {
+                if (true) {
+
                     startActivity(new Intent(SplashActivity.this, HomeActivity.class));
                 }else{
                     startActivity(new Intent(SplashActivity.this, InitialActivity.class));

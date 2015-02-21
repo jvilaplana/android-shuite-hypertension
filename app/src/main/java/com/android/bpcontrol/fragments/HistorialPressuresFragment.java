@@ -10,9 +10,14 @@ import android.widget.Button;
 import android.widget.ListView;
 
 import com.android.bpcontrol.R;
+import com.android.bpcontrol.adapters.HistorialPressuresAdapter;
 import com.android.bpcontrol.customviews.BPEditText;
 import com.android.bpcontrol.customviews.RobotoTextView;
+import com.android.bpcontrol.interfaces.HistorialAdapterItem;
+import com.android.bpcontrol.model.HistorialCell;
+import com.android.bpcontrol.model.HistorialHeader;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -42,7 +47,13 @@ public class HistorialPressuresFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+         List<HistorialAdapterItem> items = new ArrayList<>();
+        items.add(new HistorialHeader("23 Enero 2014"));
+        items.add(new HistorialCell("0","120","80","75"));
 
+        HistorialPressuresAdapter adapter = new HistorialPressuresAdapter(getActivity(),items);
+
+        listView.setAdapter(adapter);
 
     }
 }

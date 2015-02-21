@@ -18,6 +18,7 @@ import com.android.bpcontrol.model.HistorialCell;
 import com.android.bpcontrol.model.HistorialHeader;
 
 import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -28,9 +29,9 @@ public class HistorialPressuresAdapter extends BaseAdapter{
 
     private LayoutInflater inflater;
     private Context context;
-    private ArrayList<HistorialAdapterItem> items;
+    private List<HistorialAdapterItem> items;
 
-    public HistorialPressuresAdapter(Context context, ArrayList<HistorialAdapterItem> items){
+    public HistorialPressuresAdapter(Context context, List<HistorialAdapterItem> items){
 
         inflater = LayoutInflater.from(context);
         this.context = context;
@@ -115,18 +116,20 @@ public class HistorialPressuresAdapter extends BaseAdapter{
 
     private int chooseSempahoreImage(int fetle){
 
-        int resource=0; //AÑADIR EL DE REGULAR POR DEFECTO
+        int resource=R.drawable.semafor_yellow;
+
         switch (fetle){
 
             case 0:
-
+                resource = R.drawable.semafor_green;
                break;
 
             case 1:
-
+                resource = R.drawable.semafor_yellow;
                 break;
 
             case 2:
+                resource = R.drawable.semafor_red;
                 break;
         }
 
