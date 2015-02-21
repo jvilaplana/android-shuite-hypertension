@@ -88,7 +88,17 @@ public class BPcontrolDB extends SQLiteOpenHelper {
         this.onCreate(db);
     }
 
-    public void addPressureAverage(Pressure pressure, String semaphore) {
+
+    public void addAllPressuresAverage(List<Pressure> list){
+
+
+        for (Pressure pressure : list){
+            addPressureAverage(pressure);
+            System.out.print("ESCRIBO");
+        }
+    }
+
+    public void addPressureAverage(Pressure pressure) {
 
         SQLiteDatabase db = this.getWritableDatabase();
 
@@ -97,14 +107,20 @@ public class BPcontrolDB extends SQLiteOpenHelper {
         values.put(KEY_SYSTOLIC, pressure.getSystolic());
         values.put(KEY_DIASTOLIC, pressure.getDiastolic());
         values.put(KEY_PULSE, pressure.getPulse());
-        values.put(KEY_SEMAPHORE, semaphore);
+        values.put(KEY_SEMAPHORE, pressure.getSemaphore());
 
         db.insert(TABLE_PRESSURESAVERAGE, null, values);
-
         db.close();
 
     }
 
+
+    public boolean isPressuresTableEmpty(){
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery("SELECT count(*) FROM "+TABLE_PRESSURESAVERAGE,null);
+
+        return cursor!= null && cursor.getCount()>0;
+    }
     public void addYoutubeVideo(YoutubeVideo youtubeVideo) {
 
         SQLiteDatabase db = this.getWritableDatabase();
@@ -163,6 +179,7 @@ public class BPcontrolDB extends SQLiteOpenHelper {
                 pressure.setSystolic(cursor.getString(2));
                 pressure.setDiastolic(cursor.getString(3));
                 pressure.setPulse(cursor.getString(4));
+                pressure.setSemaphore(cursor.getInt(5));
                 listpressures.add(pressure);
             } while (cursor.moveToNext());
         }

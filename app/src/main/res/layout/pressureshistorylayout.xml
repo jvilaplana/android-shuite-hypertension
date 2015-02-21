@@ -6,7 +6,6 @@
 
 
     <LinearLayout
-        android:layout_marginLeft="10dp"
         android:id="@+id/header"
         android:orientation="horizontal"
         android:layout_width="match_parent"
@@ -21,6 +20,7 @@
             android:layout_weight="1"
             android:gravity="center_horizontal"
             android:text="@string/fetle"
+            android:tag="RobotoBold"
             android:textColor="@color/menutext"/>
 
         <com.android.bpcontrol.customviews.RobotoTextView
@@ -28,6 +28,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
+            android:tag="RobotoBold"
             android:text="@string/psystolicheader"
             android:textColor="@color/menutext"/>
 
@@ -35,6 +36,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:tag="RobotoBold"
             android:gravity="center"
             android:text="@string/pdiastolicheader"
             android:textColor="@color/menutext"/>
@@ -44,6 +46,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
+            android:tag="RobotoBold"
             android:text="@string/pulse"
             android:textColor="@color/menutext"/>
 
@@ -57,7 +60,6 @@
         android:layout_height="match_parent"
         android:layout_marginRight="@dimen/margintablelateral"
         android:layout_marginBottom="@dimen/margintablelatopbottom"
-        android:layout_marginTop="10dp"
         android:layout_marginLeft="@dimen/margintablelateral">
         <ListView
             android:id="@+id/resultados_list"

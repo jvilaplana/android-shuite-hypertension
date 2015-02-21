@@ -34,7 +34,7 @@ public class DataBaseAddTest extends AndroidTestCase{
 
     public void testAddOnePressure(){
 
-        db.addPressureAverage(pFake, "0");
+        db.addPressureAverage(pFake);
     }
 
     public void testAddYoutubeLink(){

@@ -677,8 +677,7 @@ public class PressuresFragment extends Fragment
                               YoutubeVideo youtubeVideo){
 
         Pressure average = Pressures.obtainPressuresDayAverage(morning,afternoon);
-
-
+        average.setSemaphore(semaphore);
         try {
             average.setDate(DateUtils.stringToDate(DateUtils.dateToString(new Date(),
                     DateUtils.DEFAULT_FORMAT),DateUtils.DEFAULT_FORMAT));
@@ -698,7 +697,7 @@ public class PressuresFragment extends Fragment
             db.updatePressureAverage(average);
         }else{
 
-            db.addPressureAverage(average,String.valueOf(semaphore));
+            db.addPressureAverage(average);
             SharedPreferences.Editor editor = sharedPreferences.edit();
             editor.putString(SharedPreferenceConstants.LASTSENDPRESSURE,date);
             editor.commit();

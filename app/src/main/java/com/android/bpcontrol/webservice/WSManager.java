@@ -14,12 +14,14 @@ import android.widget.TextView;
 import com.android.bpcontrol.R;
 import com.android.bpcontrol.application.BPcontrolApplication;
 import com.android.bpcontrol.application.BPcontrolMasterActivity;
+import com.android.bpcontrol.databases.DataStore;
 import com.android.bpcontrol.model.Pressure;
 import com.android.bpcontrol.model.Pressures;
 import com.android.bpcontrol.model.PressuresAfternoon;
 import com.android.bpcontrol.model.PressuresMorning;
 import com.android.bpcontrol.model.User;
 import com.android.bpcontrol.model.YoutubeVideo;
+import com.android.bpcontrol.utils.DateUtils;
 import com.android.bpcontrol.utils.LogBP;
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.RequestQueue;
@@ -30,10 +32,13 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.android.volley.Request;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.EventListener;
 import java.util.HashMap;
 import java.util.List;
@@ -84,6 +89,11 @@ public class WSManager {
 
         public void onSendPressures(YoutubeVideo youtubeVideo,int semaphore);
 
+    }
+
+    public static interface GetUserPressures extends EventListener{
+
+        public void onUserPressuresReceived(ArrayList<Pressure> pressures);
     }
 
     private void webserviceCallWithCallback(final Context context, final String url, final BPcontrolApiCallback callback){
@@ -364,6 +374,59 @@ public class WSManager {
 
 
     }
+
+    public void getUserPressures(final Context context, String date, final GetUserPressures callback){
+
+        String url;
+        if (date != null) {
+            url= URLBASE + "/hypertensionBloodPressure/restList/"+User.getInstance().getUUID()
+                    +"?date="+date;
+        }else{
+            url = URLBASE+"/hypertensionBloodPressure/restList/"+User.getInstance().getUUID();
+        }
+        webserviceCallWithCallback(context,url,new BPcontrolApiCallback() {
+            @Override
+            public void onSuccess(String response) {
+                ArrayList<Pressure> pressures = parseUserPressures(response);
+                callback.onUserPressuresReceived(pressures);
+            }
+
+            @Override
+            public void onFailure(Exception e) {
+                showApiConnectivityError(context);
+            }
+        });
+    }
+
+    private ArrayList<Pressure> parseUserPressures(String jsonresponse) {
+
+        ArrayList<Pressure> tmp = new ArrayList<>();
+
+
+            try {
+                JSONArray array = new JSONArray(jsonresponse);
+                if (array.length() > 0){
+                Pressure pressure;
+                JSONObject jsonpressure;
+                for (int i = 0; i < array.length(); i++) {
+                    jsonpressure = array.getJSONObject(i);
+                    pressure = new Pressure();
+                    pressure.setSystolic(jsonpressure.getString("systole"));
+                    pressure.setDiastolic(jsonpressure.getString("diastole"));
+                    pressure.setPulse(jsonpressure.getString("pulse"));
+                    pressure.setDate(DateUtils.wsStringDateToDefaultDate(jsonpressure.getString("dateTaken")));
+                    tmp.add(pressure);
+                }
+                }
+            } catch (JSONException ex) {
+                LogBP.printStackTrace(ex);
+            } catch (ParseException ex) {
+                LogBP.printStackTrace(ex);
+            }
+
+        return tmp;
+    }
+
 
     private void showApiPressuresSendError(final Context context){
 

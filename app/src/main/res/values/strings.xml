@@ -93,7 +93,7 @@
 
     <string-array name="spinnerpressures">
         <item>MORNING (6-9 hours)</item>
-        <item name="night">AFTERNOON (18-21 hours)</item>
+        <item>AFTERNOON (18-21 hours)</item>
 
     </string-array>
     <string name="pressuresspinnertext">Choose the time slot:</string>
@@ -114,9 +114,30 @@
     <!--Youtube Activity-->
     <string name="headerbaryoutube">Videos</string>
     <string name="youtubenovideos">There are no videos available to display.</string>
+
+    <!--Pressures History-->
+    <string name="headerbarhistory">History</string>
     <string name="psystolicheader">Diastolic p.</string>
     <string name="pdiastolicheader">Systolic p.</string>
     <string name="pulseheader">Pulse</string>
     <string name="fetle">Fetle</string>
+
+    <string-array name="months">
+    <item>January</item>
+    <item>February</item>
+    <item>March</item>
+    <item>April</item>
+    <item>May</item>
+    <item>June</item>
+    <item>July</item>
+    <item>August</item>
+    <item>September</item>
+    <item>October</item>
+    <item>November</item>
+    <item>December</item>
+    </string-array>
+
+    <string name="nopressurehistory">There is not record in history</string>
+    <string name="historydialogbutton">OK</string>
 
 </resources>

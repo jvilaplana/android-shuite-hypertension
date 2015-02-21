@@ -44,7 +44,7 @@ public class DataBaseUpdateTest extends AndroidTestCase{
 
         newLink = new YoutubeVideo("","youtube.com/url");
         newLink.setId(1);
-        db.addPressureAverage(fake, "0");
+        db.addPressureAverage(fake);
         db.addYoutubeVideo(fakelink);
     }
 
@@ -59,7 +59,7 @@ public class DataBaseUpdateTest extends AndroidTestCase{
 
         int res = db.updateYoutubeVideo(newLink);
 
-        ArrayList<YoutubeVideo> links = (ArrayList<YoutubeVideo>)db.getAllYoutubeLinks();
+        ArrayList<YoutubeVideo> links = (ArrayList<YoutubeVideo>)db.getAllYoutubeVideos();
 
         assertTrue(links.get(0).getVideoId().equals(newLink.getVideoId()));
 

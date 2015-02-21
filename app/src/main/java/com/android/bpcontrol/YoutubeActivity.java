@@ -22,7 +22,7 @@ import com.android.bpcontrol.application.BPcontrolMasterActivity;
 import com.android.bpcontrol.customviews.RobotoTextView;
 import com.android.bpcontrol.databases.BPcontrolDB;
 import com.android.bpcontrol.model.YoutubeVideo;
-import com.android.bpcontrol.youtube.GoogleDeveloperKey;
+import com.android.bpcontrol.developerkeys.GoogleDeveloperKey;
 import com.google.android.youtube.player.YouTubeApiServiceUtil;
 import com.google.android.youtube.player.YouTubeInitializationResult;
 import com.google.android.youtube.player.YouTubePlayer;
@@ -86,7 +86,7 @@ public class YoutubeActivity extends BPcontrolMasterActivity implements OnFullsc
 
     private BPcontrolDB db;
 
-
+    //onCreate only is called one time, onConfigurationChange method avoid destroy activity when the screen is turned
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -502,19 +502,16 @@ public class YoutubeActivity extends BPcontrolMasterActivity implements OnFullsc
 
         setContentView(R.layout.youtubelayout);
 
-        if (videos) {
+        listFragment = (VideoListFragment) getFragmentManager().findFragmentById(R.id.list_fragment);
+        listFragment.initList();
+        videoFragment =
+                (VideoFragment) getFragmentManager().findFragmentById(R.id.video_fragment_container);
+        videoBox = findViewById(R.id.video_box);
+        videoBox.setVisibility(View.INVISIBLE);
+        closeButton = findViewById(R.id.close_button);
+        layout();
 
-            listFragment = (VideoListFragment) getFragmentManager().findFragmentById(R.id.list_fragment);
-            listFragment.initList();
-            videoFragment =
-                    (VideoFragment) getFragmentManager().findFragmentById(R.id.video_fragment_container);
-            videoBox = findViewById(R.id.video_box);
-            videoBox.setVisibility(View.INVISIBLE);
-            closeButton = findViewById(R.id.close_button);
-            layout();
-
-        }else{
-
+        if (!videos) {
             RobotoTextView msg = (RobotoTextView) findViewById(R.id.messagenovideos);
             msg.setVisibility(View.VISIBLE);
         }

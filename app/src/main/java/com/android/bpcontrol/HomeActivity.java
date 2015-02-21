@@ -25,7 +25,7 @@ import com.android.bpcontrol.application.BPcontrolMasterActivity;
 import com.android.bpcontrol.controllers.HomeFragmentManager;
 import com.android.bpcontrol.controllers.LateralMenuController;
 import com.android.bpcontrol.customviews.RobotoTextView;
-import com.android.bpcontrol.fragments.HistorialPressuresFragment;
+import com.android.bpcontrol.fragments.PressuresHistoryFragment;
 import com.android.bpcontrol.fragments.HomeFragment;
 import com.android.bpcontrol.fragments.PerfilFragment;
 import com.android.bpcontrol.fragments.PressuresFragment;
@@ -79,7 +79,6 @@ public class HomeActivity extends BPcontrolMasterActivity{
 
                     if (isNetworkAvailable()){
                         configureViewAndGetData();
-
                     }else{
                         finish();
                     }
@@ -96,8 +95,6 @@ public class HomeActivity extends BPcontrolMasterActivity{
             });
 
             builder.show();
-
-
         }
     }
 
@@ -198,9 +195,7 @@ public class HomeActivity extends BPcontrolMasterActivity{
         });
 
         menuItemsLayout.addView(cell);
-
     }
-
 
     private void configureMenuSections(){
 
@@ -209,7 +204,6 @@ public class HomeActivity extends BPcontrolMasterActivity{
 
             item = LateralMenuController.getInstance().getApp_sections().get(i);
             configCell(item,i == LateralMenuController.getInstance().getApp_sections().size() - 1);
-
         }
     }
 
@@ -223,6 +217,7 @@ public class HomeActivity extends BPcontrolMasterActivity{
 
         }
     }
+
     private void configureMenuOthers(){
 
         MenuItem item;
@@ -256,61 +251,61 @@ public class HomeActivity extends BPcontrolMasterActivity{
         switch (type){
 
             case MYPERFIL:
-                headertext.setText(getResources().getString(R.string.perfilheaderbar).toUpperCase());
-                PerfilFragment perfilFragment = PerfilFragment.getNewInstance();
-                loadFragment(perfilFragment,false,false);
-                break;
+                    headertext.setText(getResources().getString(R.string.perfilheaderbar).toUpperCase());
+                    PerfilFragment perfilFragment = PerfilFragment.getNewInstance();
+                    loadFragment(perfilFragment,false,false);
+                    break;
             case PRESSURES:
-                headertext.setText(getResources().getString(R.string.headerpressures).toUpperCase());
-                PressuresFragment pressuresFragment = PressuresFragment.getNewInstace();
-                loadFragment(pressuresFragment,false,false);
-                break;
+                    headertext.setText(getResources().getString(R.string.headerpressures).toUpperCase());
+                    PressuresFragment pressuresFragment = PressuresFragment.getNewInstace();
+                    loadFragment(pressuresFragment,false,false);
+                    break;
             case EVOLUTION:
-                break;
+                    break;
             case HISTORIAL:
-                HistorialPressuresFragment historialPressuresFragment = HistorialPressuresFragment.getNewInstace();
-                loadFragment(historialPressuresFragment,false,false);
-                break;
+                    headertext.setText(getResources().getString(R.string.headerbarhistory).toUpperCase());
+                    PressuresHistoryFragment pressuresHistoryFragment = PressuresHistoryFragment.getNewInstace();
+                    loadFragment(pressuresHistoryFragment,false,false);
+                    break;
             case MESSAGES:
-                break;
+                    break;
             case VIDEOS:
-               startActivity(new Intent(this, YoutubeActivity.class));
-               break;
+                    startActivity(new Intent(this, YoutubeActivity.class));
+                    break;
             case HEALTHCENTERS:
-                break;
+                    break;
             case CONTACT:
-                frameLayout.setVisibility(View.GONE);
-                viewpager.setVisibility(View.VISIBLE);
-                FragmentPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-                ViewPager pager = (ViewPager)findViewById(R.id.pager);
-                headertext.setText(getResources().getString(R.string.menusection_contact).toUpperCase());
-                pager.setAdapter(adapter);
-                CirclePageIndicator indicator = (CirclePageIndicator)findViewById(R.id.pagerindicator);
-               	indicator.setViewPager(pager);
-                break;
+                    frameLayout.setVisibility(View.GONE);
+                    viewpager.setVisibility(View.VISIBLE);
+                    FragmentPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
+                    ViewPager pager = (ViewPager)findViewById(R.id.pager);
+                    headertext.setText(getResources().getString(R.string.menusection_contact).toUpperCase());
+                    pager.setAdapter(adapter);
+                    CirclePageIndicator indicator = (CirclePageIndicator)findViewById(R.id.pagerindicator);
+                    indicator.setViewPager(pager);
+                    break;
             case HELP:
-                break;
+                    break;
             case FACEBOOK:
-                if(!isFacebookAppInstalled()){
-                    connectToSocialNetwork("https://www.facebook.com/");
-                }else{
-                    connectToApp("fb://profile/107718629298104");
-                }
-                break;
+                    if(!isFacebookAppInstalled()){
+                        connectToSocialNetwork("https://www.facebook.com/");
+                    }else{
+                        connectToApp("fb://profile/107718629298104");
+                    }
+                    break;
             case TWITTER:
-                connectToSocialNetwork("https://twitter.com/elgourmet");
-                break;
+                    connectToSocialNetwork("https://twitter.com/elgourmet");
+                    break;
             case GOOGLEPLUS:
-                connectToSocialNetwork("https://plus.google.com/+elgourmet/posts");
-                break;
+                    connectToSocialNetwork("https://plus.google.com/+elgourmet/posts");
+                    break;
             case ATTRIBUTIONS:
-                break;
+                    break;
             default:
-                HomeFragment homeFragment = HomeFragment.newInstance();
-                loadFragment(homeFragment, false, false);
-                headertext.setText(getResources().getString(R.string.principalmenutext).toUpperCase());
-                break;
-
+                    HomeFragment homeFragment = HomeFragment.newInstance();
+                    loadFragment(homeFragment, false, false);
+                    headertext.setText(getResources().getString(R.string.principalmenutext).toUpperCase());
+                    break;
         }
 
         dwlayoutmenu.closeDrawer(menulayout);

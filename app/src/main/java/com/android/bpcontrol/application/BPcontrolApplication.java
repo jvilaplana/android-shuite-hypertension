@@ -140,8 +140,8 @@ public class BPcontrolApplication extends Application{
         DisplayImageOptions.Builder builder = new DisplayImageOptions.Builder();
         if (defaultImg != 0) {
             builder
-                    .resetViewBeforeLoading(resetViewOnLoad)  // default
-                    .cacheInMemory(cacheInMemory) // default
+                    .resetViewBeforeLoading(resetViewOnLoad)
+                    .cacheInMemory(cacheInMemory)
                     .cacheOnDisc(cacheOnDisc)
                     .considerExifParams(true)
                     .bitmapConfig(Bitmap.Config.RGB_565)
@@ -155,8 +155,7 @@ public class BPcontrolApplication extends Application{
             }
 
         } else {
-            builder
-                    .bitmapConfig(Bitmap.Config.RGB_565)
+             builder.bitmapConfig(Bitmap.Config.RGB_565)
                     .imageScaleType(ImageScaleType.IN_SAMPLE_INT)
                     .cacheInMemory(cacheInMemory)
                     .cacheOnDisc(cacheOnDisc)

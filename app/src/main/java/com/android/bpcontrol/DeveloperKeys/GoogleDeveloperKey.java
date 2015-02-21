@@ -1,4 +1,4 @@
-package com.android.bpcontrol.youtube;
+package com.android.bpcontrol.developerkeys;
 
 /**
  * Created by Adrian on 17/02/2015.

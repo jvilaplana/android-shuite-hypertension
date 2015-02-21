@@ -33,7 +33,7 @@ public class DataBaseGetTest extends AndroidTestCase{
 
         link = new YoutubeVideo("","youtube.com");
 
-        db.addPressureAverage(fake,"0");
+        db.addPressureAverage(fake);
         db.addYoutubeVideo(link);
     }
 
@@ -45,7 +45,7 @@ public class DataBaseGetTest extends AndroidTestCase{
 
     public void testgetAllYoutubeLink() {
 
-        ArrayList<YoutubeVideo> list =(ArrayList<YoutubeVideo>) db.getAllYoutubeLinks();
+        ArrayList<YoutubeVideo> list =(ArrayList<YoutubeVideo>) db.getAllYoutubeVideos();
         assertEquals(link.getVideoId(),list.get(0).getVideoId());
     }
 

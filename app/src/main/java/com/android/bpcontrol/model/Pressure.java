@@ -12,6 +12,7 @@ public class Pressure{
     private String systolic;
     private String diastolic;
     private String pulse;
+    private int semaphore=1;
 
     public int getId() {
         return id;
@@ -75,6 +76,14 @@ public class Pressure{
 
     public void setDate(Date date) {
         this.date = date;
+    }
+
+    public int getSemaphore() {
+        return semaphore;
+    }
+
+    public void setSemaphore(int semaphore) {
+        this.semaphore = semaphore;
     }
 
     @Override
