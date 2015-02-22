@@ -11,10 +11,14 @@ import android.widget.LinearLayout;
 
 import com.android.bpcontrol.R;
 import com.android.bpcontrol.customviews.RobotoTextView;
+import com.android.bpcontrol.databases.DataStore;
 import com.android.bpcontrol.interfaces.PHistoryAdapterItem;
 import com.android.bpcontrol.model.PHistoryCell;
 import com.android.bpcontrol.model.PHistoryHeader;
+import com.android.bpcontrol.model.Pressure;
+import com.android.bpcontrol.utils.DateUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -30,11 +34,11 @@ public class PressuresHistoryAdapter extends BaseAdapter{
     private Context context;
     private List<PHistoryAdapterItem> items;
 
-    public PressuresHistoryAdapter(Context context, List<PHistoryAdapterItem> items){
+    public PressuresHistoryAdapter(Context context){
 
-        inflater = LayoutInflater.from(context);
+        this.inflater = LayoutInflater.from(context);
         this.context = context;
-        this.items = items;
+        this.items = new ArrayList<>();
     }
 
 
@@ -145,6 +149,22 @@ public class PressuresHistoryAdapter extends BaseAdapter{
 
         return resource;
     }
+
+    private void add(List<Pressure> list){
+
+        Pressure tmp;
+        for (int i=list.size()-1;i>-1;i--) {
+            tmp = list.get(i);
+            items.add(new PHistoryHeader(DateUtils.dateToString(tmp.getDate(), DateUtils.DEFAULT_FORMAT)));
+            items.add(new PHistoryCell(tmp));
+        }
+    }
+
+    public void addPressures(List<Pressure> list){
+        add(list);
+    }
+
+
 
 
 }

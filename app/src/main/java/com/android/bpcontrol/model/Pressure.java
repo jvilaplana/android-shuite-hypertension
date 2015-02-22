@@ -1,5 +1,9 @@
 package com.android.bpcontrol.model;
 
+import android.provider.ContactsContract;
+
+import com.android.bpcontrol.utils.DateUtils;
+
 import java.util.Date;
 
 /**
@@ -74,6 +78,11 @@ public class Pressure{
         return date;
     }
 
+    public String getStringDate(){
+
+        return DateUtils.dateToString(date,DateUtils.DEFAULT_FORMAT);
+    }
+
     public void setDate(Date date) {
         this.date = date;
     }
@@ -92,7 +101,7 @@ public class Pressure{
         if(object instanceof Pressure){
 
             Pressure other = (Pressure)object;
-            return getId()==other.getId() && getSystolic().equals(other.getSystolic()) && getDiastolic().equals(other.getDiastolic())
+            return  getSystolic().equals(other.getSystolic()) && getDiastolic().equals(other.getDiastolic())
                     && getPulse().equals(other.getPulse());
         }
         return false;

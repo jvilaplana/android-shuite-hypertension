@@ -29,6 +29,7 @@ public class PHistoryCell implements PHistoryAdapterItem {
     }
 
     public String getPulse() {
+        if (pressure.getPulse().equals("null")) return "-";
         return pressure.getPulse();
     }
 

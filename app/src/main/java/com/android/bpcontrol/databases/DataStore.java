@@ -5,6 +5,7 @@ import android.provider.ContactsContract;
 import com.android.bpcontrol.model.Pressure;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  * Created by Adrian on 21/02/2015.
@@ -24,7 +25,6 @@ public class DataStore {
         if(dstore == null){
             dstore = new DataStore();
         }
-
         return dstore;
     }
 
@@ -33,15 +33,11 @@ public class DataStore {
     }
 
     public void setPressures(ArrayList<Pressure> pressures) {
-        set(pressures);
+        this.pressures.addAll(pressures);
     }
 
-    private void set(ArrayList<Pressure> pressures){
+    public int pressuresSize(){
 
-        for (int i=pressures.size()-1;i>-1;i--){
-
-            this.pressures.add(pressures.get(i));
-
-        }
+       return  pressures.size();
     }
 }

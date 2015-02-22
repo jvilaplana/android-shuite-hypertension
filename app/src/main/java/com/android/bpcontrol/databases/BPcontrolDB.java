@@ -24,7 +24,7 @@ public class BPcontrolDB extends SQLiteOpenHelper {
     private static final int DATABASE_VERSION = 1;
     private static final String DATABASE_NAME = "PressuresDB";
 
-    //    private static final String TABLE_PRESSURESMORNING = "PressuresMorning";
+      private static final String TABLE_PRESSURESMORNING = "PressuresMorning";
 //    private static final String TABLE_PRESSURESAFTERNOON = "PressuresAfternoon";
     private static final String TABLE_PRESSURESAVERAGE = "PressuresAverage";
     private static final String TABLE_YOUTUBE = "YoutubeLink";
@@ -91,11 +91,24 @@ public class BPcontrolDB extends SQLiteOpenHelper {
 
     public void addAllPressuresAverage(List<Pressure> list){
 
+        SQLiteDatabase db = this.getWritableDatabase();
 
         for (Pressure pressure : list){
-            addPressureAverage(pressure);
-            System.out.print("ESCRIBO");
+
+
+
+            ContentValues values = new ContentValues();
+            values.put(KEY_DATE, DateUtils.dateToString(pressure.getDate(), DateUtils.DEFAULT_FORMAT));
+            values.put(KEY_SYSTOLIC, pressure.getSystolic());
+            values.put(KEY_DIASTOLIC, pressure.getDiastolic());
+            values.put(KEY_PULSE, pressure.getPulse());
+            values.put(KEY_SEMAPHORE, pressure.getSemaphore());
+
+            db.insert(TABLE_PRESSURESAVERAGE, null, values);
+
+
         }
+        db.close();
     }
 
     public void addPressureAverage(Pressure pressure) {
@@ -117,10 +130,19 @@ public class BPcontrolDB extends SQLiteOpenHelper {
 
     public boolean isPressuresTableEmpty(){
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor cursor = db.rawQuery("SELECT count(*) FROM "+TABLE_PRESSURESAVERAGE,null);
+        Cursor cursor = db.rawQuery("SELECT * FROM "+TABLE_PRESSURESAVERAGE,null);
 
-        return cursor!= null && cursor.getCount()>0;
+        if (cursor!=null && cursor.moveToFirst()){
+
+            LogBP.writelog("Hola que ase, este es el count"+cursor.getCount());
+
+            return true;
+        }
+        if (cursor!=null)  cursor.close();
+        return false;
     }
+
+
     public void addYoutubeVideo(YoutubeVideo youtubeVideo) {
 
         SQLiteDatabase db = this.getWritableDatabase();

@@ -694,7 +694,7 @@ public class PressuresFragment extends Fragment
 
         if ((sharedPreferences.getString(SharedPreferenceConstants.LASTSENDPRESSURE, "").equals(date))) {
 
-            db.updatePressureAverage(average);
+            //db.updatePressureAverage(average);
         }else{
 
             db.addPressureAverage(average);

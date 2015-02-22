@@ -10,6 +10,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -31,7 +32,9 @@ import com.android.bpcontrol.utils.DateUtils;
 import com.android.bpcontrol.utils.LogBP;
 import com.android.bpcontrol.utils.SharedPreferenceConstants;
 import com.android.bpcontrol.webservice.WSManager;
+import com.android.volley.toolbox.StringRequest;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -46,6 +49,8 @@ public class PressuresHistoryFragment extends Fragment {
      private PressuresHistoryAdapter adapter;
      private SharedPreferences preference;
      private Handler dbmanger;
+     private Handler dboutdatedmanager;
+     private List<Pressure> dboutdated = new ArrayList<>();
 
 
     public static PressuresHistoryFragment getNewInstace(){
@@ -67,11 +72,12 @@ public class PressuresHistoryFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        PHistoryHeader.MONTHS = getActivity().getResources().getStringArray(R.array.months);
         preference = getActivity().getSharedPreferences(SharedPreferenceConstants.SHARE_PREFERENCE_KEY,
-                Context.MODE_PRIVATE);
+                                                        Context.MODE_PRIVATE);
         db = new BPcontrolDB(getActivity());
 
-        if (db.isPressuresTableEmpty()){
+        if (!db.isPressuresTableEmpty()){ //the first time
 
                 new getPressuresHistory().execute();
 
@@ -89,11 +95,30 @@ public class PressuresHistoryFragment extends Fragment {
             };
 
 
-        }else if (DataStore.getInstance().getPressures().size()> 0){
-            //only check date
-        }else{
-            //getdatabaseitems
-            //getlastupdate
+        }else if (DataStore.getInstance().getPressures().size()> 0){ //today
+
+            new getPressuresHistoryByDate().execute();
+        }else{ //pressures pushed in other device
+
+            new readDataBase().execute();
+
+            dboutdatedmanager = new Handler() {
+                @Override
+                public void handleMessage(Message msg) {
+
+                    Runnable saveInDB = new Runnable() {
+                        @Override
+                        public void run() {
+                            if (dboutdated.size()>0) {
+                                db.addAllPressuresAverage(dboutdated);
+                            }
+                            dboutdated.clear();
+                        }
+                    };
+                    saveInDB.run();
+
+                }
+            };
 
         }
 
@@ -113,14 +138,18 @@ public class PressuresHistoryFragment extends Fragment {
         protected Void doInBackground(Void... params) {
 
 
-            WSManager.getInstance().getUserPressures(getActivity(), null, new WSManager.GetUserPressures() {
-                @Override
-                public void onUserPressuresReceived(ArrayList<Pressure> pressures) {
+            try {
+                WSManager.getInstance().getUserPressures(getActivity(), null, new WSManager.GetUserPressures() {
+                    @Override
+                    public void onUserPressuresReceived(ArrayList<Pressure> pressures) {
 
-                    DataStore.getInstance().setPressures(pressures);
-                    publishProgress();
-                }
-            });
+                        DataStore.getInstance().setPressures(pressures);
+                        publishProgress();
+                    }
+                });
+            } catch (ParseException e) {
+                LogBP.printStackTrace(e);
+            }
 
             return null;
         }
@@ -129,22 +158,19 @@ public class PressuresHistoryFragment extends Fragment {
         protected void onProgressUpdate(Void... params) {
 
 
-            List<PHistoryAdapterItem> adapteritems = convertWSresultToAdapterItems();
-            if (adapteritems.size() != 0) {
-                adapter = new PressuresHistoryAdapter(getActivity(), adapteritems);
+            if (DataStore.getInstance().getPressures().size()!=0) {
 
-
-                listView.setAdapter(adapter);
+                configureView(DataStore.getInstance().getPressures());
 
                 dbmanger.sendEmptyMessage(0);
 
+                SharedPreferences.Editor editor = preference.edit();
+                editor.putString(SharedPreferenceConstants.LASTUPDATEHISTORY,
+                        DateUtils.dateToString(new Date(),DateUtils.DEFAULT_FORMAT));
+                editor.commit();
+
                 ((HomeActivity) getActivity()).dissmissProgressDialog();
-//
-//                SharedPreferences.Editor editor = preference.edit();
-//                editor.putString(SharedPreferenceConstants.LASTUPDATEHISTORY,
-//                        DateUtils.dateToString(new Date(),DateUtils.DEFAULT_FORMAT));
-//                editor.commit();
-//
+
             }else{
                 showDialog();
                 ((HomeActivity) getActivity()).dissmissProgressDialog();
@@ -155,35 +181,94 @@ public class PressuresHistoryFragment extends Fragment {
 
     private class getPressuresHistoryByDate extends AsyncTask<Void,Void,Void>{
 
+        @Override
+        protected void onPreExecute(){
+
+            ((HomeActivity)getActivity()).showProgressDialog();
+        }
 
         @Override
         protected Void doInBackground(Void... params) {
 
-            WSManager.getInstance().getUserPressures(getActivity(), null, new WSManager.GetUserPressures() {
-                @Override
-                public void onUserPressuresReceived(ArrayList<Pressure> pressures) {
+            String last_update = preference.getString(SharedPreferenceConstants.LASTUPDATEHISTORY,"");
 
-                    DataStore.getInstance().setPressures(pressures);
-                    publishProgress();
+            if (!last_update.equals("")){
+
+                try {
+                    WSManager.getInstance().getUserPressures(getActivity(), last_update, new WSManager.GetUserPressures() {
+                        @Override
+                        public void onUserPressuresReceived(ArrayList<Pressure> pressures) {
+
+                            if (DataStore.getInstance().getPressures().size()>0 && pressures.size()>0){
+
+                                if (DataStore.getInstance().getPressures().get(DataStore.getInstance()
+                                        .pressuresSize()-1).getStringDate().equals(pressures.get(0).getStringDate())){
+
+                                    DataStore.getInstance().getPressures().remove(DataStore.getInstance()
+                                            .pressuresSize()-1);
+
+                                }
+
+
+                            }else {
+                                DataStore.getInstance().setPressures((ArrayList<Pressure>) dboutdated);
+
+                                if (dboutdated.get(dboutdated.size() - 1).getStringDate().equals(pressures.get(0).getStringDate())) {
+                                    pressures.remove(0);
+
+                                }
+                                dboutdated.clear();
+                                dboutdated.addAll(pressures);
+                                dboutdatedmanager.sendEmptyMessage(0);
+                            }
+                            DataStore.getInstance().setPressures(pressures);
+                            publishProgress();
+                        }
+                    });
+                } catch (ParseException e) {
+                    LogBP.printStackTrace(e);
                 }
-            });
+            }
 
             return null;
         }
+
+        @Override
+        protected void onProgressUpdate(Void... params) {
+            configureView(DataStore.getInstance().getPressures());
+            ((HomeActivity)getActivity()).dissmissProgressDialog();
+        }
     }
 
-    private List<PHistoryAdapterItem> convertWSresultToAdapterItems(){
+    private class readDataBase extends AsyncTask<Void,Void,List<Pressure>>{
 
-        List<PHistoryAdapterItem> itemsadpter = new ArrayList<>();
-        List<Pressure> pressures = DataStore.getInstance().getPressures();
-        Pressure tmp;
-        for (int i = pressures.size()-1; i>-1;i--){
-            tmp = pressures.get(i);
-            itemsadpter.add(new PHistoryHeader(DateUtils.dateToString(tmp.getDate(),DateUtils.DEFAULT_FORMAT)));
-            itemsadpter.add(new PHistoryCell(tmp));
+        @Override
+        protected void onPreExecute(){
+            ((HomeActivity)getActivity()).showProgressDialog();
         }
 
-        return itemsadpter;
+        @Override
+        protected List<Pressure> doInBackground(Void... params) {
+
+
+            try {
+                return db.getAllPressureAverage();
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+
+            return new ArrayList<>();
+        }
+
+        @Override
+        protected void onPostExecute(List<Pressure> list){
+
+            if (list.size()>0){
+                dboutdated.addAll((ArrayList)list);
+            }
+
+            new getPressuresHistoryByDate().execute();
+        }
     }
 
     private void showDialog(){
@@ -202,8 +287,11 @@ public class PressuresHistoryFragment extends Fragment {
         messageText.setGravity(Gravity.CENTER);
 
         dialog.show();
+    }
 
-
-
+    private void configureView(List<Pressure> list){
+        adapter = new PressuresHistoryAdapter(getActivity());
+        adapter.addPressures(list);
+        listView.setAdapter(adapter);
     }
 }

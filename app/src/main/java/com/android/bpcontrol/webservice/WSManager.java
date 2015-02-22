@@ -280,8 +280,6 @@ public class WSManager {
 
     }
 
-
-
     public void sendPressures(final Context context,PressuresMorning morning, PressuresAfternoon afternoon,final SendPressures callback){
 
         final String url=URLBASE+"/hypertensionBloodPressure/restSave";
@@ -375,12 +373,12 @@ public class WSManager {
 
     }
 
-    public void getUserPressures(final Context context, String date, final GetUserPressures callback){
+    public void getUserPressures(final Context context, String date, final GetUserPressures callback) throws ParseException {
 
         String url;
         if (date != null) {
             url= URLBASE + "/hypertensionBloodPressure/restList/"+User.getInstance().getUUID()
-                    +"?date="+date;
+                    +"?date="+DateUtils.dateStringToWSdate(date);
         }else{
             url = URLBASE+"/hypertensionBloodPressure/restList/"+User.getInstance().getUUID();
         }
@@ -408,7 +406,7 @@ public class WSManager {
                 if (array.length() > 0){
                 Pressure pressure;
                 JSONObject jsonpressure;
-                for (int i = 0; i < array.length(); i++) {
+                for (int i = array.length()-1; i>-1; i--) {
                     jsonpressure = array.getJSONObject(i);
                     pressure = new Pressure();
                     pressure.setSystolic(jsonpressure.getString("systole"));
