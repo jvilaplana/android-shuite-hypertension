@@ -4,7 +4,9 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
+import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -15,16 +17,19 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
-import com.android.bpcontrol.adapters.ViewPagerAdapter;
+import com.android.bpcontrol.adapters.ViewPagerContactAdapter;
+import com.android.bpcontrol.adapters.ViewPagerEvolutionAdapter;
 import com.android.bpcontrol.application.BPcontrolMasterActivity;
 import com.android.bpcontrol.controllers.HomeFragmentManager;
 import com.android.bpcontrol.controllers.LateralMenuController;
 import com.android.bpcontrol.customviews.RobotoTextView;
+import com.android.bpcontrol.fragments.InitialFragment;
 import com.android.bpcontrol.fragments.PressuresHistoryFragment;
 import com.android.bpcontrol.fragments.HomeFragment;
 import com.android.bpcontrol.fragments.PerfilFragment;
@@ -98,13 +103,40 @@ public class HomeActivity extends BPcontrolMasterActivity{
         }
     }
 
+    @Override
+    public void onResume(){
+        super.onResume();
+
+    }
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+
+        boolean isPortrait =
+                getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT;
+
+        if (isPortrait){
+            viewpager.setVisibility(View.GONE);
+            frameLayout.setVisibility(View.VISIBLE);
+
+        }else{
+
+            viewpager.setVisibility(View.VISIBLE);
+            frameLayout.setVisibility(View.GONE);
+        }
+    }
+
     private void configureViewAndGetData(){
 
         configureLateralMenu();
         if (!User.getInstance().isInSession()) {
             getUserInfo();
+        }else{
+            perfilName.setText(User.getInstance().getName()+" "+User.getInstance().getFirstSurname());
         }
         configureActionBar();
+
+
         selectMenuItem(LateralMenuController.MenuSections.HOME);
 
     }
@@ -245,11 +277,12 @@ public class HomeActivity extends BPcontrolMasterActivity{
 
     public void selectMenuItem(LateralMenuController.MenuSections type){
 
-        viewpager.setVisibility(View.GONE);
-        frameLayout.setVisibility(View.VISIBLE);
+
+        if (getRequestedOrientation() == ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE) {
+                setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        }
 
         switch (type){
-
             case MYPERFIL:
                     headertext.setText(getResources().getString(R.string.perfilheaderbar).toUpperCase());
                     PerfilFragment perfilFragment = PerfilFragment.getNewInstance();
@@ -261,6 +294,18 @@ public class HomeActivity extends BPcontrolMasterActivity{
                     loadFragment(pressuresFragment,false,false);
                     break;
             case EVOLUTION:
+                    frameLayout.setVisibility(View.GONE);
+                    viewpager.setVisibility(View.VISIBLE);
+                    FragmentPagerAdapter adapterevolution = new ViewPagerEvolutionAdapter(getSupportFragmentManager());
+                    ViewPager pagerevolution = (ViewPager)findViewById(R.id.pager);
+                    headertext.setText(getResources().getString(R.string.menusection_evolution).toUpperCase());
+                    pagerevolution.setAdapter(adapterevolution);
+                    CirclePageIndicator indicatorevolution = (CirclePageIndicator)findViewById(R.id.pagerindicator);
+                    LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+                            ViewGroup.LayoutParams.WRAP_CONTENT);
+                    lp.setMargins(0,0,0,(int)getResources().getDimension(R.dimen.pageviewmarginbottomevolution));
+                    indicatorevolution.setLayoutParams(lp);
+                    indicatorevolution.setViewPager(pagerevolution);
                     break;
             case HISTORIAL:
                     headertext.setText(getResources().getString(R.string.headerbarhistory).toUpperCase());
@@ -277,12 +322,12 @@ public class HomeActivity extends BPcontrolMasterActivity{
             case CONTACT:
                     frameLayout.setVisibility(View.GONE);
                     viewpager.setVisibility(View.VISIBLE);
-                    FragmentPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-                    ViewPager pager = (ViewPager)findViewById(R.id.pager);
+                    FragmentPagerAdapter adaptercontact = new ViewPagerContactAdapter(getSupportFragmentManager());
+                    ViewPager pagercontact = (ViewPager)findViewById(R.id.pager);
                     headertext.setText(getResources().getString(R.string.menusection_contact).toUpperCase());
-                    pager.setAdapter(adapter);
-                    CirclePageIndicator indicator = (CirclePageIndicator)findViewById(R.id.pagerindicator);
-                    indicator.setViewPager(pager);
+                    pagercontact.setAdapter(adaptercontact);
+                    CirclePageIndicator indicatorcontact = (CirclePageIndicator)findViewById(R.id.pagerindicator);
+                    indicatorcontact.setViewPager(pagercontact);
                     break;
             case HELP:
                     break;
@@ -349,6 +394,9 @@ public class HomeActivity extends BPcontrolMasterActivity{
 
     public void goBack(){
 
+        if (getRequestedOrientation() == ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE){
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        }
         Fragment lastFragment = this.getSupportFragmentManager().findFragmentById(R.id.menu_frame);
 
         if (viewpager.getVisibility() == View.VISIBLE){

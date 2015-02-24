@@ -28,9 +28,14 @@ public class DateUtils {
 
     public static Date wsDateStringToDateClass(String wsCompleteDate) throws ParseException {
 
-        String wsdate = wsCompleteDate.split("T")[0];
+        if (wsCompleteDate.contains("T")) {
+            String wsdate = wsCompleteDate.split("T")[0];
+            return stringToDate(wsdate,WS_RECEIVEFORMAT);
+        }else{
+            return stringToDate(wsCompleteDate,WS_RECEIVEFORMAT);
+        }
 
-        return stringToDate(wsdate,WS_RECEIVEFORMAT);
+
 
 
     }
@@ -54,5 +59,15 @@ public class DateUtils {
         Date date_default = stringToDate(date,DEFAULT_FORMAT);
 
         return dateToString(date_default,WS_SENDFORMAT);
+    }
+
+    public static int differenceInDays(Date firstDate, Date secondDate){
+
+        long difference = firstDate.getTime() - secondDate.getTime();
+
+        int diffDays =(int) difference / (24 * 60 * 60 * 1000);
+
+        return diffDays;
+
     }
 }

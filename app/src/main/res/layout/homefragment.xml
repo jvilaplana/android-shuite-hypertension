@@ -3,12 +3,49 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-<ImageView
-    android:id="@+id/prueba"
+<LinearLayout
+    android:id="@+id/hometextcontainer"
+    android:orientation="vertical"
+    android:layout_alignParentTop="true"
+    android:layout_marginTop="10dp"
+    android:layout_marginLeft="30dp"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_above="@+id/homegridview"
-    android:background="@android:color/black"/>
+    android:layout_height="wrap_content">
+
+    <com.android.bpcontrol.customviews.RobotoTextView
+        android:id="@+id/welcometext"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="10dp"
+        android:tag="RobotoBold"
+        android:textColor="@color/menutext"
+        android:textSize="20sp"
+        android:text="Hola que ase"/>
+
+   <LinearLayout
+       android:orientation="horizontal"
+       android:layout_width="wrap_content"
+       android:layout_height="match_parent">
+
+       <ImageView
+           android:id="@+id/homesemaphore"
+           android:layout_width="30dp"
+           android:layout_height="60dp"
+           android:layout_marginRight="10dp"
+           android:background="@drawable/semafor_green"/>
+
+       <com.android.bpcontrol.customviews.RobotoTextView
+           android:id="@+id/homedescriptiontext"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:layout_gravity="center_vertical"
+           android:textColor="@color/menutext"
+           android:textSize="18sp"
+           android:text="La ultima medicion efectua se realizo hace dias"/>
+
+       </LinearLayout>
+
+    </LinearLayout>
 
 
     <GridView

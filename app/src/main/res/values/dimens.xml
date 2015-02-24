@@ -12,6 +12,7 @@
     <dimen name="grid_textview">20dp</dimen>
     <dimen name="text_gridcell">19sp</dimen>
     <dimen name="pageviewmarginbottom">35dp</dimen>
+    <dimen name="pageviewmarginbottomevolution">3dp</dimen>
 
     <dimen name="menu_width">250dp</dimen>
 

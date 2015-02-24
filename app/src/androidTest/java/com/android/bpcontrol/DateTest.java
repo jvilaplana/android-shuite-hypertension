@@ -2,6 +2,7 @@ package com.android.bpcontrol;
 
 import android.test.AndroidTestCase;
 
+import junit.framework.Assert;
 
 import java.text.ParseException;
 import java.util.Date;
@@ -15,6 +16,8 @@ public class DateTest extends AndroidTestCase {
 
     private final String WSstringdate = "2015-02-01T19:01:32";
     private final String defaultDate = "01-02-2015";
+
+
 
     public void setUp(){
 
@@ -40,6 +43,30 @@ public class DateTest extends AndroidTestCase {
     public void test_convert_defaultDateToWSdate() throws ParseException {
 
         assertEquals(dateStringToWSdate(defaultDate),"20150201");
+    }
+
+
+
+    public void test_trigger_parse_exception_by_bad_parse(){
+
+        try {
+            stringToDate("12-03-1999",DEFAULT_FORMAT);
+        } catch (ParseException e) {
+            Assert.fail("ParseException");
+            e.printStackTrace();
+        }
+
+
+    }
+
+    public void test_calculate_differente_between_two_dates() throws ParseException {
+
+        Date d1 = stringToDate("21-02-2015",DEFAULT_FORMAT);
+        Date d2 = stringToDate("15-02-2015",DEFAULT_FORMAT);
+
+        int days = differenceInDays(d1,d2);
+
+        assertTrue(days==6);
     }
 
 

@@ -1,5 +1,7 @@
 package com.android.bpcontrol.fragments;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -9,13 +11,21 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.GridView;
+import android.widget.ImageView;
 
 import com.android.bpcontrol.HomeActivity;
 import com.android.bpcontrol.R;
 import com.android.bpcontrol.adapters.HomeGridAdapter;
 import com.android.bpcontrol.controllers.LateralMenuController;
+import com.android.bpcontrol.customviews.RobotoTextView;
 import com.android.bpcontrol.model.GridCellResources;
+import com.android.bpcontrol.model.User;
+import com.android.bpcontrol.utils.DateUtils;
 import com.android.bpcontrol.utils.LogBP;
+import com.android.bpcontrol.utils.SharedPreferenceConstants;
+
+import java.text.ParseException;
+import java.util.Date;
 
 /**
  * Created by Adrian Carrera on 29/01/2015.
@@ -25,6 +35,9 @@ public class HomeFragment extends Fragment {
     private GridCellResources[] resources;
     private final int num_grid_resources = 4;
     private GridView grid;
+    private RobotoTextView welcome;
+    private RobotoTextView description;
+    private ImageView semaphore;
 
     public static HomeFragment newInstance(){
         HomeFragment homeFragment = new HomeFragment();
@@ -35,6 +48,9 @@ public class HomeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
         View view = inflater.inflate(R.layout.homefragment, null);
+        welcome = (RobotoTextView) view.findViewById(R.id.welcometext);
+        semaphore = (ImageView) view.findViewById(R.id.homesemaphore);
+        description = (RobotoTextView) view.findViewById(R.id.homedescriptiontext);
         grid = (GridView) view.findViewById(R.id.homegridview);
         return view;
 
@@ -45,6 +61,50 @@ public class HomeFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         initGridCellResources();
+
+        String lastUpdated = User.getInstance().getLastUpdate();
+        Date lastdate = null;
+        try {
+           lastdate = DateUtils.wsDateStringToDateClass(lastUpdated);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        welcome.setText(getResources().getString(R.string.welcome)+" "+User.getInstance()
+                .getName()+ " "+User.getInstance().getFirstSurname());
+        semaphore.setBackgroundResource(R.drawable.semafor_green);
+        if (lastdate != null){
+
+           int days = DateUtils.differenceInDays(new Date(),lastdate);
+
+            if (days == 0){
+                description.setText(getResources().getString(R.string.homedescription2));
+            }else{
+
+                if (days == 1){
+
+                    description.setText(getResources().getString(R.string.homedescription1)+ " "+""+days+" "
+                            +getResources().getString(R.string.singularday)+" "+getResources()
+                            .getString(R.string.homedescription12));
+                }else{
+                    description.setText(getResources().getString(R.string.homedescription1)+ " "+""+days+" "
+                            +getResources().getString(R.string.pluralday)+" "+getResources()
+                            .getString(R.string.homedescription12));
+                    if (days>7){
+
+                        semaphore.setBackgroundResource(R.drawable.semafor_yellow);
+                    }else if (days>30){
+
+                        semaphore.setBackgroundResource(R.drawable.semafor_red);
+                    }
+
+
+                }
+
+
+            }
+        }
+
         HomeGridAdapter adapter = new HomeGridAdapter(getActivity(),resources);
         grid.setAdapter(adapter);
         grid.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -55,6 +115,7 @@ public class HomeFragment extends Fragment {
                 switch (position){
 
                     case 0:
+                        ((HomeActivity)getActivity()).selectMenuItem(LateralMenuController.MenuSections.EVOLUTION);
                         break;
                     case 1:
                         ((HomeActivity)getActivity()).selectMenuItem(LateralMenuController.MenuSections.PRESSURES);
@@ -69,6 +130,8 @@ public class HomeFragment extends Fragment {
                 }
             }
         });
+
+
     }
 
     private void initGridCellResources(){

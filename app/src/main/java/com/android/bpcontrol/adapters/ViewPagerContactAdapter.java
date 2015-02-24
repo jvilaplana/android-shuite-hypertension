@@ -9,9 +9,9 @@ import com.android.bpcontrol.fragments.ContactFragment;
 /**
  * Created by Adrian on 11/02/2015.
  */
-public class ViewPagerAdapter extends FragmentPagerAdapter {
+public class ViewPagerContactAdapter extends FragmentPagerAdapter {
 
-    public ViewPagerAdapter (FragmentManager fragmentManager) {
+    public ViewPagerContactAdapter(FragmentManager fragmentManager) {
              super(fragmentManager);
     }
 
