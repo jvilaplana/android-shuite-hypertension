@@ -19,8 +19,10 @@ import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
 import static android.view.ViewGroup.LayoutParams.WRAP_CONTENT;
 
 import com.android.bpcontrol.application.BPcontrolMasterActivity;
+import com.android.bpcontrol.controllers.HomeFragmentManager;
 import com.android.bpcontrol.customviews.RobotoTextView;
 import com.android.bpcontrol.databases.BPcontrolDB;
+import com.android.bpcontrol.fragments.HomeFragment;
 import com.android.bpcontrol.model.YoutubeVideo;
 import com.android.bpcontrol.developerkeys.GoogleDeveloperKey;
 import com.google.android.youtube.player.YouTubeApiServiceUtil;
@@ -44,6 +46,7 @@ import android.content.res.Configuration;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -97,6 +100,7 @@ public class YoutubeActivity extends BPcontrolMasterActivity implements OnFullsc
         new getYoutubeVideos().execute();
 
         checkYouTubeApi();
+
     }
 
     private void checkYouTubeApi() {

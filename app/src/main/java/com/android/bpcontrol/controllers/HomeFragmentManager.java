@@ -36,8 +36,12 @@ public class HomeFragmentManager {
     }
 
     public Fragment getLastFragment() {
-        return lastFragment;
+           if (homeFragmentStack.size()>0){
+               return homeFragmentStack.get(homeFragmentStack.size()-1);
+           }
+                return null;
     }
+
 
     public void setLastFragment(Fragment lastFragment) {
         this.lastFragment = lastFragment;

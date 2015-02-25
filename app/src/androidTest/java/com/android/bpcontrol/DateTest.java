@@ -17,8 +17,6 @@ public class DateTest extends AndroidTestCase {
     private final String WSstringdate = "2015-02-01T19:01:32";
     private final String defaultDate = "01-02-2015";
 
-
-
     public void setUp(){
 
     }
@@ -55,8 +53,6 @@ public class DateTest extends AndroidTestCase {
             Assert.fail("ParseException");
             e.printStackTrace();
         }
-
-
     }
 
     public void test_calculate_differente_between_two_dates() throws ParseException {
@@ -69,6 +65,11 @@ public class DateTest extends AndroidTestCase {
         assertTrue(days==6);
     }
 
+    public void test_is_date_equals_to_today_date() throws ParseException {
+
+        String todaydate = dateToString(new Date(),DEFAULT_FORMAT);
+        assertTrue(isDateEqualsToTodayDate(todaydate));
+    }
 
     public void tearDown() throws Exception{
 

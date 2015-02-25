@@ -3,6 +3,7 @@ package com.android.bpcontrol.fragments;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -62,22 +63,31 @@ public class HomeFragment extends Fragment {
 
         initGridCellResources();
 
-        String lastUpdated = User.getInstance().getLastUpdate();
-        Date lastdate = null;
-        try {
-           lastdate = DateUtils.wsDateStringToDateClass(lastUpdated);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
+
+
+        SharedPreferences preferences = getActivity().getSharedPreferences
+                (SharedPreferenceConstants.SHARE_PREFERENCE_KEY,Context.MODE_PRIVATE);
+        String lastUpdated = preferences.getString(SharedPreferenceConstants.LASTSENDPRESSURE,"");
 
         welcome.setText(getResources().getString(R.string.welcome)+" "+User.getInstance()
-                .getName()+ " "+User.getInstance().getFirstSurname());
+                .getName()+ " "+User.getInstance().getFirstSurname()+"!");
         semaphore.setBackgroundResource(R.drawable.semafor_green);
-        if (lastdate != null){
+        if (!lastUpdated.equals("")){
 
-           int days = DateUtils.differenceInDays(new Date(),lastdate);
+            Date lastdate = null;
+            try {
+                lastdate = DateUtils.stringToDate(lastUpdated, DateUtils.DEFAULT_FORMAT);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            int days = -1;
+            if (lastdate != null) {
+                days = DateUtils.differenceInDays(new Date(), lastdate);
+            }
 
-            if (days == 0){
+            if (days == -1) {
+                description.setText(getResources().getString(R.string.notregister));
+            }else if (days == 0){
                 description.setText(getResources().getString(R.string.homedescription2));
             }else{
 
@@ -103,6 +113,8 @@ public class HomeFragment extends Fragment {
 
 
             }
+        }else {
+            description.setText(getResources().getString(R.string.notregister));
         }
 
         HomeGridAdapter adapter = new HomeGridAdapter(getActivity(),resources);

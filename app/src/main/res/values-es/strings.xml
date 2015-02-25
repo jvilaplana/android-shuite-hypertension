@@ -145,11 +145,15 @@
     
     <string name="nopressurehistory">No hay registros en el historial</string>
     <string name="historydialogbutton">Aceptar</string>
-    <string name="welcome">¡Bienvenido </string>
+    <string name="pressuresintroduced">Las presiones de hoy ya se han introducido</string>
 
+
+    <!--Home fragment-->
+    <string name="welcome">¡Bienvenido </string>
     <string name="homedescription1">Lleva</string>
     <string name="singularday">día</string>
     <string name="pluralday">días</string>
     <string name="homedescription12">sin enviar sus mediciones</string>
     <string name="homedescription2">¡Muy bien, lleva las mediciones al día!</string>
+    <string name="notregister">No hay registro de actividad</string>
 </resources>

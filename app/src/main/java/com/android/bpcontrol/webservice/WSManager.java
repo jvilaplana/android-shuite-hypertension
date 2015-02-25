@@ -238,7 +238,7 @@ public class WSManager {
            User.getInstance().setUUID(json.getString("uuid"));
            User.getInstance().setActive(json.getBoolean("active"));
            User.getInstance().setBirthDate(json.getString("birthDate").split("T")[0]);
-           User.getInstance().setDateCreated(json.getString("dateCreated").replace('T',' ').replace('Z',(char)0));
+           User.getInstance().setCreationDate(json.getString("dateCreated").split("T")[0]);
            User.getInstance().setEmail(json.getString("email"));
            User.getInstance().setFirstSurname(json.getString("firstSurname"));
            User.getInstance().setIdentityCard(json.getString("identityCard"));

@@ -66,7 +66,7 @@ public class PerfilFragment extends Fragment {
         mobileNumber.setText(User.getInstance().getMobileNumber());
 
         RobotoTextView dateCreated = (RobotoTextView) viewGroup.getChildAt(15);
-        dateCreated.setText(User.getInstance().getDateCreated());
+        dateCreated.setText(User.getInstance().getCreationDate());
 
         Button contact = (Button) viewGroup.getChildAt(17);
 

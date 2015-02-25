@@ -28,6 +28,7 @@ import com.android.bpcontrol.interfaces.PHistoryAdapterItem;
 import com.android.bpcontrol.model.PHistoryCell;
 import com.android.bpcontrol.model.PHistoryHeader;
 import com.android.bpcontrol.model.Pressure;
+import com.android.bpcontrol.model.User;
 import com.android.bpcontrol.utils.DateUtils;
 import com.android.bpcontrol.utils.LogBP;
 import com.android.bpcontrol.utils.SharedPreferenceConstants;
@@ -75,6 +76,7 @@ public class PressuresHistoryFragment extends Fragment {
         PHistoryHeader.MONTHS = getActivity().getResources().getStringArray(R.array.months);
         preference = getActivity().getSharedPreferences(SharedPreferenceConstants.SHARE_PREFERENCE_KEY,
                                                         Context.MODE_PRIVATE);
+        String lastUpdate = preference.getString(SharedPreferenceConstants.LASTUPDATEHISTORY,"");
         db = new BPcontrolDB(getActivity());
 
         if (!db.isPressuresTableEmpty()){ //the first time
@@ -192,43 +194,54 @@ public class PressuresHistoryFragment extends Fragment {
 
             String last_update = preference.getString(SharedPreferenceConstants.LASTUPDATEHISTORY,"");
 
-            if (!last_update.equals("")){
+            if (last_update.equals("")) {
 
                 try {
-                    WSManager.getInstance().getUserPressures(getActivity(), last_update, new WSManager.GetUserPressures() {
-                        @Override
-                        public void onUserPressuresReceived(ArrayList<Pressure> pressures) {
-
-                            if (DataStore.getInstance().getPressures().size()>0 && pressures.size()>0){
-
-                                if (DataStore.getInstance().getPressures().get(DataStore.getInstance()
-                                        .pressuresSize()-1).getStringDate().equals(pressures.get(0).getStringDate())){
-
-                                    DataStore.getInstance().getPressures().remove(DataStore.getInstance()
-                                            .pressuresSize()-1);
-
-                                }
-
-
-                            }else {
-                                DataStore.getInstance().setPressures((ArrayList<Pressure>) dboutdated);
-
-                                if (dboutdated.get(dboutdated.size() - 1).getStringDate().equals(pressures.get(0).getStringDate())) {
-                                    pressures.remove(0);
-
-                                }
-                                dboutdated.clear();
-                                dboutdated.addAll(pressures);
-                                dboutdatedmanager.sendEmptyMessage(0);
-                            }
-                            DataStore.getInstance().setPressures(pressures);
-                            publishProgress();
-                        }
-                    });
-                } catch (ParseException e) {
+                    Date tmp = DateUtils.wsStringDateToDefaultDate(User.getInstance().getCreationDate());
+                    if (tmp != null)
+                        last_update = DateUtils.dateToString(tmp, DateUtils.DEFAULT_FORMAT);
+                } catch (Exception e) {
                     LogBP.printStackTrace(e);
+                    last_update = "";
                 }
             }
+                if (!last_update.equals("")) {
+                    try {
+                        WSManager.getInstance().getUserPressures(getActivity(), last_update, new WSManager.GetUserPressures() {
+                            @Override
+                            public void onUserPressuresReceived(ArrayList<Pressure> pressures) {
+
+                                if (DataStore.getInstance().getPressures().size() > 0 && pressures.size() > 0) {
+
+                                    if (DataStore.getInstance().getPressures().get(DataStore.getInstance()
+                                            .pressuresSize() - 1).getStringDate().equals(pressures.get(0).getStringDate())) {
+
+                                        DataStore.getInstance().getPressures().remove(DataStore.getInstance()
+                                                .pressuresSize() - 1);
+
+                                    }
+
+
+                                } else {
+                                    DataStore.getInstance().setPressures((ArrayList<Pressure>) dboutdated);
+
+                                    if (dboutdated.get(dboutdated.size() - 1).getStringDate().equals(pressures.get(0).getStringDate())) {
+                                        pressures.remove(0);
+
+                                    }
+                                    dboutdated.clear();
+                                    dboutdated.addAll(pressures);
+                                    dboutdatedmanager.sendEmptyMessage(0);
+                                }
+                                DataStore.getInstance().setPressures(pressures);
+                                publishProgress();
+                            }
+                        });
+                    } catch (ParseException e) {
+                        LogBP.printStackTrace(e);
+                    }
+                }
+
 
             return null;
         }
@@ -294,4 +307,6 @@ public class PressuresHistoryFragment extends Fragment {
         adapter.addPressures(list);
         listView.setAdapter(adapter);
     }
+
+
 }

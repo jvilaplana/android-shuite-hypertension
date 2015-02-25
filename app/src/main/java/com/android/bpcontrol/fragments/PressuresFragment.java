@@ -95,6 +95,19 @@ public class PressuresFragment extends Fragment
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+
+        String lastupdatedate = getLastDateSent();
+
+        try {
+            if (!lastupdatedate.equals("") && DateUtils.isDateEqualsToTodayDate(lastupdatedate)) {
+
+                showDialogPressuresIntroduced();
+            }
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+
         ArrayAdapter adapter = new ArrayAdapter(getActivity(), android.R.layout.simple_list_item_1, getResources().getStringArray(R.array.spinnerpressures));
         spinner.setAdapter(adapter);
         spinner.setOnItemSelectedListener(this);
@@ -109,16 +122,26 @@ public class PressuresFragment extends Fragment
         buttonsend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                String lastupdatedate = getLastDateSent();
+                try {
+                    if (!DateUtils.isDateEqualsToTodayDate(lastupdatedate)) {
 
-                if (isCorrectAfternoonMeassurament() && isCorrectMorningMeassurament()) {
+                        showDialogPressuresIntroduced();
+                        if (isCorrectAfternoonMeassurament() && isCorrectMorningMeassurament()) {
 
-                    new sendPressures().execute();
+                            new sendPressures().execute();
 
-                } else {
+                        } else {
 
-                        showDialog(getResources().getString(R.string.messagesend));
+                            showDialog(getResources().getString(R.string.messagesend));
+                        }
+                    }else{
+                        showDialogPressuresIntroduced();
+                    }
+
+                } catch (Exception ex) {
+                    LogBP.printStackTrace(ex);
                 }
-
             }
         });
         db = new BPcontrolDB(getActivity());
@@ -485,6 +508,8 @@ public class PressuresFragment extends Fragment
            }
 
 
+
+
    }
 
     private void checkIfDataSaved() {
@@ -708,6 +733,35 @@ public class PressuresFragment extends Fragment
             }
 
         }
+
+
+    private void showDialogPressuresIntroduced() {
+
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setMessage(getActivity().getResources().getString(R.string.pressuresintroduced));
+        builder.setPositiveButton(getActivity().getResources().getString(R.string.noconnectiondialogpositiveWS), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+
+            }
+        });
+        AlertDialog dialog = builder.show();
+        TextView messageText = (TextView) dialog.findViewById(android.R.id.message);
+        messageText.setGravity(Gravity.CENTER);
+
+        dialog.show();
+    }
+
+
+    private String getLastDateSent(){
+
+        SharedPreferences preferences = getActivity()
+                .getSharedPreferences(SharedPreferenceConstants.SHARE_PREFERENCE_KEY, Context.MODE_PRIVATE);
+        return preferences.getString(SharedPreferenceConstants.LASTSENDPRESSURE, "");
+
+    }
 
 
 }

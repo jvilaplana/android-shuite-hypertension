@@ -138,6 +138,7 @@
     </string-array>
 
     <string name="nopressurehistory">There is not record in history</string>
+    <string name="pressuresintroduced">The pressures of today have already been introduced</string>
     <string name="historydialogbutton">OK</string>
 
     <!--Home fragment-->
@@ -148,6 +149,7 @@
     <string name="pluralday">days</string>
     <string name="homedescription12">without send your measurements</string>
     <string name="homedescription2">Well, take measurements a day!</string>
+    <string name="notregister">There are not activity records</string>
 
 
 </resources>

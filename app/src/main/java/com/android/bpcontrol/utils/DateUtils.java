@@ -70,4 +70,16 @@ public class DateUtils {
         return diffDays;
 
     }
+
+    public static boolean isDateEqualsToTodayDate(String date) throws ParseException {
+
+
+        Date maybeTodayDate = stringToDate(date,DEFAULT_FORMAT);
+        Date todayDate = stringToDate(dateToString(new Date(),DEFAULT_FORMAT),DEFAULT_FORMAT);
+
+        if (todayDate.equals(maybeTodayDate)){
+            return true;
+        }
+        return false;
+    }
 }

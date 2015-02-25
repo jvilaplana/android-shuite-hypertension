@@ -15,7 +15,7 @@ public class User {
     private String email;
     private String lastUpdate;
     private boolean active;
-    private String dateCreated;
+    private String creationDate;
     private String notes;
     private String mobileNumber;
     private String mobileNumberPrefix;
@@ -76,12 +76,12 @@ public class User {
         this.mobileNumberPrefix = mobileNumberPrefix;
     }
 
-    public String getDateCreated() {
-        return dateCreated;
+    public String getCreationDate() {
+        return creationDate;
     }
 
-    public void setDateCreated(String dateCreated) {
-        this.dateCreated = dateCreated;
+    public void setCreationDate(String creationDate) {
+        this.creationDate = creationDate;
     }
 
     public String getLastUpdate() {

@@ -24,6 +24,8 @@ dependencies {
     compile 'com.android.support:recyclerview-v7:21.0.3'
     compile 'com.mcxiaoke.volley:library:1.0.+'
     compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.3'
+    compile 'com.androidplot:androidplot:0.6.1'
+    compile 'com.androidplot:androidplot-core:0.6.1'
     compile project(':pageviewindicator')
     compile files("libs/YouTubeAndroidPlayerApi.jar")
 }

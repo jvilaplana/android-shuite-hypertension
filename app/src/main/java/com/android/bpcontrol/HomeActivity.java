@@ -133,11 +133,12 @@ public class HomeActivity extends BPcontrolMasterActivity{
             getUserInfo();
         }else{
             perfilName.setText(User.getInstance().getName()+" "+User.getInstance().getFirstSurname());
+            selectMenuItem(LateralMenuController.MenuSections.HOME);
         }
         configureActionBar();
 
 
-        selectMenuItem(LateralMenuController.MenuSections.HOME);
+
 
     }
 
@@ -315,6 +316,12 @@ public class HomeActivity extends BPcontrolMasterActivity{
             case MESSAGES:
                     break;
             case VIDEOS:
+                if (HomeFragmentManager.getInstance(this).getHomeFragmentStack().size() > 0) {
+                    Fragment fragment = HomeFragmentManager.getInstance(this).getLastFragment();
+                    int size = HomeFragmentManager.getInstance(this).getHomeFragmentStack().size();
+                    HomeFragmentManager.getInstance(this).removeFromStack(fragment);
+                }
+
                     startActivity(new Intent(this, YoutubeActivity.class));
                     break;
             case HEALTHCENTERS:
@@ -480,11 +487,13 @@ public class HomeActivity extends BPcontrolMasterActivity{
                    public void onUserInfoObtained() {
 
                        perfilName.setText(User.getInstance().getName()+" "+User.getInstance().getFirstSurname());
+                       selectMenuItem(LateralMenuController.MenuSections.HOME);
                        HomeActivity.this.dissmissProgressDialog();
 
                    }
                });
                User.getInstance().setInSession(true);
+
                return null;
            }
        }.execute();
