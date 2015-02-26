@@ -241,10 +241,13 @@ public class PressuresHistoryFragment extends Fragment {
                         LogBP.printStackTrace(e);
                     }
                 }
-
-
+            SharedPreferences.Editor editor = preference.edit();
+            editor.putString(SharedPreferenceConstants.LASTUPDATEHISTORY,DateUtils.dateToString(new Date(),DateUtils.DEFAULT_FORMAT));
+            editor.commit();
             return null;
         }
+
+
 
         @Override
         protected void onProgressUpdate(Void... params) {

@@ -316,14 +316,17 @@ public class HomeActivity extends BPcontrolMasterActivity{
             case MESSAGES:
                     break;
             case VIDEOS:
+                frameLayout.setVisibility(View.GONE);
                 if (HomeFragmentManager.getInstance(this).getHomeFragmentStack().size() > 0) {
-                    Fragment fragment = HomeFragmentManager.getInstance(this).getLastFragment();
-                    int size = HomeFragmentManager.getInstance(this).getHomeFragmentStack().size();
-                    HomeFragmentManager.getInstance(this).removeFromStack(fragment);
-                }
+                    Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.menu_frame);
+                    getSupportFragmentManager().beginTransaction().remove(fragment).commit();
 
-                    startActivity(new Intent(this, YoutubeActivity.class));
-                    break;
+                    loadFragment(HomeFragment.newInstance(),false,false);
+
+                }
+                startActivity(new Intent(this, YoutubeActivity.class));
+                frameLayout.setVisibility(View.VISIBLE);
+                break;
             case HEALTHCENTERS:
                     break;
             case CONTACT:
@@ -518,6 +521,4 @@ public class HomeActivity extends BPcontrolMasterActivity{
        @Override
        public void onDrawerStateChanged(int newState) { }
    }
-
-
     }

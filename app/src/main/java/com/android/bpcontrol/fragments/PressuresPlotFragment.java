@@ -22,9 +22,14 @@ import com.android.bpcontrol.utils.DateUtils;
 import com.android.bpcontrol.utils.LogBP;
 import com.android.bpcontrol.utils.SharedPreferenceConstants;
 import com.android.bpcontrol.webservice.WSManager;
+import com.jjoe64.graphview.GraphView;
+import com.jjoe64.graphview.helper.StaticLabelsFormatter;
+import com.jjoe64.graphview.series.DataPoint;
+import com.jjoe64.graphview.series.LineGraphSeries;
 
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -41,6 +46,7 @@ public class PressuresPlotFragment extends Fragment {
     private List<Pressure> dboutdated = new ArrayList<>();
     private boolean updated = false;
 
+    private GraphView graph;
 
 
     private int viewpagerposition=0;
@@ -57,16 +63,67 @@ public class PressuresPlotFragment extends Fragment {
         super.onCreateView(inflater, container, savedInstanceState);
         View view = inflater.inflate(R.layout.pressuresplotlayout, null);
         getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
-
+        graph = (GraphView) view.findViewById(R.id.graph);
         return view;
 
     }
 
+
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
 
-      //updatePressures();
 
+
+        Calendar calendar = Calendar.getInstance();
+        String[] dates = new String[30];
+        for (int i=0;i<30;i++){
+            calendar.add(Calendar.DAY_OF_MONTH,-1);
+            Date date = calendar.getTime();
+            dates[i]=DateUtils.dateToString(date,DateUtils.DEFAULT_FORMAT);
+        }
+        StaticLabelsFormatter staticLabelsFormatter = new StaticLabelsFormatter(graph);
+        staticLabelsFormatter.setVerticalLabels(new String[] {"low", "middle", "high"});
+        LineGraphSeries<DataPoint> series = new LineGraphSeries<DataPoint>(new DataPoint[] {
+                new DataPoint(0, 1),
+                new DataPoint(1, 5),
+                new DataPoint(2, 3),
+                new DataPoint(3, 2),
+                new DataPoint(4, 6),
+                new DataPoint(5, 1),
+                new DataPoint(6, 5),
+                new DataPoint(7, 3),
+                new DataPoint(8, 2),
+                new DataPoint(9, 6),
+                new DataPoint(10, 1),
+                new DataPoint(11, 5),
+                new DataPoint(12, 3),
+                new DataPoint(13, 2),
+                new DataPoint(14, 6),
+                new DataPoint(15, 1),
+                new DataPoint(16, 5),
+                new DataPoint(17, 3),
+                new DataPoint(18, 2),
+                new DataPoint(19, 6),
+                new DataPoint(20, 2),
+                new DataPoint(21, 6),
+                new DataPoint(22, 1),
+                new DataPoint(23, 5),
+                new DataPoint(24, 3),
+                new DataPoint(25, 2),
+                new DataPoint(26, 6),
+                new DataPoint(27, 6),
+                new DataPoint(28, 6),
+                new DataPoint(29  , 6),
+        });
+        graph.addSeries(series);
+        staticLabelsFormatter.setHorizontalLabels(dates);
+        graph.getGridLabelRenderer().setLabelFormatter(staticLabelsFormatter);
+        graph.getViewport().setXAxisBoundsManual(true);
+        graph.getGridLabelRenderer().setNumHorizontalLabels(30);
+        graph.setHorizontalScrollBarEnabled(true);
+        graph.setHorizontalFadingEdgeEnabled(true);
+        graph.getViewport().setScalable(true);
+        graph.getViewport().setScrollable(true);
     }
 
     public PressuresPlotFragment setFragmentPosition(int position){
