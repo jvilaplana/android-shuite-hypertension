@@ -26,7 +26,8 @@ dependencies {
     compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.3'
 //    compile 'com.androidplot:androidplot:0.6.1'
 //    compile 'com.androidplot:androidplot-core:0.6.1'
-    compile 'com.jjoe64:graphview:4.0.0'
+   // compile 'com.jjoe64:graphview:4.0.0'
+    compile project(':MPChartLib')
     compile project(':pageviewindicator')
     compile files("libs/YouTubeAndroidPlayerApi.jar")
 }

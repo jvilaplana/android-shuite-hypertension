@@ -49,6 +49,7 @@ public class DataBaseGetTest extends AndroidTestCase{
         assertEquals(link.getVideoId(),list.get(0).getVideoId());
     }
 
+
     public void tearDown() throws Exception{
         db.close();
         super.tearDown();

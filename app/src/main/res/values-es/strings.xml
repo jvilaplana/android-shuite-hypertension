@@ -156,4 +156,12 @@
     <string name="homedescription12">sin enviar sus mediciones</string>
     <string name="homedescription2">¡Muy bien, lleva las mediciones al día!</string>
     <string name="notregister">No hay registro de actividad</string>
+
+    <!--Evolution-->
+    <string name="graphdescriptionsyctolic">Presión sistólica (Media del día)</string>
+    <string name="graphdescriptiondiastolic">Presión diastólica (Media del día)</string>
+    <string name="graphdescriptionpulse">Pulso(Media del día)</string>
+    <string name="graphdescriptionheader1">Gráfico de presiones sistólicas</string>
+    <string name="graphdescriptionheader2">Gráfico de presiones diastólicas</string>
+    <string name="graphdescriptionheader3">Gráfico de pulsos</string>
 </resources>

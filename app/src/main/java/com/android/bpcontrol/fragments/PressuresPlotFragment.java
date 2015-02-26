@@ -1,34 +1,44 @@
 package com.android.bpcontrol.fragments;
 
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.DisplayMetrics;
+import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
 import com.android.bpcontrol.HomeActivity;
 import com.android.bpcontrol.R;
-import com.android.bpcontrol.adapters.PressuresHistoryAdapter;
 import com.android.bpcontrol.databases.BPcontrolDB;
 import com.android.bpcontrol.databases.DataStore;
+import com.android.bpcontrol.model.ChartItem;
+import com.android.bpcontrol.model.LineChartItem;
 import com.android.bpcontrol.model.Pressure;
 import com.android.bpcontrol.utils.DateUtils;
 import com.android.bpcontrol.utils.LogBP;
 import com.android.bpcontrol.utils.SharedPreferenceConstants;
 import com.android.bpcontrol.webservice.WSManager;
-import com.jjoe64.graphview.GraphView;
-import com.jjoe64.graphview.helper.StaticLabelsFormatter;
-import com.jjoe64.graphview.series.DataPoint;
-import com.jjoe64.graphview.series.LineGraphSeries;
+import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.data.LineData;
+import com.github.mikephil.charting.data.LineDataSet;
+import com.github.mikephil.charting.utils.ColorTemplate;;
+
 
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -39,18 +49,13 @@ import java.util.List;
 public class PressuresPlotFragment extends Fragment {
 
     private BPcontrolDB db;
-    private PressuresHistoryAdapter adapter;
     private SharedPreferences preference;
     private Handler dbmanger;
     private Handler dboutdatedmanager;
     private List<Pressure> dboutdated = new ArrayList<>();
     private boolean updated = false;
 
-    private GraphView graph;
-
-
-    private int viewpagerposition=0;
-
+    private ListView lv;
 
     public static PressuresPlotFragment getNewInstance(int position){
 
@@ -61,109 +66,110 @@ public class PressuresPlotFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
-        View view = inflater.inflate(R.layout.pressuresplotlayout, null);
         getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
-        graph = (GraphView) view.findViewById(R.id.graph);
+        View view = inflater.inflate(R.layout.pressuresplotlayout, null);
+        lv = (ListView) view.findViewById(R.id.listView1);
         return view;
 
     }
-
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
 
 
+    }
 
-        Calendar calendar = Calendar.getInstance();
+    private class ChartDataAdapter extends ArrayAdapter<ChartItem> {
+
+
+        public ChartDataAdapter(Context context, List<ChartItem> objects) {
+            super(context, 0, objects);
+        }
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            return getItem(position).getView(position, convertView, getContext());
+        }
+        @Override
+        public int getItemViewType(int position) {
+
+            return getItem(position).getItemType();
+        }
+        @Override
+        public int getViewTypeCount() {
+            return 1;
+        }
+    }
+
+    private LineData generateDataLine(int cnt) {
+
+        ArrayList<Entry> values = new ArrayList<Entry>();
+        for (int i = 0; i < 30; i++) {
+            values.add(new Entry((int) (Math.random() * 65) + 40, i));
+        }
+        LineDataSet d1;
+        switch (cnt){
+
+            case 1:
+                d1 = new LineDataSet(values,getResources().getString(R.string.graphdescriptionsyctolic));
+                d1.setColor(Color.RED);
+                d1.setCircleColor(Color.RED);
+
+                break;
+            case 2:
+                d1 = new LineDataSet(values,getResources().getString(R.string.graphdescriptiondiastolic));
+                d1.setColor(Color.BLUE);
+                d1.setCircleColor(Color.BLUE);
+
+                break;
+            case 3:
+                d1 = new LineDataSet(values,getResources().getString(R.string.graphdescriptionpulse));
+                d1.setColor(Color.GREEN);
+                d1.setCircleColor(Color.GREEN);
+
+                break;
+            default:
+                d1 = new LineDataSet(values,"");
+                break;
+        }
+
+        d1.setHighLightColor(Color.rgb(0, 0, 0));
+        d1.setLineWidth(10f);
+        d1.setCircleSize(15f);
+
+        d1.setDrawValues(true);
+
+        ArrayList<LineDataSet> sets = new ArrayList<LineDataSet>();
+        sets.add(d1);
+        LineData cd = new LineData(getMonths(), sets);
+        return cd;
+    }
+
+
+
+    private ArrayList<String> getMonths() {
+                Calendar calendar = Calendar.getInstance();
         String[] dates = new String[30];
         for (int i=0;i<30;i++){
             calendar.add(Calendar.DAY_OF_MONTH,-1);
             Date date = calendar.getTime();
             dates[i]=DateUtils.dateToString(date,DateUtils.DEFAULT_FORMAT);
         }
-        StaticLabelsFormatter staticLabelsFormatter = new StaticLabelsFormatter(graph);
-        staticLabelsFormatter.setVerticalLabels(new String[] {"low", "middle", "high"});
-        LineGraphSeries<DataPoint> series = new LineGraphSeries<DataPoint>(new DataPoint[] {
-                new DataPoint(0, 1),
-                new DataPoint(1, 5),
-                new DataPoint(2, 3),
-                new DataPoint(3, 2),
-                new DataPoint(4, 6),
-                new DataPoint(5, 1),
-                new DataPoint(6, 5),
-                new DataPoint(7, 3),
-                new DataPoint(8, 2),
-                new DataPoint(9, 6),
-                new DataPoint(10, 1),
-                new DataPoint(11, 5),
-                new DataPoint(12, 3),
-                new DataPoint(13, 2),
-                new DataPoint(14, 6),
-                new DataPoint(15, 1),
-                new DataPoint(16, 5),
-                new DataPoint(17, 3),
-                new DataPoint(18, 2),
-                new DataPoint(19, 6),
-                new DataPoint(20, 2),
-                new DataPoint(21, 6),
-                new DataPoint(22, 1),
-                new DataPoint(23, 5),
-                new DataPoint(24, 3),
-                new DataPoint(25, 2),
-                new DataPoint(26, 6),
-                new DataPoint(27, 6),
-                new DataPoint(28, 6),
-                new DataPoint(29  , 6),
-        });
-        graph.addSeries(series);
-        staticLabelsFormatter.setHorizontalLabels(dates);
-        graph.getGridLabelRenderer().setLabelFormatter(staticLabelsFormatter);
-        graph.getViewport().setXAxisBoundsManual(true);
-        graph.getGridLabelRenderer().setNumHorizontalLabels(30);
-        graph.setHorizontalScrollBarEnabled(true);
-        graph.setHorizontalFadingEdgeEnabled(true);
-        graph.getViewport().setScalable(true);
-        graph.getViewport().setScrollable(true);
+        return new ArrayList<String>(Arrays.asList(dates));
     }
+
+
+
 
     public PressuresPlotFragment setFragmentPosition(int position){
 
-        this.viewpagerposition = position;
+       // this.viewpagerposition = position;
 
         return this;
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     private void updatePressures(){
 
-        if (viewpagerposition == 0 && !updated) {
+
             db = new BPcontrolDB(getActivity());
 
             if (!db.isPressuresTableEmpty()) { //the first time
@@ -209,7 +215,7 @@ public class PressuresPlotFragment extends Fragment {
                     }
                 };
 
-            }
+
         }
     }
 
@@ -358,12 +364,24 @@ public class PressuresPlotFragment extends Fragment {
 
           //  new getPressuresHistoryByDate().execute();
         }
+
+        private void graphicChart(){
+
+            ArrayList<ChartItem> list = new ArrayList<ChartItem>();
+            list.add(new LineChartItem(generateDataLine(1), getActivity()));
+            list.add(new LineChartItem(generateDataLine(2), getActivity()));
+            list.add(new LineChartItem(generateDataLine(3), getActivity()));
+
+
+            ChartDataAdapter cda = new ChartDataAdapter(getActivity().getApplicationContext(), list);
+            lv.setAdapter(cda);
+
+        }
+
+
+
+
+
     }
-
-
-
-
-
-
 
 }

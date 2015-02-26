@@ -151,5 +151,15 @@
     <string name="homedescription2">Well, take measurements a day!</string>
     <string name="notregister">There are not activity records</string>
 
+    <!--Evolution-->
+    <string name="graphdescriptionsyctolic">Systolic pressure (day average)</string>
+    <string name="graphdescriptiondiastolic">Diastolic pressure (day average)</string>
+    <string name="graphdescriptionpulse">Pulse(day average)</string>
+
+    <string name="graphdescriptionheader1">Graphic of systolic pressures</string>
+    <string name="graphdescriptionheader2">Graphic of diastolic pressures</string>
+    <string name="graphdescriptionheader3">Graphic of pulses</string>
+
+
 
 </resources>

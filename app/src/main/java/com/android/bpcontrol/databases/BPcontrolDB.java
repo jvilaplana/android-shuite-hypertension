@@ -24,7 +24,7 @@ public class BPcontrolDB extends SQLiteOpenHelper {
     private static final int DATABASE_VERSION = 1;
     private static final String DATABASE_NAME = "PressuresDB";
 
-      private static final String TABLE_PRESSURESMORNING = "PressuresMorning";
+ //     private static final String TABLE_PRESSURESMORNING = "PressuresMorning";
 //    private static final String TABLE_PRESSURESAFTERNOON = "PressuresAfternoon";
     private static final String TABLE_PRESSURESAVERAGE = "PressuresAverage";
     private static final String TABLE_YOUTUBE = "YoutubeLink";
@@ -212,6 +212,34 @@ public class BPcontrolDB extends SQLiteOpenHelper {
         return listpressures;
 
     }
+    private List<Pressure> getPressuresAverageBetweenTwoDates(String dateless,String datehight ) throws ParseException {
+
+        List<Pressure> list = new ArrayList<>();
+        SQLiteDatabase db = this.getWritableDatabase();
+
+
+        Cursor cursor = db.query(TABLE_PRESSURESAVERAGE, null, KEY_DATE + " BETWEEN ? AND ?", new String[] {
+                dateless,datehight }, null, null, null, null);
+
+        Pressure pressure = null;
+        if (cursor.moveToFirst()) {
+            do {
+                pressure = new Pressure();
+                pressure.setId(Integer.parseInt(cursor.getString(0)));
+                pressure.setDate(DateUtils.stringToDate(cursor.getString(1), DateUtils.DEFAULT_FORMAT));
+                pressure.setSystolic(cursor.getString(2));
+                pressure.setDiastolic(cursor.getString(3));
+                pressure.setPulse(cursor.getString(4));
+                pressure.setSemaphore(cursor.getInt(5));
+                list.add(pressure);
+            } while (cursor.moveToNext());
+        }
+
+        db.close();
+
+        return list;
+
+    }
 
 
     private int pressureUpdate(String table, Pressure pressure) {
@@ -272,4 +300,6 @@ public class BPcontrolDB extends SQLiteOpenHelper {
 
         db.close();
     }
+
+
 }

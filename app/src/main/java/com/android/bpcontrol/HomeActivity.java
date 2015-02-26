@@ -34,6 +34,7 @@ import com.android.bpcontrol.fragments.PressuresHistoryFragment;
 import com.android.bpcontrol.fragments.HomeFragment;
 import com.android.bpcontrol.fragments.PerfilFragment;
 import com.android.bpcontrol.fragments.PressuresFragment;
+import com.android.bpcontrol.fragments.PressuresPlotFragment;
 import com.android.bpcontrol.model.MenuItem;
 import com.android.bpcontrol.model.User;
 import com.android.bpcontrol.utils.SharedPreferenceConstants;
@@ -112,18 +113,6 @@ public class HomeActivity extends BPcontrolMasterActivity{
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
 
-        boolean isPortrait =
-                getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT;
-
-        if (isPortrait){
-            viewpager.setVisibility(View.GONE);
-            frameLayout.setVisibility(View.VISIBLE);
-
-        }else{
-
-            viewpager.setVisibility(View.VISIBLE);
-            frameLayout.setVisibility(View.GONE);
-        }
     }
 
     private void configureViewAndGetData(){
@@ -295,18 +284,21 @@ public class HomeActivity extends BPcontrolMasterActivity{
                     loadFragment(pressuresFragment,false,false);
                     break;
             case EVOLUTION:
-                    frameLayout.setVisibility(View.GONE);
-                    viewpager.setVisibility(View.VISIBLE);
-                    FragmentPagerAdapter adapterevolution = new ViewPagerEvolutionAdapter(getSupportFragmentManager());
-                    ViewPager pagerevolution = (ViewPager)findViewById(R.id.pager);
+
+//                    frameLayout.setVisibility(View.GONE);
+//                    viewpager.setVisibility(View.VISIBLE);
+//                    FragmentPagerAdapter adapterevolution = new ViewPagerEvolutionAdapter(getSupportFragmentManager());
+//                    ViewPager pagerevolution = (ViewPager)findViewById(R.id.pager);
                     headertext.setText(getResources().getString(R.string.menusection_evolution).toUpperCase());
-                    pagerevolution.setAdapter(adapterevolution);
-                    CirclePageIndicator indicatorevolution = (CirclePageIndicator)findViewById(R.id.pagerindicator);
-                    LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
-                            ViewGroup.LayoutParams.WRAP_CONTENT);
-                    lp.setMargins(0,0,0,(int)getResources().getDimension(R.dimen.pageviewmarginbottomevolution));
-                    indicatorevolution.setLayoutParams(lp);
-                    indicatorevolution.setViewPager(pagerevolution);
+//                    pagerevolution.setAdapter(adapterevolution);
+//                    CirclePageIndicator indicatorevolution = (CirclePageIndicator)findViewById(R.id.pagerindicator);
+//                    LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+//                            ViewGroup.LayoutParams.WRAP_CONTENT);
+//                    lp.setMargins(0,0,0,(int)getResources().getDimension(R.dimen.pageviewmarginbottomevolution));
+//                    indicatorevolution.setLayoutParams(lp);
+//                    indicatorevolution.setViewPager(pagerevolution);
+                PressuresPlotFragment pressuresPlotFragment = PressuresPlotFragment.getNewInstance(0);
+                loadFragment(pressuresPlotFragment,false,false);
                     break;
             case HISTORIAL:
                     headertext.setText(getResources().getString(R.string.headerbarhistory).toUpperCase());
