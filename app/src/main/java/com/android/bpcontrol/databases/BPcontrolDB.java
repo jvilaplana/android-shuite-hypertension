@@ -13,6 +13,7 @@ import com.android.bpcontrol.utils.LogBP;
 
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -98,12 +99,11 @@ public class BPcontrolDB extends SQLiteOpenHelper {
 
 
             ContentValues values = new ContentValues();
-            values.put(KEY_DATE, DateUtils.dateToString(pressure.getDate(), DateUtils.DEFAULT_FORMAT));
+            values.put(KEY_DATE, DateUtils.dateToString(pressure.getDate(), DateUtils.DB_FORMAT));
             values.put(KEY_SYSTOLIC, pressure.getSystolic());
             values.put(KEY_DIASTOLIC, pressure.getDiastolic());
             values.put(KEY_PULSE, pressure.getPulse());
             values.put(KEY_SEMAPHORE, pressure.getSemaphore());
-
             db.insert(TABLE_PRESSURESAVERAGE, null, values);
 
 
@@ -116,12 +116,11 @@ public class BPcontrolDB extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
-        values.put(KEY_DATE, DateUtils.dateToString(pressure.getDate(), DateUtils.DEFAULT_FORMAT));
+        values.put(KEY_DATE, DateUtils.dateToString(pressure.getDate(), DateUtils.DB_FORMAT));
         values.put(KEY_SYSTOLIC, pressure.getSystolic());
         values.put(KEY_DIASTOLIC, pressure.getDiastolic());
         values.put(KEY_PULSE, pressure.getPulse());
         values.put(KEY_SEMAPHORE, pressure.getSemaphore());
-
         db.insert(TABLE_PRESSURESAVERAGE, null, values);
         db.close();
 
@@ -193,11 +192,14 @@ public class BPcontrolDB extends SQLiteOpenHelper {
         Cursor cursor = db.rawQuery(query, null);
 
         Pressure pressure = null;
+        String[] dateparts=null;
         if (cursor.moveToFirst()) {
             do {
                 pressure = new Pressure();
                 pressure.setId(Integer.parseInt(cursor.getString(0)));
-                pressure.setDate(DateUtils.stringToDate(cursor.getString(1), DateUtils.DEFAULT_FORMAT));
+                dateparts = cursor.getString(1).split("-");
+                pressure.setDate(DateUtils.stringToDate(dateparts[2]+"-"+dateparts[1]
+                        +"-"+dateparts[0], DateUtils.DEFAULT_FORMAT));
                 pressure.setSystolic(cursor.getString(2));
                 pressure.setDiastolic(cursor.getString(3));
                 pressure.setPulse(cursor.getString(4));
@@ -212,22 +214,25 @@ public class BPcontrolDB extends SQLiteOpenHelper {
         return listpressures;
 
     }
-    private List<Pressure> getPressuresAverageBetweenTwoDates(String dateless,String datehight ) throws ParseException {
+    public List<Pressure> getPressuresAverageBetweenTwoDates(String dateless,String datehight ) throws ParseException {
 
         List<Pressure> list = new ArrayList<>();
         SQLiteDatabase db = this.getWritableDatabase();
 
 
-        Cursor cursor = db.query(TABLE_PRESSURESAVERAGE, null, KEY_DATE + " BETWEEN ? AND ?", new String[] {
-                dateless,datehight }, null, null, null, null);
+        Cursor cursor = db.query(TABLE_PRESSURESAVERAGE, null, KEY_DATE + " BETWEEN ? AND ?", new String[] {dateless
+                ,datehight }, null, null, null, null);
 
         Pressure pressure = null;
+        String[] dateparts=null;
         if (cursor.moveToFirst()) {
             do {
                 pressure = new Pressure();
                 pressure.setId(Integer.parseInt(cursor.getString(0)));
-                pressure.setDate(DateUtils.stringToDate(cursor.getString(1), DateUtils.DEFAULT_FORMAT));
                 pressure.setSystolic(cursor.getString(2));
+                dateparts = cursor.getString(1).split("-");
+                pressure.setDate(DateUtils.stringToDate(dateparts[2]+"-"+dateparts[1]
+                        +"-"+dateparts[0], DateUtils.DEFAULT_FORMAT));
                 pressure.setDiastolic(cursor.getString(3));
                 pressure.setPulse(cursor.getString(4));
                 pressure.setSemaphore(cursor.getInt(5));
