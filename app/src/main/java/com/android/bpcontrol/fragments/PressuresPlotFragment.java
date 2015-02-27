@@ -1,6 +1,8 @@
 package com.android.bpcontrol.fragments;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.graphics.Color;
@@ -21,6 +23,7 @@ import android.widget.ListView;
 
 import com.android.bpcontrol.HomeActivity;
 import com.android.bpcontrol.R;
+import com.android.bpcontrol.adapters.ChartDataAdapter;
 import com.android.bpcontrol.databases.BPcontrolDB;
 import com.android.bpcontrol.databases.DataStore;
 import com.android.bpcontrol.model.ChartItem;
@@ -41,7 +44,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.ListIterator;
+import java.util.Map;
 
 /**
  * Created by Adrian on 22/02/2015.
@@ -73,41 +79,200 @@ public class PressuresPlotFragment extends Fragment {
 
     }
 
+    public PressuresPlotFragment setFragmentPosition(int position){
+
+        // this.viewpagerposition = position;
+
+        return this;
+    }
+
+
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-
+        db = new BPcontrolDB(getActivity());
+        showDialog();
 
     }
 
-    private class ChartDataAdapter extends ArrayAdapter<ChartItem> {
-
-
-        public ChartDataAdapter(Context context, List<ChartItem> objects) {
-            super(context, 0, objects);
-        }
-        @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
-            return getItem(position).getView(position, convertView, getContext());
-        }
-        @Override
-        public int getItemViewType(int position) {
-
-            return getItem(position).getItemType();
-        }
-        @Override
-        public int getViewTypeCount() {
-            return 1;
-        }
-    }
-
-    private LineData generateDataLine(int cnt) {
+    private LineData generateDataLineOneMonth(int cnt,Map<String,Integer> pressurevalues) {
 
         ArrayList<Entry> values = new ArrayList<Entry>();
-        for (int i = 0; i < 30; i++) {
-            values.add(new Entry((int) (Math.random() * 65) + 40, i));
+        ArrayList<String> dates = getMonths(30);
+        String tmpdate;
+        for (int i =0; i < 30; i++) {
+            tmpdate =dates.get(i);
+            if (pressurevalues.containsKey(tmpdate)) {
+                values.add(new Entry(pressurevalues.get(tmpdate),i));
+            }
         }
+        ArrayList<LineDataSet> sets = prepareChartStyle(cnt,values);
+        LineData cd = new LineData(dates, sets);
+        return cd;
+    }
+
+
+    private ArrayList<String> getMonths(int num) {
+        Calendar calendar = Calendar.getInstance();
+        String[] dates = new String[num];
+        for (int i=0;i<num;i++){
+            calendar.add(Calendar.DAY_OF_MONTH,-1);
+            Date date = calendar.getTime();
+            dates[i]=DateUtils.dateToString(date,DateUtils.DEFAULT_FORMAT);
+        }
+        return new ArrayList<String>(Arrays.asList(dates));
+    }
+
+    private void graphicChartOneMonth(List<Pressure> pressures){
+
+        ArrayList<ChartItem> list = new ArrayList<ChartItem>();
+        list.add(new LineChartItem(generateDataLineOneMonth(1, getSystolicPressures(pressures)), getActivity()));
+        list.add(new LineChartItem(generateDataLineOneMonth(2, getDiastolicPressures(pressures)), getActivity()));
+        list.add(new LineChartItem(generateDataLineOneMonth(3, getPulse(pressures)), getActivity()));
+
+
+        ChartDataAdapter cda = new ChartDataAdapter(getActivity().getApplicationContext(), list);
+        lv.setAdapter(cda);
+
+    }
+
+    private Map<String,Integer> getSystolicPressures(List<Pressure> list){
+
+        Map<String,Integer> values = new HashMap<>();
+        if (list.size()>0) {
+            for (Pressure pressure: list) {
+                values.put(pressure.getStringDate(),Integer.parseInt(pressure.getSystolic()));
+            }
+        }
+
+        return values;
+
+    }
+
+    private Map<String,Integer> getDiastolicPressures(List<Pressure> list){
+
+        Map<String,Integer> values = new HashMap<>();
+        if (list.size()>0) {
+            for (Pressure pressure: list) {
+                values.put(pressure.getStringDate(),Integer.parseInt(pressure.getDiastolic()));
+            }
+        }
+
+        return values;
+
+    }
+
+    private Map<String,Integer>getPulse(List<Pressure> list){
+
+        Map<String,Integer> values = new HashMap<>();
+        if (list.size()>0) {
+            for (Pressure pressure: list) {
+                if (pressure.getPulse().equals("null")){
+                    pressure.setPulse("70");
+                }
+                values.put(pressure.getStringDate(),Integer.parseInt(pressure.getPulse()));
+            }
+        }
+        return values;
+    }
+
+//    private void graphicChartThreeMonth(List<Pressure> pressures){
+//
+//        ArrayList<ChartItem> list = new ArrayList<ChartItem>();
+//        list.add(new LineChartItem(generateDataLineThreeMonth(1,pressures), getActivity()));
+//        list.add(new LineChartItem(generateDataLineThreeMonth(2,pressures), getActivity()));
+//        list.add(new LineChartItem(generateDataLineThreeMonth(3,pressures), getActivity()));
+//
+//
+//        ChartDataAdapter cda = new ChartDataAdapter(getActivity().getApplicationContext(), list);
+//        lv.setAdapter(cda);
+//
+//    }
+//
+
+//    private void graphicChartSixMonth(List<Pressure> pressures){
+//
+//        ArrayList<ChartItem> list = new ArrayList<ChartItem>();
+//        list.add(new LineChartItem(generateDataLineSixMonth(1,pressures), getActivity()));
+//        list.add(new LineChartItem(generateDataLineSixMonth(2,pressures), getActivity()));
+//        list.add(new LineChartItem(generateDataLineSixMonth(3,pressures), getActivity()));
+//
+//
+//        ChartDataAdapter cda = new ChartDataAdapter(getActivity().getApplicationContext(), list);
+//        lv.setAdapter(cda);
+//
+//    }
+
+
+    private void showDialog(){
+
+
+        final CharSequence[] items = {getResources().getString(R.string.plotmenucase1),
+                getResources().getString(R.string.plotmenucase2), getResources().getString(R.string.plotmenucase3),
+                getResources().getString(R.string.plotmenucase4),getResources().getString(R.string.plotcancel)};
+        final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setTitle(getResources().getString(R.string.plotcasestitle));
+        builder.setCancelable(false);
+        builder.setItems(items, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int item) {
+                String[] dates;
+                List<Pressure> pressures=null;
+
+                switch(item){
+
+                    case 0:
+                        dates = initAndEndDate(30);
+
+                        try {
+                            pressures = db.getPressuresAverageBetweenTwoDates(dates[0],dates[1]);
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
+                        if (pressures!=null){
+                            graphicChartOneMonth(pressures);
+                        }
+                        break;
+                    case 1:
+                        dates = initAndEndDate(90);
+                        try {
+                            pressures = db.getPressuresAverageBetweenTwoDates(dates[0],dates[1]);
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
+                        if (pressures!=null){
+                            graphicChartOneMonth(pressures);
+                        }
+                        //show three month graphic
+                        break;
+                    case 2:
+                        dates = initAndEndDate(180);
+                        try {
+                            pressures = db.getPressuresAverageBetweenTwoDates(dates[0],dates[1]);
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
+                        if (pressures!=null){
+                            graphicChartOneMonth(pressures);
+                        }
+                        //show siz month graphic
+                        break;
+                    case 3:
+                        //show custom graphic
+                        break;
+                    case 4:
+                        //back
+                        break;
+
+                }
+            }
+        });
+        builder.show();
+
+    }
+
+    private ArrayList<LineDataSet> prepareChartStyle(int position,ArrayList<Entry> values){
+
         LineDataSet d1;
-        switch (cnt){
+        switch (position){
 
             case 1:
                 d1 = new LineDataSet(values,getResources().getString(R.string.graphdescriptionsyctolic));
@@ -140,248 +305,267 @@ public class PressuresPlotFragment extends Fragment {
 
         ArrayList<LineDataSet> sets = new ArrayList<LineDataSet>();
         sets.add(d1);
-        LineData cd = new LineData(getMonths(), sets);
-        return cd;
+
+        return sets;
     }
 
+    private String[] initAndEndDate(int days){
 
+        String[] dates = new String[2];
+        Calendar calendar = Calendar.getInstance();
+        Date d1 = calendar.getTime();
+        dates[1] = DateUtils.dateToString(d1,DateUtils.DB_FORMAT);
+        calendar.add(Calendar.DAY_OF_MONTH,-days);
+        Date d2 = calendar.getTime();
+        dates[0] = DateUtils.dateToString(d2,DateUtils.DB_FORMAT);
 
-    private ArrayList<String> getMonths() {
-                Calendar calendar = Calendar.getInstance();
-        String[] dates = new String[30];
-        for (int i=0;i<30;i++){
-            calendar.add(Calendar.DAY_OF_MONTH,-1);
-            Date date = calendar.getTime();
-            dates[i]=DateUtils.dateToString(date,DateUtils.DEFAULT_FORMAT);
-        }
-        return new ArrayList<String>(Arrays.asList(dates));
+        return dates;
     }
 
-
-
-
-    public PressuresPlotFragment setFragmentPosition(int position){
-
-       // this.viewpagerposition = position;
-
-        return this;
-    }
-
-    private void updatePressures(){
-
-
-            db = new BPcontrolDB(getActivity());
-
-            if (!db.isPressuresTableEmpty()) { //the first time
-
-                new getPressuresPlot().execute();
-
-                dbmanger = new Handler() {
-                    @Override
-                    public void handleMessage(Message msg) {
-                        Runnable saveInDB = new Runnable() {
-                            @Override
-                            public void run() {
-                                db.addAllPressuresAverage(DataStore.getInstance().getPressures());
-                            }
-                        };
-                        saveInDB.run();
-                    }
-                };
-
-
-            } else if (DataStore.getInstance().getPressures().size() > 0) { //today
-
-                new getPressuresPlot().execute();
-            } else { //pressures pushed in other device
-
-                new readDataBase().execute();
-
-                dboutdatedmanager = new Handler() {
-                    @Override
-                    public void handleMessage(Message msg) {
-
-                        Runnable saveInDB = new Runnable() {
-                            @Override
-                            public void run() {
-                                if (dboutdated.size() > 0) {
-                                    db.addAllPressuresAverage(dboutdated);
-                                }
-                                dboutdated.clear();
-                            }
-                        };
-                        saveInDB.run();
-
-                    }
-                };
-
-
-        }
-    }
-
-    private class getPressuresPlot extends AsyncTask<Void,Void,Void> {
-
-
-        @Override
-        protected void onPreExecute() {
-
-            ((HomeActivity) getActivity()).showProgressDialog();
-
-        }
-
-        @Override
-        protected Void doInBackground(Void... params) {
-
-
-            try {
-                WSManager.getInstance().getUserPressures(getActivity(), null, new WSManager.GetUserPressures() {
-                    @Override
-                    public void onUserPressuresReceived(ArrayList<Pressure> pressures) {
-
-                        DataStore.getInstance().setPressures(pressures);
-                        publishProgress();
-                    }
-                });
-            } catch (ParseException e) {
-                LogBP.printStackTrace(e);
-            }
-
-            return null;
-        }
-
-        @Override
-        protected void onProgressUpdate(Void... params) {
-
-
-            if (DataStore.getInstance().getPressures().size()!=0) {
-
-               // configureView(DataStore.getInstance().getPressures());
-
-                dbmanger.sendEmptyMessage(0);
-
-                SharedPreferences.Editor editor = preference.edit();
-                editor.putString(SharedPreferenceConstants.LASTUPDATEHISTORY,
-                        DateUtils.dateToString(new Date(), DateUtils.DEFAULT_FORMAT));
-                editor.commit();
-
-                ((HomeActivity) getActivity()).dissmissProgressDialog();
-
-            }else{
-               // showDialog();
-                ((HomeActivity) getActivity()).dissmissProgressDialog();
-            }
-        }
-    }
-
-
-    private class getPressuresPlotByDate extends AsyncTask<Void,Void,Void>{
-
-        @Override
-        protected void onPreExecute(){
-
-            ((HomeActivity)getActivity()).showProgressDialog();
-        }
-
-        @Override
-        protected Void doInBackground(Void... params) {
-
-            String last_update = preference.getString(SharedPreferenceConstants.LASTUPDATEHISTORY,"");
-
-            if (!last_update.equals("")){
-
-                try {
-                    WSManager.getInstance().getUserPressures(getActivity(), last_update, new WSManager.GetUserPressures() {
-                        @Override
-                        public void onUserPressuresReceived(ArrayList<Pressure> pressures) {
-
-                            if (DataStore.getInstance().getPressures().size()>0 && pressures.size()>0){
-
-                                if (DataStore.getInstance().getPressures().get(DataStore.getInstance()
-                                        .pressuresSize()-1).getStringDate().equals(pressures.get(0).getStringDate())){
-
-                                    DataStore.getInstance().getPressures().remove(DataStore.getInstance()
-                                            .pressuresSize()-1);
-
-                                }
-
-
-                            }else {
-                                DataStore.getInstance().setPressures((ArrayList<Pressure>) dboutdated);
-
-                                if (dboutdated.get(dboutdated.size() - 1).getStringDate().equals(pressures.get(0).getStringDate())) {
-                                    pressures.remove(0);
-
-                                }
-                                dboutdated.clear();
-                                dboutdated.addAll(pressures);
-                                dboutdatedmanager.sendEmptyMessage(0);
-                            }
-                            DataStore.getInstance().setPressures(pressures);
-                            publishProgress();
-                        }
-                    });
-                } catch (ParseException e) {
-                    LogBP.printStackTrace(e);
-                }
-            }
-
-            return null;
-        }
-
-        @Override
-        protected void onProgressUpdate(Void... params) {
-          //  configureView(DataStore.getInstance().getPressures());
-            ((HomeActivity)getActivity()).dissmissProgressDialog();
-        }
-    }
-
-    private class readDataBase extends AsyncTask<Void,Void,List<Pressure>>{
-
-        @Override
-        protected void onPreExecute(){
-            ((HomeActivity)getActivity()).showProgressDialog();
-        }
-
-        @Override
-        protected List<Pressure> doInBackground(Void... params) {
-
-
-            try {
-                return db.getAllPressureAverage();
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
-
-            return new ArrayList<>();
-        }
-
-        @Override
-        protected void onPostExecute(List<Pressure> list){
-
-            if (list.size()>0){
-                dboutdated.addAll((ArrayList)list);
-            }
-
-          //  new getPressuresHistoryByDate().execute();
-        }
-
-        private void graphicChart(){
-
-            ArrayList<ChartItem> list = new ArrayList<ChartItem>();
-            list.add(new LineChartItem(generateDataLine(1), getActivity()));
-            list.add(new LineChartItem(generateDataLine(2), getActivity()));
-            list.add(new LineChartItem(generateDataLine(3), getActivity()));
-
-
-            ChartDataAdapter cda = new ChartDataAdapter(getActivity().getApplicationContext(), list);
-            lv.setAdapter(cda);
-
-        }
-
-
-
-
-
-    }
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//
+//
+//    private void updatePressures(){
+//
+//
+//        db = new BPcontrolDB(getActivity());
+//
+//        if (!db.isPressuresTableEmpty()) { //the first time
+//
+//            new getPressuresPlot().execute();
+//
+//            dbmanger = new Handler() {
+//                @Override
+//                public void handleMessage(Message msg) {
+//                    Runnable saveInDB = new Runnable() {
+//                        @Override
+//                        public void run() {
+//                            db.addAllPressuresAverage(DataStore.getInstance().getPressures());
+//                        }
+//                    };
+//                    saveInDB.run();
+//                }
+//            };
+//
+//
+//        } else if (DataStore.getInstance().getPressures().size() > 0) { //today
+//
+//            new getPressuresPlot().execute();
+//        } else { //pressures pushed in other device
+//
+//            new readDataBase().execute();
+//
+//            dboutdatedmanager = new Handler() {
+//                @Override
+//                public void handleMessage(Message msg) {
+//
+//                    Runnable saveInDB = new Runnable() {
+//                        @Override
+//                        public void run() {
+//                            if (dboutdated.size() > 0) {
+//                                db.addAllPressuresAverage(dboutdated);
+//                            }
+//                            dboutdated.clear();
+//                        }
+//                    };
+//                    saveInDB.run();
+//
+//                }
+//            };
+//
+//
+//        }
+//    }
+//
+//private class getPressuresPlot extends AsyncTask<Void,Void,Void> {
+//
+//
+//    @Override
+//    protected void onPreExecute() {
+//
+//        ((HomeActivity) getActivity()).showProgressDialog();
+//
+//    }
+//
+//    @Override
+//    protected Void doInBackground(Void... params) {
+//
+//
+//        try {
+//            WSManager.getInstance().getUserPressures(getActivity(), null, new WSManager.GetUserPressures() {
+//                @Override
+//                public void onUserPressuresReceived(ArrayList<Pressure> pressures) {
+//
+//                    DataStore.getInstance().setPressures(pressures);
+//                    publishProgress();
+//                }
+//            });
+//        } catch (ParseException e) {
+//            LogBP.printStackTrace(e);
+//        }
+//
+//        return null;
+//    }
+//
+//    @Override
+//    protected void onProgressUpdate(Void... params) {
+//
+//
+//        if (DataStore.getInstance().getPressures().size()!=0) {
+//
+//            // configureView(DataStore.getInstance().getPressures());
+//
+//            dbmanger.sendEmptyMessage(0);
+//
+//            SharedPreferences.Editor editor = preference.edit();
+//            editor.putString(SharedPreferenceConstants.LASTUPDATEHISTORY,
+//                    DateUtils.dateToString(new Date(), DateUtils.DEFAULT_FORMAT));
+//            editor.commit();
+//
+//            ((HomeActivity) getActivity()).dissmissProgressDialog();
+//
+//        }else{
+//            // showDialog();
+//            ((HomeActivity) getActivity()).dissmissProgressDialog();
+//        }
+//    }
+//}
+//
+//
+//private class getPressuresPlotByDate extends AsyncTask<Void,Void,Void>{
+//
+//    @Override
+//    protected void onPreExecute(){
+//
+//        ((HomeActivity)getActivity()).showProgressDialog();
+//    }
+//
+//    @Override
+//    protected Void doInBackground(Void... params) {
+//
+//        String last_update = preference.getString(SharedPreferenceConstants.LASTUPDATEHISTORY,"");
+//
+//        if (!last_update.equals("")){
+//
+//            try {
+//                WSManager.getInstance().getUserPressures(getActivity(), last_update, new WSManager.GetUserPressures() {
+//                    @Override
+//                    public void onUserPressuresReceived(ArrayList<Pressure> pressures) {
+//
+//                        if (DataStore.getInstance().getPressures().size()>0 && pressures.size()>0){
+//
+//                            if (DataStore.getInstance().getPressures().get(DataStore.getInstance()
+//                                    .pressuresSize()-1).getStringDate().equals(pressures.get(0).getStringDate())){
+//
+//                                DataStore.getInstance().getPressures().remove(DataStore.getInstance()
+//                                        .pressuresSize()-1);
+//
+//                            }
+//
+//
+//                        }else {
+//                            DataStore.getInstance().setPressures((ArrayList<Pressure>) dboutdated);
+//
+//                            if (dboutdated.get(dboutdated.size() - 1).getStringDate().equals(pressures.get(0).getStringDate())) {
+//                                pressures.remove(0);
+//
+//                            }
+//                            dboutdated.clear();
+//                            dboutdated.addAll(pressures);
+//                            dboutdatedmanager.sendEmptyMessage(0);
+//                        }
+//                        DataStore.getInstance().setPressures(pressures);
+//                        publishProgress();
+//                    }
+//                });
+//            } catch (ParseException e) {
+//                LogBP.printStackTrace(e);
+//            }
+//        }
+//
+//        return null;
+//    }
+//
+//    @Override
+//    protected void onProgressUpdate(Void... params) {
+//        //  configureView(DataStore.getInstance().getPressures());
+//        ((HomeActivity)getActivity()).dissmissProgressDialog();
+//    }
+//}
+//
+//private class readDataBase extends AsyncTask<Void,Void,List<Pressure>>{
+//
+//    @Override
+//    protected void onPreExecute(){
+//        ((HomeActivity)getActivity()).showProgressDialog();
+//    }
+//
+//    @Override
+//    protected List<Pressure> doInBackground(Void... params) {
+//
+//
+//        try {
+//            return db.getAllPressureAverage();
+//        } catch (ParseException e) {
+//            e.printStackTrace();
+//        }
+//
+//        return new ArrayList<>();
+//    }
+//
+//    @Override
+//    protected void onPostExecute(List<Pressure> list){
+//
+//        if (list.size()>0){
+//            dboutdated.addAll((ArrayList)list);
+//        }
+//
+//        //  new getPressuresHistoryByDate().execute();
+//    }
+//}

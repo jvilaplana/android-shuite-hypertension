@@ -64,7 +64,6 @@ public class LineChartItem extends ChartItem {
         }
 
 
-
         XAxis xAxis = holder.chart.getXAxis();
         xAxis.setPosition(XAxisPosition.BOTTOM);
         xAxis.setDrawGridLines(false);
@@ -77,6 +76,8 @@ public class LineChartItem extends ChartItem {
         YAxis rightAxis = holder.chart.getAxisRight();
         rightAxis.setLabelCount(5);
         rightAxis.setDrawGridLines(false);
+
+
 
         holder.chart.setData((LineData) mChartData);
 

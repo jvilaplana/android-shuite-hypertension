@@ -156,9 +156,14 @@
     <string name="graphdescriptiondiastolic">Diastolic pressure (day average)</string>
     <string name="graphdescriptionpulse">Pulse(day average)</string>
 
-    <string name="graphdescriptionheader1">Graphic of systolic pressures</string>
-    <string name="graphdescriptionheader2">Graphic of diastolic pressures</string>
-    <string name="graphdescriptionheader3">Graphic of pulses</string>
+    <string name="plotmenucase1">Show one month graphic</string>
+    <string name="plotmenucase2">Show three month graphic</string>
+    <string name="plotmenucase3">Show six month graphic</string>
+    <string name="plotmenucase4">Show custom graphic</string>
+    <string name="plotcancel">Back to the principal menu</string>
+    <string name="plotcasestitle">Choose someone option:</string>
+
+
 
 
 

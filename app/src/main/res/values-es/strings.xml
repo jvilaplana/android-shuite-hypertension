@@ -164,4 +164,11 @@
     <string name="graphdescriptionheader1">Gráfico de presiones sistólicas</string>
     <string name="graphdescriptionheader2">Gráfico de presiones diastólicas</string>
     <string name="graphdescriptionheader3">Gráfico de pulsos</string>
+
+    <string name="plotmenucase1">Mostrar gráfica de un mes</string>
+    <string name="plotmenucase2">Mostrar gráfica de tres meses</string>
+    <string name="plotmenucase3">Mostrar gráfica de seis meses</string>
+    <string name="plotmenucase4">Mostrar grafica personaliza</string>
+    <string name="plotcancel">Volver al menu principal</string>
+    <string name="plotcasestitle">Selecciona una opción:</string>
 </resources>

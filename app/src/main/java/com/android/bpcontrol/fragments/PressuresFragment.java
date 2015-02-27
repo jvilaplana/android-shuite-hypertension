@@ -126,7 +126,6 @@ public class PressuresFragment extends Fragment
                 try {
                     if (!DateUtils.isDateEqualsToTodayDate(lastupdatedate)) {
 
-                        showDialogPressuresIntroduced();
                         if (isCorrectAfternoonMeassurament() && isCorrectMorningMeassurament()) {
 
                             new sendPressures().execute();
