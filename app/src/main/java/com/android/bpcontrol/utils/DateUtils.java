@@ -3,7 +3,11 @@ package com.android.bpcontrol.utils;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by Adrian on 15/02/2015.
@@ -35,11 +39,8 @@ public class DateUtils {
         }else{
             return stringToDate(wsCompleteDate,WS_RECEIVEFORMAT);
         }
-
-
-
-
     }
+
 
     public static Date wsStringDateToDefaultDate(String date) throws ParseException {
 
@@ -66,10 +67,16 @@ public class DateUtils {
 
         long difference = firstDate.getTime() - secondDate.getTime();
 
-        int diffDays =(int) difference / (24 * 60 * 60 * 1000);
 
-        return diffDays;
+        return (int) difference / (24 * 60 * 60 * 1000);
 
+    }
+
+    public static long differenceInDays(Calendar start, Calendar end){
+
+        long endtime = start.getTimeInMillis();
+        long starttime = end.getTimeInMillis();
+        return TimeUnit.MILLISECONDS.toDays(Math.abs(endtime - starttime));
     }
 
     public static boolean isDateEqualsToTodayDate(String date) throws ParseException {
@@ -85,4 +92,54 @@ public class DateUtils {
         }
         return false;
     }
+
+
+    public static ArrayList<String> getDates(int days) {
+        Calendar calendar = Calendar.getInstance();
+        String[] dates = new String[days];
+        for (int i=0;i<days;i++){
+            calendar.add(Calendar.DAY_OF_MONTH,-1);
+            Date date = calendar.getTime();
+            dates[i]=DateUtils.dateToString(date,DateUtils.DEFAULT_FORMAT);
+        }
+        return new ArrayList<String>(Arrays.asList(dates));
+    }
+
+    public static ArrayList<String> getDatesBetween(String date1,String date2){
+
+        ArrayList<String> dates = new ArrayList<>();
+        int days = 0;
+        try {
+            days = differenceInDays(stringToDate(date1+" 00:00",DEFAULT_FORMAT),stringToDate(date2+" 23:59",DEFAULT_FORMAT));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        Calendar calendar = Calendar.getInstance();
+        try {
+            calendar.setTime(stringToDate(date1,DEFAULT_FORMAT));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        Calendar calendar2 = Calendar.getInstance();
+        try {
+            calendar2.setTime(stringToDate(date2,DEFAULT_FORMAT));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        days = (int) differenceInDays(calendar,calendar2);
+
+        dates.add(DateUtils.dateToString(calendar.getTime(),DateUtils.DEFAULT_FORMAT));
+
+        for (int i=0;i<days-1;i++){
+            calendar.add(Calendar.DAY_OF_MONTH,1);
+            Date date = calendar.getTime();
+            dates.add(DateUtils.dateToString(date,DateUtils.DEFAULT_FORMAT));
+        }
+
+        return dates;
+    }
+
 }

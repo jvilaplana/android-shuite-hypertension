@@ -2,9 +2,12 @@ package com.android.bpcontrol;
 
 import android.test.AndroidTestCase;
 
+import com.android.bpcontrol.utils.DateUtils;
+
 import junit.framework.Assert;
 
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.Date;
 
 
@@ -69,6 +72,14 @@ public class DateTest extends AndroidTestCase {
 
         String todaydate = dateToString(new Date(),DEFAULT_FORMAT);
         assertTrue(isDateEqualsToTodayDate(todaydate));
+    }
+
+
+    public void test_obtain_dates_between_two_dates(){
+
+        ArrayList<String> list = DateUtils.getDatesBetween("21-11-2014", "25-12-2014");
+        String p = list.get(0);
+        assertTrue(true);
     }
 
     public void tearDown() throws Exception{

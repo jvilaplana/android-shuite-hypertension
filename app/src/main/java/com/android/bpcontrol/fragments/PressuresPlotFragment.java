@@ -54,12 +54,23 @@ import java.util.Map;
  */
 public class PressuresPlotFragment extends Fragment {
 
+    public static enum PressuresPlot{
+
+        ONE_MONTH,
+        THREE_MONTH,
+        SIX_MONTH,
+        CUSTOM
+
+    }
+
     private BPcontrolDB db;
     private SharedPreferences preference;
     private Handler dbmanger;
     private Handler dboutdatedmanager;
     private List<Pressure> dboutdated = new ArrayList<>();
     private boolean updated = false;
+
+    private int custom_days = 0;
 
     private ListView lv;
 
@@ -94,40 +105,47 @@ public class PressuresPlotFragment extends Fragment {
 
     }
 
-    private LineData generateDataLineOneMonth(int cnt,Map<String,Integer> pressurevalues) {
+    private LineData generateDataLine(int cnt,Map<String,Integer> pressurevalues,PressuresPlot type) {
 
         ArrayList<Entry> values = new ArrayList<Entry>();
-        ArrayList<String> dates = getMonths(30);
+        ArrayList<String> dates;
+
+        switch (type) {
+            case ONE_MONTH:
+                dates = DateUtils.getDates(30);
+                break;
+            case THREE_MONTH:
+                dates = DateUtils.getDates(90);
+                break;
+            case SIX_MONTH:
+                dates = DateUtils.getDates(180);
+                break;
+            case CUSTOM:
+                dates = DateUtils.getDates(custom_days);
+                break;
+            default:
+                dates = new ArrayList<>();
+                break;
+        }
+
         String tmpdate;
-        for (int i =0; i < 30; i++) {
-            tmpdate =dates.get(i);
+        for (int i = 0; i < dates.size(); i++) {
+            tmpdate = dates.get(i);
             if (pressurevalues.containsKey(tmpdate)) {
-                values.add(new Entry(pressurevalues.get(tmpdate),i));
+                values.add(new Entry(pressurevalues.get(tmpdate), i));
             }
         }
-        ArrayList<LineDataSet> sets = prepareChartStyle(cnt,values);
+        ArrayList<LineDataSet> sets = prepareChartStyle(cnt, values);
         LineData cd = new LineData(dates, sets);
         return cd;
     }
 
-
-    private ArrayList<String> getMonths(int num) {
-        Calendar calendar = Calendar.getInstance();
-        String[] dates = new String[num];
-        for (int i=0;i<num;i++){
-            calendar.add(Calendar.DAY_OF_MONTH,-1);
-            Date date = calendar.getTime();
-            dates[i]=DateUtils.dateToString(date,DateUtils.DEFAULT_FORMAT);
-        }
-        return new ArrayList<String>(Arrays.asList(dates));
-    }
-
-    private void graphicChartOneMonth(List<Pressure> pressures){
+    private void graphicChart(List<Pressure> pressures,PressuresPlot type){
 
         ArrayList<ChartItem> list = new ArrayList<ChartItem>();
-        list.add(new LineChartItem(generateDataLineOneMonth(1, getSystolicPressures(pressures)), getActivity()));
-        list.add(new LineChartItem(generateDataLineOneMonth(2, getDiastolicPressures(pressures)), getActivity()));
-        list.add(new LineChartItem(generateDataLineOneMonth(3, getPulse(pressures)), getActivity()));
+        list.add(new LineChartItem(generateDataLine(1, getSystolicPressures(pressures), type), getActivity()));
+        list.add(new LineChartItem(generateDataLine(2, getDiastolicPressures(pressures), type), getActivity()));
+        list.add(new LineChartItem(generateDataLine(3, getPulse(pressures), type), getActivity()));
 
 
         ChartDataAdapter cda = new ChartDataAdapter(getActivity().getApplicationContext(), list);
@@ -175,33 +193,6 @@ public class PressuresPlotFragment extends Fragment {
         return values;
     }
 
-//    private void graphicChartThreeMonth(List<Pressure> pressures){
-//
-//        ArrayList<ChartItem> list = new ArrayList<ChartItem>();
-//        list.add(new LineChartItem(generateDataLineThreeMonth(1,pressures), getActivity()));
-//        list.add(new LineChartItem(generateDataLineThreeMonth(2,pressures), getActivity()));
-//        list.add(new LineChartItem(generateDataLineThreeMonth(3,pressures), getActivity()));
-//
-//
-//        ChartDataAdapter cda = new ChartDataAdapter(getActivity().getApplicationContext(), list);
-//        lv.setAdapter(cda);
-//
-//    }
-//
-
-//    private void graphicChartSixMonth(List<Pressure> pressures){
-//
-//        ArrayList<ChartItem> list = new ArrayList<ChartItem>();
-//        list.add(new LineChartItem(generateDataLineSixMonth(1,pressures), getActivity()));
-//        list.add(new LineChartItem(generateDataLineSixMonth(2,pressures), getActivity()));
-//        list.add(new LineChartItem(generateDataLineSixMonth(3,pressures), getActivity()));
-//
-//
-//        ChartDataAdapter cda = new ChartDataAdapter(getActivity().getApplicationContext(), list);
-//        lv.setAdapter(cda);
-//
-//    }
-
 
     private void showDialog(){
 
@@ -220,39 +211,38 @@ public class PressuresPlotFragment extends Fragment {
                 switch(item){
 
                     case 0:
-                        dates = initAndEndDate(30);
-
-                        try {
-                            pressures = db.getPressuresAverageBetweenTwoDates(dates[0],dates[1]);
-                        } catch (ParseException e) {
-                            e.printStackTrace();
-                        }
-                        if (pressures!=null){
-                            graphicChartOneMonth(pressures);
-                        }
+//                        dates = initAndEndDate(30);
+//                        try {
+//                            pressures = db.getPressuresAverageBetweenTwoDates(dates[0],dates[1]);
+//                        } catch (ParseException e) {
+//                            e.printStackTrace();
+//                        }
+//                        if (pressures!=null){
+//                            graphicChart(pressures);
+//                        }
                         break;
                     case 1:
-                        dates = initAndEndDate(90);
-                        try {
-                            pressures = db.getPressuresAverageBetweenTwoDates(dates[0],dates[1]);
-                        } catch (ParseException e) {
-                            e.printStackTrace();
-                        }
-                        if (pressures!=null){
-                            graphicChartOneMonth(pressures);
-                        }
+//                        dates = initAndEndDate(90);
+//                        try {
+//                            pressures = db.getPressuresAverageBetweenTwoDates(dates[0],dates[1]);
+//                        } catch (ParseException e) {
+//                            e.printStackTrace();
+//                        }
+//                        if (pressures!=null){
+//                            graphicChart(pressures);
+//                        }
                         //show three month graphic
                         break;
                     case 2:
-                        dates = initAndEndDate(180);
-                        try {
-                            pressures = db.getPressuresAverageBetweenTwoDates(dates[0],dates[1]);
-                        } catch (ParseException e) {
-                            e.printStackTrace();
-                        }
-                        if (pressures!=null){
-                            graphicChartOneMonth(pressures);
-                        }
+//                        dates = initAndEndDate(180);
+//                        try {
+//                            pressures = db.getPressuresAverageBetweenTwoDates(dates[0],dates[1]);
+//                        } catch (ParseException e) {
+//                            e.printStackTrace();
+//                        }
+//                        if (pressures!=null){
+//                            graphicChart(pressures);
+//                        }
                         //show siz month graphic
                         break;
                     case 3:
@@ -324,49 +314,6 @@ public class PressuresPlotFragment extends Fragment {
 
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 //

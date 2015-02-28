@@ -51,19 +51,19 @@ public class GraphicsDBCheck extends AndroidTestCase {
     }
 
 
-    public void test_get_pressures_between_two_dates() throws ParseException {
-
-        Calendar calendar = Calendar.getInstance();
-        Date d1 = calendar.getTime();
-
-        calendar.add(Calendar.DAY_OF_MONTH,30);
-        List<Pressure> pressurelist = db.getAllPressureAverage();
-        Date d2 = calendar.getTime();
-        List<Pressure> pressures = db.getPressuresAverageBetweenTwoDates(DateUtils.dateToString(d1,DateUtils.DB_FORMAT),DateUtils.dateToString(d2, DateUtils.DB_FORMAT));
-        assertTrue(pressures_between_two_dates(pressures,DateUtils.stringToDate(DateUtils.dateToString(d1,DateUtils.DEFAULT_FORMAT),DateUtils.DEFAULT_FORMAT)
-                ,DateUtils.stringToDate(DateUtils.dateToString(d2, DateUtils.DEFAULT_FORMAT), DateUtils.DEFAULT_FORMAT)));
-
-    }
+//    public void test_get_pressures_between_two_dates() throws ParseException {
+//
+//        Calendar calendar = Calendar.getInstance();
+//        Date d1 = calendar.getTime();
+//
+//        calendar.add(Calendar.DAY_OF_MONTH,30);
+//        List<Pressure> pressurelist = db.getAllPressureAverage();
+//        Date d2 = calendar.getTime();
+//        List<Pressure> pressures = db.getPressuresAverageBetweenTwoDates(DateUtils.dateToString(d1,DateUtils.DB_FORMAT),DateUtils.dateToString(d2, DateUtils.DB_FORMAT));
+//        assertTrue(pressures_between_two_dates(pressures,DateUtils.stringToDate(DateUtils.dateToString(d1,DateUtils.DEFAULT_FORMAT),DateUtils.DEFAULT_FORMAT)
+//                ,DateUtils.stringToDate(DateUtils.dateToString(d2, DateUtils.DEFAULT_FORMAT), DateUtils.DEFAULT_FORMAT)));
+//
+//    }
 
 
     private boolean pressures_between_two_dates(List<Pressure> pressures, Date d1, Date d2){
