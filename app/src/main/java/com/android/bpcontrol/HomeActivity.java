@@ -284,12 +284,9 @@ public class HomeActivity extends BPcontrolMasterActivity{
                     break;
             case EVOLUTION:
                 setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
-                if (HomeFragmentManager.getInstance(this).getHomeFragmentStack().size() > 0) {
-                    Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.menu_frame);
-                    if(fragment instanceof PressuresPlotFragment)getSupportFragmentManager().beginTransaction().remove(fragment).commit();
-                    }
                     headertext.setText(getResources().getString(R.string.menusection_evolution).toUpperCase());
-                    PressuresPlotFragment pressuresPlotFragment = PressuresPlotFragment.getNewInstance();
+                    PressuresPlotFragment pressuresPlotFragment = PressuresPlotFragment.getNewInstance(this);
+
                     loadFragment(pressuresPlotFragment,false,false);
                     break;
             case HISTORIAL:
@@ -505,4 +502,10 @@ public class HomeActivity extends BPcontrolMasterActivity{
        @Override
        public void onDrawerStateChanged(int newState) { }
    }
+
+    public ImageButton getSecondActionBarButton(){
+
+        return (ImageButton)getActionBarView().findViewById(R.id.secondActionBarButton);
+
+    }
     }

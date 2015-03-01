@@ -1,53 +1,45 @@
 package com.android.bpcontrol.fragments;
 
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
-import android.content.pm.ActivityInfo;
 import android.graphics.Color;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.DisplayMetrics;
-import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
-import android.widget.ArrayAdapter;
+import android.view.Window;
+import android.widget.Button;
+import android.widget.DatePicker;
+import android.widget.ImageButton;
 import android.widget.ListView;
 
 import com.android.bpcontrol.HomeActivity;
 import com.android.bpcontrol.R;
 import com.android.bpcontrol.adapters.ChartDataAdapter;
+import com.android.bpcontrol.adapters.LineChartItemaAdapter;
+import com.android.bpcontrol.controllers.LateralMenuController;
 import com.android.bpcontrol.databases.BPcontrolDB;
-import com.android.bpcontrol.databases.DataStore;
 import com.android.bpcontrol.model.ChartItem;
-import com.android.bpcontrol.model.LineChartItem;
 import com.android.bpcontrol.model.Pressure;
-import com.android.bpcontrol.utils.DatabasePlotMock;
+import com.android.bpcontrol.test.DatabasePlotMock;
 import com.android.bpcontrol.utils.DateUtils;
-import com.android.bpcontrol.utils.LogBP;
-import com.android.bpcontrol.utils.SharedPreferenceConstants;
-import com.android.bpcontrol.webservice.WSManager;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
-import com.github.mikephil.charting.utils.ColorTemplate;;
+;
 
 
-import java.text.ParseException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
-import java.util.ListIterator;
 import java.util.Map;
 
 /**
@@ -70,14 +62,24 @@ public class PressuresPlotFragment extends Fragment {
     private Handler dboutdatedmanager;
     private List<Pressure> dboutdated = new ArrayList<>();
     private boolean updated = false;
+    private AlertDialog.Builder dialog;
+
+    private ImageButton barbutton;
 
     private int custom_days = 0;
 
+    private String initdate,enddate;
+
+    boolean pickerDialogIsCancel = false;
+
     private ListView lv;
 
-    public static PressuresPlotFragment getNewInstance(){
+    public static PressuresPlotFragment getNewInstance(Context context){
 
-        PressuresPlotFragment  pressuresPlotFragment = new PressuresPlotFragment();
+        final ImageButton barbutton =((HomeActivity)context).getSecondActionBarButton();
+        barbutton.setVisibility(View.VISIBLE);
+        PressuresPlotFragment  pressuresPlotFragment = new PressuresPlotFragment().setBarButton(barbutton);
+
         return pressuresPlotFragment;
     }
 
@@ -96,7 +98,13 @@ public class PressuresPlotFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
 
         db = new BPcontrolDB(getActivity());
-        showDialog();
+        buildDialog();
+        barbutton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.show();
+            }
+        });
 
     }
 
@@ -138,9 +146,9 @@ public class PressuresPlotFragment extends Fragment {
     private void graphicChart(List<Pressure> pressures,PressuresPlot type){
 
         ArrayList<ChartItem> list = new ArrayList<ChartItem>();
-        list.add(new LineChartItem(generateDataLine(1, getSystolicPressures(pressures), type), getActivity(),0));
-        list.add(new LineChartItem(generateDataLine(2, getDiastolicPressures(pressures), type), getActivity(),1));
-        list.add(new LineChartItem(generateDataLine(3, getPulse(pressures), type), getActivity(),2));
+        list.add(new LineChartItemaAdapter(generateDataLine(1, getSystolicPressures(pressures), type), getActivity(),0));
+        list.add(new LineChartItemaAdapter(generateDataLine(2, getDiastolicPressures(pressures), type), getActivity(),1));
+        list.add(new LineChartItemaAdapter(generateDataLine(3, getPulse(pressures), type), getActivity(),2));
 
 
         ChartDataAdapter cda = new ChartDataAdapter(getActivity().getApplicationContext(), list);
@@ -189,25 +197,25 @@ public class PressuresPlotFragment extends Fragment {
     }
 
 
-    private void showDialog(){
+    private void buildDialog(){
 
 
         final CharSequence[] items = {getResources().getString(R.string.plotmenucase1),
                 getResources().getString(R.string.plotmenucase2), getResources().getString(R.string.plotmenucase3),
                 getResources().getString(R.string.plotmenucase4),getResources().getString(R.string.plotcancel)};
-        final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setTitle(getResources().getString(R.string.plotcasestitle));
-        builder.setCancelable(false);
-        builder.setItems(items, new DialogInterface.OnClickListener() {
+        dialog =  new AlertDialog.Builder(getActivity());
+        dialog.setTitle(getResources().getString(R.string.plotcasestitle));
+        dialog.setCancelable(false);
+        dialog.setItems(items, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int item) {
                 String[] dates;
-                List<Pressure> pressures=null;
+                List<Pressure> pressures = null;
 
-                switch(item){
+                switch (item) {
 
                     case 0:
-                        pressures = DatabasePlotMock.getOneMonthPressures();
-                        graphicChart(pressures,PressuresPlot.ONE_MONTH);
+                        pressures = DatabasePlotMock.getFakePressures(PressuresPlot.ONE_MONTH);
+                        graphicChart(pressures, PressuresPlot.ONE_MONTH);
 //                        dates = initAndEndDate(30);
 //                        try {
 //                            pressures = db.getPressuresAverageBetweenTwoDates(dates[0],dates[1]);
@@ -219,8 +227,8 @@ public class PressuresPlotFragment extends Fragment {
 //                        }
                         break;
                     case 1:
-                        pressures = DatabasePlotMock.getThreeMonthPressures();
-                        graphicChart(pressures,PressuresPlot.THREE_MONTH);
+                        pressures = DatabasePlotMock.getFakePressures(PressuresPlot.THREE_MONTH);
+                        graphicChart(pressures, PressuresPlot.THREE_MONTH);
 //                        dates = initAndEndDate(90);
 //                        try {
 //                            pressures = db.getPressuresAverageBetweenTwoDates(dates[0],dates[1]);
@@ -233,8 +241,8 @@ public class PressuresPlotFragment extends Fragment {
                         //show three month graphic
                         break;
                     case 2:
-                        pressures = DatabasePlotMock.getThreeMonthPressures();
-                        graphicChart(pressures,PressuresPlot.SIX_MONTH);
+                        pressures = DatabasePlotMock.getFakePressures(PressuresPlot.SIX_MONTH);
+                        graphicChart(pressures, PressuresPlot.SIX_MONTH);
 //                        dates = initAndEndDate(180);
 //                        try {
 //                            pressures = db.getPressuresAverageBetweenTwoDates(dates[0],dates[1]);
@@ -247,16 +255,38 @@ public class PressuresPlotFragment extends Fragment {
                         //show siz month graphic
                         break;
                     case 3:
-                        //show custom graphic
+                        LayoutInflater inflater =(LayoutInflater)getActivity()
+                                .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
+                        View view = inflater.inflate(R.layout.datepickerdialog,null);
+                        final DatePicker picker1 = (DatePicker)view.findViewById(R.id.datePicker1);
+                        final DatePicker picker2 = (DatePicker)view.findViewById(R.id.datePicker1);
+                        Button acceptButton = (Button) view.findViewById(R.id.datepickerAccept);
+                        acceptButton.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+
+                                initdate = checkDigit(picker1.getDayOfMonth())+"-"
+                                        +checkDigit(picker1.getMonth())+"-"+checkDigit(picker1.getYear());
+                                enddate = checkDigit(picker2.getDayOfMonth())+"-"
+                                        +checkDigit(picker2.getMonth())+"-"+checkDigit(picker2.getYear());
+                            }
+                        });
+                        Dialog datedialog = new Dialog(getActivity());
+                        datedialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                        datedialog.setContentView(view);
+                        Window window = datedialog.getWindow();
+                        window.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+                        datedialog.show();
                         break;
                     case 4:
-                        //back
+                        ((HomeActivity) getActivity()).selectMenuItem(LateralMenuController.MenuSections.HOME);
                         break;
 
                 }
             }
         });
-        builder.show();
+        dialog.show();
 
     }
 
@@ -290,7 +320,7 @@ public class PressuresPlotFragment extends Fragment {
                 break;
         }
         d1.setDrawValues(true);
-       // d1.setHighLightColor(Color.rgb(0, 0, 0));
+        d1.setHighLightColor(Color.rgb(0, 0, 0));
 
 
         ArrayList<LineDataSet> sets = new ArrayList<LineDataSet>();
@@ -313,23 +343,7 @@ public class PressuresPlotFragment extends Fragment {
         return dates;
     }
 
-    @Override
-    public void onDestroyView(){
-        lv.clearChoices();
-        super.onDestroyView();
 
-    }
-
-    @Override
-    public void onDestroy(){
-        lv.clearChoices();
-        super.onDestroy();
-
-
-    }
-
-
-}
 
 
 //
@@ -532,3 +546,27 @@ public class PressuresPlotFragment extends Fragment {
 //        //  new getPressuresHistoryByDate().execute();
 //    }
 //}
+
+
+    @Override
+    public void onDestroyView(){
+        super.onDestroyView();
+
+    }
+
+    @Override
+    public void onDestroy(){
+        super.onDestroy();
+    }
+
+    public PressuresPlotFragment setBarButton(ImageButton barbutton){
+        this.barbutton = barbutton;
+        return this;
+    }
+
+    public String checkDigit(int number)
+    {
+        return number<=9?"0"+number:String.valueOf(number);
+    }
+
+}

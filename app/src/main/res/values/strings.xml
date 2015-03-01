@@ -163,6 +163,10 @@
     <string name="plotcancel">Back to the principal menu</string>
     <string name="plotcasestitle">Choose someone option:</string>
 
+    <string name="chooseinitialdate">Choose the initial date</string>
+    <string name="choosefinaldate">Choose the final date</string>
+    <string name="buttondialogaccept">Accept</string>
+
 
 
 

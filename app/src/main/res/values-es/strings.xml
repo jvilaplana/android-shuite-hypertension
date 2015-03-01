@@ -171,4 +171,8 @@
     <string name="plotmenucase4">Mostrar grafica personaliza</string>
     <string name="plotcancel">Volver al menu principal</string>
     <string name="plotcasestitle">Selecciona una opción:</string>
+
+    <string name="chooseinitialdate">Escogja la fecha inicial</string>
+    <string name="choosefinaldate">Escoja la fecha final</string>
+    <string name="buttondialogaccept">Aceptar</string>
 </resources>

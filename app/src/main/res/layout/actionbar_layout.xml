@@ -32,36 +32,23 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="@dimen/actionbar_padding"
-        android:layout_toLeftOf="@+id/fakeInit"
+        android:layout_toLeftOf="@+id/secondActionBarButton"
         android:layout_toRightOf="@+id/actionBarMenu"
         android:layout_centerVertical="true"
         android:background="@drawable/logo"
         android:gravity="center"
         android:visibility="gone"
         />
-    <ImageButton
-
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="@dimen/actionbar_padding"
-        android:id="@+id/fakeMenu"
-        android:layout_toLeftOf="@+id/textviewbpcontrol"
-        android:src="@drawable/menu_buttonselector"
-        android:layout_centerVertical="true"
-        android:layout_alignParentRight="true"
-        android:background="@android:color/transparent"
-        />
 
     <ImageButton
 
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="@dimen/actionbar_padding"
-        android:id="@+id/fakeInit"
-        android:src="@drawable/menu_buttonselector"
+        android:id="@+id/secondActionBarButton"
         android:layout_centerVertical="true"
         android:layout_alignParentRight="true"
+        android:src="@drawable/secondbuttonbarselector"
         android:background="@android:color/transparent"
-        android:visibility="gone"
         />
 </RelativeLayout>

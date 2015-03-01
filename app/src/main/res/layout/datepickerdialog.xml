@@ -1,0 +1,75 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginTop="10dp"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:id="@+id/datepickercontainerparent"
+        android:layout_width="match_parent"
+        android:gravity="center_horizontal"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:id="@+id/datepickercontainer1"
+            android:layout_width="wrap_content"
+            android:orientation="vertical"
+            android:layout_height="wrap_content">
+
+            <com.android.bpcontrol.customviews.RobotoTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="@string/chooseinitialdate"
+
+                />
+
+            <DatePicker
+                android:id="@+id/datePicker1"
+                android:layout_width="wrap_content"
+                android:calendarViewShown="false"
+                android:layout_height="wrap_content" >
+            </DatePicker>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_toRightOf="@+id/datepickercontainer1"
+            android:layout_width="wrap_content"
+            android:orientation="vertical"
+            android:layout_height="wrap_content">
+
+            <com.android.bpcontrol.customviews.RobotoTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="@string/choosefinaldate"
+
+            />
+
+            <DatePicker
+                android:id="@+id/datePicker2"
+                android:layout_width="wrap_content"
+                android:calendarViewShown="false"
+                android:layout_height="wrap_content" >
+            </DatePicker>
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+    android:layout_below="@+id/datepickercontainerparent"
+    android:layout_width="match_parent"
+    android:gravity="center_horizontal"
+    android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/datepickerAccept"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/patientAreaButtonStyle"
+            android:text="@string/licenseButtonAccept"
+            android:layout_marginTop="10dp"
+            />
+    </LinearLayout>
+
+</RelativeLayout>

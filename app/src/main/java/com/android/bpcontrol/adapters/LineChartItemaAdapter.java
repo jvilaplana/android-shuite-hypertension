@@ -1,5 +1,5 @@
 
-package com.android.bpcontrol.model;
+package com.android.bpcontrol.adapters;
 
 import android.content.Context;
 import android.util.DisplayMetrics;
@@ -10,6 +10,7 @@ import android.view.WindowManager;
 
 import com.android.bpcontrol.R;
 import com.android.bpcontrol.customviews.ForteTextView;
+import com.android.bpcontrol.model.ChartItem;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.XAxis.XAxisPosition;
@@ -19,12 +20,12 @@ import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 
 
-public class LineChartItem extends ChartItem {
+public class LineChartItemaAdapter extends ChartItem {
 
     private Context context;
     private int tag;
 
-    public LineChartItem(ChartData<?> cd, Context c,int tag) {
+    public LineChartItemaAdapter(ChartData<?> cd, Context c, int tag) {
         super(cd);
         this.tag = tag;
         this.context = c;
@@ -68,25 +69,27 @@ public class LineChartItem extends ChartItem {
                 holder.forte.setText(context.getResources().getString(R.string.graphdescriptionheader3));
                 break;
         }
+
+        holder.chart.setDrawGridBackground(false);
+
         XAxis xAxis = holder.chart.getXAxis();
         xAxis.setPosition(XAxisPosition.BOTTOM);
-         holder.chart.setDrawGridBackground(false);
         xAxis.setDrawGridLines(false);
-       xAxis.setDrawAxisLine(true);
+        xAxis.setDrawAxisLine(true);
 
         YAxis leftAxis = holder.chart.getAxisLeft();
         leftAxis.setLabelCount(5);
         
         YAxis rightAxis = holder.chart.getAxisRight();
         rightAxis.setLabelCount(5);
-       rightAxis.setDrawGridLines(false);
+        rightAxis.setDrawGridLines(false);
 
 
 
         holder.chart.setData((LineData) mChartData);
         LineDataSet set= holder.chart.getLineData().getDataSetByIndex(0);
-        set.setCircleSize(8);
-        set.setLineWidth(5);
+        set.setCircleSize(4);
+        set.setLineWidth(4);
 
         int height = getScreenHeightResolution(context);
         holder.chart.getLayoutParams().height = height-(int)height/5;

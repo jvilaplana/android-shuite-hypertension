@@ -76,7 +76,7 @@ public class InitialActivity extends BPcontrolMasterActivity
 
         View view = getActionBarView();
         view.findViewById(R.id.textviewbpcontrol).setVisibility(View.GONE);
-        view.findViewById(R.id.fakeInit).setVisibility(View.INVISIBLE);
+        view.findViewById(R.id.secondActionBarButton).setVisibility(View.INVISIBLE);
         view.findViewById(R.id.actionBarMenu).setVisibility(View.INVISIBLE);
         view.findViewById(R.id.imageinit).setVisibility(View.VISIBLE);
 
