@@ -16,6 +16,7 @@ import com.github.mikephil.charting.components.XAxis.XAxisPosition;
 import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.ChartData;
 import com.github.mikephil.charting.data.LineData;
+import com.github.mikephil.charting.data.LineDataSet;
 
 
 public class LineChartItem extends ChartItem {
@@ -27,6 +28,7 @@ public class LineChartItem extends ChartItem {
         super(cd);
         this.tag = tag;
         this.context = c;
+
     }
 
     @Override
@@ -68,20 +70,24 @@ public class LineChartItem extends ChartItem {
         }
         XAxis xAxis = holder.chart.getXAxis();
         xAxis.setPosition(XAxisPosition.BOTTOM);
-        holder.chart.setDrawGridBackground(false);
+         holder.chart.setDrawGridBackground(false);
         xAxis.setDrawGridLines(false);
-        xAxis.setDrawAxisLine(true);
+       xAxis.setDrawAxisLine(true);
 
         YAxis leftAxis = holder.chart.getAxisLeft();
         leftAxis.setLabelCount(5);
         
         YAxis rightAxis = holder.chart.getAxisRight();
         rightAxis.setLabelCount(5);
-        rightAxis.setDrawGridLines(false);
+       rightAxis.setDrawGridLines(false);
 
 
 
         holder.chart.setData((LineData) mChartData);
+        LineDataSet set= holder.chart.getLineData().getDataSetByIndex(0);
+        set.setCircleSize(8);
+        set.setLineWidth(5);
+
         int height = getScreenHeightResolution(context);
         holder.chart.getLayoutParams().height = height-(int)height/5;
 

@@ -283,6 +283,11 @@ public class HomeActivity extends BPcontrolMasterActivity{
                     loadFragment(pressuresFragment,false,false);
                     break;
             case EVOLUTION:
+                setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+                if (HomeFragmentManager.getInstance(this).getHomeFragmentStack().size() > 0) {
+                    Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.menu_frame);
+                    if(fragment instanceof PressuresPlotFragment)getSupportFragmentManager().beginTransaction().remove(fragment).commit();
+                    }
                     headertext.setText(getResources().getString(R.string.menusection_evolution).toUpperCase());
                     PressuresPlotFragment pressuresPlotFragment = PressuresPlotFragment.getNewInstance();
                     loadFragment(pressuresPlotFragment,false,false);

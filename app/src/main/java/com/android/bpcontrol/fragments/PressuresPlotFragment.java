@@ -94,7 +94,7 @@ public class PressuresPlotFragment extends Fragment {
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+
         db = new BPcontrolDB(getActivity());
         showDialog();
 
@@ -267,6 +267,7 @@ public class PressuresPlotFragment extends Fragment {
 
             case 1:
                 d1 = new LineDataSet(values,getResources().getString(R.string.graphdescriptionsyctolic));
+
                 d1.setColor(Color.RED);
                 d1.setCircleColor(Color.RED);
 
@@ -275,7 +276,6 @@ public class PressuresPlotFragment extends Fragment {
                 d1 = new LineDataSet(values,getResources().getString(R.string.graphdescriptiondiastolic));
                 d1.setColor(Color.BLUE);
                 d1.setCircleColor(Color.BLUE);
-
                 break;
             case 3:
                 d1 = new LineDataSet(values,getResources().getString(R.string.graphdescriptionpulse));
@@ -289,12 +289,9 @@ public class PressuresPlotFragment extends Fragment {
 
                 break;
         }
-
-        d1.setHighLightColor(Color.rgb(0, 0, 0));
-        d1.setLineWidth(10f);
-        d1.setCircleSize(15f);
-
         d1.setDrawValues(true);
+       // d1.setHighLightColor(Color.rgb(0, 0, 0));
+
 
         ArrayList<LineDataSet> sets = new ArrayList<LineDataSet>();
         sets.add(d1);
