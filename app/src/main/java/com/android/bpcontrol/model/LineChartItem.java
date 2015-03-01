@@ -21,9 +21,11 @@ import com.github.mikephil.charting.data.LineData;
 public class LineChartItem extends ChartItem {
 
     private Context context;
+    private int tag;
 
-    public LineChartItem(ChartData<?> cd, Context c) {
+    public LineChartItem(ChartData<?> cd, Context c,int tag) {
         super(cd);
+        this.tag = tag;
         this.context = c;
     }
 
@@ -45,33 +47,33 @@ public class LineChartItem extends ChartItem {
                     R.layout.list_item_linechart, null);
             holder.chart = (LineChart) convertView.findViewById(R.id.chart);
             holder.forte = (ForteTextView) convertView.findViewById(R.id.chartTitle);
-            holder.chart.setDrawGridBackground(true);
-            switch (position) {
-                case 0:
-                    holder.forte.setText(context.getResources().getString(R.string.graphdescriptionheader1));
-                    break;
-                case 1:
-                    holder.forte.setText(context.getResources().getString(R.string.graphdescriptionheader2));
-                    break;
-                case 2:
-                    holder.forte.setText(context.getResources().getString(R.string.graphdescriptionheader3));
-                    break;
-            }
+
+
             convertView.setTag(holder);
 
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
 
-
+        switch (tag) {
+            case 0:
+                holder.forte.setText(context.getResources().getString(R.string.graphdescriptionheader1));
+                break;
+            case 1:
+                holder.forte.setText(context.getResources().getString(R.string.graphdescriptionheader2));
+                break;
+            default:
+                holder.forte.setText(context.getResources().getString(R.string.graphdescriptionheader3));
+                break;
+        }
         XAxis xAxis = holder.chart.getXAxis();
         xAxis.setPosition(XAxisPosition.BOTTOM);
+        holder.chart.setDrawGridBackground(false);
         xAxis.setDrawGridLines(false);
         xAxis.setDrawAxisLine(true);
 
         YAxis leftAxis = holder.chart.getAxisLeft();
         leftAxis.setLabelCount(5);
-        leftAxis.setDrawAxisLine(true);
         
         YAxis rightAxis = holder.chart.getAxisRight();
         rightAxis.setLabelCount(5);
@@ -80,7 +82,6 @@ public class LineChartItem extends ChartItem {
 
 
         holder.chart.setData((LineData) mChartData);
-
         int height = getScreenHeightResolution(context);
         holder.chart.getLayoutParams().height = height-(int)height/5;
 

@@ -28,6 +28,6 @@ public class ChartDataAdapter extends ArrayAdapter<ChartItem> {
 
     @Override
     public int getViewTypeCount() {
-        return 1;
+        return 3;
     }
     }

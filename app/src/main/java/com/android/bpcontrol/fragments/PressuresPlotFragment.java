@@ -29,6 +29,7 @@ import com.android.bpcontrol.databases.DataStore;
 import com.android.bpcontrol.model.ChartItem;
 import com.android.bpcontrol.model.LineChartItem;
 import com.android.bpcontrol.model.Pressure;
+import com.android.bpcontrol.utils.DatabasePlotMock;
 import com.android.bpcontrol.utils.DateUtils;
 import com.android.bpcontrol.utils.LogBP;
 import com.android.bpcontrol.utils.SharedPreferenceConstants;
@@ -74,32 +75,26 @@ public class PressuresPlotFragment extends Fragment {
 
     private ListView lv;
 
-    public static PressuresPlotFragment getNewInstance(int position){
+    public static PressuresPlotFragment getNewInstance(){
 
-        PressuresPlotFragment  pressuresPlotFragment = new PressuresPlotFragment().setFragmentPosition(position);
+        PressuresPlotFragment  pressuresPlotFragment = new PressuresPlotFragment();
         return pressuresPlotFragment;
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
-        getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+
         View view = inflater.inflate(R.layout.pressuresplotlayout, null);
         lv = (ListView) view.findViewById(R.id.listView1);
         return view;
 
     }
 
-    public PressuresPlotFragment setFragmentPosition(int position){
-
-        // this.viewpagerposition = position;
-
-        return this;
-    }
-
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         db = new BPcontrolDB(getActivity());
         showDialog();
 
@@ -143,9 +138,9 @@ public class PressuresPlotFragment extends Fragment {
     private void graphicChart(List<Pressure> pressures,PressuresPlot type){
 
         ArrayList<ChartItem> list = new ArrayList<ChartItem>();
-        list.add(new LineChartItem(generateDataLine(1, getSystolicPressures(pressures), type), getActivity()));
-        list.add(new LineChartItem(generateDataLine(2, getDiastolicPressures(pressures), type), getActivity()));
-        list.add(new LineChartItem(generateDataLine(3, getPulse(pressures), type), getActivity()));
+        list.add(new LineChartItem(generateDataLine(1, getSystolicPressures(pressures), type), getActivity(),0));
+        list.add(new LineChartItem(generateDataLine(2, getDiastolicPressures(pressures), type), getActivity(),1));
+        list.add(new LineChartItem(generateDataLine(3, getPulse(pressures), type), getActivity(),2));
 
 
         ChartDataAdapter cda = new ChartDataAdapter(getActivity().getApplicationContext(), list);
@@ -211,6 +206,8 @@ public class PressuresPlotFragment extends Fragment {
                 switch(item){
 
                     case 0:
+                        pressures = DatabasePlotMock.getOneMonthPressures();
+                        graphicChart(pressures,PressuresPlot.ONE_MONTH);
 //                        dates = initAndEndDate(30);
 //                        try {
 //                            pressures = db.getPressuresAverageBetweenTwoDates(dates[0],dates[1]);
@@ -222,6 +219,8 @@ public class PressuresPlotFragment extends Fragment {
 //                        }
                         break;
                     case 1:
+                        pressures = DatabasePlotMock.getThreeMonthPressures();
+                        graphicChart(pressures,PressuresPlot.THREE_MONTH);
 //                        dates = initAndEndDate(90);
 //                        try {
 //                            pressures = db.getPressuresAverageBetweenTwoDates(dates[0],dates[1]);
@@ -234,6 +233,8 @@ public class PressuresPlotFragment extends Fragment {
                         //show three month graphic
                         break;
                     case 2:
+                        pressures = DatabasePlotMock.getThreeMonthPressures();
+                        graphicChart(pressures,PressuresPlot.SIX_MONTH);
 //                        dates = initAndEndDate(180);
 //                        try {
 //                            pressures = db.getPressuresAverageBetweenTwoDates(dates[0],dates[1]);
@@ -284,6 +285,8 @@ public class PressuresPlotFragment extends Fragment {
                 break;
             default:
                 d1 = new LineDataSet(values,"");
+
+
                 break;
         }
 
@@ -295,6 +298,7 @@ public class PressuresPlotFragment extends Fragment {
 
         ArrayList<LineDataSet> sets = new ArrayList<LineDataSet>();
         sets.add(d1);
+
 
         return sets;
     }
@@ -310,6 +314,21 @@ public class PressuresPlotFragment extends Fragment {
         dates[0] = DateUtils.dateToString(d2,DateUtils.DB_FORMAT);
 
         return dates;
+    }
+
+    @Override
+    public void onDestroyView(){
+        lv.clearChoices();
+        super.onDestroyView();
+
+    }
+
+    @Override
+    public void onDestroy(){
+        lv.clearChoices();
+        super.onDestroy();
+
+
     }
 
 

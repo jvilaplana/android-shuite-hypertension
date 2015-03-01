@@ -78,8 +78,7 @@ public class DateTest extends AndroidTestCase {
     public void test_obtain_dates_between_two_dates(){
 
         ArrayList<String> list = DateUtils.getDatesBetween("21-11-2014", "25-12-2014");
-        String p = list.get(0);
-        assertTrue(true);
+        assertTrue(list.size()==34);
     }
 
     public void tearDown() throws Exception{

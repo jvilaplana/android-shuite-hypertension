@@ -12,6 +12,7 @@ public abstract class ChartItem {
     protected ChartData<?> mChartData;
     
     public ChartItem(ChartData<?> cd) {
+
         this.mChartData = cd;      
     }
     

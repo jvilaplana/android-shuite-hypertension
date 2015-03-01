@@ -24,7 +24,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.android.bpcontrol.adapters.ViewPagerContactAdapter;
-import com.android.bpcontrol.adapters.ViewPagerEvolutionAdapter;
 import com.android.bpcontrol.application.BPcontrolMasterActivity;
 import com.android.bpcontrol.controllers.HomeFragmentManager;
 import com.android.bpcontrol.controllers.LateralMenuController;
@@ -284,21 +283,9 @@ public class HomeActivity extends BPcontrolMasterActivity{
                     loadFragment(pressuresFragment,false,false);
                     break;
             case EVOLUTION:
-
-//                    frameLayout.setVisibility(View.GONE);
-//                    viewpager.setVisibility(View.VISIBLE);
-//                    FragmentPagerAdapter adapterevolution = new ViewPagerEvolutionAdapter(getSupportFragmentManager());
-//                    ViewPager pagerevolution = (ViewPager)findViewById(R.id.pager);
                     headertext.setText(getResources().getString(R.string.menusection_evolution).toUpperCase());
-//                    pagerevolution.setAdapter(adapterevolution);
-//                    CirclePageIndicator indicatorevolution = (CirclePageIndicator)findViewById(R.id.pagerindicator);
-//                    LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
-//                            ViewGroup.LayoutParams.WRAP_CONTENT);
-//                    lp.setMargins(0,0,0,(int)getResources().getDimension(R.dimen.pageviewmarginbottomevolution));
-//                    indicatorevolution.setLayoutParams(lp);
-//                    indicatorevolution.setViewPager(pagerevolution);
-                PressuresPlotFragment pressuresPlotFragment = PressuresPlotFragment.getNewInstance(0);
-                loadFragment(pressuresPlotFragment,false,false);
+                    PressuresPlotFragment pressuresPlotFragment = PressuresPlotFragment.getNewInstance();
+                    loadFragment(pressuresPlotFragment,false,false);
                     break;
             case HISTORIAL:
                     headertext.setText(getResources().getString(R.string.headerbarhistory).toUpperCase());

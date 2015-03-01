@@ -100,7 +100,7 @@ public class DateUtils {
         for (int i=0;i<days;i++){
             calendar.add(Calendar.DAY_OF_MONTH,-1);
             Date date = calendar.getTime();
-            dates[i]=DateUtils.dateToString(date,DateUtils.DEFAULT_FORMAT);
+            dates[(days-i)-1]=DateUtils.dateToString(date,DateUtils.DEFAULT_FORMAT);
         }
         return new ArrayList<String>(Arrays.asList(dates));
     }
