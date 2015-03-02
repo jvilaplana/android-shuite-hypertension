@@ -56,6 +56,8 @@ public class HomeActivity extends BPcontrolMasterActivity{
     private FrameLayout frameLayout;
     private LinearLayout viewpager;
 
+    private ImageButton secondactionbarbutton;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -271,6 +273,10 @@ public class HomeActivity extends BPcontrolMasterActivity{
                 setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         }
 
+        secondactionbarbutton =(ImageButton)getActionBarView()
+                .findViewById(R.id.secondActionBarButton);
+        secondactionbarbutton.setVisibility(View.INVISIBLE);
+
         switch (type){
             case MYPERFIL:
                     headertext.setText(getResources().getString(R.string.perfilheaderbar).toUpperCase());
@@ -283,10 +289,9 @@ public class HomeActivity extends BPcontrolMasterActivity{
                     loadFragment(pressuresFragment,false,false);
                     break;
             case EVOLUTION:
-                setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+                    setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
                     headertext.setText(getResources().getString(R.string.menusection_evolution).toUpperCase());
                     PressuresPlotFragment pressuresPlotFragment = PressuresPlotFragment.getNewInstance(this);
-
                     loadFragment(pressuresPlotFragment,false,false);
                     break;
             case HISTORIAL:
@@ -505,7 +510,8 @@ public class HomeActivity extends BPcontrolMasterActivity{
 
     public ImageButton getSecondActionBarButton(){
 
-        return (ImageButton)getActionBarView().findViewById(R.id.secondActionBarButton);
+        return secondactionbarbutton;
+
 
     }
     }

@@ -5,6 +5,7 @@ import com.android.bpcontrol.fragments.PressuresPlotFragment;
 import com.android.bpcontrol.model.Pressure;
 import com.android.bpcontrol.utils.DateUtils;
 
+import java.io.BufferedReader;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
@@ -41,6 +42,10 @@ public class DatabasePlotMock {
                 days = 180;
                 dates = DateUtils.getDates(180);
                 break;
+            case CUSTOM:
+                days = 180;
+                dates = DateUtils.getDates(180);
+                break;
         }
 
         for (int i=0;i<days;i++){
@@ -58,6 +63,7 @@ public class DatabasePlotMock {
         }
         return  list;
     }
+
 
     private static int generateRandom(int low,int hight){
         Random r = new Random();
