@@ -28,6 +28,7 @@ import com.android.bpcontrol.application.BPcontrolMasterActivity;
 import com.android.bpcontrol.controllers.HomeFragmentManager;
 import com.android.bpcontrol.controllers.LateralMenuController;
 import com.android.bpcontrol.customviews.RobotoTextView;
+import com.android.bpcontrol.fragments.ChatMessagesFragment;
 import com.android.bpcontrol.fragments.InitialFragment;
 import com.android.bpcontrol.fragments.PressuresHistoryFragment;
 import com.android.bpcontrol.fragments.HomeFragment;
@@ -300,6 +301,9 @@ public class HomeActivity extends BPcontrolMasterActivity{
                     loadFragment(pressuresHistoryFragment,false,false);
                     break;
             case MESSAGES:
+                    headertext.setText(getResources().getString(R.string.messages).toUpperCase());
+                    ChatMessagesFragment messagesFragment = ChatMessagesFragment.getNewInstace();
+                    loadFragment(messagesFragment,false,false);
                     break;
             case VIDEOS:
                 frameLayout.setVisibility(View.GONE);

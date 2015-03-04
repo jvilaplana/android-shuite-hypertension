@@ -121,6 +121,7 @@
     <string name="pdiastolicheader">Systolic p.</string>
     <string name="pulseheader">Pulse</string>
     <string name="fetle">Fetle</string>
+    <string name="messages">Messages</string>
 
     <string-array name="months">
     <item>January</item>
@@ -166,6 +167,7 @@
     <string name="chooseinitialdate">Choose the initial date</string>
     <string name="choosefinaldate">Choose the final date</string>
     <string name="buttondialogaccept">Accept</string>
+    <string name="writemessage">Write a message</string>
 
 
 

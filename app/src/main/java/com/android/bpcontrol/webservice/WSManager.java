@@ -96,6 +96,10 @@ public class WSManager {
         public void onUserPressuresReceived(ArrayList<Pressure> pressures);
     }
 
+    public static interface GetMessages extends EventListener{
+        public void onUserMessagesReceived();
+    }
+
     private void webserviceCallWithCallback(final Context context, final String url, final BPcontrolApiCallback callback){
         if(queue==null)queue = Volley.newRequestQueue(context);
 
@@ -391,6 +395,7 @@ public class WSManager {
 
             @Override
             public void onFailure(Exception e) {
+
                 showApiConnectivityError(context);
             }
         });
@@ -423,6 +428,29 @@ public class WSManager {
             }
 
         return tmp;
+    }
+
+    public void getUserMessagesChat(final Context context, String date, final GetUserPressures callback) throws ParseException {
+
+        String url;
+        if (date != null) {
+            url= URLBASE + "/hypertensionBloodPressure/restList/"+User.getInstance().getUUID()
+                    +"?date="+DateUtils.dateStringToWSdate(date);
+        }else{
+            url = URLBASE+"/hypertensionBloodPressure/restList/"+User.getInstance().getUUID();
+        }
+        webserviceCallWithCallback(context,url,new BPcontrolApiCallback() {
+            @Override
+            public void onSuccess(String response) {
+                ArrayList<Pressure> pressures = parseUserPressures(response);
+                callback.onUserPressuresReceived(pressures);
+            }
+
+            @Override
+            public void onFailure(Exception e) {
+                showApiConnectivityError(context);
+            }
+        });
     }
 
 

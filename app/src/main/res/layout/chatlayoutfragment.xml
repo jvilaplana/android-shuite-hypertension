@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:background="@drawable/chatwallpaper"
+    android:layout_marginBottom="15dp"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+<ListView
+    android:id="@+id/listviewmessages"
+    android:layout_width="match_parent"
+    android:divider="@null"
+    android:padding="5dp"
+    android:dividerHeight="15dp"
+    android:layout_height="match_parent">
+
+</ListView>
+
+    <LinearLayout
+        android:id="@+id/editmesslayout"
+        android:layout_width="fill_parent"
+        android:layout_height="74dp"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/fondoresponder"
+        android:gravity="center_horizontal"
+        android:paddingTop="12.5dp">
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <com.android.bpcontrol.customviews.BPEditText
+                android:id="@+id/message"
+                android:layout_width="215dp"
+                android:layout_height="36dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/respondertextbox"
+                android:textSize="14dp"
+                android:hint="@string/writemessage"
+                android:padding="5dp"
+                android:gravity="center_vertical"
+                android:layout_centerVertical="true"
+                android:singleLine="true"/>
+
+            <Button
+                android:id="@+id/enviarbutton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/white"
+                android:text="Enviar"
+                android:gravity="center"
+                android:textSize="15dp"
+                android:layout_toRightOf="@+id/message"
+                android:layout_centerVertical="true"
+                android:background="@drawable/orangebutton"/>
+        </RelativeLayout>
+    </LinearLayout>
+
+</RelativeLayout>
