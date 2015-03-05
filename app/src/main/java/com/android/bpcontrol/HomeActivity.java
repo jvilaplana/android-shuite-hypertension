@@ -349,7 +349,7 @@ public class HomeActivity extends BPcontrolMasterActivity{
             default:
                     HomeFragment homeFragment = HomeFragment.newInstance();
                     loadFragment(homeFragment, false, false);
-                    headertext.setText(getResources().getString(R.string.principalmenutext).toUpperCase());
+                     headertext.setText(getResources().getString(R.string.principalmenutext).toUpperCase());
                     break;
         }
 

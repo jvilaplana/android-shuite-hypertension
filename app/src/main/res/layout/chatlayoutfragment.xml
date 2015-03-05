@@ -9,6 +9,7 @@
 <ListView
     android:id="@+id/listviewmessages"
     android:layout_width="match_parent"
+    android:layout_above="@+id/editmesslayout"
     android:divider="@null"
     android:padding="5dp"
     android:dividerHeight="15dp"
@@ -18,7 +19,7 @@
 
     <LinearLayout
         android:id="@+id/editmesslayout"
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="74dp"
         android:layout_alignParentBottom="true"
         android:background="@drawable/fondoresponder"

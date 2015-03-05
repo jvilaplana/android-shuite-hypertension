@@ -81,5 +81,12 @@
     <dimen name="domain_tick_label_font_size">15dp</dimen>
     <dimen name="legend_text_font_size">20dp</dimen>
 
+    <dimen name="paddingmarginlinear">16dp</dimen>
+    <dimen name="paddingchatlinear">6dp</dimen>
+    <dimen name="imageviewseparatorchatleft">7dp</dimen>
+
+    <dimen name="chatparentmarginbig">25dp</dimen>
+    <dimen name="chatparentmargin">3dp</dimen>
+
 
     </resources>

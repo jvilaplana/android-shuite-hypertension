@@ -224,14 +224,18 @@ public class PressuresHistoryFragment extends Fragment {
 
                                 } else {
                                     DataStore.getInstance().setPressures((ArrayList<Pressure>) dboutdated);
+                                  if (dboutdated.size() > 0) {
 
-                                    if (dboutdated.get(dboutdated.size() - 1).getStringDate().equals(pressures.get(0).getStringDate())) {
-                                        pressures.remove(0);
 
-                                    }
-                                    dboutdated.clear();
-                                    dboutdated.addAll(pressures);
-                                    dboutdatedmanager.sendEmptyMessage(0);
+                                      if (pressures.size() > 0 && dboutdated.get(dboutdated.size() - 1).getStringDate().equals(pressures.get(0).getStringDate())) {
+                                          pressures.remove(0);
+
+                                      }
+                                  }
+                                      dboutdated.clear();
+                                      dboutdated.addAll(pressures);
+                                      dboutdatedmanager.sendEmptyMessage(0);
+
                                 }
                                 DataStore.getInstance().setPressures(pressures);
                                 publishProgress();

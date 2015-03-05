@@ -20,12 +20,15 @@ import java.util.List;
 /**
  * Created by Adrian on 03/03/2015.
  */
+
+
 public class ChatMessagesFragment extends Fragment{
 
     private ListView list;
     private Button button;
     private BPEditText editText;
     private List<Message> messages;
+    private  ChatMessageAdapter adapter;
 
     public static ChatMessagesFragment getNewInstace(){
 
@@ -96,7 +99,7 @@ public class ChatMessagesFragment extends Fragment{
         messages.add(ms9);
         messages.add(ms10);
 
-        final ChatMessageAdapter adapter = new ChatMessageAdapter(getActivity(), messages);
+        adapter = new ChatMessageAdapter(getActivity(), messages);
 
         list.setAdapter(adapter);
 
@@ -110,6 +113,7 @@ public class ChatMessagesFragment extends Fragment{
                     newmessage.setMessage(editText.getText().toString());
                     messages.add(newmessage);
                     editText.setText(null);
+                    adapter.setList(messages);
                     adapter.notifyDataSetChanged();
                     list.setSelection(messages.size()-1);
                 }

@@ -3,9 +3,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     <LinearLayout
+        android:id="@+id/containerchatmsg"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="left"
         android:layout_alignParentLeft="true"
         android:gravity="left"
         android:layout_marginRight="25dp"
@@ -22,14 +22,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:shadowDx="1"
-            android:layout_gravity="left"
             android:shadowDy="1"
             android:padding="5dp"
-            android:gravity="left"
             android:text="hola que tal estas allu?"
             android:textSize="16sp" />
 
         <ImageView
+            android:id="@+id/chatmsgseparator"
             android:layout_width="30dp"
             android:layout_height="1dp"
             android:layout_gravity="left"
@@ -37,6 +36,7 @@
             android:background="@color/graybp"/>
 
         <com.android.bpcontrol.customviews.RobotoTextView
+            android:id="@+id/datemsg"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"

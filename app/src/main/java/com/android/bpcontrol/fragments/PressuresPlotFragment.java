@@ -516,7 +516,7 @@ public class PressuresPlotFragment extends Fragment {
                             } else {
                                 DataStore.getInstance().setPressures((ArrayList<Pressure>) dboutdated);
 
-                                if (dboutdated.get(dboutdated.size() - 1).getStringDate().equals(pressures.get(0).getStringDate())) {
+                                if (pressures.size() >0 && dboutdated.get(dboutdated.size() - 1).getStringDate().equals(pressures.get(0).getStringDate())) {
                                     pressures.remove(0);
 
                                 }
