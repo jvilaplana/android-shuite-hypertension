@@ -15,6 +15,7 @@ import com.android.bpcontrol.R;
 import com.android.bpcontrol.application.BPcontrolApplication;
 import com.android.bpcontrol.application.BPcontrolMasterActivity;
 import com.android.bpcontrol.databases.DataStore;
+import com.android.bpcontrol.model.Message;
 import com.android.bpcontrol.model.Pressure;
 import com.android.bpcontrol.model.Pressures;
 import com.android.bpcontrol.model.PressuresAfternoon;
@@ -97,7 +98,7 @@ public class WSManager {
     }
 
     public static interface GetMessages extends EventListener{
-        public void onUserMessagesReceived();
+        public void onUserMessagesReceived(List<Message> listmenssages);
     }
 
     private void webserviceCallWithCallback(final Context context, final String url, final BPcontrolApiCallback callback){
@@ -430,20 +431,23 @@ public class WSManager {
         return tmp;
     }
 
-    public void getUserMessagesChat(final Context context, String date, final GetUserPressures callback) throws ParseException {
-
-        String url;
+    public void getUserMessagesChat(final Context context, String date, final GetMessages callback){
+        String url="";
         if (date != null) {
-            url= URLBASE + "/hypertensionBloodPressure/restList/"+User.getInstance().getUUID()
-                    +"?date="+DateUtils.dateStringToWSdate(date);
+            try {
+                url= URLBASE + "/hypertensionPatientChat/restList/"+User.getInstance().getUUID()
+                        +"?date="+DateUtils.dateStringToWSdate(date);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
         }else{
-            url = URLBASE+"/hypertensionBloodPressure/restList/"+User.getInstance().getUUID();
+            url = URLBASE+"/hypertensionPatientChat/restList/"+User.getInstance().getUUID();
         }
         webserviceCallWithCallback(context,url,new BPcontrolApiCallback() {
             @Override
             public void onSuccess(String response) {
-                ArrayList<Pressure> pressures = parseUserPressures(response);
-                callback.onUserPressuresReceived(pressures);
+                List<Message> messages = parseUserMessages(response);
+                callback.onUserMessagesReceived(messages);
             }
 
             @Override
@@ -452,6 +456,44 @@ public class WSManager {
             }
         });
     }
+
+    private  List<Message> parseUserMessages(String response){
+
+        List<Message> messages = new ArrayList<>();
+
+        try {
+            JSONArray array = new JSONArray(response);
+            if (array.length() > 0){
+                Message message;
+                JSONObject jsonobject;
+                String completedate,date,hour;
+                for (int i = array.length()-1; i>-1; i--) {
+                    jsonobject = array.getJSONObject(i);
+                    message = new Message();
+                    message.setContent(jsonobject.getString("text"));
+                    if (jsonobject.getString("user").equals("null")){
+                        message.setUser(true);
+                    }else{
+                        message.setUser(false);
+                    }
+                    message.setSeen(jsonobject.getBoolean("seen"));
+                    completedate = jsonobject.getString("dateCreated");
+                    date = completedate.split("T")[0];
+                    hour = completedate.split("T")[1].substring(0,4);
+                    message.setDate(DateUtils.dateToString(DateUtils.wsStringDateToDefaultDate(date),DateUtils.DEFAULT_FORMAT)+" "+hour);
+                    messages.add(message);
+                }
+            }
+        } catch (JSONException ex) {
+            LogBP.printStackTrace(ex);
+        } catch (ParseException ex) {
+            LogBP.printStackTrace(ex);
+        }
+
+        return messages;
+
+    }
+
 
 
     private void showApiPressuresSendError(final Context context){

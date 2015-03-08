@@ -62,7 +62,7 @@ public class ChatMessageAdapter extends BaseAdapter {
     }else{
         holder = (ViewHolder) convertView.getTag();
     }
-         holder.message.setText(message.getMessage());
+         holder.message.setText(message.getContent());
         if (message.isUser()) {
             RelativeLayout.LayoutParams paramsparent =  new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
             paramsparent.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
