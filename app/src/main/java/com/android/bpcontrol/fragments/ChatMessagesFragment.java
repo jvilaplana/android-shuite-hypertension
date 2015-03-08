@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ListView;
 
+import com.android.bpcontrol.HomeActivity;
 import com.android.bpcontrol.R;
 import com.android.bpcontrol.adapters.ChatMessageAdapter;
 import com.android.bpcontrol.customviews.BPEditText;
@@ -111,11 +112,8 @@ public class ChatMessagesFragment extends Fragment{
                     Message newmessage = new Message();
                     newmessage.setUser(true);
                     newmessage.setContent(editText.getText().toString());
-                    messages.add(newmessage);
-                    editText.setText(null);
-                    adapter.setList(messages);
-                    adapter.notifyDataSetChanged();
-                    list.setSelection(messages.size()-1);
+                    new sendMessage().execute(newmessage);
+
                 }
             }
         });
@@ -126,6 +124,11 @@ public class ChatMessagesFragment extends Fragment{
     private class getMessages extends AsyncTask<Void,List<Message>,Void> {
 
 
+        @Override
+        public void onPreExecute(){
+
+            ((HomeActivity)getActivity()).showProgressDialog();
+        }
         @Override
         public Void doInBackground(Void... params) {
 
@@ -141,10 +144,47 @@ public class ChatMessagesFragment extends Fragment{
         public void onProgressUpdate(List<Message>... result){
 
             messages = result[0];
-            adapter = new ChatMessageAdapter(getActivity(),messages);
-            list.setAdapter(adapter);
-            list.setSelection(messages.size()-1);
+            configureView();
+            ((HomeActivity)getActivity()).dissmissProgressDialog();
 
         }
+    }
+
+    private class sendMessage extends AsyncTask<Message,List<Message>,Void> {
+
+
+        @Override
+        public void onPreExecute(){
+
+            ((HomeActivity)getActivity()).showProgressDialog("Enviando");
+        }
+        @Override
+        public Void doInBackground(Message... params) {
+            Message msg = params[0];
+            WSManager.getInstance().sendMessage(getActivity(),params[0]);
+            return null;
+        }
+        @Override
+        public void onProgressUpdate(List<Message>... result){
+
+            //messages = result[0];
+            configureViewSendMessage();
+            ((HomeActivity)getActivity()).dissmissProgressDialog();
+
+        }
+    }
+
+    private void configureView(){
+
+        adapter = new ChatMessageAdapter(getActivity(),messages);
+        list.setAdapter(adapter);
+        list.setSelection(messages.size()-1);
+    }
+
+    private void configureViewSendMessage(){
+        editText.setText(null);
+        adapter.setList(messages);
+        adapter.notifyDataSetChanged();
+        list.setSelection(messages.size()-1);
     }
 }

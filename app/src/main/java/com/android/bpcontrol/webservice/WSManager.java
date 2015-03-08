@@ -25,10 +25,13 @@ import com.android.bpcontrol.model.YoutubeVideo;
 import com.android.bpcontrol.utils.DateUtils;
 import com.android.bpcontrol.utils.LogBP;
 import com.android.volley.DefaultRetryPolicy;
+import com.android.volley.NetworkResponse;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.JsonRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.android.volley.Request;
@@ -44,6 +47,8 @@ import java.util.EventListener;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import javax.xml.transform.ErrorListener;
 
 public class WSManager {
 
@@ -65,6 +70,12 @@ public class WSManager {
     }
 
     public static interface BPcontrolApiJsonCallback extends EventListener {
+
+        public void onSuccess(JSONObject response);
+        public void onFailure(Exception e);
+    }
+
+    public static interface BPcontrolApiJsonArrayCallback extends EventListener {
 
         public void onSuccess(JSONObject response);
         public void onFailure(Exception e);
@@ -124,7 +135,7 @@ public class WSManager {
     }
 
 
-    private void webservicePressuresPost(final Context context, final String url,final Map<String,String> params,
+    private void webservicePostPressuresWithCallback(final Context context, final String url,final Map<String,String> params,
                                             final Map<String,String> headers,final BPcontrolApiJsonCallback callback ){
 
         if (queue == null) queue = Volley.newRequestQueue(context);
@@ -155,6 +166,43 @@ public class WSManager {
 
                return headers;
            }
+        };
+
+        queue.add(request);
+
+    }
+
+    private void webservicePostMessageWithCallback(final Context context, final String url,final Map<String,String> params,
+                                            final Map<String,String> headers,final BPcontrolApiJsonArrayCallback callback ){
+
+        if (queue == null) queue = Volley.newRequestQueue(context);
+
+        JSONObject JSONobject = new JSONObject(params);
+        try {
+            JSONobject.put("uuid",User.getInstance().getUUID());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST,url,JSONobject,new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject result) {
+                LogBP.writelog("POST","Respponse to "+url+" response: "+result.toString());
+                callback.onSuccess(result);
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError volleyError) {
+                LogBP.writelog("POST","Error in call " + url);
+                callback.onFailure(volleyError);
+            }
+        }){
+
+            @Override
+            public Map<String,String> getHeaders(){
+
+                return headers;
+            }
         };
 
         queue.add(request);
@@ -291,7 +339,7 @@ public class WSManager {
         Map<String,String> params = preparePostPressures(morning,afternoon);
         Map<String,String> headers = new HashMap<>();
         headers.put("Content-Type", "application/json");
-       webservicePressuresPost(context,url,params,headers, new BPcontrolApiJsonCallback() {
+       webservicePostPressuresWithCallback(context, url, params, headers, new BPcontrolApiJsonCallback() {
            @Override
            public void onSuccess(JSONObject response) {
 
@@ -301,8 +349,8 @@ public class WSManager {
 
            @Override
            public void onFailure(Exception e) {
-                    LogBP.printStackTrace(e);
-                    showApiPressuresSendError(context);
+               LogBP.printStackTrace(e);
+               showApiPressuresSendError(context);
            }
        });
 
@@ -494,7 +542,28 @@ public class WSManager {
 
     }
 
+    public void sendMessage(final Context context,Message message){
 
+        final String url=URLBASE+"/hypertensionPatientChat/restSave";
+        Map<String,String> params = new HashMap<>();
+        params.put("text",message.getContent());
+        Map<String,String> headers = new HashMap<>();
+        headers.put("Content-Type", "application/json");
+        webservicePostMessageWithCallback(context,url,params,headers, new BPcontrolApiJsonArrayCallback() {
+            @Override
+            public void onSuccess(JSONObject response) {
+
+                List<Message> messages = new ArrayList<Message>();
+
+            }
+
+            @Override
+            public void onFailure(Exception e) {
+                LogBP.printStackTrace(e);
+                showApiPressuresSendError(context);
+            }
+        });
+    }
 
     private void showApiPressuresSendError(final Context context){
 
@@ -515,5 +584,17 @@ public class WSManager {
         dialog.show();
 
     }
+
+//    private class JSONArrayCustomRequest extends JsonRequest<JSONArray>{
+//
+//        public JsonArrayRequest(String url,JSONObject object, Response.Listener<JSONArray> listener, ErrorListener errorListener) {
+//            super(Method.GET, url, , listener, errorListener);
+//        }
+//
+//        @Override
+//        protected Response<JSONArray> parseNetworkResponse(NetworkResponse response) {
+//            return null;
+//        }
+//    }
 
 }

@@ -72,6 +72,8 @@ public class HomeActivity extends BPcontrolMasterActivity{
         frameLayout =(FrameLayout) findViewById(R.id.menu_frame);
         viewpager = (LinearLayout) findViewById(R.id.viewpager);
 
+        headertext = ((RobotoTextView) getActionBarView().findViewById(R.id.textviewbpcontrol));
+
         LateralMenuController.getInstance().initItems(this);
 
         if (isNetworkAvailable()){
@@ -134,8 +136,6 @@ public class HomeActivity extends BPcontrolMasterActivity{
     }
 
     private void configureActionBar(){
-
-        headertext = ((RobotoTextView) getActionBarView().findViewById(R.id.textviewbpcontrol));
 
         final ImageButton menu = (ImageButton) getActionBarView().findViewById(R.id.actionBarMenu);
         menu.setOnClickListener(new View.OnClickListener() {
@@ -349,7 +349,7 @@ public class HomeActivity extends BPcontrolMasterActivity{
             default:
                     HomeFragment homeFragment = HomeFragment.newInstance();
                     loadFragment(homeFragment, false, false);
-                     headertext.setText(getResources().getString(R.string.principalmenutext).toUpperCase());
+                    headertext.setText(getResources().getString(R.string.principalmenutext).toUpperCase());
                     break;
         }
 
