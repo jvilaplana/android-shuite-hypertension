@@ -1,5 +1,7 @@
 package com.android.bpcontrol.fragments;
 
+import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -8,14 +10,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ListView;
 
 import com.android.bpcontrol.HomeActivity;
 import com.android.bpcontrol.R;
 import com.android.bpcontrol.adapters.ChatMessageAdapter;
-import com.android.bpcontrol.customviews.BPEditText;
 import com.android.bpcontrol.model.Message;
+import com.android.bpcontrol.test.DatabasePlotMock;
 import com.android.bpcontrol.webservice.WSManager;
+import com.android.bpcontrol.customviews.BPEditText;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,9 +38,15 @@ public class ChatMessagesFragment extends Fragment{
     private List<Message> messages;
     private  ChatMessageAdapter adapter;
 
-    public static ChatMessagesFragment getNewInstace(){
+    private ImageButton secondbarbutton;
 
-        ChatMessagesFragment chatMessagesFragment = new ChatMessagesFragment();
+    public static ChatMessagesFragment getNewInstace(final Context context){
+
+        final ImageButton barbutton =((HomeActivity)context).getSecondActionBarButton();
+        barbutton.setImageResource(R.drawable.updateselector);
+        barbutton.setVisibility(View.VISIBLE);
+        barbutton.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
+        ChatMessagesFragment chatMessagesFragment = new ChatMessagesFragment().setSecondBarButton(barbutton);
         return chatMessagesFragment;
     }
 
@@ -54,55 +65,7 @@ public class ChatMessagesFragment extends Fragment{
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-
-//       messages= new ArrayList<>();
-//
-//        Message ms1 = new Message();
-//        ms1.setUser(true);
-//        ms1.setContent("Hola, que tal?");
-//        Message ms2 = new Message();
-//        ms2.setUser(false);
-//        ms2.setContent("Bien, y tu?");
-//        Message ms3 = new Message();
-//        ms3.setUser(false);
-//        ms3.setContent("Como ha ido el verano?");
-//        Message ms4 = new Message();
-//        ms4.setUser(true);
-//        ms4.setContent("Bien bien, y a ti que tal?");
-//        Message ms5 = new Message();
-//        ms5.setContent("Guay tio");
-//        ms5.setUser(false);
-//
-//        messages.add(ms1);
-//        messages.add(ms2);
-//        messages.add(ms3);
-//        messages.add(ms4);
-//        messages.add(ms5);
-//
-//
-//        Message ms6 = new Message();
-//        ms6.setUser(true);
-//        ms6.setContent("Hola, que tal?");
-//        Message ms7 = new Message();
-//        ms7.setUser(false);
-//        ms7.setContent("Bien, y tu?");
-//        Message ms8 = new Message();
-//        ms8.setUser(false);
-//        ms8.setContent("Como ha ido el verano?");
-//        Message ms9 = new Message();
-//        ms9.setUser(true);
-//        ms9.setContent("Bien bien, y a ti que tal?");
-//        Message ms10 = new Message();
-//        ms10.setContent("Guay tio");
-//        ms10.setUser(false);
-//
-//        messages.add(ms6);
-//        messages.add(ms7);
-//        messages.add(ms8);
-//        messages.add(ms9);
-//        messages.add(ms10);
-
-
+       // messages = DatabasePlotMock.getFakeMessages();
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -115,6 +78,13 @@ public class ChatMessagesFragment extends Fragment{
                     new sendMessage().execute(newmessage);
 
                 }
+            }
+        });
+
+        secondbarbutton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                    new getMessages().execute();
             }
         });
 
@@ -156,7 +126,7 @@ public class ChatMessagesFragment extends Fragment{
         @Override
         public void onPreExecute(){
 
-            ((HomeActivity)getActivity()).showProgressDialog("Enviando");
+            ((HomeActivity)getActivity()).showProgressDialog();
         }
         @Override
         public Void doInBackground(Message... params) {
@@ -170,7 +140,6 @@ public class ChatMessagesFragment extends Fragment{
             //messages = result[0];
             configureViewSendMessage();
             ((HomeActivity)getActivity()).dissmissProgressDialog();
-
         }
     }
 
@@ -186,5 +155,10 @@ public class ChatMessagesFragment extends Fragment{
         adapter.setList(messages);
         adapter.notifyDataSetChanged();
         list.setSelection(messages.size()-1);
+    }
+    public ChatMessagesFragment setSecondBarButton(ImageButton button){
+
+        this.secondbarbutton = button;
+        return this;
     }
 }

@@ -1,2 +1,2 @@
-include ':app', ':MPChartLib'
+include ':app', ':MPChartLib', ':GooglePlayServices'
 include ':pageviewindicator'

@@ -302,7 +302,7 @@ public class HomeActivity extends BPcontrolMasterActivity{
                     break;
             case MESSAGES:
                     headertext.setText(getResources().getString(R.string.messages).toUpperCase());
-                    ChatMessagesFragment messagesFragment = ChatMessagesFragment.getNewInstace();
+                    ChatMessagesFragment messagesFragment = ChatMessagesFragment.getNewInstace(this);
                     loadFragment(messagesFragment,false,false);
                     break;
             case VIDEOS:

@@ -24,11 +24,13 @@ import com.android.bpcontrol.model.User;
 import com.android.bpcontrol.model.YoutubeVideo;
 import com.android.bpcontrol.utils.DateUtils;
 import com.android.bpcontrol.utils.LogBP;
+import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.NetworkResponse;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.HttpHeaderParser;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.JsonRequest;
@@ -40,6 +42,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.UnsupportedEncodingException;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
@@ -48,7 +51,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.xml.transform.ErrorListener;
 
 public class WSManager {
 
@@ -77,7 +79,7 @@ public class WSManager {
 
     public static interface BPcontrolApiJsonArrayCallback extends EventListener {
 
-        public void onSuccess(JSONObject response);
+        public void onSuccess(JSONArray response);
         public void onFailure(Exception e);
     }
     public static interface SendPhoneNumber extends EventListener{
@@ -184,9 +186,11 @@ public class WSManager {
             e.printStackTrace();
         }
 
-        JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST,url,JSONobject,new Response.Listener<JSONObject>() {
+        JsonRequest request = new JsonArrayCustomRequest(Request.Method.POST,url,JSONobject,new Response.Listener<JSONArray>(){
+
+
             @Override
-            public void onResponse(JSONObject result) {
+            public void onResponse(JSONArray result) {
                 LogBP.writelog("POST","Respponse to "+url+" response: "+result.toString());
                 callback.onSuccess(result);
             }
@@ -196,14 +200,7 @@ public class WSManager {
                 LogBP.writelog("POST","Error in call " + url);
                 callback.onFailure(volleyError);
             }
-        }){
-
-            @Override
-            public Map<String,String> getHeaders(){
-
-                return headers;
-            }
-        };
+        });
 
         queue.add(request);
 
@@ -551,9 +548,9 @@ public class WSManager {
         headers.put("Content-Type", "application/json");
         webservicePostMessageWithCallback(context,url,params,headers, new BPcontrolApiJsonArrayCallback() {
             @Override
-            public void onSuccess(JSONObject response) {
+            public void onSuccess(JSONArray response) {
 
-                List<Message> messages = new ArrayList<Message>();
+                LogBP.writelog("SEND MESSAGE", "Message receive sendMessage()");
 
             }
 
@@ -585,16 +582,38 @@ public class WSManager {
 
     }
 
-//    private class JSONArrayCustomRequest extends JsonRequest<JSONArray>{
-//
-//        public JsonArrayRequest(String url,JSONObject object, Response.Listener<JSONArray> listener, ErrorListener errorListener) {
-//            super(Method.GET, url, , listener, errorListener);
-//        }
-//
-//        @Override
-//        protected Response<JSONArray> parseNetworkResponse(NetworkResponse response) {
-//            return null;
-//        }
-//    }
+    private class JsonArrayCustomRequest extends JsonRequest{
+
+        public JsonArrayCustomRequest(int post, String url, JSONObject objectrequest, Response.Listener<JSONArray> listener, Response.ErrorListener error) {
+            super(Method.POST, url,objectrequest == null ? null : objectrequest.toString() ,listener, error);
+
+        }
+
+        @Override
+        protected Response<JSONArray> parseNetworkResponse(NetworkResponse response) {
+            String json = null;
+            try {
+                json = new String(
+                        response.data, HttpHeaderParser.parseCharset(response.headers));
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }
+            // The WS returns JSONArray with all chat messages,in this moment, it is not necessary for application.
+            return null;
+        }
+
+        @Override
+        public Map getHeaders() throws AuthFailureError {
+            Map headers = new HashMap();
+            headers.put("Content-Type", "application/json");
+            return headers;
+        }
+
+        @Override
+        public int compareTo(Object another) {
+
+            return 0;
+        }
+    }
 
 }

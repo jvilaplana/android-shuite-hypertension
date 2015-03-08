@@ -12,7 +12,4 @@
         <attr name="circularImageViewStyle" format="reference"></attr>
     </declare-styleable>
 
-    <declare-styleable name="XYPlot">
-        <attr name="androidplot.title" format="string"/>
-    </declare-styleable>
 </resources>
