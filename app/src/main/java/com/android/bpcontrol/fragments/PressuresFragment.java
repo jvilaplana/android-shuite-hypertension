@@ -124,7 +124,7 @@ public class PressuresFragment extends Fragment
             public void onClick(View v) {
                 String lastupdatedate = getLastDateSent();
                 try {
-                    if (!DateUtils.isDateEqualsToTodayDate(lastupdatedate)) {
+                   // if (!DateUtils.isDateEqualsToTodayDate(lastupdatedate)) {
 
                         if (isCorrectAfternoonMeassurament() && isCorrectMorningMeassurament()) {
 
@@ -134,9 +134,9 @@ public class PressuresFragment extends Fragment
 
                             showDialog(getResources().getString(R.string.messagesend));
                         }
-                    }else{
-                        showDialogPressuresIntroduced();
-                    }
+                   // }else{
+                     //   showDialogPressuresIntroduced();
+                   // }
 
                 } catch (Exception ex) {
                     LogBP.printStackTrace(ex);

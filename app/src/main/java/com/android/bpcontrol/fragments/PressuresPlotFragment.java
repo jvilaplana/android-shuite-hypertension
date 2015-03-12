@@ -86,6 +86,7 @@ public class PressuresPlotFragment extends Fragment {
 
         final ImageButton barbutton =((HomeActivity)context).getSecondActionBarButton();
         barbutton.setVisibility(View.VISIBLE);
+        barbutton.setImageResource(R.drawable.secondbuttonbarselector);
         PressuresPlotFragment  pressuresPlotFragment = new PressuresPlotFragment().setBarButton(barbutton);
 
         return pressuresPlotFragment;

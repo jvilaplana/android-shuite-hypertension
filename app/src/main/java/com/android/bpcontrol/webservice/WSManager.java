@@ -339,7 +339,7 @@ public class WSManager {
        webservicePostPressuresWithCallback(context, url, params, headers, new BPcontrolApiJsonCallback() {
            @Override
            public void onSuccess(JSONObject response) {
-
+                String response1 = response.toString();
                parseSendResponse(response, callback);
 
            }

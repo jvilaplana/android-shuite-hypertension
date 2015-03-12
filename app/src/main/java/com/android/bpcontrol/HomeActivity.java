@@ -59,6 +59,8 @@ public class HomeActivity extends BPcontrolMasterActivity{
 
     private ImageButton secondactionbarbutton;
 
+    public static final int YOUTUBEACTIVITY=288;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -278,6 +280,13 @@ public class HomeActivity extends BPcontrolMasterActivity{
                 .findViewById(R.id.secondActionBarButton);
         secondactionbarbutton.setVisibility(View.INVISIBLE);
 
+        if (viewpager.getVisibility() == View.VISIBLE){
+
+            viewpager.setVisibility(View.GONE);
+            frameLayout.setVisibility(View.VISIBLE);
+
+        }
+
         switch (type){
             case MYPERFIL:
                     headertext.setText(getResources().getString(R.string.perfilheaderbar).toUpperCase());
@@ -311,11 +320,9 @@ public class HomeActivity extends BPcontrolMasterActivity{
                     Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.menu_frame);
                     getSupportFragmentManager().beginTransaction().remove(fragment).commit();
 
-                    loadFragment(HomeFragment.newInstance(),false,false);
-
                 }
-                startActivity(new Intent(this, YoutubeActivity.class));
-                frameLayout.setVisibility(View.VISIBLE);
+                startActivityForResult(new Intent(this, YoutubeActivity.class), YOUTUBEACTIVITY);
+
                 break;
             case HEALTHCENTERS:
                     break;
@@ -430,9 +437,7 @@ public class HomeActivity extends BPcontrolMasterActivity{
             return;
         }
 
-        Fragment fragment = new HomeFragment();
-        headertext.setText(getResources().getString(R.string.principalmenutext).toUpperCase());
-        loadFragment(fragment, true, false);
+        selectMenuItem(LateralMenuController.MenuSections.HOME);
 
     }
 
@@ -457,6 +462,24 @@ public class HomeActivity extends BPcontrolMasterActivity{
     public void connectToApp(final String uri){
 
         startActivity(new Intent(Intent.ACTION_VIEW,Uri.parse(uri)));
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode,resultCode,data);
+        if (requestCode == YOUTUBEACTIVITY) {
+
+            if (resultCode == RESULT_OK) {
+                frameLayout.setVisibility(View.VISIBLE);
+                selectMenuItem(LateralMenuController.MenuSections.HOME);
+
+            }
+        }
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+
     }
 
     @Override
