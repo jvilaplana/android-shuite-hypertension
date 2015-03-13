@@ -524,7 +524,7 @@ public class WSManager {
                     message.setSeen(jsonobject.getBoolean("seen"));
                     completedate = jsonobject.getString("dateCreated");
                     date = completedate.split("T")[0];
-                    hour = completedate.split("T")[1].substring(0,4);
+                    hour = completedate.split("T")[1].substring(0,5);
                     message.setDate(DateUtils.dateToString(DateUtils.wsStringDateToDefaultDate(date),DateUtils.DEFAULT_FORMAT)+" "+hour);
                     messages.add(message);
                 }

@@ -82,7 +82,6 @@ public class ChatMessageAdapter extends BaseAdapter {
             LinearLayout.LayoutParams paramsdate = (LinearLayout.LayoutParams) holder.date.getLayoutParams();
             paramsdate.gravity= Gravity.RIGHT;
             holder.date.setLayoutParams(paramsdate);
-            holder.date.setGravity(Gravity.BOTTOM);
         } else {
             RelativeLayout.LayoutParams paramsparent = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
             paramsparent.setMargins((int) context.getResources().getDimension(R.dimen.chatparentmargin),0,(int) context.getResources().getDimension(R.dimen.chatparentmarginbig),0);
@@ -100,8 +99,10 @@ public class ChatMessageAdapter extends BaseAdapter {
             LinearLayout.LayoutParams paramsdate = (LinearLayout.LayoutParams) holder.date.getLayoutParams();
             paramsdate.gravity= Gravity.LEFT;
             holder.date.setLayoutParams(paramsdate);
-            holder.date.setGravity(Gravity.BOTTOM);
+
         }
+        holder.date.setGravity(Gravity.BOTTOM);
+        holder.date.setText(message.getDate());
         return convertView;
     }
 

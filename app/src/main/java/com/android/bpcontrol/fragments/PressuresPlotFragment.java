@@ -523,7 +523,7 @@ public class PressuresPlotFragment extends Fragment {
                                 }
                                 dboutdated.clear();
                                 dboutdated.addAll(pressures);
-                                dboutdatedmanager.sendEmptyMessage(0);
+                            if (dboutdatedmanager!=null)   dboutdatedmanager.sendEmptyMessage(0);
                             }
                             DataStore.getInstance().setPressures(pressures);
                             publishProgress();
