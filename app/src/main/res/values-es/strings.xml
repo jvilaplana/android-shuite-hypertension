@@ -177,4 +177,13 @@
     <string name="choosefinaldate">Escoja la fecha final</string>
     <string name="buttondialogaccept">Aceptar</string>
     <string name="writemessage">Escribe un mensaje</string>
+
+    <!--Health centers-->
+
+    <string name="locationalert">Location alert</string>
+    <string name="activategps">La aplicación necesita tener el GPS activdo para los mapas y localización</string>
+    <string name="canceldialogloc">Cancelar</string>
+    <string name="enabledialogloc">Activar</string>
+
+
 </resources>

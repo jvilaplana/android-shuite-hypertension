@@ -170,6 +170,12 @@
     <string name="writemessage">Write a message</string>
     <string name="title_activity_maps">Map</string>
 
+    <!--Health centers-->
+
+    <string name="activategps">App needs GPS enable for maps and location</string>
+    <string name="canceldialogloc">Cancel</string>
+    <string name="Enable">Activate</string>
+
 
 
 

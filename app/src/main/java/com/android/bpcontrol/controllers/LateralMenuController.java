@@ -24,6 +24,7 @@ public class LateralMenuController{
         MESSAGES,
         VIDEOS,
         HEALTHCENTERS,
+        HEALTHCENTERS_SECONDLEVEL,
         CONTACT,
         HELP,
         ATTRIBUTIONS,

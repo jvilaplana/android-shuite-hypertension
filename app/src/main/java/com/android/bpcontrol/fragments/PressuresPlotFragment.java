@@ -31,7 +31,7 @@ import com.android.bpcontrol.databases.DataStore;
 import com.android.bpcontrol.model.ChartItem;
 import com.android.bpcontrol.model.Pressure;
 import com.android.bpcontrol.model.User;
-import com.android.bpcontrol.test.DatabasePlotMock;
+import com.android.bpcontrol.test.DatabaseAndWSMock;
 import com.android.bpcontrol.utils.DateUtils;
 import com.android.bpcontrol.utils.LogBP;
 import com.android.bpcontrol.utils.SharedPreferenceConstants;
@@ -272,7 +272,7 @@ public class PressuresPlotFragment extends Fragment {
                 switch (item) {
 
                     case 0:
-                        final List<Pressure> pressuresonemonth = DatabasePlotMock.getFakePressures(PressuresPlot.ONE_MONTH);
+                        final List<Pressure> pressuresonemonth = DatabaseAndWSMock.getFakePressures(PressuresPlot.ONE_MONTH);
                         graphicChart(pressuresonemonth, PressuresPlot.ONE_MONTH);
 //                        dates = initAndEndDate(30);
 //                        try {
@@ -285,7 +285,7 @@ public class PressuresPlotFragment extends Fragment {
 //                        }
                         break;
                     case 1:
-                        final List<Pressure> pressuresthreemonth = DatabasePlotMock.getFakePressures(PressuresPlot.THREE_MONTH);
+                        final List<Pressure> pressuresthreemonth = DatabaseAndWSMock.getFakePressures(PressuresPlot.THREE_MONTH);
                         graphicChart(pressuresthreemonth, PressuresPlot.THREE_MONTH);
 //                        dates = initAndEndDate(90);
 //                        try {
@@ -299,7 +299,7 @@ public class PressuresPlotFragment extends Fragment {
                         //show three month graphic
                         break;
                     case 2:
-                        final List<Pressure> pressuressixmonth = DatabasePlotMock.getFakePressures(PressuresPlot.SIX_MONTH);
+                        final List<Pressure> pressuressixmonth = DatabaseAndWSMock.getFakePressures(PressuresPlot.SIX_MONTH);
                         graphicChart(pressuressixmonth, PressuresPlot.SIX_MONTH);
 //                        dates = initAndEndDate(180);
 //                        try {
@@ -313,7 +313,7 @@ public class PressuresPlotFragment extends Fragment {
                         //show siz month graphic
                         break;
                     case 3:
-                        final List<Pressure> pressurescustom = DatabasePlotMock.getFakePressures(PressuresPlot.CUSTOM);
+                        final List<Pressure> pressurescustom = DatabaseAndWSMock.getFakePressures(PressuresPlot.CUSTOM);
                         LayoutInflater inflater =(LayoutInflater)getActivity()
                                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                         final Dialog datedialog = new Dialog(getActivity());

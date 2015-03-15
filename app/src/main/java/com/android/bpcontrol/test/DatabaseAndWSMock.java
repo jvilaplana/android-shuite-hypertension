@@ -1,7 +1,11 @@
 package com.android.bpcontrol.test;
 
+import android.location.Location;
+import android.location.LocationManager;
+
 import com.android.bpcontrol.fragments.PressuresFragment;
 import com.android.bpcontrol.fragments.PressuresPlotFragment;
+import com.android.bpcontrol.model.Center;
 import com.android.bpcontrol.model.Message;
 import com.android.bpcontrol.model.Pressure;
 import com.android.bpcontrol.utils.DateUtils;
@@ -16,7 +20,7 @@ import java.util.Random;
 /**
  * Created by Adrian on 28/02/2015.
  */
-public class DatabasePlotMock {
+public class DatabaseAndWSMock {
 
 
 
@@ -121,6 +125,54 @@ public class DatabasePlotMock {
         messages.add(ms10);
 
         return messages;
+    }
+
+    public static List<Center> getFakeCenters(){
+
+        List<Center> centers = new ArrayList<Center>();
+
+
+
+        Center center = new Center();
+        center.setAddress("Carrer Cos-Gayón, 6");
+        center.setName("Mutua Universal Lleida");
+        center.setProvince("Lleida");
+        center.setCity("Lleida");
+        Location location1 =new Location(LocationManager.NETWORK_PROVIDER);
+        location1.setLatitude(41.6175899);
+        location1.setLongitude(0.6200145999999904);
+        center.setLocation(location1);
+        center.setTlf("973 26 20 11");
+
+
+        Center center1 = new Center();
+        center1.setAddress("Carrer de Vic, 5");
+        center1.setName("Sanitas Residencial Ilerda");
+        center.setProvince("Lleida");
+        Location location2 =new Location(LocationManager.NETWORK_PROVIDER);
+        location2.setLatitude(40.6175899);
+        location2.setLongitude(0.6200145999999904);
+        center.setLocation(location2);
+        center1.setCity("Lleida");
+        center1.setTlf("973 22 85 50");
+
+
+        Center center2 = new Center();
+        center2.setAddress("Av. de l’Alcalde Rovira Roure, 44");
+        center2.setName("CAP Santa Maria ");
+        center.setProvince("Lleida");
+        Location location3 =new Location(LocationManager.NETWORK_PROVIDER);
+        location3.setLatitude(40.6175899);
+        location3.setLongitude(0.6200145999999904);
+        center.setLocation(location3);
+        center2.setCity("Lleida");
+        center2.setTlf("973727396");
+
+        centers.add(center);
+        centers.add(center1);
+        centers.add(center2);
+
+        return centers;
     }
 
 }

@@ -1,7 +1,6 @@
 package com.android.bpcontrol.fragments;
 
 import android.content.Context;
-import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -18,11 +17,9 @@ import com.android.bpcontrol.HomeActivity;
 import com.android.bpcontrol.R;
 import com.android.bpcontrol.adapters.ChatMessageAdapter;
 import com.android.bpcontrol.model.Message;
-import com.android.bpcontrol.test.DatabasePlotMock;
 import com.android.bpcontrol.webservice.WSManager;
 import com.android.bpcontrol.customviews.BPEditText;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**

@@ -1,12 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/graymenucell">
 
 <ListView
     android:id="@+id/listcenters"
+    android:background="@color/graymenucell"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:divider="@color/grayprofile"
+    android:dividerHeight="1dp"
     android:scrollbars="none"/>
 
 

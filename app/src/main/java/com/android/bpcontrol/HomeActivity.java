@@ -7,6 +7,8 @@ import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
+import android.location.Location;
+import android.location.LocationListener;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -28,6 +30,7 @@ import com.android.bpcontrol.application.BPcontrolMasterActivity;
 import com.android.bpcontrol.controllers.HomeFragmentManager;
 import com.android.bpcontrol.controllers.LateralMenuController;
 import com.android.bpcontrol.customviews.RobotoTextView;
+import com.android.bpcontrol.fragments.CentersListFragment;
 import com.android.bpcontrol.fragments.ChatMessagesFragment;
 import com.android.bpcontrol.fragments.InitialFragment;
 import com.android.bpcontrol.fragments.PressuresHistoryFragment;
@@ -44,7 +47,9 @@ import com.viewpagerindicator.CirclePageIndicator;
 /**
  * Created by Adrian Carrera on 22/1/15.
  */
-public class HomeActivity extends BPcontrolMasterActivity{
+
+public class HomeActivity extends BPcontrolMasterActivity
+                            implements LocationListener{
 
     private DrawerLayout dwlayoutmenu;
     private LinearLayout menulayout;
@@ -59,7 +64,11 @@ public class HomeActivity extends BPcontrolMasterActivity{
 
     private ImageButton secondactionbarbutton;
 
+    private Location currentLocation;
+
     public static final int YOUTUBEACTIVITY=288;
+
+
 
 
     @Override
@@ -325,7 +334,10 @@ public class HomeActivity extends BPcontrolMasterActivity{
 
                 break;
             case HEALTHCENTERS:
-                    break;
+                headertext.setText(getResources().getString(R.string.menusection_centers).toUpperCase());
+                CentersListFragment centersListFragment = CentersListFragment.getNewInstance();
+                loadFragment(centersListFragment,false,false);
+                break;
             case CONTACT:
                     frameLayout.setVisibility(View.GONE);
                     viewpager.setVisibility(View.VISIBLE);
@@ -346,13 +358,14 @@ public class HomeActivity extends BPcontrolMasterActivity{
                     }
                     break;
             case TWITTER:
-                    connectToSocialNetwork("https://twitter.com/elgourmet");
+                    connectToSocialNetwork("https://twitter.com/");
                     break;
             case GOOGLEPLUS:
-                    connectToSocialNetwork("https://plus.google.com/+elgourmet/posts");
+                    connectToSocialNetwork("https://plus.google.com/");
                     break;
             case ATTRIBUTIONS:
                     break;
+
             default:
                     HomeFragment homeFragment = HomeFragment.newInstance();
                     loadFragment(homeFragment, false, false);
@@ -516,6 +529,27 @@ public class HomeActivity extends BPcontrolMasterActivity{
 
 
    }
+
+    @Override
+    public void onLocationChanged(Location location) {
+        this.currentLocation = location;
+    }
+
+    @Override
+    public void onStatusChanged(String provider, int status, Bundle extras) {
+
+    }
+
+    @Override
+    public void onProviderEnabled(String provider) {
+
+    }
+
+    @Override
+    public void onProviderDisabled(String provider) {
+
+    }
+
     private class LateralMenuListeners implements DrawerLayout.DrawerListener{
 
        @Override
@@ -540,5 +574,9 @@ public class HomeActivity extends BPcontrolMasterActivity{
         return secondactionbarbutton;
 
 
+    }
+
+    public Location getCurrentLocation(){
+        return currentLocation;
     }
     }

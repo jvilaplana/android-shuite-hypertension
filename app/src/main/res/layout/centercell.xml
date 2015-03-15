@@ -4,21 +4,27 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
+
     <com.android.bpcontrol.customviews.RobotoTextView
         android:id="@+id/centername"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="15sp"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="10dp"
+        android:textSize="20sp"
         android:tag="RobotoBold"
         android:textColor="@color/menutext"
         />
 
     <com.android.bpcontrol.customviews.RobotoTextView
-        android:id="@+id/centeraddress"
+        android:id="@+id/centercity"
         android:layout_width="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="5dp"
+        android:layout_marginLeft="10dp"
         android:layout_height="wrap_content"
         android:textColor="@color/menutext"
-        android:textSize="13sp"
+        android:textSize="15sp"
         />
 
 </LinearLayout>
