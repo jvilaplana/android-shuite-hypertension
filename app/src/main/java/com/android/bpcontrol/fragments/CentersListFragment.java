@@ -1,5 +1,6 @@
 package com.android.bpcontrol.fragments;
 
+import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -14,6 +15,14 @@ import com.android.bpcontrol.R;
  */
 public class CentersListFragment extends Fragment {
 
+    public static enum CentersView{
+
+       CENTERS_LIST,
+       CENTERS_DETAIL
+    }
+
+    private SensorManager manager;
+
 
     public static CentersListFragment getNewInstance(){
 
@@ -25,6 +34,21 @@ public class CentersListFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
         return inflater.inflate(R.layout.centerslistfragmentlayout, null);
+
+
+    }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+
+
+
+    }
+
+    @Override
+    public void onPause(){
+        super.onPause();
 
     }
 
