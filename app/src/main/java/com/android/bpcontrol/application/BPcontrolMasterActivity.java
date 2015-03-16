@@ -37,7 +37,7 @@ public class BPcontrolMasterActivity extends FragmentActivity {
                 progressDialog = null;
             }
         progressDialog = new BPcontrolProgressDialog(this);
-        progressDialog.setCancelable(false);
+       // progressDialog.setCancelable(false);
         progressDialog.setMessage(text);
         progressDialog.show();
 

@@ -1,29 +1,37 @@
 package com.android.bpcontrol;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
+import android.hardware.SensorManager;
+import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
+import android.location.LocationManager;
+import android.location.LocationProvider;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
+import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.android.bpcontrol.adapters.ViewPagerContactAdapter;
 import com.android.bpcontrol.application.BPcontrolMasterActivity;
@@ -40,6 +48,7 @@ import com.android.bpcontrol.fragments.PressuresFragment;
 import com.android.bpcontrol.fragments.PressuresPlotFragment;
 import com.android.bpcontrol.model.MenuItem;
 import com.android.bpcontrol.model.User;
+import com.android.bpcontrol.utils.LogBP;
 import com.android.bpcontrol.utils.SharedPreferenceConstants;
 import com.android.bpcontrol.webservice.WSManager;
 import com.viewpagerindicator.CirclePageIndicator;
@@ -67,6 +76,12 @@ public class HomeActivity extends BPcontrolMasterActivity
     private Location currentLocation;
 
     public static final int YOUTUBEACTIVITY=288;
+    private final int SETTINGS_ENABLED = 1;
+
+
+    private LocationManager manager;
+    private boolean gpsregister = false;
+    private boolean networkregister = false;
 
 
 
@@ -122,6 +137,10 @@ public class HomeActivity extends BPcontrolMasterActivity
     @Override
     public void onResume(){
         super.onResume();
+
+        manager = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
+
+        locationConnection();
 
     }
     @Override
@@ -336,6 +355,7 @@ public class HomeActivity extends BPcontrolMasterActivity
             case HEALTHCENTERS:
                 headertext.setText(getResources().getString(R.string.menusection_centers).toUpperCase());
                 CentersListFragment centersListFragment = CentersListFragment.getNewInstance();
+                checkIfLocationFound();
                 loadFragment(centersListFragment,false,false);
                 break;
             case CONTACT:
@@ -393,6 +413,7 @@ public class HomeActivity extends BPcontrolMasterActivity
                         R.anim.fade_out);
             }
         }
+
         if (fragment instanceof HomeFragment){
             while (HomeFragmentManager.getInstance(this).getHomeFragmentStack().size() > 1){
                 HomeFragmentManager.getInstance(this).getHomeFragmentStack().pop();
@@ -487,11 +508,25 @@ public class HomeActivity extends BPcontrolMasterActivity
                 selectMenuItem(LateralMenuController.MenuSections.HOME);
 
             }
+        }else if (requestCode == SETTINGS_ENABLED){
+
+            if (resultCode == RESULT_OK){
+                locationConnection();
+            }
         }
+
     }
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
+
+    }
+
+    @Override
+    public void onPause(){
+        super.onPause();
+
+        manager.removeUpdates(this);
 
     }
 
@@ -579,4 +614,80 @@ public class HomeActivity extends BPcontrolMasterActivity
     public Location getCurrentLocation(){
         return currentLocation;
     }
+
+    private void locationConnection() {
+        final boolean gpsenabled = manager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+        final boolean networkenabled = manager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
+
+        if (networkenabled && gpsenabled) {
+
+            LocationProvider gpsprovider = manager.getProvider(LocationManager.GPS_PROVIDER);
+            LocationProvider networkprovider = manager.getProvider(LocationManager.NETWORK_PROVIDER);
+
+            manager.requestLocationUpdates(gpsprovider.getName(), 3000, 100, this);
+            manager.requestLocationUpdates(networkprovider.getName(), 3000, 100, this);
+
+            gpsregister = true;
+            networkregister = true;
+
+        } else if (!networkenabled && !gpsenabled) {
+
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+            builder.setTitle(getResources().getString(R.string.locationalert));
+            builder.setPositiveButton(getResources().getString(R.string.enabledialogloc), new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+
+                    Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                    startActivityForResult(intent, SETTINGS_ENABLED);
+
+                }
+
+            });
+
+            builder.setNegativeButton(getResources().getString(R.string.canceldialogloc), new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+
+                }
+            });
+
+            AlertDialog dialog = builder.create();
+            TextView text = (TextView) dialog.findViewById(android.R.id.message);
+            text.setGravity(Gravity.CENTER);
+            dialog.show();
+
+
+        } else if ((networkenabled && !gpsenabled) || (!networkenabled && gpsenabled)) {
+
+            String activeprovider = manager.getBestProvider(new Criteria(), true);
+            manager.requestLocationUpdates(activeprovider, 3000, 100, this);
+            if (activeprovider == LocationManager.GPS_PROVIDER) {
+                gpsregister = true;
+            } else {
+                networkregister = true;
+            }
+
+        }
     }
+
+    private void checkIfLocationFound(){
+
+        final boolean gpsenabled = manager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+        final boolean networkenabled = manager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
+
+        Location lastknowlocation = null;
+        if (gpsenabled && currentLocation==null){
+            lastknowlocation = manager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+        }else if (currentLocation==null && networkenabled && lastknowlocation==null){
+            lastknowlocation = manager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+        }
+        if (lastknowlocation!=null && currentLocation == null){
+            currentLocation = lastknowlocation;
+            manager.removeUpdates(this);
+        }
+
+    }
+}
+

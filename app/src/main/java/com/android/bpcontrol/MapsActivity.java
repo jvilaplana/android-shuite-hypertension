@@ -11,6 +11,7 @@ import com.android.bpcontrol.fragments.CentersListFragment;
 import com.android.bpcontrol.model.Center;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.UiSettings;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
@@ -48,6 +49,7 @@ public class MapsActivity extends BPcontrolMasterActivity {
         if (mMap == null) {
             mMap = ((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map))
                     .getMap();
+
             if (mMap != null) {
                 setUpMap();
             }
@@ -55,6 +57,10 @@ public class MapsActivity extends BPcontrolMasterActivity {
     }
 
     private void setUpMap() {
+        mMap.setMyLocationEnabled(true);
+        UiSettings settings = mMap.getUiSettings();
+        settings.setZoomControlsEnabled(true);
+        settings.setMapToolbarEnabled(true);
         mMap.addMarker(new MarkerOptions().position(new LatLng(0, 0)).title("Marker"));
     }
 

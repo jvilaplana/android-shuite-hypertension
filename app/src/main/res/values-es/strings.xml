@@ -184,6 +184,7 @@
     <string name="activategps">La aplicación necesita tener el GPS activdo para los mapas y localización</string>
     <string name="canceldialogloc">Cancelar</string>
     <string name="enabledialogloc">Activar</string>
+    <string name="distance">Distancia:</string>
 
 
 </resources>

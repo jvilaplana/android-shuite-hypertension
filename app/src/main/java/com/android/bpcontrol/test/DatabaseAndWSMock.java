@@ -148,11 +148,11 @@ public class DatabaseAndWSMock {
         Center center1 = new Center();
         center1.setAddress("Carrer de Vic, 5");
         center1.setName("Sanitas Residencial Ilerda");
-        center.setProvince("Lleida");
+        center1.setProvince("Lleida");
         Location location2 =new Location(LocationManager.NETWORK_PROVIDER);
         location2.setLatitude(40.6175899);
         location2.setLongitude(0.6200145999999904);
-        center.setLocation(location2);
+        center1.setLocation(location2);
         center1.setCity("Lleida");
         center1.setTlf("973 22 85 50");
 
@@ -160,11 +160,11 @@ public class DatabaseAndWSMock {
         Center center2 = new Center();
         center2.setAddress("Av. de l’Alcalde Rovira Roure, 44");
         center2.setName("CAP Santa Maria ");
-        center.setProvince("Lleida");
+        center2.setProvince("Lleida");
         Location location3 =new Location(LocationManager.NETWORK_PROVIDER);
         location3.setLatitude(40.6175899);
         location3.setLongitude(0.6200145999999904);
-        center.setLocation(location3);
+        center2.setLocation(location3);
         center2.setCity("Lleida");
         center2.setTlf("973727396");
 

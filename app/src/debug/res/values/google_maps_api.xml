@@ -12,7 +12,13 @@ https://console.developers.google.com/flows/enableapi?apiid=maps_android_backend
     Once you have your key (it starts with "AIza"), replace the "google_maps_key"
     string in this file.
     -->
+    <!--MAC-->
+    <!--<string name="google_maps_key" translatable="false" templateMergeStrategy="preserve">-->
+    <!--AIzaSyD-l8TBSpVMessht5vOl3Z9OWyp6uOl2co-->
+    <!--</string>-->
+
+    <!--MACPRO-->
     <string name="google_maps_key" translatable="false" templateMergeStrategy="preserve">
-    AIzaSyD-l8TBSpVMessht5vOl3Z9OWyp6uOl2co
+    AIzaSyAEv_mR3SHFQ4ZRcs4BPvwqAjCQbggYaMA
     </string>
 </resources>

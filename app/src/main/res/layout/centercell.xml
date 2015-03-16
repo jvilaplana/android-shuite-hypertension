@@ -4,7 +4,6 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-
     <com.android.bpcontrol.customviews.RobotoTextView
         android:id="@+id/centername"
         android:layout_width="wrap_content"
@@ -20,11 +19,22 @@
         android:id="@+id/centercity"
         android:layout_width="wrap_content"
         android:layout_marginTop="10dp"
-        android:layout_marginBottom="5dp"
         android:layout_marginLeft="10dp"
         android:layout_height="wrap_content"
         android:textColor="@color/menutext"
         android:textSize="15sp"
         />
+
+    <com.android.bpcontrol.customviews.RobotoTextView
+        android:id="@+id/distance"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="5dp"
+        android:layout_marginLeft="10dp"
+        android:textSize="15sp"
+        />
+
+
 
 </LinearLayout>
