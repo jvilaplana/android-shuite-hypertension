@@ -83,6 +83,8 @@ public class HomeActivity extends BPcontrolMasterActivity
     private boolean gpsregister = false;
     private boolean networkregister = false;
 
+    private AlertDialog builderGPSdisable;
+
 
 
 
@@ -140,7 +142,8 @@ public class HomeActivity extends BPcontrolMasterActivity
 
         manager = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
 
-        locationConnection();
+       if (getSupportFragmentManager().findFragmentById(R.id.menu_frame)== null || getSupportFragmentManager().findFragmentById(R.id.menu_frame) instanceof HomeFragment)
+           locationConnection();
 
     }
     @Override
@@ -355,8 +358,14 @@ public class HomeActivity extends BPcontrolMasterActivity
             case HEALTHCENTERS:
                 headertext.setText(getResources().getString(R.string.menusection_centers).toUpperCase());
                 CentersListFragment centersListFragment = CentersListFragment.getNewInstance();
-                checkIfLocationFound();
-                loadFragment(centersListFragment,false,false);
+                boolean location=checkIfLocationFound();
+                if (location) {
+                    loadFragment(centersListFragment, false, false);
+                }else {
+                    createGPSDisableDialog();
+
+                }
+
                 break;
             case CONTACT:
                     frameLayout.setVisibility(View.GONE);
@@ -632,32 +641,7 @@ public class HomeActivity extends BPcontrolMasterActivity
 
         } else if (!networkenabled && !gpsenabled) {
 
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
-
-            builder.setTitle(getResources().getString(R.string.locationalert));
-            builder.setPositiveButton(getResources().getString(R.string.enabledialogloc), new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-
-                    Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-                    startActivityForResult(intent, SETTINGS_ENABLED);
-
-                }
-
-            });
-
-            builder.setNegativeButton(getResources().getString(R.string.canceldialogloc), new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-
-                }
-            });
-
-            AlertDialog dialog = builder.create();
-            TextView text = (TextView) dialog.findViewById(android.R.id.message);
-            text.setGravity(Gravity.CENTER);
-            dialog.show();
-
+            createGPSDisableDialog();
 
         } else if ((networkenabled && !gpsenabled) || (!networkenabled && gpsenabled)) {
 
@@ -672,22 +656,53 @@ public class HomeActivity extends BPcontrolMasterActivity
         }
     }
 
-    private void checkIfLocationFound(){
+    private boolean checkIfLocationFound(){
 
-        final boolean gpsenabled = manager.isProviderEnabled(LocationManager.GPS_PROVIDER);
-        final boolean networkenabled = manager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
+//        final boolean gpsenabled = manager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+//        final boolean networkenabled = manager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
 
         Location lastknowlocation = null;
-        if (gpsenabled && currentLocation==null){
+        if (currentLocation==null){
             lastknowlocation = manager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-        }else if (currentLocation==null && networkenabled && lastknowlocation==null){
+        }
+        if (currentLocation==null && lastknowlocation==null){
             lastknowlocation = manager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
         }
         if (lastknowlocation!=null && currentLocation == null){
             currentLocation = lastknowlocation;
-            manager.removeUpdates(this);
-        }
+            //manager.removeUpdates(this);
+            return true;
 
+        }else if (lastknowlocation==null && currentLocation==null){
+            return false;
+        }
+        //manager.removeUpdates(this);
+        return true;
+    }
+
+    private void createGPSDisableDialog(){
+       AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+        builder.setTitle(getResources().getString(R.string.locationalert));
+        builder.setMessage(getResources().getString(R.string.activategps));
+        builder.setPositiveButton(getResources().getString(R.string.enabledialogloc), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+                Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                startActivityForResult(intent, SETTINGS_ENABLED);
+
+            }
+
+        });
+
+        builder.setNegativeButton(getResources().getString(R.string.canceldialogloc), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        });
+         builder.show();
     }
 }
 

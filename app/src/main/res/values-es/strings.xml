@@ -180,7 +180,7 @@
 
     <!--Health centers-->
 
-    <string name="locationalert">Location alert</string>
+    <string name="locationalert">Alerta de localización</string>
     <string name="activategps">La aplicación necesita tener el GPS activdo para los mapas y localización</string>
     <string name="canceldialogloc">Cancelar</string>
     <string name="enabledialogloc">Activar</string>

@@ -52,7 +52,6 @@ public class CentersListFragment extends Fragment{
     private ListCentersAdapter adapter;
     private Handler handler;
 
-    public static String  MYLOCATION = "myloc";
     public static String CENTER = "center";
 
 
@@ -83,7 +82,20 @@ public class CentersListFragment extends Fragment{
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                Center center = (Center) parent.getItemAtPosition(position);
+        Center center = (Center) parent.getItemAtPosition(position);
+        Bundle bundle = new Bundle();
+
+        bundle.putParcelable(CENTER,center);
+
+        Intent intent = new Intent(getActivity(),MapsActivity.class);
+        startActivity(intent);
+
+
+
+
+
+
+
 
             }
         });

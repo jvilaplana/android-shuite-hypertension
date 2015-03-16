@@ -2,6 +2,7 @@ package com.android.bpcontrol;
 
 import android.content.Intent;
 import android.location.Location;
+import android.location.LocationManager;
 import android.net.Uri;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
@@ -20,6 +21,7 @@ public class MapsActivity extends BPcontrolMasterActivity {
     private GoogleMap mMap;
     private Center center;
     private Location currentLocation;
+    private LocationManager manager;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -30,9 +32,9 @@ public class MapsActivity extends BPcontrolMasterActivity {
         Intent intent = getIntent();
         if (intent != null){
             Bundle bundle = getIntent().getExtras();
-                if (intent.hasExtra(CentersListFragment.MYLOCATION)){
-                    currentLocation = (Location) bundle.getParcelable(CentersListFragment.MYLOCATION);
-                }
+//                if (intent.hasExtra(CentersListFragment.MYLOCATION)){
+//                    currentLocation = (Location) bundle.getParcelable(CentersListFragment.MYLOCATION);
+//                }
             center = bundle.getParcelable(CentersListFragment.CENTER);
         }
 
@@ -64,9 +66,4 @@ public class MapsActivity extends BPcontrolMasterActivity {
         mMap.addMarker(new MarkerOptions().position(new LatLng(0, 0)).title("Marker"));
     }
 
-   private void calculateDistanceBeetweenLocations(Location location1, Location location2){
-
-       
-
-   }
 }
