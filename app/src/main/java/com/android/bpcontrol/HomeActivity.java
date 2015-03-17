@@ -53,6 +53,8 @@ import com.android.bpcontrol.utils.SharedPreferenceConstants;
 import com.android.bpcontrol.webservice.WSManager;
 import com.viewpagerindicator.CirclePageIndicator;
 
+import java.util.concurrent.atomic.AtomicBoolean;
+
 /**
  * Created by Adrian Carrera on 22/1/15.
  */

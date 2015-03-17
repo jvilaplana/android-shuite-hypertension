@@ -1,6 +1,7 @@
 package com.android.bpcontrol.fragments;
 
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -22,6 +23,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.bpcontrol.HomeActivity;
 import com.android.bpcontrol.MapsActivity;
@@ -30,10 +32,14 @@ import com.android.bpcontrol.adapters.ListCentersAdapter;
 import com.android.bpcontrol.model.Center;
 import com.android.bpcontrol.test.DatabaseAndWSMock;
 import com.android.bpcontrol.utils.LogBP;
+import com.google.android.gms.maps.model.LatLng;
 
 
+import org.w3c.dom.Document;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Adrian on 02/02/2015.
@@ -53,6 +59,7 @@ public class CentersListFragment extends Fragment{
     private Handler handler;
 
     public static String CENTER = "center";
+    public static String MYLOCATION = "mylocation";
 
 
     public static CentersListFragment getNewInstance(){
@@ -85,21 +92,23 @@ public class CentersListFragment extends Fragment{
         Center center = (Center) parent.getItemAtPosition(position);
         Bundle bundle = new Bundle();
 
+
         bundle.putParcelable(CENTER,center);
+        if (!(((HomeActivity)getActivity()).getCurrentLocation()==null)){
+        bundle.putParcelable(MYLOCATION,((HomeActivity)getActivity()).getCurrentLocation());
+        }
 
         Intent intent = new Intent(getActivity(),MapsActivity.class);
+        intent.putExtras(bundle);
         startActivity(intent);
-
-
-
-
-
-
 
 
             }
         });
     }
+
+
+
 }
 
 

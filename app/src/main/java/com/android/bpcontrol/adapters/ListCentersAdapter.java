@@ -84,7 +84,6 @@ public class ListCentersAdapter extends BaseAdapter {
         Location.distanceBetween(mylocation.getLatitude(), mylocation.getLongitude(),
                 center.getLatitude(), center.getLongitude(), results);
 
-     String g= "strop";
         if (results[0] <1000){
 
             return (int)results[0]+" m";
