@@ -9,6 +9,7 @@ import com.android.bpcontrol.model.Center;
 import com.android.bpcontrol.model.Message;
 import com.android.bpcontrol.model.Pressure;
 import com.android.bpcontrol.utils.DateUtils;
+import com.google.android.gms.maps.model.LatLng;
 
 import java.io.BufferedReader;
 import java.text.ParseException;
@@ -134,36 +135,30 @@ public class DatabaseAndWSMock {
 
 
         Center center = new Center();
-        center.setAddress("Carrer Cos-Gayón, 6");
+        center.setContactAddress("Carrer Cos-Gayón, 6");
         center.setName("Mutua Universal Lleida");
         center.setProvince("Lleida");
         center.setCity("Lleida");
-        Location location1 =new Location(LocationManager.NETWORK_PROVIDER);
-        location1.setLatitude(41.6175899);
-        location1.setLongitude(0.6200145999999904);
+        LatLng location1 = new LatLng(41.6175899,0.6200145999999904);
         center.setLocation(location1);
         center.setTlf("973 26 20 11");
 
 
         Center center1 = new Center();
-        center1.setAddress("Carrer de Vic, 5");
+        center1.setContactAddress("Carrer de Vic, 5");
         center1.setName("Sanitas Residencial Ilerda");
         center1.setProvince("Lleida");
-        Location location2 =new Location(LocationManager.NETWORK_PROVIDER);
-        location2.setLatitude(40.6175899);
-        location2.setLongitude(0.6200145999999904);
+        LatLng location2 = new LatLng(40.6175899,0.6200145999999904);
         center1.setLocation(location2);
         center1.setCity("Lleida");
         center1.setTlf("973 22 85 50");
 
 
         Center center2 = new Center();
-        center2.setAddress("Av. de l’Alcalde Rovira Roure, 44");
+        center2.setContactAddress("Av. de l’Alcalde Rovira Roure, 44");
         center2.setName("CAP Santa Maria ");
         center2.setProvince("Lleida");
-        Location location3 =new Location(LocationManager.NETWORK_PROVIDER);
-        location3.setLatitude(40.6175899);
-        location3.setLongitude(0.6200145999999904);
+        LatLng location3 =new LatLng(40.6175899,0.6200145999999904);
         center2.setLocation(location3);
         center2.setCity("Lleida");
         center2.setTlf("973727396");

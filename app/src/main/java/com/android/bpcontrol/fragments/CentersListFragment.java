@@ -5,11 +5,13 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.location.LocationProvider;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.preference.DialogPreference;
@@ -29,15 +31,20 @@ import com.android.bpcontrol.HomeActivity;
 import com.android.bpcontrol.MapsActivity;
 import com.android.bpcontrol.R;
 import com.android.bpcontrol.adapters.ListCentersAdapter;
+import com.android.bpcontrol.controllers.LateralMenuController;
 import com.android.bpcontrol.model.Center;
+import com.android.bpcontrol.model.User;
 import com.android.bpcontrol.test.DatabaseAndWSMock;
 import com.android.bpcontrol.utils.LogBP;
+import com.android.bpcontrol.utils.SharedPreferenceConstants;
+import com.android.bpcontrol.webservice.WSManager;
 import com.google.android.gms.maps.model.LatLng;
 
 
 import org.w3c.dom.Document;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -81,6 +88,24 @@ public class CentersListFragment extends Fragment{
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        new AsyncTask<Void, Void, Void>() {
+
+            protected Void doInBackground(Void... params ) {
+
+
+
+                    WSManager.getInstance().getAssociateHealthCenters(getActivity(),new WSManager.GetHealthCenters() {
+                        @Override
+                        public void onCentersReceived(List<Center> listmenssages) {
+                        }
+                    });
+
+
+                return null;
+            }
+        }.execute();
+
+
         List<Center> centers = DatabaseAndWSMock.getFakeCenters();
         adapter = new ListCentersAdapter(getActivity(),centers);
         listView.setAdapter(adapter);
@@ -91,7 +116,6 @@ public class CentersListFragment extends Fragment{
 
         Center center = (Center) parent.getItemAtPosition(position);
         Bundle bundle = new Bundle();
-
 
         bundle.putParcelable(CENTER,center);
         if (!(((HomeActivity)getActivity()).getCurrentLocation()==null)){
@@ -106,6 +130,7 @@ public class CentersListFragment extends Fragment{
             }
         });
     }
+
 
 
 

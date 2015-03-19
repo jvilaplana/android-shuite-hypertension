@@ -15,6 +15,7 @@ import com.android.bpcontrol.R;
 import com.android.bpcontrol.application.BPcontrolApplication;
 import com.android.bpcontrol.application.BPcontrolMasterActivity;
 import com.android.bpcontrol.databases.DataStore;
+import com.android.bpcontrol.model.Center;
 import com.android.bpcontrol.model.Message;
 import com.android.bpcontrol.model.Pressure;
 import com.android.bpcontrol.model.Pressures;
@@ -37,6 +38,7 @@ import com.android.volley.toolbox.JsonRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.android.volley.Request;
+import com.google.android.gms.maps.model.LatLng;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -112,6 +114,10 @@ public class WSManager {
 
     public static interface GetMessages extends EventListener{
         public void onUserMessagesReceived(List<Message> listmenssages);
+    }
+
+    public static interface GetHealthCenters extends EventListener{
+        public void onCentersReceived(List<Center> listmenssages);
     }
 
     private void webserviceCallWithCallback(final Context context, final String url, final BPcontrolApiCallback callback){
@@ -615,5 +621,62 @@ public class WSManager {
             return 0;
         }
     }
+
+    public void getAssociateHealthCenters(final Context context, GetHealthCenters callback){
+
+        final String url = URLBASE+"/admin/restOrganizationList/";
+
+        webserviceCallWithCallback(context,url,new BPcontrolApiCallback() {
+            @Override
+            public void onSuccess(String response) {
+                //parseCenters(response);
+            }
+
+            @Override
+            public void onFailure(Exception e) {
+
+            }
+        });
+
+
+    }
+
+    private List<Center> parseCenters(String response){
+
+        List<Center> centers= new ArrayList<Center>();
+
+        try {
+            JSONArray array = new JSONArray(response);
+            JSONObject tmp;
+            Center center = new Center();
+            double longitude,latitude;
+            for (int i = 0;i<array.length();i++){
+                tmp = array.getJSONObject(i);
+
+                if (tmp!=null){
+
+                    longitude =Double.parseDouble(tmp.getString("longitude"));
+                    latitude = Double.parseDouble(tmp.getString("latitude"));
+                    center.setLocation(new LatLng(latitude,longitude));
+                    center.setName(tmp.getString("description"));
+                    center.setContactAddress(tmp.getString("contactAddress"));
+                    center.setTlf(tmp.getString("contactPhone"));
+                    center.setEmail(tmp.getString("contactEmail"));
+                    centers.add(center);
+                }
+
+            }
+
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return centers;
+
+    }
+
+
+
 
 }

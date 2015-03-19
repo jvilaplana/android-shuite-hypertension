@@ -13,6 +13,7 @@ import com.android.bpcontrol.R;
 import com.android.bpcontrol.customviews.RobotoTextView;
 import com.android.bpcontrol.fragments.CentersListFragment;
 import com.android.bpcontrol.model.Center;
+import com.google.android.gms.maps.model.LatLng;
 
 import java.util.List;
 
@@ -78,11 +79,11 @@ public class ListCentersAdapter extends BaseAdapter {
 
     }
 
-    private String calculateLocation(Location center){
+    private String calculateLocation(LatLng center){
         float[] results= new float[3];
         Location mylocation = ((HomeActivity)context).getCurrentLocation();
         Location.distanceBetween(mylocation.getLatitude(), mylocation.getLongitude(),
-                center.getLatitude(), center.getLongitude(), results);
+                center.latitude, center.longitude, results);
 
         if (results[0] <1000){
 

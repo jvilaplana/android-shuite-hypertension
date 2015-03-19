@@ -1,7 +1,9 @@
 package com.android.bpcontrol;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.location.Location;
@@ -11,9 +13,13 @@ import android.os.AsyncTask;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.view.Display;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.android.bpcontrol.application.BPcontrolMasterActivity;
+import com.android.bpcontrol.customviews.RobotoTextView;
 import com.android.bpcontrol.fragments.CentersListFragment;
 import com.android.bpcontrol.model.Center;
 import com.android.bpcontrol.model.GoogleMapsDirection;
@@ -35,37 +41,50 @@ import java.util.Map;
 
 public class MapsActivity extends BPcontrolMasterActivity {
 
+    public static enum MAPTYPE {
+
+        HYBRID,
+        NORMAL,
+
+    }
+
     private GoogleMap mMap;
     private Center center;
     private Location currentLocation;
     private LocationManager manager;
     private Polyline newPolyline;
     private Location mylocation;
-    private Location centerlocation;
+    private LatLng centerlocation;
     private LatLngBounds latlngBounds;
     private int width, height;
+    private int maptype;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
-        setUpMapIfNeeded();
-
+        configureActionBar();
+        maptype = GoogleMap.MAP_TYPE_NORMAL;
         Intent intent = getIntent();
-        if (intent != null ){
+        if (intent != null) {
             Bundle bundle = intent.getExtras();
-            if (bundle!=null && (bundle.containsKey(CentersListFragment.CENTER) && bundle.containsKey(CentersListFragment.MYLOCATION))){
-            center =(Center)bundle.getParcelable(CentersListFragment.CENTER);
-            centerlocation = center.getLocation();
+            if (bundle != null && (bundle.containsKey(CentersListFragment.CENTER) && bundle.containsKey(CentersListFragment.MYLOCATION))) {
+                center = (Center) bundle.getParcelable(CentersListFragment.CENTER);
+                centerlocation = center.getLocation();
                 getSreenDimanstions();
-            mylocation = (Location) bundle.getParcelable(CentersListFragment.MYLOCATION);
-            findDirections( mylocation.getLatitude(), mylocation.getLongitude(),centerlocation.getLatitude(),
-                    centerlocation.getLongitude(), GoogleMapsDirection.MODE_DRIVING );
-            latlngBounds = createLatLngBoundsObject(new LatLng(mylocation.getLatitude(),mylocation.getLongitude()),
-                    new LatLng(centerlocation.getLatitude(),centerlocation.getLongitude()));
-            mMap.moveCamera(CameraUpdateFactory.newLatLngBounds(latlngBounds, width, height, 150));
+                mylocation = (Location) bundle.getParcelable(CentersListFragment.MYLOCATION);
+                findDirections(mylocation.getLatitude(), mylocation.getLongitude(), centerlocation.latitude,
+                        centerlocation.longitude, GoogleMapsDirection.MODE_DRIVING);
+                latlngBounds = createLatLngBoundsObject(new LatLng(mylocation.getLatitude(), mylocation.getLongitude()),
+                        new LatLng(centerlocation.latitude, centerlocation.longitude));
+                setUpMapIfNeeded();
+                mMap.moveCamera(CameraUpdateFactory.newLatLngBounds(latlngBounds, width, height, 150));
+            }
+
+
+        } else {
+            setUpMapIfNeeded();
         }
-    }
 
 
     }
@@ -93,11 +112,14 @@ public class MapsActivity extends BPcontrolMasterActivity {
         UiSettings settings = mMap.getUiSettings();
         settings.setZoomControlsEnabled(true);
         settings.setMapToolbarEnabled(true);
-        mMap.addMarker(new MarkerOptions().position(new LatLng(0, 0)).title("Marker"));
+        mMap.setMapType(maptype);
+        if (centerlocation != null)
+            mMap.addMarker(new MarkerOptions().position(new LatLng(centerlocation.latitude, centerlocation.longitude)).title(center.getName()));
+        else
+            mMap.addMarker(new MarkerOptions().position(new LatLng(0, 0)).title(""));
     }
 
-    private class GetDirectionsAsyncTask extends AsyncTask<Map<String, String>, Object, ArrayList>
-    {
+    private class GetDirectionsAsyncTask extends AsyncTask<Map<String, String>, Object, ArrayList> {
         public static final String USER_CURRENT_LAT = "user_current_lat";
         public static final String USER_CURRENT_LONG = "user_current_long";
         public static final String DESTINATION_LAT = "destination_lat";
@@ -107,65 +129,52 @@ public class MapsActivity extends BPcontrolMasterActivity {
         private Exception exception;
 
 
-        public GetDirectionsAsyncTask(Context context)
-        {
+        public GetDirectionsAsyncTask(Context context) {
             super();
             this.context = context;
         }
 
-        public void onPreExecute()
-        {
+        public void onPreExecute() {
 
         }
 
         @Override
-        public void onPostExecute(ArrayList result)
-        {
-            if (exception == null)
-            {
-                ((MapsActivity)context).handleGetDirectionsResult(result);
-            }
-            else
-            {
+        public void onPostExecute(ArrayList result) {
+            if (exception == null) {
+                ((MapsActivity) context).handleGetDirectionsResult(result);
+            } else {
                 processException();
             }
         }
 
         @Override
-        protected ArrayList doInBackground(Map<String, String>... params)
-        {
+        protected ArrayList doInBackground(Map<String, String>... params) {
             Map<String, String> paramMap = params[0];
-            try
-            {
-                LatLng fromPosition = new LatLng(Double.valueOf(paramMap.get(USER_CURRENT_LAT)) , Double.valueOf(paramMap.get(USER_CURRENT_LONG)));
-                LatLng toPosition = new LatLng(Double.valueOf(paramMap.get(DESTINATION_LAT)) , Double.valueOf(paramMap.get(DESTINATION_LONG)));
+            try {
+                LatLng fromPosition = new LatLng(Double.valueOf(paramMap.get(USER_CURRENT_LAT)), Double.valueOf(paramMap.get(USER_CURRENT_LONG)));
+                LatLng toPosition = new LatLng(Double.valueOf(paramMap.get(DESTINATION_LAT)), Double.valueOf(paramMap.get(DESTINATION_LONG)));
                 GoogleMapsDirection md = new GoogleMapsDirection();
                 Document doc = md.getDocument(fromPosition, toPosition, paramMap.get(DIRECTIONS_MODE));
                 ArrayList directionPoints = md.getDirection(doc);
                 return directionPoints;
-            }
-            catch (Exception e)
-            {
+            } catch (Exception e) {
                 exception = e;
                 return null;
             }
         }
 
-        private void processException()
-        {
+        private void processException() {
             Toast.makeText(context, "Error getting data points", Toast.LENGTH_LONG).show();
         }
     }
 
     public void handleGetDirectionsResult(ArrayList<LatLng> directionPoints) {
-        PolylineOptions rectLine = new PolylineOptions().width(5).color(Color.RED);
+        PolylineOptions rectLine = new PolylineOptions().width(15).color(Color.RED);
 
-        for(int i = 0 ; i < directionPoints.size() ; i++)
-        {
+        for (int i = 0; i < directionPoints.size(); i++) {
             rectLine.add(directionPoints.get(i));
         }
-        if (newPolyline != null)
-        {
+        if (newPolyline != null) {
             newPolyline.remove();
         }
         newPolyline = mMap.addPolyline(rectLine);
@@ -174,17 +183,14 @@ public class MapsActivity extends BPcontrolMasterActivity {
 
     }
 
-    private void getSreenDimanstions()
-    {
+    private void getSreenDimanstions() {
         Display display = getWindowManager().getDefaultDisplay();
         width = display.getWidth();
         height = display.getHeight();
     }
 
-    private LatLngBounds createLatLngBoundsObject(LatLng firstLocation, LatLng secondLocation)
-    {
-        if (firstLocation != null && secondLocation != null)
-        {
+    private LatLngBounds createLatLngBoundsObject(LatLng firstLocation, LatLng secondLocation) {
+        if (firstLocation != null && secondLocation != null) {
             LatLngBounds.Builder builder = new LatLngBounds.Builder();
             builder.include(firstLocation).include(secondLocation);
 
@@ -193,8 +199,7 @@ public class MapsActivity extends BPcontrolMasterActivity {
         return null;
     }
 
-    public void findDirections(double fromPositionDoubleLat, double fromPositionDoubleLong, double toPositionDoubleLat, double toPositionDoubleLong, String mode)
-    {
+    public void findDirections(double fromPositionDoubleLat, double fromPositionDoubleLong, double toPositionDoubleLat, double toPositionDoubleLong, String mode) {
         Map<String, String> map = new HashMap<>();
         map.put(GetDirectionsAsyncTask.USER_CURRENT_LAT, String.valueOf(fromPositionDoubleLat));
         map.put(GetDirectionsAsyncTask.USER_CURRENT_LONG, String.valueOf(fromPositionDoubleLong));
@@ -204,6 +209,56 @@ public class MapsActivity extends BPcontrolMasterActivity {
 
         GetDirectionsAsyncTask asyncTask = new GetDirectionsAsyncTask(this);
         asyncTask.execute(map);
+    }
+
+    private void configureActionBar() {
+
+        View view = getActionBarView();
+        ImageButton button = (ImageButton) view.findViewById(R.id.actionBarMenu);
+        button.setImageResource(R.drawable.arrow_buttonselector);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
+        RobotoTextView robotoTextView = (RobotoTextView) view.findViewById(R.id.textviewbpcontrol);
+        robotoTextView.setText(getResources().getString(R.string.mapactheader).toUpperCase());
+        ImageButton secondactionbarbutton = (ImageButton) getActionBarView()
+                .findViewById(R.id.secondActionBarButton);
+        secondactionbarbutton.setVisibility(View.VISIBLE);
+        secondactionbarbutton.setImageResource(R.drawable.secondbuttonbarselectormap);
+        secondactionbarbutton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(MapsActivity.this);
+                String[] types = getResources().getStringArray(R.array.maptypes);
+                builder.setTitle(getResources().getString(R.string.mapdialogtitle));
+                builder.setItems(types, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        switch (which) {
+                            case 0:
+                                maptype = GoogleMap.MAP_TYPE_HYBRID;
+                                break;
+                            case 1:
+                                maptype = GoogleMap.MAP_TYPE_NORMAL;
+                                break;
+                            case 2:
+                                maptype = GoogleMap.MAP_TYPE_SATELLITE;
+                                break;
+                            case 3:
+                                maptype = GoogleMap.MAP_TYPE_TERRAIN;
+                                break;
+                        }
+                        mMap.setMapType(maptype);
+                    }
+                });
+
+                builder.show();
+            }
+        });
     }
 }
 

@@ -186,5 +186,13 @@
     <string name="enabledialogloc">Activar</string>
     <string name="distance">Distancia:</string>
 
-
+    <!--Map-->
+    <string name="mapactheader">Mapa</string>
+    <string name="mapdialogtitle">Escoge un tipo de mapa</string>
+    <string-array name="maptypes">
+        <item>Híbrido</item>
+        <item>Normal</item>
+        <item>Satélite</item>
+        <item>Terreno</item>
+    </string-array>
 </resources>
