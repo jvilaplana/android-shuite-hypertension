@@ -91,6 +91,36 @@ public class BPcontrolApplication extends Application{
         return forteRegular;
     }
 
+    public void loadImageView(final String url, final ImageView imageView) {
+
+
+        final boolean[] imgDisplayed = {false};
+
+        ImageLoader.getInstance().displayImage(url, imageView, new ImageLoadingListener() {
+            @Override
+            public void onLoadingStarted(String imageUri, final View view) {
+
+            }
+
+            @Override
+            public void onLoadingFailed(String imageUri, final View view, FailReason failReason) {
+
+            }
+
+            @Override
+            public void onLoadingComplete(String imageUri, final View view, final Bitmap loadedImage) {
+
+                imgDisplayed[0] = true;
+                imageView.setImageBitmap(loadedImage);
+            }
+
+            @Override
+            public void onLoadingCancelled(String imageUri, final View view) {
+
+            }
+        });
+    }
+
     public void loadPerfilImageView(String uuid, final ImageView imageView) {
 
         final String url = "http://app2.hesoftgroup.eu/hypertensionPatient/restDownloadProfileImage/"+uuid;

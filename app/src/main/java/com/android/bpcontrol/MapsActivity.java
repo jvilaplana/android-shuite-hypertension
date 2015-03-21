@@ -6,6 +6,8 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
+import android.location.Address;
+import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationManager;
 import android.net.Uri;
@@ -19,6 +21,7 @@ import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import com.android.bpcontrol.adapters.WindowsMapAdapter;
 import com.android.bpcontrol.application.BPcontrolMasterActivity;
 import com.android.bpcontrol.customviews.RobotoTextView;
 import com.android.bpcontrol.fragments.CentersListFragment;
@@ -30,14 +33,18 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.UiSettings;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
 
 import org.w3c.dom.Document;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 public class MapsActivity extends BPcontrolMasterActivity {
@@ -49,6 +56,16 @@ public class MapsActivity extends BPcontrolMasterActivity {
 
     }
 
+    public static final String LOCATION_COUNTRY = "country";
+    public static final String LOCATION_PROVINCE = "province";
+    public static final String LOCATION_ADMINISTRATION = "administration";
+    public static final String LOCATION_POSTALCODE="postalcode";
+    public static final String LOCATION_CITY="city";
+    public static final String LOCATION_ADDRESS="address";
+    public static final String LOCATION_DRIVEDIST = "drivedist";
+    public static final String LOCATION_WALKDIST="walkdist";
+
+
     private GoogleMap mMap;
     private Center center;
     private LocationManager manager;
@@ -59,6 +76,7 @@ public class MapsActivity extends BPcontrolMasterActivity {
     private int width, height;
     private int maptype;
 
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,21 +86,12 @@ public class MapsActivity extends BPcontrolMasterActivity {
         Intent intent = getIntent();
         if (intent != null) {
             Bundle bundle = intent.getExtras();
-            if (bundle!=null && (bundle.containsKey(CentersListFragment.CENTER) && bundle.containsKey(CentersListFragment.MYLOCATION))){
-            center =(Center)bundle.getParcelable(CentersListFragment.CENTER);
-            centerlocation = center.getLocation();
-            getSreenDimenstions();
-            mylocation = (Location) bundle.getParcelable(CentersListFragment.MYLOCATION);
-            findDirections( mylocation.getLatitude(), mylocation.getLongitude(),centerlocation.getLatitude(),
-                    centerlocation.getLongitude(), GoogleMapsDirection.MODE_DRIVING );
-            latlngBounds = createLatLngBoundsObject(new LatLng(mylocation.getLatitude(),mylocation.getLongitude()),
-                    new LatLng(centerlocation.getLatitude(),centerlocation.getLongitude()));
-            mMap.moveCamera(CameraUpdateFactory.newLatLngBounds(latlngBounds, width, height, 150));
+
 
             if (bundle != null && (bundle.containsKey(CentersListFragment.CENTER) && bundle.containsKey(CentersListFragment.MYLOCATION))) {
                 center = (Center) bundle.getParcelable(CentersListFragment.CENTER);
                 centerlocation = center.getLocation();
-                getSreenDimanstions();
+                getSreenDimensions();
                 mylocation = (Location) bundle.getParcelable(CentersListFragment.MYLOCATION);
                 findDirections(mylocation.getLatitude(), mylocation.getLongitude(), centerlocation.latitude,
                         centerlocation.longitude, GoogleMapsDirection.MODE_DRIVING);
@@ -124,6 +133,12 @@ public class MapsActivity extends BPcontrolMasterActivity {
         settings.setZoomControlsEnabled(true);
         settings.setMapToolbarEnabled(true);
         mMap.setMapType(maptype);
+        Bundle bundle = obtainLocationInfo(center.getLocation().latitude,center.getLocation().longitude);
+        if (bundle!=null){
+
+        }
+        WindowsMapAdapter windowsMapAdapter = new WindowsMapAdapter(this,center,bundle);
+        mMap.setInfoWindowAdapter(windowsMapAdapter);
         if (centerlocation != null)
             mMap.addMarker(new MarkerOptions().position(new LatLng(centerlocation.latitude, centerlocation.longitude)).title(center.getName()));
         else
@@ -136,26 +151,12 @@ public class MapsActivity extends BPcontrolMasterActivity {
         public static final String DESTINATION_LAT = "destination_lat";
         public static final String DESTINATION_LONG = "destination_long";
         public static final String DIRECTIONS_MODE = "directions_mode";
-        private Context context;
+        private Context context = MapsActivity.this;
         private Exception exception;
 
 
-        public GetDirectionsAsyncTask(Context context) {
-            super();
-            this.context = context;
-        }
-
         public void onPreExecute() {
 
-        }
-
-        @Override
-        public void onPostExecute(ArrayList result) {
-            if (exception == null) {
-                ((MapsActivity) context).handleGetDirectionsResult(result);
-            } else {
-                processException();
-            }
         }
 
         @Override
@@ -166,7 +167,13 @@ public class MapsActivity extends BPcontrolMasterActivity {
                 LatLng toPosition = new LatLng(Double.valueOf(paramMap.get(DESTINATION_LAT)), Double.valueOf(paramMap.get(DESTINATION_LONG)));
                 GoogleMapsDirection md = new GoogleMapsDirection();
                 Document doc = md.getDocument(fromPosition, toPosition, paramMap.get(DIRECTIONS_MODE));
+                md.getDistanceText(doc);
+                md.getDistanceValue(doc);
+                md.getDurationText(doc);
+                md.getDurationValue(doc);
+                md.getCopyRights(doc);
                 ArrayList directionPoints = md.getDirection(doc);
+
                 return directionPoints;
             }
             catch (Exception e)
@@ -212,7 +219,7 @@ public class MapsActivity extends BPcontrolMasterActivity {
 
     }
 
-    private void getSreenDimenstions() {
+    private void getSreenDimensions() {
         DisplayMetrics displaymetrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
         height = displaymetrics.heightPixels;
@@ -289,6 +296,31 @@ public class MapsActivity extends BPcontrolMasterActivity {
                 builder.show();
             }
         });
+    }
+
+    private Bundle obtainLocationInfo(double lat, double lng) {
+
+        Geocoder geoCoder = new Geocoder(this, Locale.getDefault());
+        Bundle locationelements = null;
+        try {
+            List<Address> address = geoCoder.getFromLocation(lat, lng, 1);
+            if (address.size() > 0) {
+                locationelements = new Bundle();
+                Address foundAddress = address.get(0);
+                locationelements.putString(LOCATION_COUNTRY, foundAddress.getCountryName());
+                locationelements.putString(LOCATION_PROVINCE, foundAddress.getSubAdminArea());
+                locationelements.putString(LOCATION_CITY, foundAddress.getLocality());
+                locationelements.putString(LOCATION_ADMINISTRATION, foundAddress.getAdminArea());
+                locationelements.putString(LOCATION_POSTALCODE, foundAddress.getPostalCode());
+                locationelements.putString(LOCATION_ADDRESS,foundAddress.getAddressLine(0));
+                return locationelements;
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }
 
