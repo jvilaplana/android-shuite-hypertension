@@ -4,6 +4,8 @@ import android.location.Location;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.google.android.gms.maps.model.LatLng;
+
 /**
  * Created by adrian on 15/3/15.
  */
@@ -15,7 +17,9 @@ public class Center implements Parcelable {
     private String province;
     private String city;
     private String tlf;
-    private Location location;
+    private LatLng location;
+    private String webpage;
+    private String email;
 
     public static final Parcelable.Creator CREATOR = new Parcelable.Creator() {
         public Center createFromParcel(Parcel in) {
@@ -37,7 +41,9 @@ public class Center implements Parcelable {
         province = in.readString();
         city = in.readString();
         tlf = in.readString();
-        location = in.readParcelable(Location.class.getClassLoader());
+        location = in.readParcelable(LatLng.class.getClassLoader());
+        webpage = in.readString();
+        email = in.readString();
 
     }
 
@@ -49,11 +55,11 @@ public class Center implements Parcelable {
         this.name = name;
     }
 
-    public String getAddress() {
+    public String getContactAddress() {
         return address;
     }
 
-    public void setAddress(String address) {
+    public void setContactAddress(String address) {
         this.address = address;
     }
 
@@ -89,12 +95,28 @@ public class Center implements Parcelable {
         this.province = province;
     }
 
-    public Location getLocation() {
+    public LatLng getLocation() {
         return location;
     }
 
-    public void setLocation(Location location) {
+    public void setLocation(LatLng location) {
         this.location = location;
+    }
+
+    public String getWebpage() {
+        return webpage;
+    }
+
+    public void setWebpage(String webpage) {
+        this.webpage = webpage;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     @Override
@@ -112,6 +134,8 @@ public class Center implements Parcelable {
         dest.writeString(city);
         dest.writeString(tlf);
         dest.writeParcelable(location,flags);
+        dest.writeString(webpage);
+        dest.writeString(email);
 
     }
 }

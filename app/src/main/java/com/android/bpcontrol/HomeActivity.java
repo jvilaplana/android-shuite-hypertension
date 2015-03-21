@@ -684,7 +684,7 @@ public class HomeActivity extends BPcontrolMasterActivity
 
     private void createGPSDisableDialog(){
        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-
+        builder.setCancelable(false);
         builder.setTitle(getResources().getString(R.string.locationalert));
         builder.setMessage(getResources().getString(R.string.activategps));
         builder.setPositiveButton(getResources().getString(R.string.enabledialogloc), new DialogInterface.OnClickListener() {

@@ -16,7 +16,7 @@
     <string name="menusection_contact">Contact</string>
     <string name="menusection_evolution">Evolution</string>
     <string name="menusection_help">Help</string>
-    <string name="menuperfil">Perfil</string>
+    <string name="menuperfil">Profile</string>
     <string name="menuothersitem">Attributions</string>
 
     <!--MENU ITEMS - HEADERS-->
@@ -178,9 +178,18 @@
     <string name="distance">Distance:</string>
     <string name="locationalert">Location alert</string>
     <string name="errorgettingpoint">Error getting points</string>
+    <string name="enabledialogloc">Activate</string>
 
+    <!--Map-->
+    <string name="mapactheader">Map</string>
+    <string name="mapdialogtitle">Choose map type</string>
+    <string-array name="maptypes">
+        <item>Hybrid</item>
+        <item>Normal</item>
+        <item>Satellite</item>
+        <item>Terrain</item>
 
-
+    </string-array>
 
 
 </resources>
