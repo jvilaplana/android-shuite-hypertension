@@ -177,6 +177,7 @@
     <string name="Enable">Activate</string>
     <string name="distance">Distance:</string>
     <string name="locationalert">Location alert</string>
+    <string name="errorgettingpoint">Error getting points</string>
 
 
 

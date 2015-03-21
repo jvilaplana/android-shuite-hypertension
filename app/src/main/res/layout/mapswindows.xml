@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.android.bpcontrol.customviews.RobotoTextView
+        android:id="@+id/mapwindowtitle"
+        android:layout_width="match_parent"
+        android:gravity="center"
+        android:layout_height="wrap_content"
+        android:tag="RobotoBold"
+
+        />
+    <LinearLayout
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/mapwindowtitle"
+        android:id="@+id/imagecontainer"
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent">
+
+
+    <ImageView
+
+        android:id="@+id/windowmapimage"
+        android:layout_width="90dp"
+        android:layout_height="90dp"
+        android:background="@android:color/holo_red_dark"
+     />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/mapwindowtitle"
+        android:layout_marginLeft="10dp"
+        android:id="@+id/textcontainer"
+        android:layout_toRightOf="@+id/imagecontainer"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.android.bpcontrol.customviews.RobotoTextView
+            android:id="@+id/direction"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="C/Mayor 48"/>
+        <com.android.bpcontrol.customviews.RobotoTextView
+            android:id="@+id/citypcode"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="25044 Lleida"/>
+        <com.android.bpcontrol.customviews.RobotoTextView
+            android:id="@+id/webpage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="www.salud.es"/>
+
+        <com.android.bpcontrol.customviews.RobotoTextView
+            android:id="@+id/mailcontact"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="pepito@salud.es"/>
+
+        <com.android.bpcontrol.customviews.RobotoTextView
+            android:layout_marginTop="10dp"
+            android:id="@+id/cardistance"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="25044 Lleida"/>
+
+        <com.android.bpcontrol.customviews.RobotoTextView
+            android:id="@+id/walkdistance"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="25044 Lleida"/>
+
+    </LinearLayout>
+
+
+
+
+</RelativeLayout>

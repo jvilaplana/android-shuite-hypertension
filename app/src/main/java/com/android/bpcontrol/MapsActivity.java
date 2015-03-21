@@ -10,6 +10,7 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.view.Display;
 import android.widget.Toast;
 
@@ -37,7 +38,6 @@ public class MapsActivity extends BPcontrolMasterActivity {
 
     private GoogleMap mMap;
     private Center center;
-    private Location currentLocation;
     private LocationManager manager;
     private Polyline newPolyline;
     private Location mylocation;
@@ -57,7 +57,7 @@ public class MapsActivity extends BPcontrolMasterActivity {
             if (bundle!=null && (bundle.containsKey(CentersListFragment.CENTER) && bundle.containsKey(CentersListFragment.MYLOCATION))){
             center =(Center)bundle.getParcelable(CentersListFragment.CENTER);
             centerlocation = center.getLocation();
-                getSreenDimanstions();
+            getSreenDimenstions();
             mylocation = (Location) bundle.getParcelable(CentersListFragment.MYLOCATION);
             findDirections( mylocation.getLatitude(), mylocation.getLongitude(),centerlocation.getLatitude(),
                     centerlocation.getLongitude(), GoogleMapsDirection.MODE_DRIVING );
@@ -103,33 +103,7 @@ public class MapsActivity extends BPcontrolMasterActivity {
         public static final String DESTINATION_LAT = "destination_lat";
         public static final String DESTINATION_LONG = "destination_long";
         public static final String DIRECTIONS_MODE = "directions_mode";
-        private Context context;
-        private Exception exception;
-
-
-        public GetDirectionsAsyncTask(Context context)
-        {
-            super();
-            this.context = context;
-        }
-
-        public void onPreExecute()
-        {
-
-        }
-
-        @Override
-        public void onPostExecute(ArrayList result)
-        {
-            if (exception == null)
-            {
-                ((MapsActivity)context).handleGetDirectionsResult(result);
-            }
-            else
-            {
-                processException();
-            }
-        }
+        private Context context = MapsActivity.this;
 
         @Override
         protected ArrayList doInBackground(Map<String, String>... params)
@@ -146,19 +120,32 @@ public class MapsActivity extends BPcontrolMasterActivity {
             }
             catch (Exception e)
             {
-                exception = e;
+                e.printStackTrace();
                 return null;
+            }
+        }
+
+        @Override
+        public void onPostExecute(ArrayList result)
+        {
+            if (result != null)
+            {
+                ((MapsActivity)context).handleGetDirectionsResult(result);
+            }
+            else
+            {
+                processException();
             }
         }
 
         private void processException()
         {
-            Toast.makeText(context, "Error getting data points", Toast.LENGTH_LONG).show();
+            Toast.makeText(context, getResources().getString(R.string.errorgettingpoint), Toast.LENGTH_LONG).show();
         }
     }
 
     public void handleGetDirectionsResult(ArrayList<LatLng> directionPoints) {
-        PolylineOptions rectLine = new PolylineOptions().width(5).color(Color.RED);
+        PolylineOptions rectLine = new PolylineOptions().width(25).color(Color.RED);
 
         for(int i = 0 ; i < directionPoints.size() ; i++)
         {
@@ -174,11 +161,11 @@ public class MapsActivity extends BPcontrolMasterActivity {
 
     }
 
-    private void getSreenDimanstions()
-    {
-        Display display = getWindowManager().getDefaultDisplay();
-        width = display.getWidth();
-        height = display.getHeight();
+    private void getSreenDimenstions() {
+        DisplayMetrics displaymetrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
+        height = displaymetrics.heightPixels;
+        width = displaymetrics.widthPixels;
     }
 
     private LatLngBounds createLatLngBoundsObject(LatLng firstLocation, LatLng secondLocation)
@@ -202,8 +189,8 @@ public class MapsActivity extends BPcontrolMasterActivity {
         map.put(GetDirectionsAsyncTask.DESTINATION_LONG, String.valueOf(toPositionDoubleLong));
         map.put(GetDirectionsAsyncTask.DIRECTIONS_MODE, mode);
 
-        GetDirectionsAsyncTask asyncTask = new GetDirectionsAsyncTask(this);
-        asyncTask.execute(map);
+
+        new GetDirectionsAsyncTask().execute(map);
     }
 }
 
