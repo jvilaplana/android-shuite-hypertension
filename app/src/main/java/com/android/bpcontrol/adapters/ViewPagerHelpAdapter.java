@@ -3,33 +3,31 @@ package com.android.bpcontrol.adapters;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.app.FragmentTransaction;
 import android.view.ViewGroup;
 
 import com.android.bpcontrol.fragments.ContactFragment;
-
-import java.util.Objects;
+import com.android.bpcontrol.fragments.HelpFragment;
 
 /**
- * Created by Adrian on 11/02/2015.
+ * Created by Adrian on 26/3/15.
  */
-public class ViewPagerContactAdapter extends FragmentPagerAdapter {
+public class ViewPagerHelpAdapter extends FragmentPagerAdapter {
 
     private FragmentManager manager;
 
-    public ViewPagerContactAdapter(FragmentManager fragmentManager) {
-             super(fragmentManager);
-             manager = fragmentManager;
+    public ViewPagerHelpAdapter(FragmentManager fragmentManager) {
+        super(fragmentManager);
+        manager = fragmentManager;
     }
 
     @Override
     public Fragment getItem(int position) {
-       return  ContactFragment.getNewInstace(position);
+        return  HelpFragment.getNewInstance(position);
     }
 
     @Override
     public int getCount() {
-        return 2;
+        return 3;
     }
 
-}
+    }

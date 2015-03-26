@@ -9,6 +9,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 
 import com.android.bpcontrol.HomeActivity;
+import com.android.bpcontrol.InitialActivity;
 import com.android.bpcontrol.R;
 import com.android.bpcontrol.customviews.RobotoTextView;
 import com.android.bpcontrol.fragments.CentersListFragment;
@@ -22,13 +23,21 @@ import java.util.List;
  */
 public class ListCentersAdapter extends BaseAdapter {
 
+    public static enum ListCenterPlace{
+
+        INITIAL_ACTIVITY,
+        HOME_ACTIVITY
+    }
+
     private Context context;
     private List<Center> centers;
+    private ListCenterPlace type;
 
-    public ListCentersAdapter(final Context context, List<Center> centers){
+    public ListCentersAdapter(final Context context, List<Center> centers, ListCenterPlace type){
 
         this.context = context;
         this.centers = centers;
+        this.type = type;
  ;
     }
 
@@ -81,16 +90,25 @@ public class ListCentersAdapter extends BaseAdapter {
 
     private String calculateLocation(LatLng center){
         float[] results= new float[3];
-        Location mylocation = ((HomeActivity)context).getCurrentLocation();
-        Location.distanceBetween(mylocation.getLatitude(), mylocation.getLongitude(),
-                center.latitude, center.longitude, results);
-
-        if (results[0] <1000){
-
-            return (int)results[0]+" m";
-        }else{
-            return String.format("%.2f",(results[0] / 1000))+" km";
+        Location mylocation = null;
+        if (type==ListCenterPlace.HOME_ACTIVITY) {
+           mylocation = ((HomeActivity) context).getCurrentLocation();
+        }else {
+            mylocation = ((InitialActivity) context).getCurrentLocation();
         }
+        if (mylocation!=null) {
+            Location.distanceBetween(mylocation.getLatitude(), mylocation.getLongitude(),
+                    center.latitude, center.longitude, results);
+
+            if (results[0] < 1000) {
+
+                return (int) results[0] + " m";
+            } else {
+                return String.format("%.2f", (results[0] / 1000)) + " km";
+            }
+        }
+
+        return "";
     }
 
 }

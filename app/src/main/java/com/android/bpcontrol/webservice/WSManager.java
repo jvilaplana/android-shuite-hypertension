@@ -8,12 +8,15 @@ import android.app.AlertDialog;
 import android.app.DownloadManager;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.view.Gravity;
+import android.view.View;
 import android.widget.TextView;
 
 import com.android.bpcontrol.R;
 import com.android.bpcontrol.application.BPcontrolApplication;
 import com.android.bpcontrol.application.BPcontrolMasterActivity;
+import com.android.bpcontrol.controllers.LateralMenuController;
 import com.android.bpcontrol.databases.DataStore;
 import com.android.bpcontrol.model.Center;
 import com.android.bpcontrol.model.Message;
@@ -40,10 +43,18 @@ import com.android.volley.toolbox.Volley;
 import com.android.volley.Request;
 import com.google.android.gms.maps.model.LatLng;
 
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.protocol.BasicHttpContext;
+import org.apache.http.protocol.HttpContext;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.Document;
 
+import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -52,6 +63,9 @@ import java.util.EventListener;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
 
 
 public class WSManager {
@@ -676,7 +690,23 @@ public class WSManager {
 
     }
 
+    public Document getGoogleMapsRouteDocument(final String url){
+
+        try {
+            HttpClient httpClient = new DefaultHttpClient();
+            HttpContext localContext = new BasicHttpContext();
+            HttpPost httpPost = new HttpPost(url);
+            HttpResponse response = httpClient.execute(httpPost, localContext);
+            InputStream in = response.getEntity().getContent();
+            DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
+            Document doc = builder.parse(in);
+            return doc;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
 
 
+    }
 
 }

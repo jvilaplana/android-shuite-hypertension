@@ -28,6 +28,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.bpcontrol.HomeActivity;
+import com.android.bpcontrol.InitialActivity;
 import com.android.bpcontrol.MapsActivity;
 import com.android.bpcontrol.R;
 import com.android.bpcontrol.adapters.ListCentersAdapter;
@@ -107,7 +108,13 @@ public class CentersListFragment extends Fragment{
 
 
         List<Center> centers = DatabaseAndWSMock.getFakeCenters();
-        adapter = new ListCentersAdapter(getActivity(),centers);
+        if (getActivity() instanceof HomeActivity){
+            adapter = new ListCentersAdapter(getActivity(),centers, ListCentersAdapter.ListCenterPlace.HOME_ACTIVITY);
+
+        }else {
+            adapter = new ListCentersAdapter(getActivity(),centers, ListCentersAdapter.ListCenterPlace.INITIAL_ACTIVITY);
+        }
+
         listView.setAdapter(adapter);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -118,8 +125,16 @@ public class CentersListFragment extends Fragment{
         Bundle bundle = new Bundle();
 
         bundle.putParcelable(CENTER,center);
-        if (!(((HomeActivity)getActivity()).getCurrentLocation()==null)){
-        bundle.putParcelable(MYLOCATION,((HomeActivity)getActivity()).getCurrentLocation());
+
+        if (getActivity() instanceof HomeActivity){
+            if (!(((HomeActivity)getActivity()).getCurrentLocation()==null)){
+                bundle.putParcelable(MYLOCATION,((HomeActivity)getActivity()).getCurrentLocation());
+            }
+
+        }else {
+            if (!(((InitialActivity)getActivity()).getCurrentLocation()==null)){
+                bundle.putParcelable(MYLOCATION,((InitialActivity)getActivity()).getCurrentLocation());
+            }
         }
 
         Intent intent = new Intent(getActivity(),MapsActivity.class);

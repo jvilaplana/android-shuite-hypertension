@@ -2,6 +2,7 @@ package com.android.bpcontrol.model;
 
 import android.util.Log;
 
+import com.android.bpcontrol.webservice.WSManager;
 import com.google.android.gms.maps.model.LatLng;
 
 import org.apache.http.HttpResponse;
@@ -30,24 +31,12 @@ public class GoogleMapsDirection {
     public GoogleMapsDirection() { }
 
     public Document getDocument(LatLng start, LatLng end, String mode) {
-        String url = "http://maps.googleapis.com/maps/api/directions/xml?"
+        final String url = "http://maps.googleapis.com/maps/api/directions/xml?"
                 + "origin=" + start.latitude + "," + start.longitude
                 + "&destination=" + end.latitude + "," + end.longitude
                 + "&sensor=false&units=metric&mode=driving";
 
-        try {
-            HttpClient httpClient = new DefaultHttpClient();
-            HttpContext localContext = new BasicHttpContext();
-            HttpPost httpPost = new HttpPost(url);
-            HttpResponse response = httpClient.execute(httpPost, localContext);
-            InputStream in = response.getEntity().getContent();
-            DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
-            Document doc = builder.parse(in);
-            return doc;
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return null;
+        return WSManager.getInstance().getGoogleMapsRouteDocument(url);
     }
 
     public String getDurationText (Document doc) {
@@ -57,54 +46,6 @@ public class GoogleMapsDirection {
         Node node2 = nl2.item(getNodeIndex(nl2, "text"));
         Log.i("DurationText", node2.getTextContent());
         return node2.getTextContent();
-    }
-
-    public int getDurationValue (Document doc) {
-        NodeList nl1 = doc.getElementsByTagName("duration");
-        Node node1 = nl1.item(0);
-        NodeList nl2 = node1.getChildNodes();
-        Node node2 = nl2.item(getNodeIndex(nl2, "value"));
-        Log.i("DurationValue", node2.getTextContent());
-        return Integer.parseInt(node2.getTextContent());
-    }
-
-    public String getDistanceText (Document doc) {
-        NodeList nl1 = doc.getElementsByTagName("distance");
-        Node node1 = nl1.item(0);
-        NodeList nl2 = node1.getChildNodes();
-        Node node2 = nl2.item(getNodeIndex(nl2, "text"));
-        Log.i("DistanceText", node2.getTextContent());
-        return node2.getTextContent();
-    }
-
-    public int getDistanceValue (Document doc) {
-        NodeList nl1 = doc.getElementsByTagName("distance");
-        Node node1 = nl1.item(0);
-        NodeList nl2 = node1.getChildNodes();
-        Node node2 = nl2.item(getNodeIndex(nl2, "value"));
-        Log.i("DistanceValue", node2.getTextContent());
-        return Integer.parseInt(node2.getTextContent());
-    }
-
-    public String getStartAddress (Document doc) {
-        NodeList nl1 = doc.getElementsByTagName("start_address");
-        Node node1 = nl1.item(0);
-        Log.i("StartAddress", node1.getTextContent());
-        return node1.getTextContent();
-    }
-
-    public String getEndAddress (Document doc) {
-        NodeList nl1 = doc.getElementsByTagName("end_address");
-        Node node1 = nl1.item(0);
-        Log.i("StartAddress", node1.getTextContent());
-        return node1.getTextContent();
-    }
-
-    public String getCopyRights (Document doc) {
-        NodeList nl1 = doc.getElementsByTagName("copyrights");
-        Node node1 = nl1.item(0);
-        Log.i("CopyRights", node1.getTextContent());
-        return node1.getTextContent();
     }
 
     public ArrayList<LatLng> getDirection (Document doc) {

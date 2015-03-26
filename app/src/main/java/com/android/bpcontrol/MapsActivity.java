@@ -49,13 +49,6 @@ import java.util.Map;
 
 public class MapsActivity extends BPcontrolMasterActivity {
 
-    public static enum MAPTYPE {
-
-        HYBRID,
-        NORMAL,
-
-    }
-
     public static final String LOCATION_COUNTRY = "country";
     public static final String LOCATION_PROVINCE = "province";
     public static final String LOCATION_ADMINISTRATION = "administration";
@@ -77,6 +70,7 @@ public class MapsActivity extends BPcontrolMasterActivity {
     private int maptype;
 
 
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -89,16 +83,7 @@ public class MapsActivity extends BPcontrolMasterActivity {
 
 
             if (bundle != null && (bundle.containsKey(CentersListFragment.CENTER) && bundle.containsKey(CentersListFragment.MYLOCATION))) {
-                center = (Center) bundle.getParcelable(CentersListFragment.CENTER);
-                centerlocation = center.getLocation();
-                getSreenDimensions();
-                mylocation = (Location) bundle.getParcelable(CentersListFragment.MYLOCATION);
-                findDirections(mylocation.getLatitude(), mylocation.getLongitude(), centerlocation.latitude,
-                        centerlocation.longitude, GoogleMapsDirection.MODE_DRIVING);
-                latlngBounds = createLatLngBoundsObject(new LatLng(mylocation.getLatitude(), mylocation.getLongitude()),
-                        new LatLng(centerlocation.latitude, centerlocation.longitude));
-                setUpMapIfNeeded();
-                mMap.moveCamera(CameraUpdateFactory.newLatLngBounds(latlngBounds, width, height, 150));
+                initMapWithRoute(bundle);
             }
 
 
@@ -152,7 +137,6 @@ public class MapsActivity extends BPcontrolMasterActivity {
         public static final String DESTINATION_LONG = "destination_long";
         public static final String DIRECTIONS_MODE = "directions_mode";
         private Context context = MapsActivity.this;
-        private Exception exception;
 
 
         public void onPreExecute() {
@@ -167,11 +151,6 @@ public class MapsActivity extends BPcontrolMasterActivity {
                 LatLng toPosition = new LatLng(Double.valueOf(paramMap.get(DESTINATION_LAT)), Double.valueOf(paramMap.get(DESTINATION_LONG)));
                 GoogleMapsDirection md = new GoogleMapsDirection();
                 Document doc = md.getDocument(fromPosition, toPosition, paramMap.get(DIRECTIONS_MODE));
-                md.getDistanceText(doc);
-                md.getDistanceValue(doc);
-                md.getDurationText(doc);
-                md.getDurationValue(doc);
-                md.getCopyRights(doc);
                 ArrayList directionPoints = md.getDirection(doc);
 
                 return directionPoints;
@@ -321,6 +300,20 @@ public class MapsActivity extends BPcontrolMasterActivity {
             e.printStackTrace();
         }
         return null;
+    }
+
+    private void initMapWithRoute(Bundle bundle){
+
+        center = (Center) bundle.getParcelable(CentersListFragment.CENTER);
+        centerlocation = center.getLocation();
+        getSreenDimensions();
+        mylocation = (Location) bundle.getParcelable(CentersListFragment.MYLOCATION);
+        findDirections(mylocation.getLatitude(), mylocation.getLongitude(), centerlocation.latitude,
+                centerlocation.longitude, GoogleMapsDirection.MODE_DRIVING);
+        latlngBounds = createLatLngBoundsObject(new LatLng(mylocation.getLatitude(), mylocation.getLongitude()),
+                new LatLng(centerlocation.latitude, centerlocation.longitude));
+        setUpMapIfNeeded();
+        mMap.moveCamera(CameraUpdateFactory.newLatLngBounds(latlngBounds, width, height, 150));
     }
 }
 

@@ -34,6 +34,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.android.bpcontrol.adapters.ViewPagerContactAdapter;
+import com.android.bpcontrol.adapters.ViewPagerHelpAdapter;
 import com.android.bpcontrol.application.BPcontrolMasterActivity;
 import com.android.bpcontrol.controllers.HomeFragmentManager;
 import com.android.bpcontrol.controllers.LateralMenuController;
@@ -72,6 +73,8 @@ public class HomeActivity extends BPcontrolMasterActivity
 
     private FrameLayout frameLayout;
     private LinearLayout viewpager;
+    private ViewPager pagercontact;
+    private ViewPager pagerhelp;
 
     private ImageButton secondactionbarbutton;
 
@@ -101,6 +104,9 @@ public class HomeActivity extends BPcontrolMasterActivity
         menulayout = (LinearLayout) findViewById(R.id.menuinclude);
         frameLayout =(FrameLayout) findViewById(R.id.menu_frame);
         viewpager = (LinearLayout) findViewById(R.id.viewpager);
+        pagercontact = (ViewPager) findViewById(R.id.pagercontact);
+        pagerhelp = (ViewPager) findViewById(R.id.pagerhelp);
+
 
         headertext = ((RobotoTextView) getActionBarView().findViewById(R.id.textviewbpcontrol));
 
@@ -370,16 +376,26 @@ public class HomeActivity extends BPcontrolMasterActivity
 
                 break;
             case CONTACT:
+                    pagercontact.setVisibility(View.VISIBLE);
+                    pagerhelp.setVisibility(View.GONE);
                     frameLayout.setVisibility(View.GONE);
                     viewpager.setVisibility(View.VISIBLE);
                     FragmentPagerAdapter adaptercontact = new ViewPagerContactAdapter(getSupportFragmentManager());
-                    ViewPager pagercontact = (ViewPager)findViewById(R.id.pager);
                     headertext.setText(getResources().getString(R.string.menusection_contact).toUpperCase());
                     pagercontact.setAdapter(adaptercontact);
                     CirclePageIndicator indicatorcontact = (CirclePageIndicator)findViewById(R.id.pagerindicator);
                     indicatorcontact.setViewPager(pagercontact);
                     break;
             case HELP:
+                    pagercontact.setVisibility(View.GONE);
+                    pagerhelp.setVisibility(View.VISIBLE);
+                    frameLayout.setVisibility(View.GONE);
+                    viewpager.setVisibility(View.VISIBLE);
+                    FragmentPagerAdapter adapterHelp = new ViewPagerHelpAdapter(getSupportFragmentManager());
+                    headertext.setText(getResources().getString(R.string.menusection_help).toUpperCase());
+                    pagerhelp.setAdapter(adapterHelp);
+                    CirclePageIndicator indicatorHelp = (CirclePageIndicator)findViewById(R.id.pagerindicator);
+                    indicatorHelp.setViewPager(pagerhelp);
                     break;
             case FACEBOOK:
                     if(!isFacebookAppInstalled()){
