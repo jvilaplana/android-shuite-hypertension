@@ -97,7 +97,15 @@ public class CentersListFragment extends Fragment{
 
                     WSManager.getInstance().getAssociateHealthCenters(getActivity(),new WSManager.GetHealthCenters() {
                         @Override
-                        public void onCentersReceived(List<Center> listmenssages) {
+                        public void onCentersReceived(List<Center> centers){
+                            if (getActivity() instanceof HomeActivity){
+                                adapter = new ListCentersAdapter(getActivity(),centers, ListCentersAdapter.ListCenterPlace.HOME_ACTIVITY);
+
+                            }else {
+                                adapter = new ListCentersAdapter(getActivity(),centers, ListCentersAdapter.ListCenterPlace.INITIAL_ACTIVITY);
+                            }
+
+                            listView.setAdapter(adapter);
                         }
                     });
 
@@ -107,15 +115,8 @@ public class CentersListFragment extends Fragment{
         }.execute();
 
 
-        List<Center> centers = DatabaseAndWSMock.getFakeCenters();
-        if (getActivity() instanceof HomeActivity){
-            adapter = new ListCentersAdapter(getActivity(),centers, ListCentersAdapter.ListCenterPlace.HOME_ACTIVITY);
+        //List<Center> centers = DatabaseAndWSMock.getFakeCenters();
 
-        }else {
-            adapter = new ListCentersAdapter(getActivity(),centers, ListCentersAdapter.ListCenterPlace.INITIAL_ACTIVITY);
-        }
-
-        listView.setAdapter(adapter);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

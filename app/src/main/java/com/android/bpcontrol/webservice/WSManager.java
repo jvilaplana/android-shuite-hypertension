@@ -636,14 +636,15 @@ public class WSManager {
         }
     }
 
-    public void getAssociateHealthCenters(final Context context, GetHealthCenters callback){
+    public void getAssociateHealthCenters(final Context context, final GetHealthCenters callback){
 
         final String url = URLBASE+"/admin/restOrganizationList/";
 
         webserviceCallWithCallback(context,url,new BPcontrolApiCallback() {
             @Override
             public void onSuccess(String response) {
-                //parseCenters(response);
+               List<Center> centers = parseCenters(response);
+                callback.onCentersReceived(centers);
             }
 
             @Override
@@ -662,22 +663,21 @@ public class WSManager {
         try {
             JSONArray array = new JSONArray(response);
             JSONObject tmp;
-            Center center = new Center();
+            Center center;
             double longitude,latitude;
             for (int i = 0;i<array.length();i++){
                 tmp = array.getJSONObject(i);
+                center = new Center();
 
-                if (tmp!=null){
-
-                    longitude =Double.parseDouble(tmp.getString("longitude"));
-                    latitude = Double.parseDouble(tmp.getString("latitude"));
+                    longitude =tmp.getDouble("longitude");
+                    latitude = tmp.getDouble("latitude");
                     center.setLocation(new LatLng(latitude,longitude));
                     center.setName(tmp.getString("description"));
                     center.setContactAddress(tmp.getString("contactAddress"));
                     center.setTlf(tmp.getString("contactPhone"));
                     center.setEmail(tmp.getString("contactEmail"));
                     centers.add(center);
-                }
+
 
             }
 
