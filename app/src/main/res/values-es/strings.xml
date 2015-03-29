@@ -31,7 +31,7 @@
     <!--TAB MENU NAME-->
     <string name="hometab">Inicio</string>
     <string name="centerstab">Centros</string>
-    <string name="helptab">Ayuda</string>
+    <string name="helptab">Info</string>
     <string name="registerAccess">Acceso al area de pacientes</string>
 
     <!--SendTLFRegister and SMSCodeActivity-->
@@ -195,4 +195,10 @@
         <item>Satélite</item>
         <item>Terreno</item>
     </string-array>
+
+    <!--Help-->
+    <string name="pressurehelp1">Para poder añadir sus presiones diarias, tienes que ir al apartado Presiones arteriales o directamente desde el acceso directo del menú principal “Añadir presiones”. \n\nLa pantalla de presiones consta de dos partes, la primera es la elección de la franja horaria en la cual se esta realizando la medición(mañana o tarde-noche) y la otra son distintos campos para la introducción de las presiones y pulso. Por cada franja se deben introducir 3 mediciones.</string>
+    <string name="pressurehelp2">Cada linea de campos vacíos representa una medición (presión sistólica, presión diastólica y pulso).</string>
+    <string name="pressurehelp3">Cuando se completa cada franja con sus 3 mediciones correspondientes se pueden guardar sus valores, de esta forma se puede guardar la franja de la mañana para enviar las 2 franjas por la tarde-noche cuando se complete la franja de tarde-noche y este todo listo. Se puede cambiar de una franja a otra sin que se borre el contenido siempre y cuando no salga al menú principal sin haber guardado. \n\n<b>IMPORTANTE:</b> En una franja se podrán guardar sus valores siempre y cuando se hayan introducido las 3 mediciones. SOLO SE PUEDEN ENVIAR LOS RESULTADOS CUANDO ESTEN TODAS LAS FRANJAS COMPLETAS.</string>
+    <string name="pressuretitlehelp">Introducir mediciones por franja</string>
 </resources>
