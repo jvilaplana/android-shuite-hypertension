@@ -31,7 +31,7 @@
     <!--TAB MENU NAME-->
     <string name="hometab">Start</string>
     <string name="centerstab">Centers</string>
-    <string name="helptab">Help</string>
+    <string name="helptab">Info</string>
     <string name="registerAccess">Patient Area Access</string>
 
     <!--SendTLFRegister-->

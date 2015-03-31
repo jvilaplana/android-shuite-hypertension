@@ -1,6 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent">
+    <LinearLayout
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-</LinearLayout>
+        <com.android.bpcontrol.customviews.RobotoTextView
+            android:textSize="17sp"
+            android:tag="RobotoBold"
+            android:layout_marginBottom="15dp"
+            android:text="@string/pressuretitlehelp"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+
+
+    <com.android.bpcontrol.customviews.RobotoTextView
+        android:id="@+id/firsttextpressurehelp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="15sp"
+        android:text="@string/pressurehelp1"
+        android:tag="RobotoRegular"/>
+
+    <ImageView
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_gravity="center_horizontal"
+        android:src="@drawable/pressurehelp1"/>
+
+    <com.android.bpcontrol.customviews.RobotoTextView
+        android:id="@+id/secondttextpressurehelp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="15sp"
+        android:text="@string/pressurehelp2"
+        android:tag="RobotoRegular"/>
+
+    <ImageView
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_gravity="center_horizontal"
+        android:src="@drawable/pressurehelp2"/>
+
+    <com.android.bpcontrol.customviews.RobotoTextView
+        android:id="@+id/thirdttextpressurehelp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="15sp"
+        android:text="@string/pressurehelp3"
+        android:layout_marginBottom="25dp"
+        android:tag="RobotoRegular"/>
+
+    </LinearLayout>
+
+</ScrollView>
