@@ -29,7 +29,7 @@ public class SplashActivity extends BPcontrolMasterActivity {
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                if (true) {
+                if (false) {
                     User.getInstance().setUUID(TEST_UUID);
 
                     startActivity(new Intent(SplashActivity.this, HomeActivity.class));

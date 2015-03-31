@@ -49,9 +49,12 @@ public class WindowsMapAdapter implements GoogleMap.InfoWindowAdapter {
                     MapsActivity.LOCATION_PROVINCE,"")+" ("+bundle.getString(MapsActivity.LOCATION_COUNTRY,"")+")");
         }
 
-        ((RobotoTextView) view.findViewById(R.id.webpage)).setText(center.getWebpage());
-        ((RobotoTextView) view.findViewById(R.id.mailcontact)).setText(center.getEmail());
-        ((RobotoTextView) view.findViewById(R.id.tlf)).setText(center.getTlf());
+        ((RobotoTextView) view.findViewById(R.id.webpage)).setText(
+                center.getWebpage()==null || center.getWebpage().equals("null")?"":center.getWebpage());
+        ((RobotoTextView) view.findViewById(R.id.mailcontact)).setText(
+                center.getWebpage()==null  || center.getEmail().equals("null")?"":center.getEmail());
+        ((RobotoTextView) view.findViewById(R.id.tlf)).setText(
+                center.getWebpage()==null  || center.getTlf().equals("null")?"":center.getTlf());
 
         ImageView image = (ImageView) view.findViewById(R.id.windowmapimage);
         image.setOnClickListener(new View.OnClickListener() {

@@ -669,18 +669,15 @@ public class WSManager {
                 tmp = array.getJSONObject(i);
                 center = new Center();
 
-                    longitude =tmp.getDouble("longitude");
-                    latitude = tmp.getDouble("latitude");
-                    center.setLocation(new LatLng(latitude,longitude));
-                    center.setName(tmp.getString("description"));
-                    center.setContactAddress(tmp.getString("contactAddress"));
-                    center.setTlf(tmp.getString("contactPhone"));
-                    center.setEmail(tmp.getString("contactEmail"));
-                    centers.add(center);
-
-
+                longitude =tmp.getDouble("longitude");
+                latitude = tmp.getDouble("latitude");
+                center.setLocation(new LatLng(latitude,longitude));
+                center.setName(tmp.getString("description"));
+                center.setContactAddress(tmp.getString("contactAddress"));
+                center.setTlf(tmp.getString("contactPhone"));
+                center.setEmail(tmp.getString("contactEmail"));
+                centers.add(center);
             }
-
 
         } catch (JSONException e) {
             e.printStackTrace();

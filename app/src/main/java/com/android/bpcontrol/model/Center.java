@@ -11,6 +11,7 @@ import com.google.android.gms.maps.model.LatLng;
  */
 public class Center implements Parcelable {
 
+    private int id;
     private String name;
     private String address;
     private String zipcode;
@@ -35,6 +36,7 @@ public class Center implements Parcelable {
     public Center(){}
 
     private Center(Parcel in){
+        id = in.readInt();
         name = in.readString();
         address = in.readString();
         zipcode = in.readString();
@@ -127,6 +129,7 @@ public class Center implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
 
+        dest.writeInt(id);
         dest.writeString(name);
         dest.writeString(address);
         dest.writeString(zipcode);
