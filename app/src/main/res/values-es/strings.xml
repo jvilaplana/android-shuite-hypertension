@@ -203,15 +203,28 @@
     <string name="pressuretitlehelp">Introducir mediciones por franja</string>
 
     <!--Atribuciones-->
-    <string name="icons8url">www.icons8.com</string>
-    <string name="flaticonsurl">www.flaticon.com</string>
-    <string name="amitjakhuurl">www.amitjakhu.com</string>
-    <string name="freepikurl">www.freepik.com</string>
+
+    <string name="headerattributions">Atribuciones</string>
+
+    <string name="flaticonsurl" translatable="false">www.flaticon.com</string>
+
+    <string name="amitjakhuurl" translatable="false">www.amitjakhu.com</string>
     <string name="principalmenuiconmenssage">Icono mensajes menu principal creado por Amit Jakhu</string>
     <string name="principalmenuiconmenssage2">con licencia CC BY 3.0, descargados de </string>
+
+    <string name="icons8url" translatable="false">www.icons8.com</string>
     <string name="maptypeicons">Icono tipo de mapa creados por Icons8</string>
     <string name="maptypeicons2">con licencia CC BY 3.0, descargados de</string>
-    <string name="leteralmenu">Los iconos del menú lateral son nativos de android.</string>
-    <string name="othericons">El resto creados por freepick  con licencia CC BY 3.0, descargados de www.flaticon.com.</string>
+
+    <string name="freepikurl" translatable="false">www.freepik.com</string>
+    <string name="lateralmenu">El resto de iconos del menu principal estan creados por</string>
+    <string name="lateralmenu2">con licencia CC BY 3.0, descargados de</string>
+
+    <string name="mensajes1">El fondo de pantalla del apartado mensajes y el fondo de los mensajes creado por </string>
+    <string name="mensajesautor" translatable="false">github.com/DrKLO</string>
+    <string name="mensajes2">distribuido con licencia GPL en </string>
+    <string name="githuburl" translatable="false">github.com/DrKLO/Telegram</string>
+
+    <string name="lateral">Los iconos del menu lateral son nativos de Android. </string>
 
 </resources>

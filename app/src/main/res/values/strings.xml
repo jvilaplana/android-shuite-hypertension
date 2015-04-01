@@ -193,5 +193,27 @@
 
 
 
+    <!--Attributions-->
+    <string name="headerattributions">Attributions</string>
+
+    <string name="principalmenuiconmenssage">Principal menu icon created by Amit Jakhu</string>
+    <string name="principalmenuiconmenssage2">under license CC BY 3.0, downloaded from </string>
+
+    <string name="icons8url">www.icons8.com</string>
+    <string name="maptypeicons">Map type icon is created by Icons8</string>
+    <string name="maptypeicons2">under license CC BY 3.0, downloaded from</string>
+
+    <string name="freepikurl">www.freepik.com</string>
+    <string name="lateralmenu">The rest of icons are created by Freepik </string>
+    <string name="lateralmenu2">under license CC BY 3.0, downloaded from</string>
+
+    <string name="mensajes1">The background fragment in chat and background messages are created by </string>
+    <string name="mensajesautor">github.com/DrKLO</string>
+    <string name="mensajes2">distributed with GPL license in  </string>
+    <string name="githuburl">github.com/DrKLO/Telegram</string>
+
+    <string name="lateral">The lateral menu icons are natives from Android. </string>
+
+
 
 </resources>

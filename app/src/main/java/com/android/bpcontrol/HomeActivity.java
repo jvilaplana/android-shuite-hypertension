@@ -413,7 +413,7 @@ public class HomeActivity extends BPcontrolMasterActivity
                     connectToSocialNetwork("https://plus.google.com/");
                     break;
             case ATTRIBUTIONS:
-
+                    headertext.setText(getResources().getString(R.string.headerattributions).toUpperCase());
                     AttributionFragment attributionFragment = AttributionFragment.getNewInstance();
                     loadFragment(attributionFragment,false,true);
                     break;

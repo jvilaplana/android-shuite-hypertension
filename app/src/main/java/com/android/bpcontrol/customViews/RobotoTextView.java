@@ -2,6 +2,8 @@ package com.android.bpcontrol.customviews;
 
 import android.annotation.TargetApi;
 import android.content.Context;
+import android.text.SpannableStringBuilder;
+import android.text.method.LinkMovementMethod;
 import android.util.AttributeSet;
 import android.widget.TextView;
 import android.os.Build;
@@ -56,6 +58,13 @@ public class RobotoTextView extends TextView {
                     .getTypeface(BPcontrolApplication.FontsTypeface.RobotoRegular));
 
         }
+
+    }
+
+    public void setSpannableText(SpannableStringBuilder text){
+
+        setMovementMethod(LinkMovementMethod.getInstance());
+        setText(text, TextView.BufferType.SPANNABLE);
 
     }
 }
