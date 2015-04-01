@@ -201,4 +201,17 @@
     <string name="pressurehelp2">Cada linea de campos vacíos representa una medición (presión sistólica, presión diastólica y pulso).</string>
     <string name="pressurehelp3">Cuando se completa cada franja con sus 3 mediciones correspondientes se pueden guardar sus valores, de esta forma se puede guardar la franja de la mañana para enviar las 2 franjas por la tarde-noche cuando se complete la franja de tarde-noche y este todo listo. Se puede cambiar de una franja a otra sin que se borre el contenido siempre y cuando no salga al menú principal sin haber guardado. \n\n<b>IMPORTANTE:</b> En una franja se podrán guardar sus valores siempre y cuando se hayan introducido las 3 mediciones. SOLO SE PUEDEN ENVIAR LOS RESULTADOS CUANDO ESTEN TODAS LAS FRANJAS COMPLETAS.</string>
     <string name="pressuretitlehelp">Introducir mediciones por franja</string>
+
+    <!--Atribuciones-->
+    <string name="icons8url">www.icons8.com</string>
+    <string name="flaticonsurl">www.flaticon.com</string>
+    <string name="amitjakhuurl">www.amitjakhu.com</string>
+    <string name="freepikurl">www.freepik.com</string>
+    <string name="principalmenuiconmenssage">Icono mensajes menu principal creado por Amit Jakhu</string>
+    <string name="principalmenuiconmenssage2">con licencia CC BY 3.0, descargados de </string>
+    <string name="maptypeicons">Icono tipo de mapa creados por Icons8</string>
+    <string name="maptypeicons2">con licencia CC BY 3.0, descargados de</string>
+    <string name="leteralmenu">Los iconos del menú lateral son nativos de android.</string>
+    <string name="othericons">El resto creados por freepick  con licencia CC BY 3.0, descargados de www.flaticon.com.</string>
+
 </resources>

@@ -39,6 +39,7 @@ import com.android.bpcontrol.application.BPcontrolMasterActivity;
 import com.android.bpcontrol.controllers.HomeFragmentManager;
 import com.android.bpcontrol.controllers.LateralMenuController;
 import com.android.bpcontrol.customviews.RobotoTextView;
+import com.android.bpcontrol.fragments.AttributionFragment;
 import com.android.bpcontrol.fragments.CentersListFragment;
 import com.android.bpcontrol.fragments.ChatMessagesFragment;
 import com.android.bpcontrol.fragments.InitialFragment;
@@ -412,6 +413,9 @@ public class HomeActivity extends BPcontrolMasterActivity
                     connectToSocialNetwork("https://plus.google.com/");
                     break;
             case ATTRIBUTIONS:
+
+                    AttributionFragment attributionFragment = AttributionFragment.getNewInstance();
+                    loadFragment(attributionFragment,false,true);
                     break;
 
             default:
@@ -676,9 +680,6 @@ public class HomeActivity extends BPcontrolMasterActivity
     }
 
     private boolean checkIfLocationFound(){
-
-//        final boolean gpsenabled = manager.isProviderEnabled(LocationManager.GPS_PROVIDER);
-//        final boolean networkenabled = manager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
 
         Location lastknowlocation = null;
         if (currentLocation==null){
