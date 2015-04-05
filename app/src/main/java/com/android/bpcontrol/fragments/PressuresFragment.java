@@ -18,6 +18,7 @@ import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.NumberPicker;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -39,6 +40,8 @@ import com.android.bpcontrol.webservice.WSManager;
 
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -47,26 +50,39 @@ import java.util.List;
  */
 
 public class PressuresFragment extends Fragment
-                               implements AdapterView.OnItemSelectedListener,
-                                          NumberPicker.OnValueChangeListener {
+                               implements NumberPicker.OnValueChangeListener {
 
     private String systolic1n, systolic2n, systolic3n, systolic1m, systolic2m, systolic3m;
     private String diastolic1n, diastolic2n, diastolic3n, diastolic1m, diastolic2m, diastolic3m;
     private String pulse1n, pulse2n, pulse3n, pulse1m, pulse2m, pulse3m;
-    private boolean bSystolic1n = false, bSystolic2n = false, bSystolic3n = false, bSystolic1m = false, bSystolic2m = false, bSystolic3m = false;
-    private boolean bDiastolic1n = false, bDiastolic2n = false, bDiastolic3n = false, bDiastolic1m = false, bDiastolic2m = false, bDiastolic3m = false;
-    private boolean bPulse1n = false, bPulse2n = false, bPulse3n = false, bPulse1m = false, bPulse2m = false, bPulse3m = false;
-    private Button buttonsend;
-    private Button buttonsave;
+    private boolean bSystolic1n = false, bSystolic2n = false, bSystolic3n = false, bSystolic1m = false,
+            bSystolic2m = false, bSystolic3m = false;
+    private boolean bDiastolic1n = false, bDiastolic2n = false, bDiastolic3n = false, bDiastolic1m = false,
+            bDiastolic2m = false, bDiastolic3m = false;
+    private boolean bPulse1n = false, bPulse2n = false, bPulse3n = false, bPulse1m = false,
+            bPulse2m = false, bPulse3m = false;
+
+    private Button buttonsend,buttonsave,buttonsave2;
 
     private BPcontrolDB db;
 
     int choosedspinner = 0;
 
-    private ArrayList<BPEditText> editTexts = new ArrayList<>();
+    private ArrayList<BPEditText> editTextsMorning = new ArrayList<>();
+    private ArrayList<BPEditText> editTextsAfternoon = new ArrayList<>();
 
-    private Spinner spinner;
+    private View.OnClickListener saveListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            int tag = Integer.parseInt((String)v.getTag());
+            if (tag==0)
+                choosedspinner=0;
+            else
+                choosedspinner=1;
 
+            new saveData().execute();
+        }
+    };
 
     public static PressuresFragment getNewInstace() {
 
@@ -79,11 +95,15 @@ public class PressuresFragment extends Fragment
         super.onCreateView(inflater, container, savedInstanceState);
 
         View view = inflater.inflate(R.layout.pressureslayout, null);
-        spinner = (Spinner) view.findViewById(R.id.spinnerpressures);
         ViewGroup group = (ViewGroup) view.findViewById(R.id.edittextspressures);
+        ViewGroup group2 = (ViewGroup) view.findViewById(R.id.edittextspressures2);
+        group.setTag(new Integer(0));
+        group2.setTag(new Integer(1));
         buttonsend = (Button) view.findViewById(R.id.sendpressures);
         buttonsave = (Button) view.findViewById(R.id.save);
-        getEditTexts(group);
+        buttonsave2 = (Button) view.findViewById(R.id.save2);
+        getEditTexts(group, editTextsMorning);
+        getEditTexts(group2,editTextsAfternoon);
 
 
         return view;
@@ -108,23 +128,15 @@ public class PressuresFragment extends Fragment
         }
 
 
-        ArrayAdapter adapter = new ArrayAdapter(getActivity(), android.R.layout.simple_list_item_1, getResources().getStringArray(R.array.spinnerpressures));
-        spinner.setAdapter(adapter);
-        spinner.setOnItemSelectedListener(this);
-
-        buttonsave.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                    new saveData().execute();
-            }
-        });
+        buttonsave.setOnClickListener(saveListener);
+        buttonsave2.setOnClickListener(saveListener);
 
         buttonsend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String lastupdatedate = getLastDateSent();
                 try {
-                   // if (!DateUtils.isDateEqualsToTodayDate(lastupdatedate)) {
+                   if (!DateUtils.isDateEqualsToTodayDate(lastupdatedate)) {
 
                         if (isCorrectAfternoonMeassurament() && isCorrectMorningMeassurament()) {
 
@@ -134,9 +146,9 @@ public class PressuresFragment extends Fragment
 
                             showDialog(getResources().getString(R.string.messagesend));
                         }
-                   // }else{
-                     //   showDialogPressuresIntroduced();
-                   // }
+                   }else{
+                        showDialogPressuresIntroduced();
+                   }
 
                 } catch (Exception ex) {
                     LogBP.printStackTrace(ex);
@@ -149,78 +161,78 @@ public class PressuresFragment extends Fragment
     }
 
 
-    @Override
-    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+//    @Override
+//    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+//
+//        choosedspinner = position;
+//        BPEditText edittext0 = editTexts.get(0);
+//        BPEditText edittext1 = editTexts.get(1);
+//        BPEditText edittext2 = editTexts.get(2);
+//        BPEditText edittext3 = editTexts.get(3);
+//        BPEditText edittext4 = editTexts.get(4);
+//        BPEditText edittext5 = editTexts.get(5);
+//        BPEditText edittext6 = editTexts.get(6);
+//        BPEditText edittext7 = editTexts.get(7);
+//        BPEditText edittext8 = editTexts.get(8);
+//
+//        edittext0.setText("");
+//        edittext1.setText("");
+//        edittext2.setText("");
+//
+//        edittext3.setText("");
+//        edittext4.setText("");
+//        edittext5.setText("");
+//
+//        edittext6.setText("");
+//        edittext7.setText("");
+//        edittext8.setText("");
+//
+//        LogBP.writelog("itemSelected()");
+//        if (position==0 && isCorrectMorningMeassurament()){
+//
+//            edittext0.setText(systolic1m);
+//            edittext1.setText(systolic2m);
+//            edittext2.setText(systolic3m);
+//
+//            edittext3.setText(diastolic1m);
+//            edittext4.setText(diastolic2m);
+//            edittext5.setText(diastolic3m);
+//
+//            edittext6.setText(pulse1m);
+//            edittext7.setText(pulse2m);
+//            edittext8.setText(pulse3m);
+//
+//        }else if(position == 1 && isCorrectAfternoonMeassurament()){
+//
+//            edittext0.setText(systolic1n);
+//            edittext1.setText(systolic2n);
+//            edittext2.setText(systolic3n);
+//
+//            edittext3.setText(diastolic1n);
+//            edittext4.setText(diastolic2n);
+//            edittext5.setText(diastolic3n);
+//
+//            edittext6.setText(pulse1n);
+//            edittext7.setText(pulse2n);
+//            edittext8.setText(pulse3n);
+//
+//        }
+//    }
+//
+//    @Override
+//    public void onNothingSelected(AdapterView<?> parent) {
+//        //nothing
+//    }
+//
+//    @Override
+//    public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
+//
+//        //nothing
+//
+//    }
 
-        choosedspinner = position;
-        BPEditText edittext0 = editTexts.get(0);
-        BPEditText edittext1 = editTexts.get(1);
-        BPEditText edittext2 = editTexts.get(2);
-        BPEditText edittext3 = editTexts.get(3);
-        BPEditText edittext4 = editTexts.get(4);
-        BPEditText edittext5 = editTexts.get(5);
-        BPEditText edittext6 = editTexts.get(6);
-        BPEditText edittext7 = editTexts.get(7);
-        BPEditText edittext8 = editTexts.get(8);
-
-        edittext0.setText("");
-        edittext1.setText("");
-        edittext2.setText("");
-
-        edittext3.setText("");
-        edittext4.setText("");
-        edittext5.setText("");
-
-        edittext6.setText("");
-        edittext7.setText("");
-        edittext8.setText("");
-
-        LogBP.writelog("itemSelected()");
-        if (position==0 && isCorrectMorningMeassurament()){
-
-            edittext0.setText(systolic1m);
-            edittext1.setText(systolic2m);
-            edittext2.setText(systolic3m);
-
-            edittext3.setText(diastolic1m);
-            edittext4.setText(diastolic2m);
-            edittext5.setText(diastolic3m);
-
-            edittext6.setText(pulse1m);
-            edittext7.setText(pulse2m);
-            edittext8.setText(pulse3m);
-
-        }else if(position == 1 && isCorrectAfternoonMeassurament()){
-
-            edittext0.setText(systolic1n);
-            edittext1.setText(systolic2n);
-            edittext2.setText(systolic3n);
-
-            edittext3.setText(diastolic1n);
-            edittext4.setText(diastolic2n);
-            edittext5.setText(diastolic3n);
-
-            edittext6.setText(pulse1n);
-            edittext7.setText(pulse2n);
-            edittext8.setText(pulse3n);
-
-        }
-    }
-
-    @Override
-    public void onNothingSelected(AdapterView<?> parent) {
-        //nothing
-    }
-
-    @Override
-    public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
-
-        //nothing
-
-    }
-
-    private void getEditTexts(ViewGroup group) {
-
+    private void getEditTexts(ViewGroup group,List<BPEditText> editTexts) {
+        final int tag = (Integer)group.getTag();
         BPEditText tmp;
         int counter = 0;
         for (int i = 0; i < 3; i++) {
@@ -231,6 +243,11 @@ public class PressuresFragment extends Fragment
                     public boolean onTouch(View v, MotionEvent event) {
                         if (event.getAction() == 1) {
                             BPEditText editText = (BPEditText) v;
+                            if (tag==0){
+                                choosedspinner=0;
+                            }else{
+                                choosedspinner=1;
+                            }
                             Integer pos = (int) Integer.parseInt((String) v.getTag());
                             showPicker(pos);
                         }
@@ -390,8 +407,13 @@ public class PressuresFragment extends Fragment
 
 
         }
-        BPEditText editText = editTexts.get(position - 1);
-        editText.setText(String.valueOf(pickervalue));
+        if (isMorning()) {
+            BPEditText editText = editTextsMorning.get(position - 1);
+            editText.setText(String.valueOf(pickervalue));
+        }else{
+            BPEditText editText = editTextsAfternoon.get(position - 1);
+            editText.setText(String.valueOf(pickervalue));
+        }
 
     }
 
@@ -415,6 +437,11 @@ public class PressuresFragment extends Fragment
     private boolean isAfternoon() {
 
         return choosedspinner != 0;
+    }
+
+    @Override
+    public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
+
     }
 
 
@@ -502,12 +529,12 @@ public class PressuresFragment extends Fragment
            editor.putString(SharedPreferenceConstants.PULSEN, "");
            editor.commit();
 
-           for(BPEditText editText : editTexts){
+           for(BPEditText editText : editTextsMorning){
                editText.setText("");
            }
-
-
-
+           for(BPEditText editText : editTextsAfternoon){
+               editText.setText("");
+           }
 
    }
 
@@ -525,9 +552,9 @@ public class PressuresFragment extends Fragment
             systolic2m = systolicm[1];
             systolic3m = systolicm[2];
 
-            editTexts.get(0).setText(systolic1m);
-            editTexts.get(3).setText(systolic2m);
-            editTexts.get(6).setText(systolic3m);
+            editTextsMorning.get(0).setText(systolic1m);
+            editTextsMorning.get(1).setText(systolic2m);
+            editTextsMorning.get(2).setText(systolic3m);
 
             bSystolic1m = true;
             bSystolic2m = true;
@@ -543,6 +570,10 @@ public class PressuresFragment extends Fragment
             systolic2n = systolicn[1];
             systolic3n = systolicn[2];
 
+            editTextsAfternoon.get(0).setText(systolic1n);
+            editTextsAfternoon.get(1).setText(systolic2n);
+            editTextsAfternoon.get(2).setText(systolic3n);
+
             bSystolic1n = true;
             bSystolic2n = true;
             bSystolic3n = true;
@@ -555,9 +586,9 @@ public class PressuresFragment extends Fragment
             diastolic2m = diastolicm[1];
             diastolic3m = diastolicm[2];
 
-            editTexts.get(1).setText(diastolic1m);
-            editTexts.get(4).setText(diastolic2m);
-            editTexts.get(7).setText(diastolic3m);
+            editTextsMorning.get(3).setText(diastolic1m);
+            editTextsMorning.get(4).setText(diastolic2m);
+            editTextsMorning.get(5).setText(diastolic3m);
 
             bDiastolic1m = true;
             bDiastolic2m = true;
@@ -572,6 +603,10 @@ public class PressuresFragment extends Fragment
             diastolic2n = diastolicn[1];
             diastolic3n = diastolicn[2];
 
+            editTextsAfternoon.get(3).setText(diastolic1n);
+            editTextsAfternoon.get(4).setText(diastolic2n);
+            editTextsAfternoon.get(5).setText(diastolic3n);
+
             bDiastolic1n = true;
             bDiastolic2n = true;
             bDiastolic3n = true;
@@ -583,9 +618,9 @@ public class PressuresFragment extends Fragment
             pulse2m = pulsem[1];
             pulse3m = pulsem[2];
 
-            editTexts.get(2).setText(pulse1m);
-            editTexts.get(5).setText(pulse2m);
-            editTexts.get(8).setText(pulse3m);
+            editTextsMorning.get(6).setText(pulse1m);
+            editTextsMorning.get(7).setText(pulse2m);
+            editTextsMorning.get(8).setText(pulse3m);
 
             bPulse1m = true;
             bPulse2m = true;
@@ -598,6 +633,10 @@ public class PressuresFragment extends Fragment
             pulse1n = pulsen[0];
             pulse2n = pulsen[1];
             pulse3n = pulsen[2];
+
+            editTextsAfternoon.get(6).setText(pulse1n);
+            editTextsAfternoon.get(7).setText(pulse2n);
+            editTextsAfternoon.get(8).setText(pulse3n);
 
             bPulse1n = true;
             bPulse2n = true;

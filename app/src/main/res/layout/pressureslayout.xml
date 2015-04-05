@@ -35,22 +35,15 @@
         android:layout_marginLeft="@dimen/marginpressureslateral"
         android:layout_marginRight="@dimen/marginpressureslateral"
         android:layout_marginBottom="@dimen/margintextview"
-        android:text="@string/pressuresspinnertext"
+        android:text="@string/pressuressfirsttimetext"
         />
 
-        <Spinner
-            android:id="@+id/spinnerpressures"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/marginpressureslateral"
-            android:layout_marginRight="@dimen/marginpressureslateral"
-
-            />
         <LinearLayout
             android:id="@+id/edittextspressures"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
+            android:layout_marginBottom="20dp"
             android:orientation="horizontal">
 
                 <LinearLayout
@@ -191,22 +184,208 @@
             android:layout_marginBottom="@dimen/marginpressurestop"
             android:orientation="horizontal">
             <Button
-                android:id="@+id/sendpressures"
+                android:id="@+id/save"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:tag="0"
                 android:layout_marginRight="@dimen/marginbottomtextviews"
                 android:layout_gravity="center_horizontal"
                 style="@style/patientAreaButtonStyle"
-                android:text="@string/sendpreassure"/>
+                android:text="@string/savebutton"/>
 
+        </LinearLayout>
+
+
+
+        <com.android.bpcontrol.customviews.RobotoTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="17sp"
+            android:textColor="@color/menutext"
+            android:tag="RobotoBold"
+            android:layout_marginLeft="@dimen/marginpressureslateral"
+            android:layout_marginRight="@dimen/marginpressureslateral"
+            android:layout_marginBottom="@dimen/margintextview"
+            android:text="@string/pressuressecondtimetext"
+            />
+
+
+        <LinearLayout
+            android:id="@+id/edittextspressures2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/beetweentextview"
+                android:orientation="vertical">
+
+                <com.android.bpcontrol.customviews.RobotoTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/systolic"
+                    android:gravity="center_horizontal"
+                    android:layout_marginTop="@dimen/margintextview"
+                    android:layout_marginBottom="@dimen/margintextview"/>
+
+                <com.android.bpcontrol.customviews.BPEditText
+                    android:id="@+id/pressure200"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ems="3"
+                    android:tag="1"
+                    android:layout_marginBottom="@dimen/margintextview"/>
+
+
+                <com.android.bpcontrol.customviews.BPEditText
+                    android:id="@+id/pressure201"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ems="3"
+                    android:tag="2"
+                    android:layout_marginBottom="@dimen/margintextview"/>
+
+
+                <com.android.bpcontrol.customviews.BPEditText
+                    android:id="@+id/pressure202"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ems="3"
+                    android:tag="3"
+                    android:layout_marginBottom="@dimen/margintextview"/>
+
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/beetweentextview"
+                android:orientation="vertical">
+
+                <com.android.bpcontrol.customviews.RobotoTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/diastolic"
+                    android:gravity="center_horizontal"
+                    android:layout_marginTop="@dimen/margintextview"
+                    android:layout_marginBottom="@dimen/margintextview"/>
+
+                <com.android.bpcontrol.customviews.BPEditText
+                    android:id="@+id/pressure210"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ems="3"
+                    android:tag="4"
+                    android:layout_marginBottom="@dimen/margintextview"/>
+
+
+                <com.android.bpcontrol.customviews.BPEditText
+                    android:id="@+id/pressure211"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ems="3"
+                    android:tag="5"
+                    android:layout_marginBottom="@dimen/margintextview"/>
+
+
+                <com.android.bpcontrol.customviews.BPEditText
+                    android:id="@+id/pressure212"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ems="3"
+                    android:tag="6"
+                    android:layout_marginBottom="@dimen/margintextview"/>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <com.android.bpcontrol.customviews.RobotoTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:text="@string/pulse"
+                    android:layout_marginTop="@dimen/margintextview"
+                    android:layout_marginBottom="@dimen/margintextview"/>
+
+                <com.android.bpcontrol.customviews.BPEditText
+                    android:id="@+id/pressure220"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ems="3"
+                    android:tag="7"
+                    android:layout_marginBottom="@dimen/margintextview"/>
+
+
+                <com.android.bpcontrol.customviews.BPEditText
+                    android:id="@+id/pressure221"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ems="3"
+                    android:tag="8"
+                    android:layout_marginBottom="@dimen/margintextview"/>
+
+
+                <com.android.bpcontrol.customviews.BPEditText
+                    android:id="@+id/pressure222"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ems="3"
+                    android:tag="9"
+                    android:layout_marginBottom="@dimen/margintextview"/>
+
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:layout_marginTop="@dimen/margintextview"
+            android:layout_marginBottom="@dimen/marginpressurestop"
+            android:orientation="horizontal">
             <Button
-                android:id="@+id/save"
+                android:id="@+id/save2"
+                android:tag="1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="@dimen/marginbottomtextviews"
                 android:layout_gravity="center_horizontal"
                 style="@style/patientAreaButtonStyle"
                 android:text="@string/savebutton"/>
+
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:layout_marginTop="@dimen/margintextview"
+            android:layout_marginBottom="@dimen/marginpressurestop"
+            android:orientation="horizontal">
+            <Button
+                android:id="@+id/sendpressures"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginLeft="50dp"
+                android:layout_marginRight="50dp"
+                style="@style/patientAreaButtonStyle"
+                android:text="@string/sendpreassure"/>
+
+
 
 
             </LinearLayout>
