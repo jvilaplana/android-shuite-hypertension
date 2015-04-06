@@ -209,6 +209,15 @@
 
     <string name="lateral">The lateral menu icons are natives from Android. </string>
 
+    <!--Help-->
+    <string name="pressurehelp1">To add your daily pressures , you have to go to paragraph blood pressures or directly from the shortcut on the main menu " Add pressures."\n\nThe pressure screen consists of two parts , add measurements in the morning and afternoon add measurements .</string>
+    <string name="pressurehelp2">Each line of empty fields represents a measurement(systolic pressure , diastolic pressure and pulse).</string>
+    <string name="pressurehelp3">When each strip is complete with its 3 measurements corresponding can save your settings , this way you can save Fringe morning to send 2 slots for the evening when the Gaza evening is completed and this all ready . You can switch from one band to another without the content always clear that they do not exit the application without saving data \n \n <b> NOTE : </b> In a band you can save your settings as long as are entered 3 measurements. CAN SEND ONLY WHEN RESULTS ARE TWO FULL STRIP .</string>
+    <string name="pressuretitlehelp">Enter measurements per time slot</string>
+
+    <string name="contacttitlehelp">Edit profile data</string>
+    <string name="contacthelp1">If any of the data shown in the profile is not correct, you can change them in the Contact section by sending an email notifying the error and the data will be modified as soon as possible.</string>
+
 
 
 </resources>

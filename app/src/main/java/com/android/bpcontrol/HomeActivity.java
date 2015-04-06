@@ -91,6 +91,8 @@ public class HomeActivity extends BPcontrolMasterActivity
 
     private AlertDialog builderGPSdisable;
 
+    private boolean isFirstTime = true;
+
 
 
 
@@ -112,9 +114,17 @@ public class HomeActivity extends BPcontrolMasterActivity
         headertext = ((RobotoTextView) getActionBarView().findViewById(R.id.textviewbpcontrol));
 
         LateralMenuController.getInstance().initItems(this);
+    }
+
+    @Override
+    public void onResume(){
+        super.onResume();
 
         if (isNetworkAvailable()){
-            configureViewAndGetData();
+            if(isFirstTime){
+                configureViewAndGetData();
+                isFirstTime = false;
+            }
 
         }else{
 
@@ -125,7 +135,10 @@ public class HomeActivity extends BPcontrolMasterActivity
                 public void onClick(DialogInterface dialog, int which) {
 
                     if (isNetworkAvailable()){
-                        configureViewAndGetData();
+                        if(isFirstTime){
+                            configureViewAndGetData();
+                            isFirstTime = false;
+                        }
                     }else{
                         finish();
                     }
@@ -144,11 +157,6 @@ public class HomeActivity extends BPcontrolMasterActivity
             builder.show();
         }
 
-    }
-
-    @Override
-    public void onResume(){
-        super.onResume();
 
         manager = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
 

@@ -35,7 +35,7 @@
         android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"
         android:layout_gravity="center_horizontal"
-        android:src="@drawable/pressurehelp1"/>
+        android:src="@drawable/pressurehelp"/>
 
     <com.android.bpcontrol.customviews.RobotoTextView
         android:id="@+id/secondttextpressurehelp"

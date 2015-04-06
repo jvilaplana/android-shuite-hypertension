@@ -78,7 +78,16 @@ public class BPcontrolMasterActivity extends FragmentActivity {
     protected boolean isNetworkAvailable() {
         ConnectivityManager connectivityManager
                 = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
-        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+        NetworkInfo[] info = connectivityManager.getAllNetworkInfo();
+        if (info!=null){
+
+             for (int i=0;i<info.length;i++) {
+
+                    if (info[i] != null && info[i].isConnected()){
+                        return true;
+                    }
+             }
+        }
+        return false;
     }
 }
