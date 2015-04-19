@@ -5,6 +5,8 @@ package com.android.bpcontrol.model;
  */
 public class User {
 
+    public int DIANA_SYSTOLIC_INDEX;
+    public int DIANA_DIASTOLIC_INDEX;
     private static User instance;
     private String UUID;
     private String name;

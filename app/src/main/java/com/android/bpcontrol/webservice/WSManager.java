@@ -9,6 +9,7 @@ import android.app.DownloadManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.provider.UserDictionary;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.TextView;
@@ -18,6 +19,7 @@ import com.android.bpcontrol.application.BPcontrolApplication;
 import com.android.bpcontrol.application.BPcontrolMasterActivity;
 import com.android.bpcontrol.controllers.LateralMenuController;
 import com.android.bpcontrol.databases.DataStore;
+import com.android.bpcontrol.fragments.InformationFragment;
 import com.android.bpcontrol.model.Center;
 import com.android.bpcontrol.model.Message;
 import com.android.bpcontrol.model.Pressure;
@@ -303,8 +305,8 @@ public class WSManager {
    private void parseUserInfo(String response){
 
        try {
-
-           JSONObject json = new JSONObject(response).getJSONObject("patient");
+           JSONObject userinfo = new JSONObject(response);
+           JSONObject json = userinfo.getJSONObject("patient");
            User.getInstance().setUUID(json.getString("uuid"));
            User.getInstance().setActive(json.getBoolean("active"));
            User.getInstance().setBirthDate(json.getString("birthDate").split("T")[0]);
@@ -312,13 +314,18 @@ public class WSManager {
            User.getInstance().setEmail(json.getString("email"));
            User.getInstance().setFirstSurname(json.getString("firstSurname"));
            User.getInstance().setIdentityCard(json.getString("identityCard"));
-           User.getInstance().setLastUpdate(json.getString("lastUpdated").replace('T',' ').replace('Z',(char)0));
+           User.getInstance().setLastUpdate(json.getString("lastUpdated").replace('T', ' ').replace('Z', (char) 0));
            User.getInstance().setMobileNumber(json.getString("mobileNumber"));
            User.getInstance().setMobileNumberPrefix(json.getString("mobileNumberPrefix"));
            User.getInstance().setName(json.getString("name"));
            User.getInstance().setNotes(json.getString("notes"));
            User.getInstance().setSecondSurname(json.getString("secondSurname"));
            User.getInstance().setTown(json.getString("town"));
+
+           User.getInstance().DIANA_SYSTOLIC_INDEX= userinfo.getInt("sbp");
+           User.getInstance().DIANA_DIASTOLIC_INDEX = userinfo.getInt("dbp");
+           User user = User.getInstance();
+           String f = "uhj";
 
        } catch (JSONException ex) {
            LogBP.printStackTrace(ex);
@@ -353,13 +360,12 @@ public class WSManager {
     public void sendPressures(final Context context,PressuresMorning morning, PressuresAfternoon afternoon,final SendPressures callback){
 
         final String url=URLBASE+"/hypertensionBloodPressure/restSave";
-        Map<String,String> params = preparePostPressures(morning,afternoon);
+        Map<String,String> params = preparePostPressures(morning, afternoon);
         Map<String,String> headers = new HashMap<>();
         headers.put("Content-Type", "application/json");
        webservicePostPressuresWithCallback(context, url, params, headers, new BPcontrolApiJsonCallback() {
            @Override
            public void onSuccess(JSONObject response) {
-                String response1 = response.toString();
                parseSendResponse(response, callback);
 
            }
@@ -417,7 +423,7 @@ public class WSManager {
 
             params.put("pulse1n",p1.getPulse());
             params.put("pulse2n",p2.getPulse());
-            params.put("pulse3n",p3.getPulse());
+            params.put("pulse3n", p3.getPulse());
         }
 
     }
@@ -426,19 +432,21 @@ public class WSManager {
 
         String link = null;
         int pStatus = -1;
+        String videoInfo="";
         try {
             pStatus = Integer.parseInt(json.getString("patientStatus"));
             link = json.getString("infoLink");
+            videoInfo = json.getString("infoLinkName");
 
         } catch (JSONException ex) {
             LogBP.printStackTrace(ex);
         }
-        if (link == null){
-            callback.onSendPressures(null,pStatus);
+        if (link == null || link.equalsIgnoreCase("null")){
+            callback.onSendPressures(null, pStatus);
             return;
         }
 
-        callback.onSendPressures(new YoutubeVideo("",link),pStatus);
+        callback.onSendPressures(new YoutubeVideo(videoInfo, link), pStatus);
 
 
     }
@@ -452,7 +460,7 @@ public class WSManager {
         }else{
             url = URLBASE+"/hypertensionBloodPressure/restList/"+User.getInstance().getUUID();
         }
-        webserviceCallWithCallback(context,url,new BPcontrolApiCallback() {
+        webserviceCallWithCallback(context, url, new BPcontrolApiCallback() {
             @Override
             public void onSuccess(String response) {
                 ArrayList<Pressure> pressures = parseUserPressures(response);
@@ -484,6 +492,8 @@ public class WSManager {
                     pressure.setDiastolic(jsonpressure.getString("diastole"));
                     pressure.setPulse(jsonpressure.getString("pulse"));
                     pressure.setDate(DateUtils.wsStringDateToDefaultDate(jsonpressure.getString("dateTaken")));
+                    calculateDIANALimit(pressure);
+                    Pressure p = pressure;
                     tmp.add(pressure);
                 }
                 }
@@ -494,6 +504,34 @@ public class WSManager {
             }
 
         return tmp;
+    }
+
+    private void calculateDIANALimit(Pressure pressure){
+
+        int systolic,diastolic,pulse,status;
+
+        if (pressure.getSystolic()==null || pressure.getSystolic().equalsIgnoreCase("null")){
+            systolic = 120;
+        }else{
+            systolic=Integer.parseInt(pressure.getSystolic());
+        }
+
+        if (pressure.getDiastolic()==null || pressure.getDiastolic().equalsIgnoreCase("null")){
+            diastolic = 80;
+        }else{
+            diastolic=Integer.parseInt(pressure.getDiastolic());
+        }
+
+        if (systolic>User.getInstance().DIANA_SYSTOLIC_INDEX || diastolic > User.getInstance().DIANA_DIASTOLIC_INDEX){
+            status = 2;
+        }else if ((User.getInstance().DIANA_SYSTOLIC_INDEX-systolic)<=5 || (User.getInstance().DIANA_DIASTOLIC_INDEX-systolic)<=5){
+            status = 1;
+        }else{
+            status = 0;
+        }
+
+        pressure.setSemaphore(status);
+        String s =";";
     }
 
     public void getUserMessagesChat(final Context context, String date, final GetMessages callback){
