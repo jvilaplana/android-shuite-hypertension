@@ -223,4 +223,13 @@
 
     <string name="lateral">Los iconos del menu lateral son nativos de Android. </string>
 
+
+
+    <string name="initinfo1"><b>¿Qué hacemos?</b>\n\n
+<u>Seguimiento de su presion arterial mediante BPControl</u>, ahora puede estar controlado 24h desde su centro sanitario mas cercano solamente mandando sus presiones arteriales cuando se le soliciten.En el caso de unos resultados incorrectos sera notificado para ponerse en contacto con el profesional sanitario.\n\n<u>BPControl APP</u> queremos actuar para minimizar al máximo el riesgo de su estado, ofreciendo al paciente y al profesional sanitario una forma de mantenerse en contacto continuo con entre ellos.</string>
+
+    <string name="initinfo2">El hecho de ofrecer una herramienta que no solo ayuda al profesional, sino que también potencia y mejora el tratamiento para el beneficio del paciente, es un elemento decisivo que nos diferencia de las soluciones ya existentes y que aporta un gran valor añadido.\n\n\n<b>Objetivos</b>\n\n<u>Desde el punto de vista del personal sanitario</u> permitirá controlar y gestionar exhaustivamente y de forma automatizada los pacientes hipertensos.\n<u>Desde el punto de vista de los pacientes</u>, la aplicación permitirá hacer la recogida de muestras a distancia, lo que evitará los desplazamientos innecesarios de éstos a los centros médicos, reduciendo así los costes y el tiempo de los pacientes.\n<u>Desde el punto de vista de los centros sanitarios</u>, la aplicación permitirá tener mayor control y contacto con los pacientes a la vez que una clara optimización de recursos.\n<u>Permite tener un control al día de sus pacientes</u>, en caso de recibir mediante la BPControl App una tensión arterial del paciente que no es acorde con el paciente, el especialista puede realizar una intervención mediante (correo electrónico, SMS o llamada telefónica) de forma manual o bien de forma automatizada al paciente.\n
+
+</string>
+
 </resources>

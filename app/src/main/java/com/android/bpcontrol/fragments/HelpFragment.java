@@ -29,8 +29,11 @@ public class HelpFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
         View view = null;
-
+        if (viewpagerposition==0)
             view = inflater.inflate(R.layout.pressurehelplayout, null);
+        else if (viewpagerposition==1){
+            view = inflater.inflate(R.layout.contacthelplayout,null);
+        }
         return view;
     }
 
