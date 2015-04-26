@@ -1,0 +1,4 @@
+<resources>
+    <dimen name="initialcenterbottom">0dp</dimen>
+    <dimen name="initialcentertop">10dp</dimen>
+</resources>

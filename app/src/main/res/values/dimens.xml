@@ -30,6 +30,8 @@
     <dimen name="tabselected">10dp</dimen>
     <dimen name="tabselectedmarginlateral">4dp</dimen>
     <dimen name="tabselectedmargintop">4dp</dimen>
+    <dimen name="initialcentertop">13dp</dimen>
+    <dimen name="initialcenterbottom">7dp</dimen>
 
     <!--TAB DIMENS-->
     <dimen name="tabtextsize">16sp</dimen>
