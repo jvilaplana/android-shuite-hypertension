@@ -35,6 +35,8 @@
     <string name="registerAccess">Acceso al area de pacientes</string>
 
     <!--SendTLFRegister and SMSCodeActivity-->
+    <string name="tlfhint">Numero de teléfono</string>
+    <string name="smshint">Código del SMS</string>
     <string name="infosendregistertlf">Confirme el prefijo de su país e introduzca su numero de teléfono</string>
     <string name="sendtlfregisterheader">REGISTRO - PASO 1</string>
     <string name="sendcoderegisterheader">REGISTRO - PASO 2</string>
@@ -158,10 +160,9 @@
     <string name="graphdescriptionsyctolic">Presión sistólica (Media del día)</string>
     <string name="graphdescriptiondiastolic">Presión diastólica (Media del día)</string>
     <string name="graphdescriptionpulse">Pulso(Media del día)</string>
-    <string name="graphdescriptionheader1">Gráfico de presiones sistólicas</string>
-    <string name="graphdescriptionheader2">Gráfico de presiones diastólicas</string>
-    <string name="graphdescriptionheader3">Gráfico de pulsos</string>
-
+    <string name="graphdescriptionheader1">Systolic pressures plot</string>
+    <string name="graphdescriptionheader2">Diastolic pressures plot</string>
+    <string name="graphdescriptionheader3">Pulses plot</string>
     <string name="plotmenucase1">Mostrar gráfica de un mes</string>
     <string name="plotmenucase2">Mostrar gráfica de tres meses</string>
     <string name="plotmenucase3">Mostrar gráfica de seis meses</string>

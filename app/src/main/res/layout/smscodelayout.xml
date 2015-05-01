@@ -33,6 +33,7 @@
         android:minEms="6"
         android:textSize="@dimen/telephonetextsize"
         android:maxLength="9"
+        android:hint="@string/smshint"
         android:layout_gravity="center_horizontal"
 
         />

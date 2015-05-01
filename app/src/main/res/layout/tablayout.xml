@@ -88,8 +88,8 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="13dp"
-                android:layout_marginBottom="5dp"
+                android:layout_marginTop="@dimen/initialcentertop"
+                android:layout_marginBottom="@dimen/initialcenterbottom"
                 android:background="@drawable/ic_action_location_tab"
                 android:layout_gravity="center_horizontal"
             />

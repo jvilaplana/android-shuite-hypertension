@@ -62,9 +62,9 @@ public class DatabaseAndWSMock {
                 e.printStackTrace();
             }
 
-            pressure.setSystolic(String.valueOf(generateRandom(50,220)));
-            pressure.setDiastolic(String.valueOf(generateRandom(30,140)));
-            pressure.setPulse(String.valueOf(generateRandom(50,220)));
+            pressure.setSystolic(String.valueOf(generateRandom(85,185)));
+            pressure.setDiastolic(String.valueOf(generateRandom(70,140)));
+            pressure.setPulse(String.valueOf(generateRandom(60,110)));
             list.add(pressure);
         }
         return  list;

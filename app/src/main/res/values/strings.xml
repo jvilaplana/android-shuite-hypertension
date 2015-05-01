@@ -26,16 +26,18 @@
 
     <!--SECTIONS ACTION BAR NAME-->
     <string name="principalmenutext">Principal Menu</string>
-    <string name="perfilheaderbar" translatable="false">Perfil</string>
+    <string name="perfilheaderbar" translatable="false">Profile</string>
 
     <!--TAB MENU NAME-->
     <string name="hometab">Start</string>
     <string name="centerstab">Centers</string>
     <string name="helptab">Info</string>
-    <string name="registerAccess">Patient Area Access</string>
+    <string name="registerAccess">Patient area access</string>
 
     <!--SendTLFRegister-->
     <string name="infosendregistertlf">Confirm the prefix of your country and enter your phone number.</string>
+    <string name="tlfhint">Enter mobile number</string>
+    <string name="smshint">Enter SMS code</string>
     <string name="sendtlfregisterheader">REGISTER - STEP 1</string>
     <string name="sendcoderegisterheader">REGISTER - STEP 2</string>
     <string name="sendphonenumber">Send</string>
@@ -143,7 +145,7 @@
     <string name="homedescription1">You take</string>
     <string name="singularday">day</string>
     <string name="pluralday">days</string>
-    <string name="homedescription12">without send your measurements</string>
+    <string name="homedescription12">without sending your measurements</string>
     <string name="homedescription2">Well, take measurements a day!</string>
     <string name="notregister">There are not activity records</string>
 
@@ -217,6 +219,13 @@
 
     <string name="contacttitlehelp">Edit profile data</string>
     <string name="contacthelp1">If any of the data shown in the profile is not correct, you can change them in the Contact section by sending an email notifying the error and the data will be modified as soon as possible.</string>
+
+     <string name="initinfo1"><b>What do we do? </b >\n\n
+<u>Tracking your blood pressure by BPControl </u>,Now it can be controlled 24h from your nearest health center sending their blood pressures only when prompted.In the case of correct results I will be notified to contact the healthcare provider.\n\n<u> BPControl APP</u> we act to minimize the maximum risk of their status , offering the patient and the health professional a way to stay in constant contact with each other.</string>
+
+    <string name="initinfo2">The fact of providing a tool that not only helps the professional, but also enhances and improves treatment for the benefit of the patient, is a key element that sets us apart from existing solutions and brings significant added value.\n\n\n<b>Objectives </b>\n\n<u>From the point of view of health personnel</u> allowed to control and fully automated and manage hypertensive patients.\n <u>From the point of view of patients</u>, the application will do the sampling distance , avoiding unnecessary trips of these medical facilities , thereby reducing costs and time of patients.\n <u>From point of view of health centers </u>, the application will allow greater control and contact with patients while a clear optimization of resources. \n <u>Enables to control the day of his patients </u> if received by BPControl App arterial pressure of the patient is not in accordance with the patient, the specialist can perform an intervention by (email, SMS or phone call ) manually or automated patient.\n
+
+</string>
 
 
 
