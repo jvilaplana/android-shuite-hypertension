@@ -33,6 +33,7 @@ import com.android.bpcontrol.utils.LogBP;
 import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.NetworkResponse;
+import com.android.volley.ParseError;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -134,6 +135,10 @@ public class WSManager {
 
     public static interface GetHealthCenters extends EventListener{
         public void onCentersReceived(List<Center> listmenssages);
+    }
+
+    public static interface SendMessage extends EventListener{
+        public void onSendMessageServerReceived();
     }
 
     private void webserviceCallWithCallback(final Context context, final String url, final BPcontrolApiCallback callback){
@@ -546,7 +551,7 @@ public class WSManager {
         }else{
             url = URLBASE+"/hypertensionPatientChat/restList/"+User.getInstance().getUUID();
         }
-        webserviceCallWithCallback(context,url,new BPcontrolApiCallback() {
+        webserviceCallWithCallback(context, url, new BPcontrolApiCallback() {
             @Override
             public void onSuccess(String response) {
                 List<Message> messages = parseUserMessages(response);
@@ -597,7 +602,7 @@ public class WSManager {
 
     }
 
-    public void sendMessage(final Context context,Message message){
+    public void sendMessage(final Context context,Message message, final SendMessage callback){
 
         final String url=URLBASE+"/hypertensionPatientChat/restSave";
         Map<String,String> params = new HashMap<>();
@@ -609,13 +614,13 @@ public class WSManager {
             public void onSuccess(JSONArray response) {
 
                 LogBP.writelog("SEND MESSAGE", "Message receive sendMessage()");
-
+                callback.onSendMessageServerReceived();
             }
 
             @Override
             public void onFailure(Exception e) {
                 LogBP.printStackTrace(e);
-                showApiPressuresSendError(context);
+                showApiMessagesSendError(context);
             }
         });
     }
@@ -624,6 +629,26 @@ public class WSManager {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setMessage(context.getResources().getString(R.string.pressuresendproblems));
+        builder.setPositiveButton(context.getResources().getString(R.string.noconnectiondialogpositiveWS), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+                ((BPcontrolMasterActivity) context).dissmissProgressDialog();
+                ((BPcontrolMasterActivity) context).finish();
+            }
+        });
+        AlertDialog dialog = builder.show();
+        TextView messageText = (TextView)dialog.findViewById(android.R.id.message);
+        messageText.setGravity(Gravity.CENTER);
+
+        dialog.show();
+
+    }
+
+    private void showApiMessagesSendError(final Context context){
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setMessage(context.getResources().getString(R.string.failconnectionmessage));
         builder.setPositiveButton(context.getResources().getString(R.string.noconnectiondialogpositiveWS), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
@@ -657,7 +682,14 @@ public class WSManager {
                 e.printStackTrace();
             }
             // The WS returns JSONArray with all chat messages,in this moment, it is not necessary for application.
-            return null;
+            try {
+                return Response.success(new JSONArray("[]"),
+                        HttpHeaderParser.parseCacheHeaders(response));
+            } catch (JSONException e) {
+                LogBP.printStackTrace(e);
+                return Response.error(new ParseError(e));
+            }
+
         }
 
         @Override

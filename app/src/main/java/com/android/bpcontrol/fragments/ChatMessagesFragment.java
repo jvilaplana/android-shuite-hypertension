@@ -20,6 +20,8 @@ import com.android.bpcontrol.model.Message;
 import com.android.bpcontrol.webservice.WSManager;
 import com.android.bpcontrol.customviews.BPEditText;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.List;
 
 /**
@@ -34,6 +36,7 @@ public class ChatMessagesFragment extends Fragment{
     private BPEditText editText;
     private List<Message> messages;
     private  ChatMessageAdapter adapter;
+    private Message lastMessage;
 
     private ImageButton secondbarbutton;
 
@@ -73,6 +76,8 @@ public class ChatMessagesFragment extends Fragment{
                     newmessage.setUser(true);
                     newmessage.setContent(editText.getText().toString());
                     new sendMessage().execute(newmessage);
+                    lastMessage = newmessage;
+                    calculateDateForMessage();
 
                 }
             }
@@ -127,14 +132,18 @@ public class ChatMessagesFragment extends Fragment{
         }
         @Override
         public Void doInBackground(Message... params) {
-            Message msg = params[0];
-            WSManager.getInstance().sendMessage(getActivity(),params[0]);
+            WSManager.getInstance().sendMessage(getActivity(), params[0], new WSManager.SendMessage() {
+                @Override
+                public void onSendMessageServerReceived() {
+                    messages.add(lastMessage);
+                    publishProgress();
+                }
+            });
             return null;
         }
         @Override
         public void onProgressUpdate(List<Message>... result){
 
-            //messages = result[0];
             configureViewSendMessage();
             ((HomeActivity)getActivity()).dissmissProgressDialog();
         }
@@ -157,5 +166,9 @@ public class ChatMessagesFragment extends Fragment{
 
         this.secondbarbutton = button;
         return this;
+    }
+    private void  calculateDateForMessage(){
+        String timeStamp = new SimpleDateFormat("dd-MM-yyyy HH:mm").format(Calendar.getInstance().getTime());
+        lastMessage.setDate(timeStamp);
     }
 }

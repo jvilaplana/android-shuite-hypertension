@@ -233,4 +233,6 @@
 
 </string>
 
+    <string name="failconnectionmessage">Error al enviar el mensaje</string>
+
 </resources>

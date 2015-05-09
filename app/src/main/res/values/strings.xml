@@ -230,6 +230,8 @@
 
 </string>
 
+    <string name="failconnectionmessage">Error sending message</string>
+
 
 
 </resources>
