@@ -22,15 +22,16 @@ public class SplashActivity extends BPcontrolMasterActivity {
         getActionBar().hide();
 
         final SharedPreferences sharedPreferences = getSharedPreferences(SharedPreferenceConstants.SHARE_PREFERENCE_KEY, MODE_PRIVATE);
-        sharedPreferences.edit().putString(SharedPreferenceConstants.USERUUID,TEST_UUID).commit();
+        //sharedPreferences.edit().putString(SharedPreferenceConstants.USERUUID,TEST_UUID).commit();
         final boolean isRegistered = sharedPreferences.getBoolean(SharedPreferenceConstants.ISREGISTERED_KEY,false);
 
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                if (true) {
-                    User.getInstance().setUUID(TEST_UUID);
+                if (isRegistered) {
+                    final String UUID = sharedPreferences.getString(SharedPreferenceConstants.USERUUID,"");
+                    User.getInstance().setUUID(UUID);
 
                     startActivity(new Intent(SplashActivity.this, HomeActivity.class));
                 }else{
