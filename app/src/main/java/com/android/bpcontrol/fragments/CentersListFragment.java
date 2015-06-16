@@ -55,10 +55,10 @@ import java.util.Map;
 public class CentersListFragment extends Fragment{
 
 
-    public static enum CentersView{
+    public static enum ListCenterPlace{
 
-       CENTERS_LIST,
-       CENTERS_DETAIL
+        INITIAL_ACTIVITY,
+        HOME_ACTIVITY
     }
 
     private LocationManager manager;
@@ -99,10 +99,10 @@ public class CentersListFragment extends Fragment{
                         @Override
                         public void onCentersReceived(List<Center> centers){
                             if (getActivity() instanceof HomeActivity){
-                                adapter = new ListCentersAdapter(getActivity(),centers, ListCentersAdapter.ListCenterPlace.HOME_ACTIVITY);
+                                adapter = new ListCentersAdapter(getActivity(),centers, ListCenterPlace.HOME_ACTIVITY);
 
                             }else {
-                                adapter = new ListCentersAdapter(getActivity(),centers, ListCentersAdapter.ListCenterPlace.INITIAL_ACTIVITY);
+                                adapter = new ListCentersAdapter(getActivity(),centers, ListCenterPlace.INITIAL_ACTIVITY);
                             }
 
                             listView.setAdapter(adapter);

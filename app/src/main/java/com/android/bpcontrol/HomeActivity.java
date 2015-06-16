@@ -8,7 +8,6 @@ import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
-import android.hardware.SensorManager;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
@@ -24,14 +23,11 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
-import android.view.Gravity;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import com.android.bpcontrol.adapters.ViewPagerContactAdapter;
 import com.android.bpcontrol.adapters.ViewPagerHelpAdapter;
@@ -42,20 +38,16 @@ import com.android.bpcontrol.customviews.RobotoTextView;
 import com.android.bpcontrol.fragments.AttributionFragment;
 import com.android.bpcontrol.fragments.CentersListFragment;
 import com.android.bpcontrol.fragments.ChatMessagesFragment;
-import com.android.bpcontrol.fragments.InitialFragment;
 import com.android.bpcontrol.fragments.PressuresHistoryFragment;
 import com.android.bpcontrol.fragments.HomeFragment;
-import com.android.bpcontrol.fragments.PerfilFragment;
+import com.android.bpcontrol.fragments.ProfileFragment;
 import com.android.bpcontrol.fragments.PressuresFragment;
 import com.android.bpcontrol.fragments.PressuresPlotFragment;
 import com.android.bpcontrol.model.MenuItem;
 import com.android.bpcontrol.model.User;
-import com.android.bpcontrol.utils.LogBP;
 import com.android.bpcontrol.utils.SharedPreferenceConstants;
 import com.android.bpcontrol.webservice.WSManager;
 import com.viewpagerindicator.CirclePageIndicator;
-
-import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
  * Created by Adrian Carrera on 22/1/15.
@@ -339,7 +331,7 @@ public class HomeActivity extends BPcontrolMasterActivity
         switch (type){
             case MYPERFIL:
                     headertext.setText(getResources().getString(R.string.perfilheaderbar).toUpperCase());
-                    PerfilFragment perfilFragment = PerfilFragment.getNewInstance();
+                    ProfileFragment perfilFragment = ProfileFragment.getNewInstance();
                     loadFragment(perfilFragment,false,false);
                     break;
             case PRESSURES:

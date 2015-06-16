@@ -84,6 +84,7 @@ public class InitialFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getActivity(), SendTlfRegisterActivity.class));
+                getActivity().finish();
             }
         });
 

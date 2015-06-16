@@ -92,8 +92,8 @@
     <string name="pulse">Pulse</string>
     <string name="sendpreassure">Send</string>
     <string name="savepreassure">Save</string>
-    <string name="pressuressfirsttimetext">MORNING (6-9 hours):</string>
-    <string name="pressuressecondtimetext">AFTERNOON (18-21 hours):</string>
+    <string name="pressuressfirsttimetext">MORNING (6:00h - 9:00 hours):</string>
+    <string name="pressuressecondtimetext">AFTERNOON (18:00 - 21:00 hours):</string>
     <string name="dialogaccpet">Accept</string>
     <string name="dialogcancel">Cancel</string>
     <string name="dialogdiastolic">Enter your diastolic blood pressure</string>

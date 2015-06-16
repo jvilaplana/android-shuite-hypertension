@@ -74,12 +74,6 @@ public class PressuresFragment extends Fragment
     private View.OnClickListener saveListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            int tag = Integer.parseInt((String)v.getTag());
-            if (tag==0)
-                choosedspinner=0;
-            else
-                choosedspinner=1;
-
             new saveData().execute();
         }
     };
@@ -100,10 +94,9 @@ public class PressuresFragment extends Fragment
         group.setTag(new Integer(0));
         group2.setTag(new Integer(1));
         buttonsend = (Button) view.findViewById(R.id.sendpressures);
-        buttonsave = (Button) view.findViewById(R.id.save);
         buttonsave2 = (Button) view.findViewById(R.id.save2);
         getEditTexts(group, editTextsMorning);
-        getEditTexts(group2,editTextsAfternoon);
+        getEditTexts(group2, editTextsAfternoon);
 
 
         return view;
@@ -127,8 +120,6 @@ public class PressuresFragment extends Fragment
             e.printStackTrace();
         }
 
-
-        buttonsave.setOnClickListener(saveListener);
         buttonsave2.setOnClickListener(saveListener);
 
         buttonsend.setOnClickListener(new View.OnClickListener() {
@@ -396,14 +387,14 @@ public class PressuresFragment extends Fragment
             pAfternoon.add(new Pressure(systolic1n,diastolic1n,pulse1n));
             pAfternoon.add(new Pressure(systolic2n,diastolic2n,pulse2n));
             pAfternoon.add(new Pressure(systolic3n,diastolic3n,pulse3n));
-            WSManager.getInstance().sendPressures(getActivity(),pMorning,pAfternoon,new WSManager.SendPressures() {
+            WSManager.getInstance().sendPressures(getActivity(), pMorning, pAfternoon, new WSManager.SendPressures() {
                 @Override
-                public void onSendPressures(YoutubeVideo youtubeVideo,int semaphore) {
+                public void onSendPressures(YoutubeVideo youtubeVideo, int semaphore) {
 
-                        boolean video = youtubeVideo!=null?true:false;
-                        saveDataInDB(pMorning, pAfternoon, semaphore,youtubeVideo);
-                        clearOldValues();
-                        publishProgress(new Boolean(video));
+                    boolean video = youtubeVideo != null ? true : false;
+                    saveDataInDB(pMorning, pAfternoon, semaphore, youtubeVideo);
+                    clearOldValues();
+                    publishProgress(new Boolean(video));
                 }
             });
 
@@ -588,31 +579,17 @@ public class PressuresFragment extends Fragment
         @Override
         protected Void doInBackground(Void... par) {
 
-            if (isMorning()) {
+            if (isCorrectAfternoonMeassurament() || isCorrectMorningMeassurament()) {
 
-                if (isCorrectMorningMeassurament()) {
+                savePressures();
+                publishProgress(getResources().getString(R.string.saveddata));
+            }else{
 
-                    savePressures();
-                    publishProgress(getResources().getString(R.string.saveddata));
-
-                } else {
-
-                    publishProgress(getResources().getString(R.string.emptysavemessage));
-                }
-            } else {
-
-                if (isCorrectAfternoonMeassurament()) {
-
-                    savePressures();
-                    publishProgress(getResources().getString(R.string.saveddata));
-                }else{
-
-                    publishProgress(getResources().getString(R.string.emptysavemessage));
-                }
-
+                publishProgress(getResources().getString(R.string.emptysavemessage));
             }
-               ((HomeActivity)getActivity()).dissmissProgressDialog();
-                return null;
+
+           ((HomeActivity)getActivity()).dissmissProgressDialog();
+            return null;
         }
 
         @Override
@@ -648,20 +625,18 @@ public class PressuresFragment extends Fragment
         SharedPreferences preferences = getActivity()
                 .getSharedPreferences(SharedPreferenceConstants.SHARE_PREFERENCE_KEY, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
-        if (isMorning()){
-
-            editor.putString(SharedPreferenceConstants.SYSTOLICM,systolic1m+" "+systolic2m+" "+systolic3m);
-            editor.putString(SharedPreferenceConstants.DIASTOLICM,diastolic1m+" "+diastolic2m+" "+diastolic3m);
-            editor.putString(SharedPreferenceConstants.PULSEM,pulse1m+" "+pulse2m+" "+pulse3m);
-            editor.commit();
-
-        }else{
-
-            editor.putString(SharedPreferenceConstants.SYSTOLICN,systolic1n+" "+systolic2n+" "+systolic3n);
-            editor.putString(SharedPreferenceConstants.DIASTOLICN,diastolic1n+" "+diastolic2n+" "+diastolic3n);
-            editor.putString(SharedPreferenceConstants.PULSEN,pulse1n+" "+pulse2n+" "+pulse3n);
-            editor.commit();
+        if (isCorrectMorningMeassurament()) {
+            editor.putString(SharedPreferenceConstants.SYSTOLICM, systolic1m + " " + systolic2m + " " + systolic3m);
+            editor.putString(SharedPreferenceConstants.DIASTOLICM, diastolic1m + " " + diastolic2m + " " + diastolic3m);
+            editor.putString(SharedPreferenceConstants.PULSEM, pulse1m + " " + pulse2m + " " + pulse3m);
         }
+        if (isCorrectAfternoonMeassurament()) {
+            editor.putString(SharedPreferenceConstants.SYSTOLICN, systolic1n + " " + systolic2n + " " + systolic3n);
+            editor.putString(SharedPreferenceConstants.DIASTOLICN, diastolic1n + " " + diastolic2n + " " + diastolic3n);
+            editor.putString(SharedPreferenceConstants.PULSEN, pulse1n + " " + pulse2n + " " + pulse3n);
+
+        }
+        editor.commit();
 
         ((HomeActivity)getActivity()).dissmissProgressDialog();
     }

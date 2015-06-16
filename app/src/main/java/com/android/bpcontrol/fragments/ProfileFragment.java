@@ -18,13 +18,13 @@ import com.android.bpcontrol.model.User;
 /**
  * Created by Adrian on 09/02/2015.
  */
-public class PerfilFragment extends Fragment {
+public class ProfileFragment extends Fragment {
 
     private ViewGroup viewGroup;
 
-    public static PerfilFragment getNewInstance() {
+    public static ProfileFragment getNewInstance() {
 
-        PerfilFragment perfilFragment = new PerfilFragment();
+        ProfileFragment perfilFragment = new ProfileFragment();
         return perfilFragment;
     }
 
@@ -54,10 +54,11 @@ public class PerfilFragment extends Fragment {
         email.setText(User.getInstance().getEmail());
 
         RobotoTextView birthDate = (RobotoTextView) viewGroup.getChildAt(7);
-        birthDate.setText(User.getInstance().getBirthDate());
+        birthDate.setText(turnDate(User.getInstance().getBirthDate()));
 
         RobotoTextView lastUpdate = (RobotoTextView) viewGroup.getChildAt(9);
-        lastUpdate.setText(User.getInstance().getLastUpdate());
+        String[] lastupdate = User.getInstance().getLastUpdate().split(" ");
+        lastUpdate.setText(turnDate(lastupdate[0])+" "+lastupdate[1]);
 
         RobotoTextView town = (RobotoTextView) viewGroup.getChildAt(11);
         town.setText(User.getInstance().getTown());
@@ -66,7 +67,7 @@ public class PerfilFragment extends Fragment {
         mobileNumber.setText(User.getInstance().getMobileNumber());
 
         RobotoTextView dateCreated = (RobotoTextView) viewGroup.getChildAt(15);
-        dateCreated.setText(User.getInstance().getCreationDate());
+        dateCreated.setText(turnDate(User.getInstance().getCreationDate()));
 
         Button contact = (Button) viewGroup.getChildAt(17);
 
@@ -77,6 +78,15 @@ public class PerfilFragment extends Fragment {
             }
         });
 
+    }
+
+    private String turnDate(String date){
+
+        if (date != null && !date.equals("")){
+            String[] array = date.split("-");
+            return array[2]+"-"+array[1]+"-"+array[0];
+        }
+        return "";
     }
 
 

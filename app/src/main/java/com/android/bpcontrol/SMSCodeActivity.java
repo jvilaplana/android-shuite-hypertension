@@ -175,6 +175,7 @@ public class SMSCodeActivity extends BPcontrolMasterActivity{
     }
 
     public void goBack(){
+        startActivity(new Intent(this,SendTlfRegisterActivity.class));
         finish();
     }
 

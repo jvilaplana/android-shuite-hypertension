@@ -95,9 +95,9 @@ public class PressuresHistoryAdapter extends BaseAdapter{
                 viewholder.fetle.setVisibility(View.VISIBLE);
                 viewholder.fetle.setBackgroundResource(
                         chooseSempahoreImage(cell.getSemaphore()));
-                viewholder.systolic.setText(cell.getSystolic());
-                viewholder.diastolic.setText(cell.getDiastolic());
-                viewholder.pulse.setText(cell.getPulse());
+                viewholder.systolic.setText(cell.getSystolic()+" mmHg");
+                viewholder.diastolic.setText(cell.getDiastolic()+" mmHg");
+                viewholder.pulse.setText(cell.getPulse()+" bpm");
 
                 break;
             case 2:

@@ -78,9 +78,9 @@
 
     <!--Contact2-->
     <string name="enterprisename">HESOFT GROUP  S.C.P</string>
-    <string name="mailcontact2">info@hesoftgroup.com</string>
+    <string name="mailcontact2">info@hesoftgroup.eu</string>
     <string name="tlfcontact2">	+34626269613 </string>
-    <string name="webcontact2"><u>http://www.hesoftgroup.com</u></string>
+    <string name="webcontact2"><u>http://www.hesoftgroup.eu</u></string>
     <string name="postaldirectcontact2">Partida Bovà,15 - 25196 Lleida,España</string>
 
 
@@ -100,8 +100,8 @@
     <string name="sendpreassure">Enviar</string>
     <string name="savepreassure">Guardar</string>
 
-    <string name="pressuressfirsttimetext">MAÑANA (6-9 horas):</string>
-    <string name="pressuressecondtimetext">TARDE (18-21 horas):</string>
+    <string name="pressuressfirsttimetext">MAÑANA (6:00h - 9:00h horas):</string>
+    <string name="pressuressecondtimetext">TARDE (18:00h - 21:00h horas):</string>
     <string name="dialogaccpet">Aceptar</string>
     <string name="dialogcancel">Cancelar</string>
     <string name="dialogsystolic">Introduzca su presión arterial sistólica</string>

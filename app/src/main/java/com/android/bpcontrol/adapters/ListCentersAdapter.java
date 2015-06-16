@@ -16,6 +16,9 @@ import com.android.bpcontrol.fragments.CentersListFragment;
 import com.android.bpcontrol.model.Center;
 import com.google.android.gms.maps.model.LatLng;
 
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -23,22 +26,16 @@ import java.util.List;
  */
 public class ListCentersAdapter extends BaseAdapter {
 
-    public static enum ListCenterPlace{
-
-        INITIAL_ACTIVITY,
-        HOME_ACTIVITY
-    }
 
     private Context context;
     private List<Center> centers;
-    private ListCenterPlace type;
+    private CentersListFragment.ListCenterPlace type;
 
-    public ListCentersAdapter(final Context context, List<Center> centers, ListCenterPlace type){
+    public ListCentersAdapter(final Context context, List<Center> centers, CentersListFragment.ListCenterPlace type){
 
         this.context = context;
-        this.centers = centers;
         this.type = type;
- ;
+        this.centers = sortCentersPerKm(centers);
     }
 
     @Override
@@ -74,7 +71,7 @@ public class ListCentersAdapter extends BaseAdapter {
 
         holder.name.setText(center.getName());
         holder.city.setText(center.getCity());
-        String distance = calculateLocation(center.getLocation());
+        String distance = String.format("%.2f "+center.measureType,center.distance);
         holder.distance.setText(context.getResources().getString(R.string.distance)+" "+distance);
 
         return convertView;
@@ -88,27 +85,52 @@ public class ListCentersAdapter extends BaseAdapter {
 
     }
 
-    private String calculateLocation(LatLng center){
+    private void calculateLocation(Center cnt){
         float[] results= new float[3];
         Location mylocation = null;
-        if (type==ListCenterPlace.HOME_ACTIVITY) {
+        if (this.type==CentersListFragment.ListCenterPlace.HOME_ACTIVITY) {
            mylocation = ((HomeActivity) context).getCurrentLocation();
         }else {
             mylocation = ((InitialActivity) context).getCurrentLocation();
         }
         if (mylocation!=null) {
             Location.distanceBetween(mylocation.getLatitude(), mylocation.getLongitude(),
-                    center.latitude, center.longitude, results);
+                    cnt.getLocation().latitude, cnt.getLocation().longitude, results);
 
             if (results[0] < 1000) {
 
-                return (int) results[0] + " m";
+                cnt.measureType = "m";
+                cnt.distance = (float) results[0];
             } else {
-                return String.format("%.2f", (results[0] / 1000)) + " km";
+                cnt.measureType = "km";
+                cnt.distance = (float) (results[0] / 1000);
             }
+
+        }else{
+             cnt.measureType="m";
+             cnt.distance = 0.0f;
+        }
+    }
+
+    private List<Center> sortCentersPerKm(List<Center> centers){
+
+        for (Center center:centers){
+            calculateLocation(center);
         }
 
-        return "";
+        Collections.sort(centers, new Comparator<Center>() {
+            @Override
+            public int compare(Center lhs, Center rhs) {
+                try{
+                    Float f1 = Float.valueOf(lhs.distance);
+                    Float f2 = Float.valueOf(rhs.distance);
+                    return f1.compareTo(f2);
+                }catch (Exception e) {
+                    return 0;
+                }
+            }
+        });
+        return centers;
     }
 
 }

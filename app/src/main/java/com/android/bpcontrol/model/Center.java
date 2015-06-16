@@ -21,6 +21,8 @@ public class Center implements Parcelable {
     private LatLng location;
     private String webpage;
     private String email;
+    public float distance;
+    public String measureType = "km";
 
     public static final Parcelable.Creator CREATOR = new Parcelable.Creator() {
         public Center createFromParcel(Parcel in) {

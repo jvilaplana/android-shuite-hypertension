@@ -20,6 +20,8 @@
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
         android:textSize="17sp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
         android:textColor="@color/menutext"
         android:tag="RobotoBold"
         android:layout_marginBottom="@dimen/marginpressurestop"
@@ -176,33 +178,13 @@
             </LinearLayout>
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:layout_marginTop="@dimen/margintextview"
-            android:layout_marginBottom="@dimen/marginpressurestop"
-            android:orientation="horizontal">
-            <Button
-                android:id="@+id/save"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:tag="0"
-                android:layout_marginRight="@dimen/marginbottomtextviews"
-                android:layout_gravity="center_horizontal"
-                style="@style/patientAreaButtonStyle"
-                android:text="@string/savebutton"/>
-
-        </LinearLayout>
-
-
-
         <com.android.bpcontrol.customviews.RobotoTextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="17sp"
             android:textColor="@color/menutext"
             android:tag="RobotoBold"
+            android:layout_marginTop="20dp"
             android:layout_marginLeft="@dimen/marginpressureslateral"
             android:layout_marginRight="@dimen/marginpressureslateral"
             android:layout_marginBottom="@dimen/margintextview"
@@ -356,7 +338,6 @@
             android:orientation="horizontal">
             <Button
                 android:id="@+id/save2"
-                android:tag="1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="@dimen/marginbottomtextviews"

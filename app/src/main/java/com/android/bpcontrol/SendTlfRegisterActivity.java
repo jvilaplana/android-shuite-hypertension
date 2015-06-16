@@ -50,6 +50,7 @@ public class SendTlfRegisterActivity extends BPcontrolMasterActivity {
                             intent.putExtra(INTENTKEY_TLFPREFIX,editPrefix.getText().toString());
                             intent.putExtra(INTENTKEY_TLFNUMBER,editNumber.getText().toString());
                             startActivity(intent);
+                            finish();
 
                         }
                     });
@@ -93,7 +94,7 @@ public class SendTlfRegisterActivity extends BPcontrolMasterActivity {
 
 
     public void goBack(){
-
+        startActivity(new Intent(this,InitialActivity.class));
         finish();
     }
 
