@@ -30,6 +30,7 @@ import com.android.bpcontrol.databases.BPcontrolDB;
 import com.android.bpcontrol.databases.DataStore;
 import com.android.bpcontrol.model.ChartItem;
 import com.android.bpcontrol.model.Pressure;
+import com.android.bpcontrol.model.Pressures;
 import com.android.bpcontrol.model.User;
 import com.android.bpcontrol.test.DatabaseAndWSMock;
 import com.android.bpcontrol.utils.DateUtils;
@@ -268,52 +269,53 @@ public class PressuresPlotFragment extends Fragment {
             public void onClick(DialogInterface dialog, int item) {
                 String[] dates;
 
+                List<Pressure> pressures = null;
 
                 switch (item) {
 
                     case 0:
-                        final List<Pressure> pressuresonemonth = DatabaseAndWSMock.getFakePressures(PressuresPlot.ONE_MONTH);
-                        graphicChart(pressuresonemonth, PressuresPlot.ONE_MONTH);
-//                        dates = initAndEndDate(30);
-//                        try {
-//                            pressures = db.getPressuresAverageBetweenTwoDates(dates[0],dates[1]);
-//                        } catch (ParseException e) {
-//                            e.printStackTrace();
-//                        }
-//                        if (pressures!=null){
-//                            graphicChart(pressures);
-//                        }
+//                        final List<Pressure> pressuresonemonth = DatabaseAndWSMock.getFakePressures(PressuresPlot.ONE_MONTH);
+//                        graphicChart(pressuresonemonth, PressuresPlot.ONE_MONTH);
+                        dates = initAndEndDate(30);
+                        try {
+                            pressures = db.getPressuresAverageBetweenTwoDates(dates[0],dates[1]);
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
+                        if (pressures!=null){
+                            graphicChart(pressures, PressuresPlot.ONE_MONTH);
+                        }
                         break;
                     case 1:
-                        final List<Pressure> pressuresthreemonth = DatabaseAndWSMock.getFakePressures(PressuresPlot.THREE_MONTH);
-                        graphicChart(pressuresthreemonth, PressuresPlot.THREE_MONTH);
-//                        dates = initAndEndDate(90);
-//                        try {
-//                            pressures = db.getPressuresAverageBetweenTwoDates(dates[0],dates[1]);
-//                        } catch (ParseException e) {
-//                            e.printStackTrace();
-//                        }
-//                        if (pressures!=null){
-//                            graphicChart(pressures);
-//                        }
+//                        final List<Pressure> pressuresthreemonth = DatabaseAndWSMock.getFakePressures(PressuresPlot.THREE_MONTH);
+//                        graphicChart(pressuresthreemonth, PressuresPlot.THREE_MONTH);
+                        dates = initAndEndDate(90);
+                        try {
+                            pressures = db.getPressuresAverageBetweenTwoDates(dates[0],dates[1]);
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
+                        if (pressures!=null){
+                            graphicChart(pressures, PressuresPlot.THREE_MONTH);
+                        }
                         //show three month graphic
                         break;
                     case 2:
-                        final List<Pressure> pressuressixmonth = DatabaseAndWSMock.getFakePressures(PressuresPlot.SIX_MONTH);
-                        graphicChart(pressuressixmonth, PressuresPlot.SIX_MONTH);
-//                        dates = initAndEndDate(180);
-//                        try {
-//                            pressures = db.getPressuresAverageBetweenTwoDates(dates[0],dates[1]);
-//                        } catch (ParseException e) {
-//                            e.printStackTrace();
-//                        }
-//                        if (pressures!=null){
-//                            graphicChart(pressures);
-//                        }
+//                        final List<Pressure> pressuressixmonth = DatabaseAndWSMock.getFakePressures(PressuresPlot.SIX_MONTH);
+//                        graphicChart(pressuressixmonth, PressuresPlot.SIX_MONTH);
+                        dates = initAndEndDate(180);
+                        try {
+                            pressures = db.getPressuresAverageBetweenTwoDates(dates[0],dates[1]);
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
+                        if (pressures!=null){
+                            graphicChart(pressures,PressuresPlot.SIX_MONTH);
+                        }
                         //show siz month graphic
                         break;
                     case 3:
-                        final List<Pressure> pressurescustom = DatabaseAndWSMock.getFakePressures(PressuresPlot.CUSTOM);
+                        //final List<Pressure> pressurescustom = DatabaseAndWSMock.getFakePressures(PressuresPlot.CUSTOM);
                         LayoutInflater inflater =(LayoutInflater)getActivity()
                                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                         final Dialog datedialog = new Dialog(getActivity());
@@ -337,7 +339,13 @@ public class PressuresPlotFragment extends Fragment {
                                         +checkDigit(picker1.getMonth()+1)+"-"+checkDigit(picker1.getYear());
                                 enddate = checkDigit(picker2.getDayOfMonth())+"-"
                                         +checkDigit(picker2.getMonth()+1)+"-"+checkDigit(picker2.getYear());
-
+                                List<Pressure> pressurescustom = null;
+                                try {
+                                    pressurescustom = db.getPressuresAverageBetweenTwoDates(addSeparation(DateUtils.dateStringToWSdate(initdate)),
+                                            addSeparation(DateUtils.dateStringToWSdate(enddate)));
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
                                 graphicChart(pressurescustom,PressuresPlot.CUSTOM);
                                 datedialog.dismiss();
 
@@ -416,7 +424,15 @@ public class PressuresPlotFragment extends Fragment {
     }
 
 
+        private String addSeparation(String date){
 
+            String year = date.substring(0,4);
+            String month = date.substring(4,6);
+            String day = date.substring(6,8);
+
+            return year+"-"+month+"-"+day;
+
+        }
 
     private class getPressuresPlot extends AsyncTask<Void,Void,Void> {
 

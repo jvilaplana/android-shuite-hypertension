@@ -172,10 +172,6 @@ public class HomeActivity extends BPcontrolMasterActivity
             selectMenuItem(LateralMenuController.MenuSections.HOME);
         }
         configureActionBar();
-
-
-
-
     }
 
     private void configureActionBar(){
@@ -194,8 +190,6 @@ public class HomeActivity extends BPcontrolMasterActivity
             }
         });
     }
-
-
 
     private void configureLateralMenu() {
 
@@ -250,7 +244,7 @@ public class HomeActivity extends BPcontrolMasterActivity
 
         final SharedPreferences preferences = getSharedPreferences(SharedPreferenceConstants.SHARE_PREFERENCE_KEY,MODE_PRIVATE);
         String user_uuid = preferences.getString(SharedPreferenceConstants.USERUUID,"");
-        getApplicationContext().loadPerfilImageView(user_uuid,image);
+        getApplicationContext().loadPerfilImageView(user_uuid,image,0);
 
         perfilName = ((RobotoTextView) cell.findViewById(R.id.user_name));
 

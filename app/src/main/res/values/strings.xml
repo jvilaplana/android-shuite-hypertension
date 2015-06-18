@@ -101,7 +101,7 @@
     <string name="dialogpulse">Enter your pulse</string>
     <string name="savebutton">Save</string>
     <string name="loadbutton">Load</string>
-    <string name="emptysavemessage">To save the data need to fill in all fields for this time slot</string>
+    <string name="emptysavemessage">To save the data need to fill at least a field.</string>
     <string name="messagesend">To send pressures have to fill both slots. If only one , click save button to save the pressures of a slot button.</string>
     <string name="saveddata">Data correctly saved</string>
     <string name="pressuresendproblems">There are problems sending pressures, try again later</string>
