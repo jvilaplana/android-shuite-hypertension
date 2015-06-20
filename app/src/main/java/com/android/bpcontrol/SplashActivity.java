@@ -13,7 +13,7 @@ import com.android.bpcontrol.utils.SharedPreferenceConstants;
 
 public class SplashActivity extends BPcontrolMasterActivity {
 
-    private String TEST_UUID="a5683026-0f3b-4ea5-a129-0aec2c36c1eb";
+    //private String TEST_UUID="a5683026-0f3b-4ea5-a129-0aec2c36c1eb";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

@@ -1,7 +1,6 @@
 <resources>
 
-    <!-- Base application theme. -->
-    <style name="AppTheme" parent="android:Theme.Holo.Light.DarkActionBar">
+    <style name="AppTheme" parent="android:Theme.Holo.Light">
         <!-- Customize your theme here. -->
     </style>
 
@@ -19,7 +18,9 @@
     </style>
 
     <style name="BPcontrolNoTitleFullscreenTheme" parent="AppTheme">
-        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowActionBar">true</item> <!-- this items are not needed-->
+        <item name="android:windowActionBarOverlay">false</item>
+        <item name="android:windowContentOverlay">@null</item>
     </style>
 
 </resources>
