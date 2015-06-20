@@ -16,4 +16,5 @@ public final class SharedPreferenceConstants {
     public static String PULSEN = "pulsen";
     public static String LASTSENDPRESSURE= "lastsendpressure";
     public static String LASTUPDATEHISTORY="lastupdatehistory";
+    public static String LASTMESSAGEID = "lasmessageid";;
 }

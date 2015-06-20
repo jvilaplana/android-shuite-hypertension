@@ -16,6 +16,7 @@ import android.widget.ListView;
 import com.android.bpcontrol.HomeActivity;
 import com.android.bpcontrol.R;
 import com.android.bpcontrol.adapters.ChatMessageAdapter;
+import com.android.bpcontrol.databases.DataStore;
 import com.android.bpcontrol.model.Message;
 import com.android.bpcontrol.webservice.WSManager;
 import com.android.bpcontrol.customviews.BPEditText;
@@ -117,6 +118,7 @@ public class ChatMessagesFragment extends Fragment{
 
             messages = result[0];
             configureView();
+            DataStore.getInstance().setUnReadMessages(0);
             ((HomeActivity)getActivity()).dissmissProgressDialog();
 
         }
@@ -145,7 +147,7 @@ public class ChatMessagesFragment extends Fragment{
         public void onProgressUpdate(List<Message>... result){
 
             configureViewSendMessage();
-            ((HomeActivity)getActivity()).dissmissProgressDialog();
+            ((HomeActivity) getActivity()).dissmissProgressDialog();
         }
     }
 
@@ -170,5 +172,6 @@ public class ChatMessagesFragment extends Fragment{
     private void  calculateDateForMessage(){
         String timeStamp = new SimpleDateFormat("dd-MM-yyyy HH:mm").format(Calendar.getInstance().getTime());
         lastMessage.setDate(timeStamp);
+
     }
 }

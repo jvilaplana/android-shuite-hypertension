@@ -16,6 +16,8 @@ public class DataStore {
 
     private static DataStore dstore;
 
+    private int unReadMessages = 0;
+
     private DataStore(){
         pressures = new ArrayList<>();
     }
@@ -39,5 +41,11 @@ public class DataStore {
     public int pressuresSize(){
 
        return  pressures.size();
+    }
+    public void setUnReadMessages(int unReadMessages){
+        this.unReadMessages = unReadMessages;
+    }
+    public int getUnreadMessages(){
+        return unReadMessages;
     }
 }

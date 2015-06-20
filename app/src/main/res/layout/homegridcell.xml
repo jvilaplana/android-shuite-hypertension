@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
    >
+
     <ImageView
         android:id="@+id/icongrid_image"
         android:layout_width="100dp"
@@ -24,5 +25,13 @@
         android:textColor="@android:color/white"
         android:textSize="19sp"
         android:gravity="center"/>
+
+    <com.readystatesoftware.viewbadger.BadgeView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/messageBadge"
+        android:layout_marginLeft="6dp"
+        android:textSize="18sp"
+        android:visibility="gone"/>
 
 </RelativeLayout>
