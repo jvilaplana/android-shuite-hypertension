@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.android.bpcontrol.R;
 import com.android.bpcontrol.model.GridCellResources;
+import com.readystatesoftware.viewbadger.BadgeView;
 
 /**
  * Created by Adrian on 23/01/2015.
@@ -19,6 +20,7 @@ public class HomeGridAdapter extends BaseAdapter {
 
     private Context context;
     private GridCellResources[] resources;
+    private BadgeView ref;
 
     public HomeGridAdapter(Context context, GridCellResources[] resources){
 
@@ -52,6 +54,7 @@ public class HomeGridAdapter extends BaseAdapter {
             viewHolder = new ViewHolder();
             viewHolder.image = (ImageView) convertView.findViewById(R.id.icongrid_image);
             viewHolder.textView = (TextView) convertView.findViewById(R.id.homegridtext);
+            viewHolder.badge  = (BadgeView) convertView.findViewById(R.id.messageBadge);
             convertView.setBackgroundResource(resources[position].getBackground_id());
             convertView.setTag(viewHolder);
         }else{
@@ -60,13 +63,23 @@ public class HomeGridAdapter extends BaseAdapter {
 
         viewHolder.textView.setText(context.getResources().getString(resources[position].getText_id()));
         viewHolder.image.setImageResource(resources[position].getIcon_id());
+        if (position == 2){
+            ref = viewHolder.badge;
+        }
+        viewHolder.badge.setVisibility(View.GONE);
+
 
         return convertView;
+    }
+
+    public BadgeView getBadgeRef(){
+        return ref;
     }
 
     public static class ViewHolder{
         ImageView image;
         TextView textView;
+        BadgeView badge;
 
     }
 }

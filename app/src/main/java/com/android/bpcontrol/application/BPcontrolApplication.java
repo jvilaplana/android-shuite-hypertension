@@ -7,6 +7,8 @@ import android.graphics.Typeface;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.android.bpcontrol.R;
+import com.android.bpcontrol.utils.LogBP;
 import com.crashlytics.android.Crashlytics;
 import com.nostra13.universalimageloader.cache.memory.impl.WeakMemoryCache;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
@@ -36,17 +38,8 @@ public class BPcontrolApplication extends Application{
     public void onCreate() {
         super.onCreate();
         Fabric.with(this, new Crashlytics());
-
-        initImageLoader();
-    }
-
-    private void initImageLoader() {
-        ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(this.getApplicationContext())
-                .defaultDisplayImageOptions(getImageOptions(0).build())
-                .memoryCache(new WeakMemoryCache())
-                .build();
-
-        ImageLoader.getInstance().init(config);
+        LogBP.setDebugMode(true);
+        initImageLoaderConfiguration();
     }
 
 
@@ -94,64 +87,72 @@ public class BPcontrolApplication extends Application{
         return forteRegular;
     }
 
-    public void loadImageView(final String url, final ImageView imageView) {
-
-
-        final boolean[] imgDisplayed = {false};
-
-        ImageLoader.getInstance().displayImage(url, imageView, new ImageLoadingListener() {
-            @Override
-            public void onLoadingStarted(String imageUri, final View view) {
-
-            }
-
-            @Override
-            public void onLoadingFailed(String imageUri, final View view, FailReason failReason) {
-
-            }
-
-            @Override
-            public void onLoadingComplete(String imageUri, final View view, final Bitmap loadedImage) {
-
-                imgDisplayed[0] = true;
-                imageView.setImageBitmap(loadedImage);
-            }
-
-            @Override
-            public void onLoadingCancelled(String imageUri, final View view) {
-
-            }
-        });
-    }
-
-    public void loadPerfilImageView(String uuid, final ImageView imageView) {
+    public void loadPerfilImageView(final String uuid, final ImageView imageView,int placeholder) {
 
         final String url = "http://app2.hesoftgroup.eu/hypertensionPatient/restDownloadProfileImage/"+uuid;
-        final boolean[] imgDisplayed = {false};
 
-        ImageLoader.getInstance().displayImage(url, imageView, new ImageLoadingListener() {
+        ImageLoader.getInstance().displayImage(url, imageView, makeImageOptions(placeholder, false), new ImageLoadingListener() {
             @Override
-            public void onLoadingStarted(String imageUri, final View view) {
+            public void onLoadingStarted(String imageUri, View view) {
 
             }
 
             @Override
-            public void onLoadingFailed(String imageUri, final View view, FailReason failReason) {
+            public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
 
             }
 
             @Override
-            public void onLoadingComplete(String imageUri, final View view, final Bitmap loadedImage) {
+            public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
 
-                    imgDisplayed[0] = true;
-                    imageView.setImageBitmap(loadedImage);
             }
 
             @Override
-            public void onLoadingCancelled(String imageUri, final View view) {
+            public void onLoadingCancelled(String imageUri, View view) {
 
             }
         });
+
+    }
+
+    private void initImageLoaderConfiguration(){
+        ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(this.getApplicationContext())
+                .defaultDisplayImageOptions(makeImageOptions(0,false))
+                .memoryCache(new WeakMemoryCache())
+                .build();
+
+        ImageLoader.getInstance().init(config);
+    }
+
+    private DisplayImageOptions makeImageOptions(int placeHolderImage,boolean hasPlaceHolder){
+
+        boolean cacheInMemory = true;
+        boolean cacheOnDisc = true;
+        boolean resetViewOnLoad = false;
+
+
+        BitmapFactory.Options resizeOptions = new BitmapFactory.Options();
+        resizeOptions.inScaled = true;
+
+
+        DisplayImageOptions.Builder optionsBuilder = new DisplayImageOptions.Builder();
+
+        optionsBuilder.resetViewBeforeLoading(resetViewOnLoad)
+                .cacheInMemory(cacheInMemory)
+                .cacheOnDisk(cacheOnDisc)
+                .considerExifParams(true)
+                .bitmapConfig(Bitmap.Config.RGB_565)
+                .decodingOptions(resizeOptions)
+                .imageScaleType(ImageScaleType.IN_SAMPLE_INT);
+
+        if (hasPlaceHolder) {
+            optionsBuilder.showImageOnLoading(placeHolderImage)
+                    .showImageForEmptyUri(placeHolderImage)
+                    .showImageOnFail(placeHolderImage);
+        }
+
+        return optionsBuilder.build();
+
     }
 
     public static DisplayImageOptions.Builder getImageOptions(int defaultImg) {
@@ -175,7 +176,7 @@ public class BPcontrolApplication extends Application{
             builder
                     .resetViewBeforeLoading(resetViewOnLoad)
                     .cacheInMemory(cacheInMemory)
-                    .cacheOnDisc(cacheOnDisc)
+                    .cacheOnDisk(cacheOnDisc)
                     .considerExifParams(true)
                     .bitmapConfig(Bitmap.Config.RGB_565)
                     .decodingOptions(resizeOptions)
@@ -191,8 +192,8 @@ public class BPcontrolApplication extends Application{
              builder.bitmapConfig(Bitmap.Config.RGB_565)
                     .imageScaleType(ImageScaleType.IN_SAMPLE_INT)
                     .cacheInMemory(cacheInMemory)
-                    .cacheOnDisc(cacheOnDisc)
-                    .resetViewBeforeLoading(resetViewOnLoad)
+                    .cacheOnDisk(cacheOnDisc)
+                     .resetViewBeforeLoading(resetViewOnLoad)
                     .decodingOptions(resizeOptions)
                     .considerExifParams(true);
         }

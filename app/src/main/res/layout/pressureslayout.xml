@@ -336,14 +336,6 @@
             android:layout_marginTop="@dimen/margintextview"
             android:layout_marginBottom="@dimen/marginpressurestop"
             android:orientation="horizontal">
-            <Button
-                android:id="@+id/save2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="@dimen/marginbottomtextviews"
-                android:layout_gravity="center_horizontal"
-                style="@style/patientAreaButtonStyle"
-                android:text="@string/savebutton"/>
 
 
         </LinearLayout>
@@ -355,20 +347,29 @@
             android:gravity="center_horizontal"
             android:layout_marginTop="@dimen/margintextview"
             android:layout_marginBottom="@dimen/marginpressurestop"
+            android:weightSum="2"
             android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/save2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginLeft="25dp"
+                android:layout_marginRight="@dimen/marginbottomtextviews"
+                style="@style/patientAreaButtonStyle"
+                android:text="@string/savebutton"/>
+
             <Button
                 android:id="@+id/sendpressures"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginLeft="50dp"
-                android:layout_marginRight="50dp"
+                android:layout_marginRight="25dp"
+                android:layout_weight="1"
                 style="@style/patientAreaButtonStyle"
                 android:text="@string/sendpreassure"/>
-
-
-
-
             </LinearLayout>
 
     </LinearLayout>

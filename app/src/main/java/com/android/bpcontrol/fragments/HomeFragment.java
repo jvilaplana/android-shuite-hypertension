@@ -2,6 +2,7 @@ package com.android.bpcontrol.fragments;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.support.annotation.Nullable;
@@ -19,14 +20,19 @@ import com.android.bpcontrol.R;
 import com.android.bpcontrol.adapters.HomeGridAdapter;
 import com.android.bpcontrol.controllers.LateralMenuController;
 import com.android.bpcontrol.customviews.RobotoTextView;
+import com.android.bpcontrol.databases.DataStore;
 import com.android.bpcontrol.model.GridCellResources;
+import com.android.bpcontrol.model.Message;
 import com.android.bpcontrol.model.User;
 import com.android.bpcontrol.utils.DateUtils;
 import com.android.bpcontrol.utils.LogBP;
 import com.android.bpcontrol.utils.SharedPreferenceConstants;
+import com.android.bpcontrol.webservice.WSManager;
+import com.readystatesoftware.viewbadger.BadgeView;
 
 import java.text.ParseException;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by Adrian Carrera on 29/01/2015.
@@ -39,6 +45,7 @@ public class HomeFragment extends Fragment {
     private RobotoTextView welcome;
     private RobotoTextView description;
     private ImageView semaphore;
+    private HomeGridAdapter adapter;
 
     public static HomeFragment newInstance(){
         HomeFragment homeFragment = new HomeFragment();
@@ -117,8 +124,9 @@ public class HomeFragment extends Fragment {
             description.setText(getResources().getString(R.string.notregister));
         }
 
-        HomeGridAdapter adapter = new HomeGridAdapter(getActivity(),resources);
+        adapter = new HomeGridAdapter(getActivity(),resources);
         grid.setAdapter(adapter);
+        new getMessages().execute();
         grid.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override
@@ -165,7 +173,36 @@ public class HomeFragment extends Fragment {
 
         }
     }
+    private class getMessages extends AsyncTask<Void,List<Message>,Void> {
 
+        @Override
+        public Void doInBackground(Void... params) {
+
+            WSManager.getInstance().getUserMessagesChat(getActivity(),null,new WSManager.GetMessages() {
+                @Override
+                public void onUserMessagesReceived(List<Message> listmenssages) {
+                    publishProgress(listmenssages);
+                }
+            });
+            return null;
+        }
+        @Override
+        public void onProgressUpdate(List<Message>... result){
+            try {
+                BadgeView badgeView = adapter.getBadgeRef();
+                if (badgeView != null) {
+                    int unreadMessages = DataStore.getInstance().getUnreadMessages();
+                    if (unreadMessages > 0){
+                        badgeView.setText(unreadMessages+"");
+                        badgeView.setVisibility(View.VISIBLE);
+                    }
+                }
+            }catch (Exception ex){
+                ex.printStackTrace();
+            }
+
+        }
+    }
 
     }
 

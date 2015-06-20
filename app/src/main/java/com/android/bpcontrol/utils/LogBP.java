@@ -5,7 +5,7 @@ import android.util.Log;
 /**
  * Created by Adrian on 22/1/15.
  */
-public class LogBP {
+public final class LogBP {
 
     private static LogBP instance = null;
 
@@ -13,7 +13,7 @@ public class LogBP {
 
     private LogBP(){}
 
-    public static LogBP getInstance(){
+    private static LogBP getInstance(){
 
         if (instance == null){
             return  new LogBP();

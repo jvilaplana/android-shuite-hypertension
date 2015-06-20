@@ -9,6 +9,7 @@ import android.app.DownloadManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.provider.UserDictionary;
 import android.view.Gravity;
 import android.view.View;
@@ -30,6 +31,7 @@ import com.android.bpcontrol.model.User;
 import com.android.bpcontrol.model.YoutubeVideo;
 import com.android.bpcontrol.utils.DateUtils;
 import com.android.bpcontrol.utils.LogBP;
+import com.android.bpcontrol.utils.SharedPreferenceConstants;
 import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.NetworkResponse;
@@ -75,6 +77,7 @@ public class WSManager {
 
     private static final String URLBASE ="http://app2.hesoftgroup.eu";
     private static WSManager instance;
+    private SharedPreferences preferences;
 
     private RequestQueue queue;
 
@@ -554,7 +557,7 @@ public class WSManager {
         webserviceCallWithCallback(context, url, new BPcontrolApiCallback() {
             @Override
             public void onSuccess(String response) {
-                List<Message> messages = parseUserMessages(response);
+                List<Message> messages = parseUserMessages(context, response);
                 callback.onUserMessagesReceived(messages);
             }
 
@@ -565,10 +568,15 @@ public class WSManager {
         });
     }
 
-    private  List<Message> parseUserMessages(String response){
+    private  List<Message> parseUserMessages(Context context,
+                                             String response){
 
         List<Message> messages = new ArrayList<>();
-
+        int lastid = 0,lastMessageInPreferences = 0;
+        if (preferences == null && context != null){
+            preferences = context.getSharedPreferences(SharedPreferenceConstants.SHARE_PREFERENCE_KEY,Context.MODE_PRIVATE);
+            lastMessageInPreferences = preferences.getInt(SharedPreferenceConstants.LASTMESSAGEID,0);
+        }
         try {
             JSONArray array = new JSONArray(response);
             if (array.length() > 0){
@@ -577,6 +585,7 @@ public class WSManager {
                 String completedate,date,hour;
                 for (int i = array.length()-1; i>-1; i--) {
                     jsonobject = array.getJSONObject(i);
+                    lastid = jsonobject.getInt("id");
                     message = new Message();
                     message.setContent(jsonobject.getString("text"));
                     if (jsonobject.getString("user").equals("null")){
@@ -597,7 +606,16 @@ public class WSManager {
         } catch (ParseException ex) {
             LogBP.printStackTrace(ex);
         }
-
+        if (lastMessageInPreferences != 0){
+            if (lastid > lastMessageInPreferences ) {
+                SharedPreferences.Editor editor = preferences.edit();
+                editor.putInt(SharedPreferenceConstants.LASTMESSAGEID, lastid);
+                editor.commit();
+                DataStore.getInstance().setUnReadMessages((lastMessageInPreferences - lastid));
+            }
+        }else{
+            DataStore.getInstance().setUnReadMessages(0);
+        }
         return messages;
 
     }

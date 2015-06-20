@@ -44,10 +44,14 @@ import com.android.bpcontrol.fragments.ProfileFragment;
 import com.android.bpcontrol.fragments.PressuresFragment;
 import com.android.bpcontrol.fragments.PressuresPlotFragment;
 import com.android.bpcontrol.model.MenuItem;
+import com.android.bpcontrol.model.Message;
 import com.android.bpcontrol.model.User;
 import com.android.bpcontrol.utils.SharedPreferenceConstants;
 import com.android.bpcontrol.webservice.WSManager;
+import com.readystatesoftware.viewbadger.BadgeView;
 import com.viewpagerindicator.CirclePageIndicator;
+
+import java.util.List;
 
 /**
  * Created by Adrian Carrera on 22/1/15.
@@ -84,6 +88,8 @@ public class HomeActivity extends BPcontrolMasterActivity
     private AlertDialog builderGPSdisable;
 
     private boolean isFirstTime = true;
+
+    private BadgeView badgeViewHome;
 
 
 
@@ -172,10 +178,6 @@ public class HomeActivity extends BPcontrolMasterActivity
             selectMenuItem(LateralMenuController.MenuSections.HOME);
         }
         configureActionBar();
-
-
-
-
     }
 
     private void configureActionBar(){
@@ -184,18 +186,16 @@ public class HomeActivity extends BPcontrolMasterActivity
         menu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (menuIsOpen){
+                if (menuIsOpen) {
                     dwlayoutmenu.closeDrawer(menulayout);
 
-                }else{
+                } else {
                     dwlayoutmenu.openDrawer(menulayout);
 
                 }
             }
         });
     }
-
-
 
     private void configureLateralMenu() {
 
@@ -250,7 +250,7 @@ public class HomeActivity extends BPcontrolMasterActivity
 
         final SharedPreferences preferences = getSharedPreferences(SharedPreferenceConstants.SHARE_PREFERENCE_KEY,MODE_PRIVATE);
         String user_uuid = preferences.getString(SharedPreferenceConstants.USERUUID,"");
-        getApplicationContext().loadPerfilImageView(user_uuid,image);
+        getApplicationContext().loadPerfilImageView(user_uuid,image,0);
 
         perfilName = ((RobotoTextView) cell.findViewById(R.id.user_name));
 
@@ -300,7 +300,21 @@ public class HomeActivity extends BPcontrolMasterActivity
         View cell = getLayoutInflater().inflate(R.layout.lateralmenucell, null);
         ((RobotoTextView)cell.findViewById(R.id.menucelltextview)).setText(item.getTextView());
         ((ImageView)cell.findViewById(R.id.menucellimage)).setBackgroundResource(item.getImageid());
-        if (isLast) cell.findViewById(R.id.image_separator).setVisibility(View.INVISIBLE);
+        if (isLast)
+            cell.findViewById(R.id.image_separator).setVisibility(View.INVISIBLE);
+//        BadgeView badge = (BadgeView) cell.findViewById(R.id.messageBadgeMenu);
+//        if (item.getCategory_id() == LateralMenuController.MenuItemCategory.APP_SECTIONS) {
+//            if (item.getId() == LateralMenuController.MenuSections.MESSAGES) {
+//                badgeViewHome = badge;
+//                badge.setVisibility(View.VISIBLE);
+//                badge.setText("0");
+//                badge.setTextColor(getResources().getColor(android.R.color.white));
+//            }else{
+//                badge.setVisibility(View.GONE);
+//            }
+//        }else {
+//            badge.setVisibility(View.GONE);
+//        }
         cell.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -700,8 +714,8 @@ public class HomeActivity extends BPcontrolMasterActivity
         return true;
     }
 
-    private void createGPSDisableDialog(){
-       AlertDialog.Builder builder = new AlertDialog.Builder(this);
+    private void createGPSDisableDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setCancelable(false);
         builder.setTitle(getResources().getString(R.string.locationalert));
         builder.setMessage(getResources().getString(R.string.activategps));
@@ -722,7 +736,7 @@ public class HomeActivity extends BPcontrolMasterActivity
 
             }
         });
-         builder.show();
+        builder.show();
     }
 }
 

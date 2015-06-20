@@ -33,7 +33,7 @@ public class ProfileFragment extends Fragment {
         super.onCreateView(inflater, container, savedInstanceState);
         View view =  inflater.inflate(R.layout.perfilfragment, null);
         ImageView imageView = (ImageView) view.findViewById(R.id.perfilphoto);
-        ((HomeActivity) getActivity()).getApplicationContext().loadPerfilImageView(User.getInstance().getUUID(),imageView);
+        ((HomeActivity) getActivity()).getApplicationContext().loadPerfilImageView(User.getInstance().getUUID(),imageView,0);
         viewGroup = (ViewGroup) view.findViewById(R.id.profilealltextviews);
 
         return view;
