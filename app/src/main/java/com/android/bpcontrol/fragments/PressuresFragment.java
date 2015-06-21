@@ -125,25 +125,25 @@ public class PressuresFragment extends Fragment
         buttonsend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                String lastupdatedate = getLastDateSent();
-//                try {
-//                   if (!DateUtils.isDateEqualsToTodayDate(lastupdatedate)) {
-//
-//                        if (isCorrectAfternoonMeassurament() && isCorrectMorningMeassurament()) {
+                String lastupdatedate = getLastDateSent();
+                try {
+                   if (!DateUtils.isDateEqualsToTodayDate(lastupdatedate)) {
+
+                        if (isCorrectAfternoonMeassurament() && isCorrectMorningMeassurament()) {
 
                             new sendPressures().execute();
 
-//                        } else {
-//
-//                            showDialog(getResources().getString(R.string.messagesend));
-//                        }
-//                   }else{
-//                        showDialogPressuresIntroduced();
-//                   }
-//
-//                } catch (Exception ex) {
-//                    LogBP.printStackTrace(ex);
-//                }
+                        } else {
+
+                            showDialog(getResources().getString(R.string.messagesend));
+                        }
+                   }else{
+                        showDialogPressuresIntroduced();
+                   }
+
+                } catch (Exception ex) {
+                    LogBP.printStackTrace(ex);
+                }
             }
         });
         db = new BPcontrolDB(getActivity());
