@@ -24,6 +24,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -107,6 +108,7 @@ public class HomeActivity extends BPcontrolMasterActivity
         viewpager = (LinearLayout) findViewById(R.id.viewpager);
         pagercontact = (ViewPager) findViewById(R.id.pagercontact);
         pagerhelp = (ViewPager) findViewById(R.id.pagerhelp);
+
 
 
         headertext = ((RobotoTextView) getActionBarView().findViewById(R.id.textviewbpcontrol));
