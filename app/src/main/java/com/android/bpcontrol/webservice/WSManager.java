@@ -532,14 +532,13 @@ public class WSManager {
 
         if (systolic>User.getInstance().DIANA_SYSTOLIC_INDEX || diastolic > User.getInstance().DIANA_DIASTOLIC_INDEX){
             status = 2;
-        }else if ((User.getInstance().DIANA_SYSTOLIC_INDEX-systolic)<=5 || (User.getInstance().DIANA_DIASTOLIC_INDEX-systolic)<=5){
+        }else if ((User.getInstance().DIANA_SYSTOLIC_INDEX-systolic)<=5 || (User.getInstance().DIANA_DIASTOLIC_INDEX-diastolic)<=5){
             status = 1;
         }else{
             status = 0;
         }
 
         pressure.setSemaphore(status);
-        String s =";";
     }
 
     public void getUserMessagesChat(final Context context, String date, final GetMessages callback){
