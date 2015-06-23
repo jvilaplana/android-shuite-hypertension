@@ -1,4 +1,4 @@
-package com.android.bpcontrol;
+package com.hesoftgroup.bpcontrol;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;

@@ -172,13 +172,13 @@ uses-permission#android.permission.ACCESS_FINE_LOCATION
 ADDED from AndroidManifest.xml:13:5
 	android:name
 		ADDED from AndroidManifest.xml:13:22
-permission#com.android.bpcontrol.permission.MAPS_RECEIVE
+permission#com.hesoftgroup.bpcontrol.permission.MAPS_RECEIVE
 ADDED from AndroidManifest.xml:15:5
 	android:protectionLevel
 		ADDED from AndroidManifest.xml:17:9
 	android:name
 		ADDED from AndroidManifest.xml:16:9
-uses-permission#com.android.bpcontrol.permission.MAPS_RECEIVE
+uses-permission#com.hesoftgroup.bpcontrol.permission.MAPS_RECEIVE
 ADDED from AndroidManifest.xml:19:5
 	android:name
 		ADDED from AndroidManifest.xml:19:22
@@ -289,7 +289,7 @@ MERGED from io.fabric.sdk.android:fabric:1.2.0:9:5
 		ADDED from AndroidManifest.xml:26:9
 	android:name
 		ADDED from AndroidManifest.xml:25:9
-activity#com.android.bpcontrol.SplashActivity
+activity#com.hesoftgroup.bpcontrol.SplashActivity
 ADDED from AndroidManifest.xml:28:9
 	android:screenOrientation
 		ADDED from AndroidManifest.xml:31:13
@@ -307,7 +307,7 @@ category#android.intent.category.LAUNCHER
 ADDED from AndroidManifest.xml:35:17
 	android:name
 		ADDED from AndroidManifest.xml:35:27
-activity#com.android.bpcontrol.InitialActivity
+activity#com.hesoftgroup.bpcontrol.InitialActivity
 ADDED from AndroidManifest.xml:39:9
 	android:screenOrientation
 		ADDED from AndroidManifest.xml:40:19
@@ -315,7 +315,7 @@ ADDED from AndroidManifest.xml:39:9
 		ADDED from AndroidManifest.xml:41:19
 	android:name
 		ADDED from AndroidManifest.xml:39:19
-activity#com.android.bpcontrol.HomeActivity
+activity#com.hesoftgroup.bpcontrol.HomeActivity
 ADDED from AndroidManifest.xml:44:9
 	android:screenOrientation
 		ADDED from AndroidManifest.xml:47:19
@@ -341,7 +341,7 @@ data
 ADDED from AndroidManifest.xml:54:17
 	android:scheme
 		ADDED from AndroidManifest.xml:54:23
-activity#com.android.bpcontrol.SendTlfRegisterActivity
+activity#com.hesoftgroup.bpcontrol.SendTlfRegisterActivity
 ADDED from AndroidManifest.xml:60:9
 	android:screenOrientation
 		ADDED from AndroidManifest.xml:62:13
@@ -349,7 +349,7 @@ ADDED from AndroidManifest.xml:60:9
 		ADDED from AndroidManifest.xml:61:13
 	android:name
 		ADDED from AndroidManifest.xml:60:19
-activity#com.android.bpcontrol.SMSCodeActivity
+activity#com.hesoftgroup.bpcontrol.SMSCodeActivity
 ADDED from AndroidManifest.xml:66:9
 	android:screenOrientation
 		ADDED from AndroidManifest.xml:68:13
@@ -357,7 +357,7 @@ ADDED from AndroidManifest.xml:66:9
 		ADDED from AndroidManifest.xml:67:13
 	android:name
 		ADDED from AndroidManifest.xml:66:19
-activity#com.android.bpcontrol.YoutubeActivity
+activity#com.hesoftgroup.bpcontrol.YoutubeActivity
 ADDED from AndroidManifest.xml:72:9
 	android:label
 		ADDED from AndroidManifest.xml:73:13
@@ -365,7 +365,7 @@ ADDED from AndroidManifest.xml:72:9
 		ADDED from AndroidManifest.xml:74:13
 	android:name
 		ADDED from AndroidManifest.xml:72:19
-activity#com.android.bpcontrol.MapsActivity
+activity#com.hesoftgroup.bpcontrol.MapsActivity
 ADDED from AndroidManifest.xml:79:9
 	android:label
 		ADDED from AndroidManifest.xml:80:13

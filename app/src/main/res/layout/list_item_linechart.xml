@@ -4,7 +4,7 @@
     android:layout_height="wrap_content"
     android:orientation="vertical" >
 
-    <com.android.bpcontrol.customviews.ForteTextView
+    <com.hesoftgroup.bpcontrol.customviews.ForteTextView
         android:id="@+id/chartTitle"
         android:layout_marginTop="8dp"
         android:layout_width="match_parent"

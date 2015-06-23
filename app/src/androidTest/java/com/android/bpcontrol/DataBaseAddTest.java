@@ -1,11 +1,11 @@
-package com.android.bpcontrol;
+package com.hesoftgroup.bpcontrol;
 
 import android.test.AndroidTestCase;
 import android.test.RenamingDelegatingContext;
 
-import com.android.bpcontrol.databases.BPcontrolDB;
-import com.android.bpcontrol.model.Pressure;
-import com.android.bpcontrol.model.YoutubeVideo;
+import com.hesoftgroup.bpcontrol.databases.BPcontrolDB;
+import com.hesoftgroup.bpcontrol.model.Pressure;
+import com.hesoftgroup.bpcontrol.model.YoutubeVideo;
 
 import java.util.Date;
 

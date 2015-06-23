@@ -12,7 +12,7 @@
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-        <com.android.bpcontrol.customviews.RobotoTextView
+        <com.hesoftgroup.bpcontrol.customviews.RobotoTextView
             android:id="@+id/attributions1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -21,7 +21,7 @@
             android:layout_marginBottom="15dp"
             android:gravity="center"/>
 
-        <com.android.bpcontrol.customviews.RobotoTextView
+        <com.hesoftgroup.bpcontrol.customviews.RobotoTextView
             android:id="@+id/attributions12"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -29,7 +29,7 @@
             android:layout_marginBottom="15dp"
             android:gravity="center"/>
 
-        <com.android.bpcontrol.customviews.RobotoTextView
+        <com.hesoftgroup.bpcontrol.customviews.RobotoTextView
             android:id="@+id/attributions13"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -37,7 +37,7 @@
             android:layout_marginBottom="15dp"
             android:gravity="center"/>
 
-        <com.android.bpcontrol.customviews.RobotoTextView
+        <com.hesoftgroup.bpcontrol.customviews.RobotoTextView
             android:id="@+id/attributions14"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -45,7 +45,7 @@
             android:layout_marginBottom="15dp"
             android:gravity="center"/>
 
-        <com.android.bpcontrol.customviews.RobotoTextView
+        <com.hesoftgroup.bpcontrol.customviews.RobotoTextView
             android:id="@+id/attributions15"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -54,17 +54,17 @@
             android:gravity="center"/>
         </LinearLayout>
     </ScrollView>
-    <!--<com.android.bpcontrol.customviews.RobotoTextView-->
+    <!--<com.hesoftgroup.bpcontrol.customviews.RobotoTextView-->
         <!--android:id="@+id/attributions2"-->
         <!--android:layout_width="match_parent"-->
         <!--android:layout_height="wrap_content"-->
         <!--android:gravity="center"/>-->
-    <!--<com.android.bpcontrol.customviews.RobotoTextView-->
+    <!--<com.hesoftgroup.bpcontrol.customviews.RobotoTextView-->
         <!--android:id="@+id/attributions3"-->
         <!--android:layout_width="match_parent"-->
         <!--android:layout_height="wrap_content"-->
         <!--android:gravity="center"/>-->
-    <!--<com.android.bpcontrol.customviews.RobotoTextView-->
+    <!--<com.hesoftgroup.bpcontrol.customviews.RobotoTextView-->
         <!--android:id="@+id/attributions4"-->
         <!--android:layout_width="match_parent"-->
         <!--android:layout_height="wrap_content"-->

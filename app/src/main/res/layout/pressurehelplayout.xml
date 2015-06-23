@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <com.android.bpcontrol.customviews.RobotoTextView
+        <com.hesoftgroup.bpcontrol.customviews.RobotoTextView
             android:textSize="17sp"
             android:tag="RobotoBold"
             android:layout_marginBottom="15dp"
@@ -21,7 +21,7 @@
 
 
 
-    <com.android.bpcontrol.customviews.RobotoTextView
+    <com.hesoftgroup.bpcontrol.customviews.RobotoTextView
         android:id="@+id/firsttextpressurehelp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -37,7 +37,7 @@
         android:layout_gravity="center_horizontal"
         android:src="@drawable/pressurehelp"/>
 
-    <com.android.bpcontrol.customviews.RobotoTextView
+    <com.hesoftgroup.bpcontrol.customviews.RobotoTextView
         android:id="@+id/secondttextpressurehelp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -53,7 +53,7 @@
         android:layout_gravity="center_horizontal"
         android:src="@drawable/pressurehelp2"/>
 
-    <com.android.bpcontrol.customviews.RobotoTextView
+    <com.hesoftgroup.bpcontrol.customviews.RobotoTextView
         android:id="@+id/thirdttextpressurehelp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

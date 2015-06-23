@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.android.bpcontrol.customviews.RobotoTextView
+    <com.hesoftgroup.bpcontrol.customviews.RobotoTextView
         android:id="@+id/infomessageregister"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -26,7 +26,7 @@
         android:gravity="center"
        >
 
-        <com.android.bpcontrol.customviews.BPEditText
+        <com.hesoftgroup.bpcontrol.customviews.BPEditText
             android:id="@+id/tlfprefix"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -40,7 +40,7 @@
             android:layout_marginRight="@dimen/marginleft"
             />
 
-        <com.android.bpcontrol.customviews.BPEditText
+        <com.hesoftgroup.bpcontrol.customviews.BPEditText
             android:id="@+id/tlfnumber"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

@@ -20,7 +20,7 @@
                 android:layout_marginTop="@dimen/marginbottommail"
                 android:layout_marginBottom="@dimen/marginbottommail"/>
 
-            <com.android.bpcontrol.customviews.RobotoTextView
+            <com.hesoftgroup.bpcontrol.customviews.RobotoTextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/marginbottommail"
@@ -29,7 +29,7 @@
                 android:textColor="@color/menutext"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
-            <com.android.bpcontrol.customviews.RobotoTextView
+            <com.hesoftgroup.bpcontrol.customviews.RobotoTextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/marginbottommail"
@@ -38,7 +38,7 @@
                 android:textColor="@color/menutext"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
-            <com.android.bpcontrol.customviews.RobotoTextView
+            <com.hesoftgroup.bpcontrol.customviews.RobotoTextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/marginbottommail"
@@ -47,7 +47,7 @@
                 android:textColor="@color/menutext"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
-            <com.android.bpcontrol.customviews.RobotoTextView
+            <com.hesoftgroup.bpcontrol.customviews.RobotoTextView
                 android:id="@+id/web"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -57,7 +57,7 @@
                 android:textColor="#0000EE"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
-            <com.android.bpcontrol.customviews.RobotoTextView
+            <com.hesoftgroup.bpcontrol.customviews.RobotoTextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/marginbottommail"

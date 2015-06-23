@@ -31,7 +31,7 @@
 
         </LinearLayout>
 
-        <com.android.bpcontrol.customviews.RobotoTextView
+        <com.hesoftgroup.bpcontrol.customviews.RobotoTextView
             android:id="@+id/systolictext"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -40,7 +40,7 @@
             android:gravity="center"
             android:layout_gravity="center_vertical"/>
 
-        <com.android.bpcontrol.customviews.RobotoTextView
+        <com.hesoftgroup.bpcontrol.customviews.RobotoTextView
             android:id="@+id/diastolictext"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -49,7 +49,7 @@
             android:gravity="center"
             android:layout_gravity="center_vertical"/>
 
-        <com.android.bpcontrol.customviews.RobotoTextView
+        <com.hesoftgroup.bpcontrol.customviews.RobotoTextView
             android:id="@+id/pulsetext"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -60,7 +60,7 @@
 
     </LinearLayout>
 
-    <com.android.bpcontrol.customviews.RobotoTextView
+    <com.hesoftgroup.bpcontrol.customviews.RobotoTextView
         android:id="@+id/historialdate"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

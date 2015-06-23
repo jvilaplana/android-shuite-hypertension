@@ -1,11 +1,11 @@
-package com.android.bpcontrol;
+package com.hesoftgroup.bpcontrol;
 
 import android.test.AndroidTestCase;
 import android.test.RenamingDelegatingContext;
 
-import com.android.bpcontrol.databases.BPcontrolDB;
-import com.android.bpcontrol.model.Pressure;
-import com.android.bpcontrol.utils.DateUtils;
+import com.hesoftgroup.bpcontrol.databases.BPcontrolDB;
+import com.hesoftgroup.bpcontrol.model.Pressure;
+import com.hesoftgroup.bpcontrol.utils.DateUtils;
 
 import java.text.ParseException;
 import java.util.ArrayList;

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.android.bpcontrol" >
+    package="com.hesoftgroup.bpcontrol" >
 
     <uses-sdk android:minSdkVersion="14"/>
 
@@ -13,10 +13,10 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
 
     <permission
-        android:name="com.android.bpcontrol.permission.MAPS_RECEIVE"
+        android:name="com.hesoftgroup.bpcontrol.permission.MAPS_RECEIVE"
         android:protectionLevel="signature" />
 
-    <uses-permission android:name="com.android.bpcontrol.permission.MAPS_RECEIVE"/>
+    <uses-permission android:name="com.hesoftgroup.bpcontrol.permission.MAPS_RECEIVE"/>
 
     <application
         android:allowBackup="true"
@@ -76,7 +76,7 @@
 
         </activity>
 
-        <activity android:name="com.android.bpcontrol.MapsActivity"
+        <activity android:name="com.hesoftgroup.bpcontrol.MapsActivity"
             android:label="@string/title_activity_maps">
 
         </activity>
@@ -88,7 +88,6 @@
 
         <meta-data android:name="com.google.android.maps.v2.API_KEY"
             android:value="@string/google_maps_key"/>
-
 
         <meta-data
             android:name="io.fabric.ApiKey"

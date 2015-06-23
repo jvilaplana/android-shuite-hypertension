@@ -11,7 +11,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical" >
 
-        <com.android.bpcontrol.customviews.RobotoTextView
+        <com.hesoftgroup.bpcontrol.customviews.RobotoTextView
             android:id="@+id/text1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -22,7 +22,7 @@
             android:textColor="@color/menutext"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
-        <com.android.bpcontrol.customviews.BPEditText
+        <com.hesoftgroup.bpcontrol.customviews.BPEditText
             android:id="@+id/subject"
             android:layout_width="match_parent"
             android:layout_gravity="center_horizontal"
@@ -32,7 +32,7 @@
             android:ems="10"
             android:hint="@string/subjectmail" />
 
-        <com.android.bpcontrol.customviews.BPEditText
+        <com.hesoftgroup.bpcontrol.customviews.BPEditText
             android:id="@+id/body"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

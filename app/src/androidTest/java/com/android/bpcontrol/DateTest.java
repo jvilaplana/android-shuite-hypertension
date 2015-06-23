@@ -1,8 +1,8 @@
-package com.android.bpcontrol;
+package com.hesoftgroup.bpcontrol;
 
 import android.test.AndroidTestCase;
 
-import com.android.bpcontrol.utils.DateUtils;
+import com.hesoftgroup.bpcontrol.utils.DateUtils;
 
 import junit.framework.Assert;
 
@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 
-import static com.android.bpcontrol.utils.DateUtils.*;
+import static com.hesoftgroup.bpcontrol.utils.DateUtils.*;
 /**
  * Created by Adrian on 21/02/2015.
  */

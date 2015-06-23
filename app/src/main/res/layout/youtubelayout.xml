@@ -19,7 +19,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.android.bpcontrol.customviews.RobotoTextView
+    <com.hesoftgroup.bpcontrol.customviews.RobotoTextView
         android:id="@+id/messagenovideos"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -33,7 +33,7 @@
     />
 
   <fragment
-      class="com.android.bpcontrol.YoutubeActivity$VideoListFragment"
+      class="com.hesoftgroup.bpcontrol.YoutubeActivity$VideoListFragment"
       android:id="@+id/list_fragment"
       android:layout_width="match_parent"
       android:layout_height="match_parent"/>
@@ -54,7 +54,7 @@
         android:onClick="onClickClose"/>
 
     <fragment
-        class="com.android.bpcontrol.YoutubeActivity$VideoFragment"
+        class="com.hesoftgroup.bpcontrol.YoutubeActivity$VideoFragment"
         android:id="@+id/video_fragment_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>

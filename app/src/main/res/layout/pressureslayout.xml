@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:layout_centerVertical="true">
 
-    <com.android.bpcontrol.customviews.RobotoTextView
+    <com.hesoftgroup.bpcontrol.customviews.RobotoTextView
         android:id="@+id/textmsg"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -28,7 +28,7 @@
         android:text="@string/pressuresmsg"
         />
 
-    <com.android.bpcontrol.customviews.RobotoTextView
+    <com.hesoftgroup.bpcontrol.customviews.RobotoTextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="17sp"
@@ -54,7 +54,7 @@
                     android:layout_marginRight="@dimen/beetweentextview"
                     android:orientation="vertical">
 
-                    <com.android.bpcontrol.customviews.RobotoTextView
+                    <com.hesoftgroup.bpcontrol.customviews.RobotoTextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/systolic"
@@ -62,7 +62,7 @@
                         android:layout_marginTop="@dimen/margintextview"
                         android:layout_marginBottom="@dimen/margintextview"/>
 
-                    <com.android.bpcontrol.customviews.BPEditText
+                    <com.hesoftgroup.bpcontrol.customviews.BPEditText
                         android:id="@+id/pressure00"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -71,7 +71,7 @@
                         android:layout_marginBottom="@dimen/margintextview"/>
 
 
-                    <com.android.bpcontrol.customviews.BPEditText
+                    <com.hesoftgroup.bpcontrol.customviews.BPEditText
                         android:id="@+id/pressure01"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -80,7 +80,7 @@
                         android:layout_marginBottom="@dimen/margintextview"/>
 
 
-                    <com.android.bpcontrol.customviews.BPEditText
+                    <com.hesoftgroup.bpcontrol.customviews.BPEditText
                         android:id="@+id/pressure02"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -98,7 +98,7 @@
                 android:layout_marginRight="@dimen/beetweentextview"
                 android:orientation="vertical">
 
-                <com.android.bpcontrol.customviews.RobotoTextView
+                <com.hesoftgroup.bpcontrol.customviews.RobotoTextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/diastolic"
@@ -106,7 +106,7 @@
                     android:layout_marginTop="@dimen/margintextview"
                     android:layout_marginBottom="@dimen/margintextview"/>
 
-                <com.android.bpcontrol.customviews.BPEditText
+                <com.hesoftgroup.bpcontrol.customviews.BPEditText
                     android:id="@+id/pressure10"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -115,7 +115,7 @@
                     android:layout_marginBottom="@dimen/margintextview"/>
 
 
-                <com.android.bpcontrol.customviews.BPEditText
+                <com.hesoftgroup.bpcontrol.customviews.BPEditText
                     android:id="@+id/pressure11"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -124,7 +124,7 @@
                     android:layout_marginBottom="@dimen/margintextview"/>
 
 
-                <com.android.bpcontrol.customviews.BPEditText
+                <com.hesoftgroup.bpcontrol.customviews.BPEditText
                     android:id="@+id/pressure12"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -140,7 +140,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <com.android.bpcontrol.customviews.RobotoTextView
+                <com.hesoftgroup.bpcontrol.customviews.RobotoTextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center_horizontal"
@@ -148,7 +148,7 @@
                     android:layout_marginTop="@dimen/margintextview"
                     android:layout_marginBottom="@dimen/margintextview"/>
 
-                <com.android.bpcontrol.customviews.BPEditText
+                <com.hesoftgroup.bpcontrol.customviews.BPEditText
                     android:id="@+id/pressure20"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -157,7 +157,7 @@
                     android:layout_marginBottom="@dimen/margintextview"/>
 
 
-                <com.android.bpcontrol.customviews.BPEditText
+                <com.hesoftgroup.bpcontrol.customviews.BPEditText
                     android:id="@+id/pressure21"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -166,7 +166,7 @@
                     android:layout_marginBottom="@dimen/margintextview"/>
 
 
-                <com.android.bpcontrol.customviews.BPEditText
+                <com.hesoftgroup.bpcontrol.customviews.BPEditText
                     android:id="@+id/pressure22"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -178,7 +178,7 @@
             </LinearLayout>
         </LinearLayout>
 
-        <com.android.bpcontrol.customviews.RobotoTextView
+        <com.hesoftgroup.bpcontrol.customviews.RobotoTextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="17sp"
@@ -205,7 +205,7 @@
                 android:layout_marginRight="@dimen/beetweentextview"
                 android:orientation="vertical">
 
-                <com.android.bpcontrol.customviews.RobotoTextView
+                <com.hesoftgroup.bpcontrol.customviews.RobotoTextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/systolic"
@@ -213,7 +213,7 @@
                     android:layout_marginTop="@dimen/margintextview"
                     android:layout_marginBottom="@dimen/margintextview"/>
 
-                <com.android.bpcontrol.customviews.BPEditText
+                <com.hesoftgroup.bpcontrol.customviews.BPEditText
                     android:id="@+id/pressure200"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -222,7 +222,7 @@
                     android:layout_marginBottom="@dimen/margintextview"/>
 
 
-                <com.android.bpcontrol.customviews.BPEditText
+                <com.hesoftgroup.bpcontrol.customviews.BPEditText
                     android:id="@+id/pressure201"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -231,7 +231,7 @@
                     android:layout_marginBottom="@dimen/margintextview"/>
 
 
-                <com.android.bpcontrol.customviews.BPEditText
+                <com.hesoftgroup.bpcontrol.customviews.BPEditText
                     android:id="@+id/pressure202"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -249,7 +249,7 @@
                 android:layout_marginRight="@dimen/beetweentextview"
                 android:orientation="vertical">
 
-                <com.android.bpcontrol.customviews.RobotoTextView
+                <com.hesoftgroup.bpcontrol.customviews.RobotoTextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/diastolic"
@@ -257,7 +257,7 @@
                     android:layout_marginTop="@dimen/margintextview"
                     android:layout_marginBottom="@dimen/margintextview"/>
 
-                <com.android.bpcontrol.customviews.BPEditText
+                <com.hesoftgroup.bpcontrol.customviews.BPEditText
                     android:id="@+id/pressure210"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -266,7 +266,7 @@
                     android:layout_marginBottom="@dimen/margintextview"/>
 
 
-                <com.android.bpcontrol.customviews.BPEditText
+                <com.hesoftgroup.bpcontrol.customviews.BPEditText
                     android:id="@+id/pressure211"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -275,7 +275,7 @@
                     android:layout_marginBottom="@dimen/margintextview"/>
 
 
-                <com.android.bpcontrol.customviews.BPEditText
+                <com.hesoftgroup.bpcontrol.customviews.BPEditText
                     android:id="@+id/pressure212"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -291,7 +291,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <com.android.bpcontrol.customviews.RobotoTextView
+                <com.hesoftgroup.bpcontrol.customviews.RobotoTextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center_horizontal"
@@ -299,7 +299,7 @@
                     android:layout_marginTop="@dimen/margintextview"
                     android:layout_marginBottom="@dimen/margintextview"/>
 
-                <com.android.bpcontrol.customviews.BPEditText
+                <com.hesoftgroup.bpcontrol.customviews.BPEditText
                     android:id="@+id/pressure220"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -308,7 +308,7 @@
                     android:layout_marginBottom="@dimen/margintextview"/>
 
 
-                <com.android.bpcontrol.customviews.BPEditText
+                <com.hesoftgroup.bpcontrol.customviews.BPEditText
                     android:id="@+id/pressure221"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -317,7 +317,7 @@
                     android:layout_marginBottom="@dimen/margintextview"/>
 
 
-                <com.android.bpcontrol.customviews.BPEditText
+                <com.hesoftgroup.bpcontrol.customviews.BPEditText
                     android:id="@+id/pressure222"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

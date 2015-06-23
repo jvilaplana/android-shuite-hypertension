@@ -15,7 +15,7 @@
         android:layout_centerHorizontal="true"
         />
 
-    <com.android.bpcontrol.customviews.ForteTextView
+    <com.hesoftgroup.bpcontrol.customviews.ForteTextView
         android:id="@+id/homegridtext"
         android:layout_below="@+id/icongrid_image"
         android:layout_width="match_parent"

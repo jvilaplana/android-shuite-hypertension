@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.android.bpcontrol.customviews.CircularImageView
+    <com.hesoftgroup.bpcontrol.customviews.CircularImageView
         android:id="@+id/perfilImage"
         android:layout_width="75dp"
         android:layout_height="75dp"
@@ -18,7 +18,7 @@
         />
 
 
-    <com.android.bpcontrol.customviews.RobotoTextView
+    <com.hesoftgroup.bpcontrol.customviews.RobotoTextView
         android:id="@+id/user_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

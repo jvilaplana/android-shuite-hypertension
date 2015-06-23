@@ -1,13 +1,13 @@
-package com.android.bpcontrol;
+package com.hesoftgroup.bpcontrol;
 
 import android.test.AndroidTestCase;
 import android.test.RenamingDelegatingContext;
 
-import com.android.bpcontrol.databases.BPcontrolDB;
-import com.android.bpcontrol.model.Pressure;
-import com.android.bpcontrol.model.Pressures;
-import com.android.bpcontrol.model.PressuresAfternoon;
-import com.android.bpcontrol.model.PressuresMorning;
+import com.hesoftgroup.bpcontrol.databases.BPcontrolDB;
+import com.hesoftgroup.bpcontrol.model.Pressure;
+import com.hesoftgroup.bpcontrol.model.Pressures;
+import com.hesoftgroup.bpcontrol.model.PressuresAfternoon;
+import com.hesoftgroup.bpcontrol.model.PressuresMorning;
 
 /**
  * Created by Adrian on 15/02/2015.

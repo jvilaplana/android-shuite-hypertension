@@ -8,7 +8,7 @@ android:layout_height="wrap_content"
 android:background="@drawable/msg_out"
 android:orientation="vertical" >
 
-<com.android.bpcontrol.customviews.RobotoTextView
+<com.hesoftgroup.bpcontrol.customviews.RobotoTextView
     android:id="@+id/messagetext"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
@@ -23,7 +23,7 @@ android:orientation="vertical" >
     android:layout_height="1dp"
     android:background="@color/graybp"/>
 
-<com.android.bpcontrol.customviews.RobotoTextView
+<com.hesoftgroup.bpcontrol.customviews.RobotoTextView
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:paddingTop="5dp"
