@@ -1,5 +1,6 @@
 package com.hesoftgroup.bpcontrol.fragments;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
@@ -74,13 +75,9 @@ public class PressuresPlotFragment extends Fragment {
     private AlertDialog.Builder dialog;
 
     private ImageButton barbutton;
-
     private int custom_days = 0;
-
     private String initdate,enddate;
-
     boolean pickerDialogIsCancel = false;
-
     private ListView lv;
 
     public static PressuresPlotFragment getNewInstance(Context context){
@@ -91,6 +88,11 @@ public class PressuresPlotFragment extends Fragment {
         PressuresPlotFragment  pressuresPlotFragment = new PressuresPlotFragment().setBarButton(barbutton);
 
         return pressuresPlotFragment;
+    }
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
     }
 
     @Override
@@ -259,7 +261,7 @@ public class PressuresPlotFragment extends Fragment {
     private void buildDialog(){
 
 
-        final CharSequence[] items = {getResources().getString(R.string.plotmenucase1),
+        final CharSequence[] items = {getActivity().getResources().getString(R.string.plotmenucase1),
                 getResources().getString(R.string.plotmenucase2), getResources().getString(R.string.plotmenucase3),
                 getResources().getString(R.string.plotmenucase4),getResources().getString(R.string.plotcancel)};
         dialog =  new AlertDialog.Builder(getActivity());
