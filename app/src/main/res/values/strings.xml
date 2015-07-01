@@ -41,16 +41,16 @@
     <string name="sendtlfregisterheader">REGISTER - STEP 1</string>
     <string name="sendcoderegisterheader">REGISTER - STEP 2</string>
     <string name="sendphonenumber">Send</string>
-    <string name="errorprefixnumber">The number or prefix entered is incorrect</string>
+    <string name="errorprefixnumber">The number or prefix is incorrect</string>
     <string name="acceptError">OK</string>
-    <string name="entercodemessage">If the entered number is correct , before long you will receive an SMS with the code on your device. Enter it.</string>
+    <string name="entercodemessage">If the number is correct, you will receive an SMS with the code of your device soon. Enter it.</string>
     <string name="codeToHomeButton">Register</string>
     <string name="licenseheader">LICENSE</string>
-    <string name="license">By clicking agree below , you acknowledge that you have read, understood and agree to be bound by this agreement and fulfill it. If you do not accept the agreement will not have access or you can use the services accessible HESOFTGROUP . If you have any doubts, questions or concerns regarding this agreement contact HESOFTGROUP <b>info@hesoftgroup.eu</b> writing . Accepted the conditions of use, you are subject to full compliance with all terms and conditions of this Agreement on the website of <b>http://www.hesoftgroup.eu</b></string>
+    <string name="license">By clicking agree, you acknowledge that you have read, understood and agree the license. If you do not accept the agreement, you won't be able to use the HESOFTGROUP services. If you have any doubt, question or concern regarding this agreement, contact HESOFTGROUP <b>info@hesoftgroup.eu</b>.\n\n  Accepting the conditions of use, you are subject to full compliance with all terms and conditions of this Agreement <b>http://www.hesoftgroup.eu</b></string>
     <string name="licenseButtonAccept">Accept</string>
     <string name="licenseButtonCancel">Cancel</string>
     <string name="codeError">This code does not correspond to the phone number entered previously. Ensure that the phone number and code are correct.</string>
-    <string name="codeLengthError">The code is incorrect. This has to have a length of 4 letters or numbers.</string>
+    <string name="codeLengthError">The code is incorrect. The length is 4 characters máx.</string>
     <string name="exitHome">Do you want to exit the application?</string>
     <string name="exitokbutton">Exit</string>
     <string name="exitCancelButton">Cancel</string>
@@ -67,17 +67,17 @@
     <string name="problemcontactprofile">If there is any problem with the data, please contact us:</string>
 
     <!--Contact-->
-    <string name="contacttext">For any questions , contact us</string>
+    <string name="contacttext">For any question, contact us</string>
     <string name="sendmailcontact">Send</string>
     <string name="subjectmail">Subject</string>
     <string name="chooser">Choose an email client from...</string>
     <string name="mailbody">Message body</string>
-    <string name="dialogcontact">You have no mail client configured on this device. Sets one or contact us via phone</string>
-    <string name="emptyemail">Fields mail are required</string>
+    <string name="dialogcontact">You have no mail client configured on this device. Select one or contact us</string>
+    <string name="emptyemail">The mail field is mandatory</string>
 
     <!--Connectivity-->
 
-    <string name="noconnectiondialog">The internet connection is not available, connect to and press OK</string>
+    <string name="noconnectiondialog">Internet connection is not available, then press OK</string>
     <string name="noconnectiondialogpositive">OK</string>
     <string name="noconnectiondialognegative">Exit</string>
     <string name="noconnectiondialogWS">There are problems connecting to servers, try again later</string>
@@ -86,14 +86,14 @@
     <!--Pressures-->
 
     <string name="headerpressures">Pressures</string>
-    <string name="pressuresmsg">Enter your daily pressures-three measurements per time slot</string>
+    <string name="pressuresmsg">Enter your daily pressures - three measurements per time slot</string>
     <string name="systolic">Systolic</string>
     <string name="diastolic">Diastolic</string>
     <string name="pulse">Pulse</string>
     <string name="sendpreassure">Send</string>
     <string name="savepreassure">Save</string>
-    <string name="pressuressfirsttimetext">MORNING (6:00h - 9:00 hours):</string>
-    <string name="pressuressecondtimetext">AFTERNOON (18:00 - 21:00 hours):</string>
+    <string name="pressuressfirsttimetext">MORNING (6:00h - 9:00):</string>
+    <string name="pressuressecondtimetext">AFTERNOON (18:00 - 21:00):</string>
     <string name="dialogaccpet">Accept</string>
     <string name="dialogcancel">Cancel</string>
     <string name="dialogdiastolic">Enter your diastolic blood pressure</string>
@@ -101,8 +101,8 @@
     <string name="dialogpulse">Enter your pulse</string>
     <string name="savebutton">Save</string>
     <string name="loadbutton">Load</string>
-    <string name="emptysavemessage">To save the data need to fill at least a field.</string>
-    <string name="messagesend">To send pressures have to fill both slots. If only one , click save button to save the pressures of a slot button.</string>
+    <string name="emptysavemessage">Fill at least one field.</string>
+    <string name="messagesend">To send the pressures you have to fill both slots. If you want to enter only one, click the save button.</string>
     <string name="saveddata">Data correctly saved</string>
     <string name="pressuresendproblems">There are problems sending pressures, try again later</string>
     <string name="sentpressuresOK">Pressures have been sent successfully\n</string>
@@ -110,7 +110,7 @@
 
     <!--Youtube Activity-->
     <string name="headerbaryoutube">Videos</string>
-    <string name="youtubenovideos">There are no videos available to display.</string>
+    <string name="youtubenovideos">There are no videos available.</string>
 
     <!--Pressures History-->
     <string name="headerbarhistory">History</string>
@@ -135,14 +135,14 @@
     <item>December</item>
     </string-array>
 
-    <string name="nopressurehistory">There is not record in history</string>
+    <string name="nopressurehistory">There is any record in history</string>
     <string name="pressuresintroduced">The pressures of today have already been introduced</string>
     <string name="historydialogbutton">OK</string>
 
     <!--Home fragment-->
 
     <string name="welcome">Welcome</string>
-    <string name="homedescription1">You take</string>
+    <string name="homedescription1">You carry</string>
     <string name="singularday">day</string>
     <string name="pluralday">days</string>
     <string name="homedescription12">without sending your measurements</string>
@@ -153,13 +153,13 @@
     <string name="graphdescriptionsyctolic">Systolic pressure (day average)</string>
     <string name="graphdescriptiondiastolic">Diastolic pressure (day average)</string>
     <string name="graphdescriptionpulse">Pulse(day average)</string>
-    <string name="graphdescriptionheader1">Systolic pressures plot</string>
-    <string name="graphdescriptionheader2">Diastolic pressures plot</string>
-    <string name="graphdescriptionheader3">Pulses plot</string>
+    <string name="graphdescriptionheader1">Systolic pressures</string>
+    <string name="graphdescriptionheader2">Diastolic pressures</string>
+    <string name="graphdescriptionheader3">Pulses</string>
 
     <string name="plotmenucase1">Show one month graphic</string>
-    <string name="plotmenucase2">Show three month graphic</string>
-    <string name="plotmenucase3">Show six month graphic</string>
+    <string name="plotmenucase2">Show three months graphic</string>
+    <string name="plotmenucase3">Show six months graphic</string>
     <string name="plotmenucase4">Show custom graphic</string>
     <string name="plotcancel">Back to the principal menu</string>
     <string name="plotcasestitle">Choose someone option:</string>
@@ -172,7 +172,7 @@
 
     <!--Health centers-->
 
-    <string name="activategps">App needs GPS enable for maps and location</string>
+    <string name="activategps">App needs GPS enabled</string>
     <string name="canceldialogloc">Cancel</string>
     <string name="Enable">Activate</string>
     <string name="distance">Distance:</string>
@@ -187,7 +187,7 @@
         <item>Hybrid</item>
         <item>Normal</item>
         <item>Satellite</item>
-        <item>Terrain</item>
+        <item>Land</item>
 
     </string-array>
 
@@ -215,18 +215,18 @@
     <string name="lateral">The lateral menu icons are natives from Android. </string>
 
     <!--Help-->
-    <string name="pressurehelp1">To add your daily pressures , you have to go to paragraph blood pressures or directly from the shortcut on the main menu " Add pressures."\n\nThe pressure screen consists of two parts , add measurements in the morning and afternoon add measurements .</string>
-    <string name="pressurehelp2">Each line of empty fields represents a measurement(systolic pressure , diastolic pressure and pulse).</string>
-    <string name="pressurehelp3">When each strip is complete with its 3 measurements corresponding can save your settings , this way you can save Fringe morning to send 2 slots for the evening when the Gaza evening is completed and this all ready . You can switch from one band to another without the content always clear that they do not exit the application without saving data \n \n <b> NOTE : </b> In a band you can save your settings as long as are entered 3 measurements. CAN SEND ONLY WHEN RESULTS ARE TWO FULL STRIP .</string>
+    <string name="pressurehelp1">To add your daily pressures, you can do it from the Pressures tab or from "Add pressures" in the main menu.\n\nThe pressure screen consists of two parts, add measurements in the morning and afternoon.</string>
+    <string name="pressurehelp2">Each line of empty fields represents a measurement(systolic pressure, diastolic pressure and pulse).</string>
+    <string name="pressurehelp3">When each field is completed with its 3 measurements, you can save them. You can switch from one field to another without the content always clear that they do not exit the application without saving data \n \n <b> NOTE : </b> In a band you can save your settings as long as are entered 3 measurements. CAN SEND ONLY WHEN RESULTS ARE TWO FULL STRIP .</string>
     <string name="pressuretitlehelp">Enter measurements per time slot</string>
 
     <string name="contacttitlehelp">Edit profile data</string>
     <string name="contacthelp1">If any of the data shown in the profile is not correct, you can change them in the Contact section by sending an email notifying the error and the data will be modified as soon as possible.</string>
 
      <string name="initinfo1"><b>What do we do? </b >\n\n
-<u>Tracking your blood pressure by BPControl </u>,Now it can be controlled 24h from your nearest health center sending their blood pressures only when prompted.In the case of correct results I will be notified to contact the healthcare provider.\n\n<u> BPControl APP</u> we act to minimize the maximum risk of their status , offering the patient and the health professional a way to stay in constant contact with each other.</string>
+<u>Tracking your blood pressure by BPControl </u>,Now it can be controlled 24h from your nearest health center sending their blood pressures only when prompted. In the case of correct results I will be notified to contact the healthcare provider.\n\n<u> BPControl APP</u> will act to minimize the maximum risk of their status, offering the patient and the health professional a way to stay in constant contact with each other.</string>
 
-    <string name="initinfo2">The fact of providing a tool that not only helps the professional, but also enhances and improves treatment for the benefit of the patient, is a key element that sets us apart from existing solutions and brings significant added value.\n\n\n<b>Objectives </b>\n\n<u>From the point of view of health personnel</u> allowed to control and fully automated and manage hypertensive patients.\n <u>From the point of view of patients</u>, the application will do the sampling distance , avoiding unnecessary trips of these medical facilities , thereby reducing costs and time of patients.\n <u>From point of view of health centers </u>, the application will allow greater control and contact with patients while a clear optimization of resources. \n <u>Enables to control the day of his patients </u> if received by BPControl App arterial pressure of the patient is not in accordance with the patient, the specialist can perform an intervention by (email, SMS or phone call ) manually or automated patient.\n
+    <string name="initinfo2">The fact of providing a tool that not only helps the professional, but also enhances and improves treatment for the benefit of the patient, is a key element that sets us apart from existing solutions and brings significant added value.\n\n\n<b>Objectives </b>\n\n<u>From the point of view of health personnel</u> allowed to control and fully automated and manage hypertensive patients.\n <u>From the patients point of view</u>, the application will do the sampling distance, avoiding unnecessary trips of these medical facilities , thereby reducing costs and time of patients.\n <u>From point of view of health centers </u>, the application will allow greater control and contact with patients while a clear optimization of resources. \n <u>Enables to control the day of his patients </u> if received by BPControl App arterial pressure of the patient is not in accordance with the patient, the specialist can perform an intervention by (email, SMS or phone call ) manually or automated patient.\n
 
 </string>
 

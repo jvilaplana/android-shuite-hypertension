@@ -25,6 +25,7 @@ import android.widget.TextView;
 
 import com.hesoftgroup.bpcontrol.HomeActivity;
 import com.hesoftgroup.bpcontrol.R;
+import com.hesoftgroup.bpcontrol.controllers.LateralMenuController;
 import com.hesoftgroup.bpcontrol.customviews.BPEditText;
 import com.hesoftgroup.bpcontrol.customviews.RobotoTextView;
 import com.hesoftgroup.bpcontrol.databases.BPcontrolDB;
@@ -135,7 +136,7 @@ public class PressuresFragment extends Fragment
 
                         } else {
 
-                            showDialog(getResources().getString(R.string.messagesend));
+                            showDialog(getResources().getString(R.string.messagesend),false);
                         }
                    }else{
                         showDialogPressuresIntroduced();
@@ -406,9 +407,9 @@ public class PressuresFragment extends Fragment
             String linebreak = System.getProperty("line.separator");
             if (video[0].booleanValue()) {
                 showDialog(getActivity().getResources().getString(R.string.sentpressuresOK)+linebreak+
-                        getActivity().getResources().getString(R.string.videoavailable));
+                        getActivity().getResources().getString(R.string.videoavailable),true);
             }else {
-                showDialog(getActivity().getResources().getString(R.string.sentpressuresOK));
+                showDialog(getActivity().getResources().getString(R.string.sentpressuresOK),false);
             }
             ((HomeActivity)getActivity()).dissmissProgressDialog();
         }
@@ -597,11 +598,11 @@ public class PressuresFragment extends Fragment
         @Override
         protected void onProgressUpdate(String... par){
 
-            showDialog(par[0]);
+            showDialog(par[0],false);
         }
     }
 
-    private void showDialog(String msg){
+    private void showDialog(String msg,boolean isVideoResult){
 
 
       AlertDialog.Builder builder =  new AlertDialog.Builder(getActivity());
@@ -612,6 +613,15 @@ public class PressuresFragment extends Fragment
 
                     }
                 });
+
+                if (isVideoResult){
+                    builder.setNegativeButton(getResources().getString(R.string.goToVideo), new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            ((HomeActivity)getActivity()).selectMenuItem(LateralMenuController.MenuSections.VIDEOS);
+                        }
+                    });
+                }
 
         AlertDialog dialog = builder.show();
         TextView msgText = (TextView)dialog.findViewById(android.R.id.message);

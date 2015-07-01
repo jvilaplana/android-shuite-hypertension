@@ -37,7 +37,7 @@
     <!--SendTLFRegister and SMSCodeActivity-->
     <string name="tlfhint">Numero de teléfono</string>
     <string name="smshint">Código del SMS</string>
-    <string name="infosendregistertlf">Confirme el prefijo de su país e introduzca su numero de teléfono</string>
+    <string name="infosendregistertlf">Confirme el prefijo de su país e introduzca su número de teléfono</string>
     <string name="sendtlfregisterheader">REGISTRO - PASO 1</string>
     <string name="sendcoderegisterheader">REGISTRO - PASO 2</string>
     <string name="sendphonenumber">Enviar</string>
@@ -46,11 +46,11 @@
     <string name="entercodemessage">Si el numero introducido es correcto, en poco tiempo recibirá un SMS con el código en su dispositivo. Introduzcalo.</string>
     <string name="codeToHomeButton">Registrarse</string>
     <string name="licenseheader">LICENCIA</string>
-    <string name="license">Al Hacer clic en acepto a continuación, usted reconoce que ha leído, comprendido y aceptado quedar obligado por el presente acuerdo y cumplirlo. Si no acepta el acuerdo no tendrá acceso ni podrá utilizar los servicios accesibles de HESOFTGROUP. Si tiene alguna duda, pregunta o inquietud con respecto a este acuerdo comuníquese con HESOFTGROUP escribiendo a info@hesoftgroup.eu.\n\n Aceptadas las condiciones de uso, usted queda sujeto al pleno cumplimiento de todos los términos y las condiciones de este Acuerdo en la web de http://www.hesoftgroup.eu</string>
+    <string name="license">Al Hacer clic en acepto, usted reconoce que ha leido, comprendido y aceptado el presente acuerdo. Si no acepta el acuerdo, no tendrá acceso ni podrá utilizar los servicios de HESOFTGROUP. Si tiene alguna duda, pregunta o sugerencia con respecto a este acuerdo, comuníquese con HESOFTGROUP <b>info@hesoftgroup.eu</b>.\n\n Aceptando las condiciones de uso, usted queda sujeto al cumplimiento de todos los términos y las condiciones de este Acuerdo <b>http://www.hesoftgroup.eu</b></string>
     <string name="licenseButtonAccept">Aceptar</string>
     <string name="licenseButtonCancel">Cancelar</string>
-    <string name="codeError">El código introducido no se correponde con el número de teléfono anteriormente introducido. Asegurese que el numero de teléfono y código son correctos </string>
-    <string name="codeLengthError">El código es incorrecto. Este tiene que tener una longitud de 4 letras o carácteres.</string>
+    <string name="codeError">El código introducido no se correponde con el número de teléfono anteriormente introducido. Asegúrese que el número de teléfono y código son correctos </string>
+    <string name="codeLengthError">El código es incorrecto. Tiene que tener una longitud de 4 carácteres.</string>
     <string name="exitHome">¿Quieres salir de la aplicación?</string>
     <string name="exitokbutton">Salir</string>
     <string name="exitCancelButton">Cancelar</string>
@@ -63,7 +63,7 @@
     <string name="birthdate">Fecha de nacimiento:</string>
     <string name="lastupdate">Ultimas presiones introducidas:</string>
     <string name="town">Lugar de residencia:</string>
-    <string name="mobileNumber">Numero de teléfono:</string>
+    <string name="mobileNumber">Número de teléfono:</string>
     <string name="datecreated">Seguimiento desde:</string>
     <string name="problemcontactprofile">Si hay cualquier problema con los datos, ponte en contacto con nosotros:</string>
 
@@ -72,8 +72,8 @@
     <string name="sendmailcontact">Enviar</string>
     <string name="subjectmail">Asunto</string>
     <string name="mailbody">Cuerpo del mensaje</string>
-    <string name="chooser">Escoje un cliente de correo</string>
-    <string name="dialogcontact">No tienes ningún cliente de correo configurado en este dispositivo. Configura uno o ponte en contacto con nosotros via móvil</string>
+    <string name="chooser">Escoge un cliente de correo</string>
+    <string name="dialogcontact">No tienes ningún cliente de correo configurado en este dispositivo. Configura uno o ponte en contacto con nosotros</string>
     <string name="emptyemail">Los campos del correo son obligatorios</string>
 
     <!--Contact2-->
@@ -85,10 +85,10 @@
 
 
     <!--Connection-->
-    <string name="noconnectiondialog">La conexión a internet no esta disponible, conectese y pulse OK</string>
+    <string name="noconnectiondialog">La conexión a Internet no está disponible, conéctese y pulse OK</string>
     <string name="noconnectiondialogpositive">Aceptar</string>
     <string name="noconnectiondialognegative">Salir</string>
-    <string name="noconnectiondialogWS">Hay problemas con la conexión a los servidores, intentalo más tarde</string>
+    <string name="noconnectiondialogWS">Hay problemas con la conexión a los servidores, inténtalo más tarde</string>
     <string name="noconnectiondialogpositiveWS">Aceptar</string>
 
     <!--Pressures-->
@@ -108,16 +108,17 @@
     <string name="dialogdiastolic">Introduzca su presión arterial diastólica</string>
     <string name="dialogpulse">Introduzca su pulso</string>
     <string name="savebutton">Guardar</string>
-    <string name="emptysavemessage">Para guardar la necesidad de datos para rellenar al menos un campo</string>
+    <string name="emptysavemessage">Rellenar al menos un campo</string>
     <string name="messagesend">Para enviar las presiones tienes que rellenar las dos franjas horarias. Si solo hay una, pulsa el botón guardar para guardar las presiones de una franja horaria</string>
     <string name="saveddata">Datos guardados correctamente</string>
-    <string name="pressuresendproblems"> Hay problemas enviando las presiones intentalo mas tarde</string>
-    <string name="sentpressuresOK">Las presiones han sido correctamente enviadas\n</string>
-    <string name="videoavailable">Nuevo video disponible en la seccion de videos</string>
+    <string name="pressuresendproblems"> Hay problemas enviando las presiones. Inténtalo más tarde</string>
+    <string name="sentpressuresOK">Las presiones han sido enviadas correctamente\n</string>
+    <string name="videoavailable">Nuevo vídeo disponible en la sección de videos</string>
+    <string name="goToVideo">Ir a videos</string>
 
     <!--Youtube Activity-->
     <string name="headerbaryoutube">Vídeos</string>
-    <string name="youtubenovideos">No hay videos disponibles para mostrar.</string>
+    <string name="youtubenovideos">No hay vídeos disponibles.</string>
 
     <!--Pressures History-->
     <string name="headerbarhistory">Historial</string>
@@ -149,20 +150,20 @@
 
     <!--Home fragment-->
     <string name="welcome">¡Bienvenido </string>
-    <string name="homedescription1">Lleva</string>
+    <string name="homedescription1">Hace</string>
     <string name="singularday">día</string>
     <string name="pluralday">días</string>
-    <string name="homedescription12">sin enviar sus mediciones</string>
+    <string name="homedescription12">que no envía sus mediciones</string>
     <string name="homedescription2">¡Muy bien, lleva las mediciones al día!</string>
-    <string name="notregister">No hay registro de actividad</string>
+    <string name="notregister">Sin registros de actividad</string>
 
     <!--Evolution-->
     <string name="graphdescriptionsyctolic">Presión sistólica (Media del día)</string>
     <string name="graphdescriptiondiastolic">Presión diastólica (Media del día)</string>
     <string name="graphdescriptionpulse">Pulso(Media del día)</string>
-    <string name="graphdescriptionheader1">Systolic pressures plot</string>
-    <string name="graphdescriptionheader2">Diastolic pressures plot</string>
-    <string name="graphdescriptionheader3">Pulses plot</string>
+    <string name="graphdescriptionheader1">Presión sistólica</string>
+    <string name="graphdescriptionheader2">Presión diastólica</string>
+    <string name="graphdescriptionheader3">Pulso</string>
     <string name="plotmenucase1">Mostrar gráfica de un mes</string>
     <string name="plotmenucase2">Mostrar gráfica de tres meses</string>
     <string name="plotmenucase3">Mostrar gráfica de seis meses</string>
@@ -170,7 +171,7 @@
     <string name="plotcancel">Volver al menu principal</string>
     <string name="plotcasestitle">Selecciona una opción:</string>
 
-    <string name="chooseinitialdate">Escogja la fecha inicial</string>
+    <string name="chooseinitialdate">Escoja la fecha inicial</string>
     <string name="choosefinaldate">Escoja la fecha final</string>
     <string name="buttondialogaccept">Aceptar</string>
     <string name="writemessage">Escribe un mensaje</string>
@@ -178,7 +179,7 @@
     <!--Health centers-->
 
     <string name="locationalert">Alerta de localización</string>
-    <string name="activategps">La aplicación necesita tener el GPS activdo para los mapas y localización</string>
+    <string name="activategps">La aplicación necesita tener el GPS activado</string>
     <string name="canceldialogloc">Cancelar</string>
     <string name="enabledialogloc">Activar</string>
     <string name="distance">Distancia:</string>
@@ -194,9 +195,9 @@
     </string-array>
 
     <!--Help-->
-    <string name="pressurehelp1">Para poder añadir sus presiones diarias, tienes que ir al apartado Presiones arteriales o directamente desde el acceso directo del menú principal “Añadir presiones”. \n\nLa pantalla de presiones consta de dos partes, añadir mediciones por la mañana y añadir mediciones por la tarde.</string>
+    <string name="pressurehelp1">Para poder añadir tus presiones diarias, tienes que ir al apartado Presiones arteriales o a “Añadir presiones” en el menú principal. \n\nLa pantalla de presiones consta de dos partes, añadir mediciones por la mañana y añadir mediciones por la tarde.</string>
     <string name="pressurehelp2">Cada línea de campos vacíos representa una medición (presión sistólica, presión diastólica y pulso).</string>
-    <string name="pressurehelp3">Cuando se completa cada franja con sus 3 mediciones correspondientes se pueden guardar sus valores, de esta forma se puede guardar la franja de la mañana para enviar las 2 franjas por la tarde-noche cuando se complete la franja de tarde-noche y este todo listo. Se puede cambiar de una franja a otra sin que se borre el contenido siempre y cuando no salga de la aplicación sin guardar los datos \n\n<b>IMPORTANTE:</b> En una franja se podrán guardar sus valores siempre y cuando se hayan introducido las 3 mediciones. SOLO SE PUEDEN ENVIAR LOS RESULTADOS CUANDO ESTEN LAS DOS FRANJAS COMPLETAS.</string>
+    <string name="pressurehelp3">Cuando se completa cada franja con sus 3 mediciones correspondientes, se pueden guardar sus valores, de esta forma se puede guardar la franja de la mañana para enviar las 2 franjas por la tarde-noche cuando se complete la franja de tarde-noche y este todo listo. Se puede cambiar de una franja a otra sin que se borre el contenido siempre y cuando no salga de la aplicación sin guardar los datos \n\n<b>IMPORTANTE:</b> En una franja se podrán guardar sus valores siempre y cuando se hayan introducido las 3 mediciones. SOLO SE PUEDEN ENVIAR LOS RESULTADOS CUANDO ESTEN LAS DOS FRANJAS COMPLETAS.</string>
     <string name="pressuretitlehelp">Introducir mediciones por franja</string>
 
     <string name="contacttitlehelp">Modificar datos del perfil</string>
@@ -209,14 +210,14 @@
     <string name="headerattributions">Atribuciones</string>
     <string name="flaticonsurl" translatable="false">www.flaticon.com</string>
     <string name="amitjakhuurl" translatable="false">www.amitjakhu.com</string>
-    <string name="principalmenuiconmenssage">Icono mensajes menu principal creado por Amit Jakhu</string>
-    <string name="principalmenuiconmenssage2">con licencia CC BY 3.0, descargados de </string>
+    <string name="principalmenuiconmenssage">Icono mensajes menú principal creado por Amit Jakhu</string>
+    <string name="principalmenuiconmenssage2">con licencia CC BY 3.0, obtenidos de </string>
     <string name="icons8url" translatable="false">www.icons8.com</string>
     <string name="maptypeicons">Icono tipo de mapa creados por Icons8</string>
-    <string name="maptypeicons2">con licencia CC BY 3.0, descargados de</string>
+    <string name="maptypeicons2">con licencia CC BY 3.0, obtenidos de</string>
     <string name="freepikurl" translatable="false">www.freepik.com</string>
     <string name="lateralmenu">El resto de iconos del menu principal están creados por</string>
-    <string name="lateralmenu2">con licencia CC BY 3.0, descargados de</string>
+    <string name="lateralmenu2">con licencia CC BY 3.0, obtenidos de</string>
     <string name="mensajes1">El fondo de pantalla del apartado mensajes y el fondo de los mensajes creado por </string>
     <string name="mensajesautor" translatable="false">github.com/DrKLO</string>
     <string name="mensajes2">distribuido con licencia GPL en </string>
@@ -227,9 +228,9 @@
 
 
     <string name="initinfo1"><b>¿Qué hacemos?</b>\n\n
-<u>Seguimiento de su presion arterial mediante BPControl</u>, ahora puede estar controlado 24h desde su centro sanitario mas cercano solamente mandando sus presiones arteriales cuando se le soliciten.En el caso de unos resultados incorrectos sera notificado para ponerse en contacto con el profesional sanitario.\n\n<u>BPControl APP</u> queremos actuar para minimizar al máximo el riesgo de su estado, ofreciendo al paciente y al profesional sanitario una forma de mantenerse en contacto continuo con entre ellos.</string>
+<u>Seguimiento de su presion arterial mediante BPControl</u>, ahora puede estar controlado 24h desde su centro sanitario mas cercano solamente mandando sus presiones arteriales cuando se las soliciten.En el caso de unos resultados incorrectos será notificado para ponerse en contacto con el profesional sanitario.\n\n<u>BPControl APP</u> queremos actuar para minimizar al máximo el riesgo de su estado, ofreciendo al paciente y al profesional sanitario una forma de mantenerse en contacto contínuo entre sí.</string>
 
-    <string name="initinfo2">El hecho de ofrecer una herramienta que no solo ayuda al profesional, sino que también potencia y mejora el tratamiento para el beneficio del paciente, es un elemento decisivo que nos diferencia de las soluciones ya existentes y que aporta un gran valor añadido.\n\n\n<b>Objetivos</b>\n\n<u>Desde el punto de vista del personal sanitario</u> permitirá controlar y gestionar exhaustivamente y de forma automatizada los pacientes hipertensos.\n<u>Desde el punto de vista de los pacientes</u>, la aplicación permitirá hacer la recogida de muestras a distancia, lo que evitará los desplazamientos innecesarios de éstos a los centros médicos, reduciendo así los costes y el tiempo de los pacientes.\n<u>Desde el punto de vista de los centros sanitarios</u>, la aplicación permitirá tener mayor control y contacto con los pacientes a la vez que una clara optimización de recursos.\n<u>Permite tener un control al día de sus pacientes</u>, en caso de recibir mediante la BPControl App una tensión arterial del paciente que no es acorde con el paciente, el especialista puede realizar una intervención mediante (correo electrónico, SMS o llamada telefónica) de forma manual o bien de forma automatizada al paciente.\n
+    <string name="initinfo2">El hecho de ofrecer una herramienta que no solo ayuda al profesional, sino que también potencia y mejora el tratamiento para el beneficio del paciente, es un elemento decisivo que nos diferencia de las soluciones ya existentes y que aporta un gran valor añadido.\n\n\n<b>Objetivos</b>\n\n<u>Desde el punto de vista del personal sanitario</u> permitirá controlar y gestionar exhaustivamente y de forma automatizada los pacientes hipertensos.\n<u>Desde el punto de vista de los pacientes</u>, la aplicación permitirá hacer la recogida de muestras a distancia, lo que evitará los desplazamientos innecesarios de éstos a los centros médicos, reduciendo así los costes y el tiempo de los pacientes.\n<u>Desde el punto de vista de los centros sanitarios</u>. La aplicación permitirá tener mayor control y contacto con los pacientes a la vez que una clara optimización de recursos.\n<u>Permite tener un control al día de sus pacientes</u>, en caso de recibir mediante la BPControl App una tensión arterial del paciente que no es acorde con el paciente, el especialista puede realizar una intervención mediante (correo electrónico, SMS o llamada telefónica) de forma manual o bien de forma automatizada al paciente.\n
 
 </string>
 

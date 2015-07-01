@@ -50,7 +50,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@android:color/white"
-                android:text="Enviar"
+                android:text="Send"
                 android:gravity="center"
                 android:textSize="15dp"
                 android:layout_toRightOf="@+id/message"
