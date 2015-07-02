@@ -46,7 +46,7 @@
     <string name="entercodemessage">If the number is correct, you will receive an SMS with the code of your device soon. Enter it.</string>
     <string name="codeToHomeButton">Register</string>
     <string name="licenseheader">LICENSE</string>
-    <string name="license">By clicking agree, you acknowledge that you have read, understood and agree the license. If you do not accept the agreement, you won't be able to use the HESOFTGROUP services. If you have any doubt, question or concern regarding this agreement, contact HESOFTGROUP <b>info@hesoftgroup.eu</b>.\n\n  Accepting the conditions of use, you are subject to full compliance with all terms and conditions of this Agreement <b>http://www.hesoftgroup.eu</b></string>
+    <string name="license">By clicking agree, you acknowledge that you have read, understood and agree the license. If you do not accept the agreement, you won\'t be able to use the HESOFTGROUP services. If you have any doubt, question or concern regarding this agreement, contact HESOFTGROUP <b>info@hesoftgroup.eu</b>.\n\n  Accepting the conditions of use, you are subject to full compliance with all terms and conditions of this Agreement <b>http://www.hesoftgroup.eu</b></string>
     <string name="licenseButtonAccept">Accept</string>
     <string name="licenseButtonCancel">Cancel</string>
     <string name="codeError">This code does not correspond to the phone number entered previously. Ensure that the phone number and code are correct.</string>
