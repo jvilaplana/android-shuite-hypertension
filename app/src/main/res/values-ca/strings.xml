@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">BPcontrol</string>
+    <string name="action_settings">Configuració</string>
+
+    <string name="homegrid_graphics">Evolució</string>
+    <string name="homegrid_pressure">Afegir pressions</string>
+    <string name="homegrid_messages">Missatges</string>
+    <string name="homegrid_videos">Vídeos</string>
+
+
+    <!--MENU ITEMS-->
+    <string name="menusection_preassures">Pressions arterials</string>
+    <string name="menusection_history">Historial Pacient</string>
+    <string name="menuprincipal">Inici</string>
+    <string name="menusection_centers">Centres mèdics</string>
+    <string name="menusection_contact">Contacte</string>
+    <string name="menusection_help">Ajut</string>
+    <string name="menuothersitem">Atribucions</string>
+
+    <!--MENU ITEMS - HEADERS-->
+    <string name="menuperfil">Perfil</string>
+    <string name="menuheadersection">Seccions</string>
+    <string name="menuheadersocial">Social</string>
+    <string name="menuheaderothers">Altres</string>
+
+    <!--SECTIONS ACTION BAR NAME-->
+    <string name="principalmenutext">Menú Principal</string>
+
+    <!--TAB MENU NAME-->
+    <string name="hometab">Inici</string>
+    <string name="centerstab">Centres</string>
+    <string name="helptab">Info</string>
+    <string name="registerAccess">Accés a l\'àrea de pacients</string>
+
+    <!--SendTLFRegister and SMSCodeActivity-->
+    <string name="tlfhint">Número de telèfon</string>
+    <string name="smshint">Codi SMS</string>
+    <string name="infosendregistertlf">Confirmi el prefixe del seu país i introdueixi el seu número de telèfon</string>
+    <string name="sendtlfregisterheader">REGISTRE - PAS 1</string>
+    <string name="sendcoderegisterheader">REGISTRE - PAS 2</string>
+    <string name="sendphonenumber">Enviar</string>
+    <string name="errorprefixnumber">El número o prefixe introduït no es correcte</string>
+    <string name="acceptError">Acceptar</string>
+    <string name="entercodemessage">Si el número introduït és correcte, en poc temps rebrà un SMS amb el codi en el seu dispositiu. Introdueix-lo.</string>
+    <string name="codeToHomeButton">Registra\'t</string>
+    <string name="licenseheader">LLICÈNCIA</string>
+    <string name="license">Al fer clic en accepto, reconeixes que has llegit, comprès i acceptat el present acord. Si no acceptes l\'acord, no tindrà accés ni podrà utilitzar els serveis de HESOFTGROUP. Si te algun dubte, pregunta o suggeriment amb respecte a aquest acord, posa\'t en contacte amb HESOFTGROUP <b>info@hesoftgroup.eu</b>.\n\n Aceptando las condiciones de uso, usted queda sujeto al cumplimiento de todos los términos y las condiciones de este Acuerdo <b>http://www.hesoftgroup.eu</b></string>
+    <string name="licenseButtonAccept">Acceptar</string>
+    <string name="licenseButtonCancel">Cancelar</string>
+    <string name="codeError">El codi introduït no es correspon amb el número de telèfon introduït. Assegura\'t que el número de telèfon i codi són correctes </string>
+    <string name="codeLengthError">El codigo és incorrecte. Té que tenir una longitud de 4 caràcteres.</string>
+    <string name="exitHome">¿Vols sortir de l\'aplicatiu?</string>
+    <string name="exitokbutton">Sortir</string>
+    <string name="exitCancelButton">Cancel·lar</string>
+
+    <!--Perfil-->
+
+    <string name="completename">Nom i congnoms:</string>
+    <string name="identitycard">D.N.I :</string>
+    <string name="profileemail">E-mail:</string>
+    <string name="birthdate">Data de naixement:</string>
+    <string name="lastupdate">Últimes pressions introduïdes:</string>
+    <string name="town">Lloc de residència:</string>
+    <string name="mobileNumber">Número de telèfon:</string>
+    <string name="datecreated">Seguiment des de:</string>
+    <string name="problemcontactprofile">Si hi ha qualsevol problema amb les dades, posa\'t en contacte amb nosaltres:</string>
+
+    <!--Contact-->
+    <string name="contacttext">Per a qualsevol dubte o pregunta, contacta amb nosaltres</string>
+    <string name="sendmailcontact">Enviar</string>
+    <string name="subjectmail">Assumpte</string>
+    <string name="mailbody">Cos del missatge</string>
+    <string name="chooser">Escull un client de correu</string>
+    <string name="dialogcontact">No tens cap client de correu configurat en aquest dispositiu. Configura\'n un o posa\'t en contacte amb nosaltres</string>
+    <string name="emptyemail">Els camps del correu són obligatoris</string>
+
+    <!--Contact2-->
+    <string name="enterprisename">HESOFT GROUP  S.C.P</string>
+    <string name="mailcontact2">info@hesoftgroup.eu</string>
+    <string name="tlfcontact2">	+34626269613 </string>
+    <string name="webcontact2"><u>http://www.hesoftgroup.eu</u></string>
+    <string name="postaldirectcontact2">Partida Bovà,15 - 25196 Lleida,España</string>
+
+
+    <!--Connection-->
+    <string name="noconnectiondialog">La connexió a Internet no està disponible, connecta\'t i prem OK</string>
+    <string name="noconnectiondialogpositive">Acceptar</string>
+    <string name="noconnectiondialognegative">Sortir</string>
+    <string name="noconnectiondialogWS">Hi ha problemes amb la connexió als servidors, intenta-ho més tard</string>
+    <string name="noconnectiondialogpositiveWS">Acceptar</string>
+
+    <!--Pressures-->
+    <string name="headerpressures">Pressions</string>
+    <string name="pressuresmsg">Introdueix les teves pressions diàries- 3 mesuraments per franja</string>
+    <string name="systolic">Sistòlica</string>
+    <string name="diastolic">Diastòlica</string>
+    <string name="pulse">Pols</string>
+    <string name="sendpreassure">Enviar</string>
+    <string name="savepreassure">Guardar</string>
+
+    <string name="pressuressfirsttimetext">MATÍ (6:00h - 9:00h horas):</string>
+    <string name="pressuressecondtimetext">TARDA (18:00h - 21:00h horas):</string>
+    <string name="dialogaccpet">Acceptar</string>
+    <string name="dialogcancel">Cancel·lar</string>
+    <string name="dialogsystolic">Introdueix la teva pressió arterial sistòlica</string>
+    <string name="dialogdiastolic">Introdueix la teva pressió arterial diastòlica</string>
+    <string name="dialogpulse">Introdueix el teu pols</string>
+    <string name="savebutton">Guardar</string>
+    <string name="emptysavemessage">Omplir al menys un camp</string>
+    <string name="messagesend">Per enviar les pressions has d\'omplir les dues franges horàries. Si només n\'hi ha una, prem el botó guardar per guardar les pressions d\'una franja horària</string>
+    <string name="saveddata">Datos guardados correctament</string>
+    <string name="pressuresendproblems"> Hi ha problemes enviant les pressions. Intenta-ho més tard</string>
+    <string name="sentpressuresOK">Les pressions han estat enviades correctament\n</string>
+    <string name="videoavailable">Nou vídeo disponible a la secció de vídeos</string>
+
+    <!--Youtube Activity-->
+    <string name="headerbaryoutube">Vídeos</string>
+    <string name="youtubenovideos">No hi ha vídeos disponibles.</string>
+
+    <!--Pressures History-->
+    <string name="headerbarhistory">Historial</string>
+    <string name="psystolicheader">P.diastòlica</string>
+    <string name="pdiastolicheader">P.sistòlica</string>
+    <string name="pulseheader">Pols</string>
+    <string name="fetle">Estat</string>
+    <string name="messages">Missatges</string>
+
+    <string-array name="months">
+        <item>Gener</item>
+        <item>Febrer</item>
+        <item>Març</item>
+        <item>Abril</item>
+        <item>Maig</item>
+        <item>Juny</item>
+        <item>Juliol</item>
+        <item>Agost</item>
+        <item>Setembre</item>
+        <item>Octubre</item>
+        <item>Novembre</item>
+        <item>Desembre</item>
+    </string-array>
+    
+    <string name="nopressurehistory">No hi ha registres a l\'historial</string>
+    <string name="historydialogbutton">Acceptar</string>
+    <string name="pressuresintroduced">Les pressions d\'avui ja s\'han introduït</string>
+
+
+    <!--Home fragment-->
+    <string name="welcome">¡Benvingut </string>
+    <string name="homedescription1">Fa</string>
+    <string name="singularday">dia</string>
+    <string name="pluralday">dies</string>
+    <string name="homedescription12">que no envia les mesures</string>
+    <string name="homedescription2">¡Molt bé, portal les mesures al dia!</string>
+    <string name="notregister">Sin registros de actividad</string>
+
+    <!--Evolution-->
+    <string name="graphdescriptionsyctolic">Pressió sistòlica (Mitja del dia)</string>
+    <string name="graphdescriptiondiastolic">Pressió diastòlica (Mitja del dia)</string>
+    <string name="graphdescriptionpulse">Pols (Mitja del dia)</string>
+    <string name="graphdescriptionheader1">Pressió sistòlica</string>
+    <string name="graphdescriptionheader2">Pressió diastòlica</string>
+    <string name="graphdescriptionheader3">Pols</string>
+    <string name="plotmenucase1">Mostrar gràfica d\'un mes</string>
+    <string name="plotmenucase2">Mostrar gràfica de tres mesos</string>
+    <string name="plotmenucase3">Mostrar gràfica de sis mesos</string>
+    <string name="plotmenucase4">Mostrar gràfica personal</string>
+    <string name="plotcancel">Tornar al menú principal</string>
+    <string name="plotcasestitle">Sel·lecciona una opció:</string>
+
+    <string name="chooseinitialdate">Escull la data inicial</string>
+    <string name="choosefinaldate">Escull la data final</string>
+    <string name="buttondialogaccept">Acceptar</string>
+    <string name="writemessage">Escriu un missatge</string>
+
+    <!--Health centers-->
+
+    <string name="locationalert">Alerta de localització</string>
+    <string name="activategps">L\'aplicació necessita tenir el GPS activat</string>
+    <string name="canceldialogloc">Cancelar</string>
+    <string name="enabledialogloc">Activar</string>
+    <string name="distance">Distància:</string>
+
+    <!--Map-->
+    <string name="mapactheader">Mapa</string>
+    <string name="mapdialogtitle">Escull un tipus de mapa</string>
+    <string-array name="maptypes">
+        <item>Híbrit</item>
+        <item>Normal</item>
+        <item>Satèl·lit</item>
+        <item>Terreny</item>
+    </string-array>
+
+    <!--Help-->
+    <string name="pressurehelp1">Per poder afegir les pressions diàries, tens que anar a l\'apartat Pressions arterials o a “Afegir pressions” en el menú principal. \n\nLa pantalla de pressions consta de dos parts, afegir mesures pel matí i afegir mesures per la tarde.</string>
+    <string name="pressurehelp2">Cada línia de camps buits representa una mesura (pressió sistòlica, pressió diastòlica i pols).</string>
+    <string name="pressurehelp3">Quan es completa cada franja amb les 3 mesures corresponents, es poden guardar els seus valors, d\'aquesta manera es pot guardar la franja del matí per enviar les 2 franges a la tarda-nit, quan es completi la franja de tarda-nit. Es pot canviar d\'una franja a una altra sense que s\'esborri el contingut, sempre que no surti de l\'aplicació sense desar les dades \n\n<b>IMPORTANT:</b> En una franja es podran guardar els seus valors sempre i quan s\'hagin introduït les 3 mesures. NOMÉS ES PODEN ENVIAR ELS RESULTATS QUAN ESTIGUIN LES DUES FRANGES COMPLETES.</string>
+    <string name="pressuretitlehelp">Introduir mesuraments per franja</string>
+
+    <string name="contacttitlehelp">Modificar dades del perfil</string>
+    <string name="contacthelp1">En el cas que alguna de les dades mostrades en el perfil no sigui correcte, pot canviar-les en l\'apartat Contacte enviant un correu notificant l\'error i les dades seran modificades el més aviat possible.</string>
+
+
+
+    <!--Atribuciones-->
+
+    <string name="headerattributions">Atribucions</string>
+    <string name="flaticonsurl" translatable="false">www.flaticon.com</string>
+    <string name="amitjakhuurl" translatable="false">www.amitjakhu.com</string>
+    <string name="principalmenuiconmenssage">Icona missatges menú principal creat per Amit Jakhu</string>
+    <string name="principalmenuiconmenssage2">amb llicència CC BY 3.0, obtinguts de </string>
+    <string name="icons8url" translatable="false">www.icons8.com</string>
+    <string name="maptypeicons">Icona tipus de mapa, creat per Icons8</string>
+    <string name="maptypeicons2">amb llicència CC BY 3.0, obtinguts de</string>
+    <string name="freepikurl" translatable="false">www.freepik.com</string>
+    <string name="lateralmenu">La resta d\'icones del menú principal estan creats per</string>
+    <string name="lateralmenu2">amb llicència CC BY 3.0, obtinguts de</string>
+    <string name="mensajes1">El fons de pantalla de l\'apartat missatges i el fons dels missatges creat per </string>
+    <string name="mensajesautor" translatable="false">github.com/DrKLO</string>
+    <string name="mensajes2">distribuït amb llicència GPL en </string>
+    <string name="githuburl" translatable="false">github.com/DrKLO/Telegram</string>
+
+    <string name="lateral">Les icones del menú lateral són nadius d\'Android. </string>
+
+
+
+    <string name="initinfo1"><b>¿Què fem?</b>\n\n
+<u>Seguiment de la seva pressio arterial mitjançant BPControl</u>, ara pot estar controlat 24h des del seu centre sanitari més proper només enviant les seves pressions arterials. En el cas d\'uns resultats incorrectes serà notificat per posar-se en contacte amb el professional sanitari.\n\n<u>BPControl APP</u> volem actuar per minimitzar al màxim el risc del seu estat, oferint al pacient i al professional sanitari una forma de mantenir-se en contacte permanent.</string>
+
+    <string name="initinfo2">El fet d\'oferir una eina que no només ajuda al professional, sinó que també potencia i millora el tractament per al benefici del pacient, és un element decisiu que ens diferencia de les solucions ja existents i que aporta un gran valor afegit.\n\n\n<b>Objectius</b>\n\n<u>Des del punt de vista del personal sanitari </u> permetrà controlar i gestionar exhaustivament i de forma automatitzada els pacients hipertensos.\n<u>Des del punt de vista dels pacients</u>,  l\'aplicació permetrà fer la recollida de mostres a distància, el que evitarà els desplaçaments innecessaris d\'aquests als centres mèdics, reduint així els costos i el temps dels pacients.\n<u>Des del punt de vista dels centres sanitaris</u>. L\'aplicació permetrà tenir més control i contacte amb els pacients i al mateix temps una clara optimització de recursos.\n<u>Permet tenir un control al dia dels pacients</u>, en cas de rebre per mitjà de BPControl una tensió arterial que no estigui en concordància amb el pacient, l\'especialista pot realitzar una intervenció mitjançant correu electrònic, SMS o trucada telefònica al pacient, de forma manual o bé de forma automatitzada.\n
+
+</string>
+
+    <string name="failconnectionmessage">Error a l\'enviar el missatge</string>
+
+</resources>
