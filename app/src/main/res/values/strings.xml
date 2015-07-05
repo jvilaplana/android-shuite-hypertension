@@ -25,7 +25,7 @@
     <string name="menuheaderothers">Others</string>
 
     <!--SECTIONS ACTION BAR NAME-->
-    <string name="principalmenutext">Principal Menu</string>
+    <string name="principalmenutext">Main menu</string>
     <string name="perfilheaderbar" translatable="false">Profile</string>
 
     <!--TAB MENU NAME-->
@@ -196,7 +196,7 @@
     <!--Attributions-->
     <string name="headerattributions">Attributions</string>
 
-    <string name="principalmenuiconmenssage">Principal menu icon created by Amit Jakhu</string>
+    <string name="principalmenuiconmenssage">Main menu icon created by Amit Jakhu</string>
     <string name="principalmenuiconmenssage2">under license CC BY 3.0, downloaded from </string>
 
     <string name="icons8url">www.icons8.com</string>
