@@ -417,16 +417,16 @@ public class HomeActivity extends BPcontrolMasterActivity
                     break;
             case FACEBOOK:
                     if(!isFacebookAppInstalled()){
-                        connectToSocialNetwork("https://www.facebook.com/");
+                        connectToSocialNetwork("https://www.facebook.com/hesoftgroup");
                     }else{
-                        connectToApp("fb://profile/107718629298104");
+                        connectToApp("fb://page/398704933648402");
                     }
                     break;
             case TWITTER:
-                    connectToSocialNetwork("https://twitter.com/");
+                    connectToSocialNetwork("https://twitter.com/josepcuadrado");
                     break;
             case GOOGLEPLUS:
-                    connectToSocialNetwork("https://plus.google.com/");
+                    connectToSocialNetwork("https://plus.google.com/u/0/114229124743450079242/posts");
                     break;
             case ATTRIBUTIONS:
                     headertext.setText(getResources().getString(R.string.headerattributions).toUpperCase());
