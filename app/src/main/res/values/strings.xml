@@ -9,7 +9,7 @@
     <string name="homegrid_videos">Videos</string>
 
     <!--MENU ITEMS-->
-    <string name="menusection_preassures">Arterial Pressures</string>
+    <string name="menusection_preassures">Blood Pressures</string>
     <string name="menuprincipal">Home</string>
     <string name="menusection_history">Patient History</string>
     <string name="menusection_centers">Health Centers</string>
